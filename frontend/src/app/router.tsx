@@ -1,26 +1,26 @@
 import { lazy, Suspense, type ReactNode } from 'react';
 import { Routes, Route } from 'react-router-dom';
-import { ROUTES } from '@/lib/constants/routes';
+import { ROUTES } from '../lib/constants/routes';
 import { AuthGuard } from './guards/AuthGuard';
 import { GuestGuard } from './guards/GuestGuard';
-import { PublicLayout } from '@/components/layout/PublicLayout';
-import { AppShell } from '@/components/layout/AppShell';
-import { AuthLayout } from '@/components/layout/AuthLayout';
-import { LoadingState } from '@/components/shared/LoadingState';
+import { PublicLayout } from '../components/layout/PublicLayout';
+import { AppShell } from '../components/layout/AppShell';
+import { AuthLayout } from '../components/layout/AuthLayout';
+import { LoadingState } from '../components/shared/LoadingState';
 
 // Sistema — sem lazy (crítico e pequeno)
-import NotFoundPage from '@/features/system/pages/NotFoundPage';
-import ServerErrorPage from '@/features/system/pages/ServerErrorPage';
-import ForbiddenPage from '@/features/system/pages/ForbiddenPage';
+import NotFoundPage from '../features/system/pages/NotFoundPage';
+import ServerErrorPage from '../features/system/pages/ServerErrorPage';
+import ForbiddenPage from '../features/system/pages/ForbiddenPage';
 
 // Lazy loading (páginas pesadas)
-const HomePage = lazy(() => import('@/features/home/pages/HomePage'));
-const LoginPage = lazy(() => import('@/features/auth/pages/LoginPage'));
-const DashboardPage = lazy(() => import('@/features/dashboard/pages/DashboardPage'));
-const LearnHubPage = lazy(() => import('@/features/learn/pages/LearnHubPage'));
-const JourneyPage = lazy(() => import('@/features/journey/pages/JourneyPage'));
-const ProfilePage = lazy(() => import('@/features/profile/pages/ProfilePage'));
-const ExperiencesPage = lazy(() => import('@/features/experiences/pages/ExperiencesPage'));
+const HomePage = lazy(() => import('../features/home/pages/HomePage'));
+const LoginPage = lazy(() => import('../features/auth/pages/LoginPage'));
+const DashboardPage = lazy(() => import('../features/dashboard/pages/DashboardPage'));
+const LearnHubPage = lazy(() => import('../features/learn/pages/LearnHubPage'));
+const JourneyPage = lazy(() => import('../features/journey/pages/JourneyPage'));
+const ProfilePage = lazy(() => import('../features/profile/pages/ProfilePage'));
+const ExperiencesPage = lazy(() => import('../features/experiences/pages/ExperiencesPage'));
 
 function Lazy({ children }: { children: ReactNode }) {
   return <Suspense fallback={<LoadingState />}>{children}</Suspense>;
