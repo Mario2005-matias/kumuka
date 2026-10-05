@@ -1,8 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import { Providers } from '@/app/providers';
+import { Providers } from '../src/app/providers';
 import App from './App';
-import './index.css';
+import '@fontsource/poppins';
+//import './index.css';
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>

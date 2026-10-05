@@ -59,16 +59,16 @@ export function Navbar() {
         <div className="flex items-center gap-2">
           {!isAuthenticated ? (
             <>
-              <Button variant="ghost" size="sm" asChild>
+              <Button variant="ghost" size="sm">
                 <Link to={ROUTES.auth.login}>Entrar</Link>
               </Button>
-              <Button size="sm" asChild>
+              <Button size="sm">
                 <Link to={ROUTES.auth.register}>Começar agora</Link>
               </Button>
             </>
           ) : (
             <DropdownMenu>
-              <DropdownMenuTrigger asChild>
+              <DropdownMenuTrigger>
                 <Button variant="ghost" size="icon" className="rounded-full">
                   <Avatar className="h-8 w-8">
                     <AvatarFallback>{initials}</AvatarFallback>
