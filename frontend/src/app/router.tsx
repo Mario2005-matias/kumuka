@@ -1,5 +1,5 @@
 import { lazy, Suspense, type ReactNode } from 'react';
-import { Routes, Route } from 'react-router-dom';
+import { Navigate, Routes, Route } from 'react-router-dom';
 import { ROUTES } from '../lib/constants/routes';
 import { AuthGuard } from './guards/AuthGuard';
 import { GuestGuard } from './guards/GuestGuard';
@@ -21,6 +21,10 @@ const LearnHubPage = lazy(() => import('../features/learn/pages/LearnHubPage'));
 const JourneyPage = lazy(() => import('../features/journey/pages/JourneyPage'));
 const ProfilePage = lazy(() => import('../features/profile/pages/ProfilePage'));
 const ExperiencesPage = lazy(() => import('../features/experiences/pages/ExperiencesPage'));
+const OnboardingPage = lazy(() => import('../features/onboarding/pages/OnboardingPage'));
+const OnboardingCompletePage = lazy(
+  () => import('../features/onboarding/pages/OnboardingCompletePage'),
+);
 
 function Lazy({ children }: { children: ReactNode }) {
   return <Suspense fallback={<LoadingState />}>{children}</Suspense>;
@@ -40,6 +44,28 @@ export function AppRouter() {
           }
         />
       </Route>
+
+      {/* Registo e onboarding são públicos e não dependem dos guards de sessão. */}
+      <Route
+        path={ROUTES.auth.register}
+        element={<Navigate to={ROUTES.onboarding.root} replace />}
+      />
+      <Route
+        path={ROUTES.onboarding.root}
+        element={
+          <Lazy>
+            <OnboardingPage />
+          </Lazy>
+        }
+      />
+      <Route
+        path={ROUTES.onboarding.complete}
+        element={
+          <Lazy>
+            <OnboardingCompletePage />
+          </Lazy>
+        }
+      />
 
       {/* Auth (só visitantes) */}
       <Route element={<GuestGuard />}>
