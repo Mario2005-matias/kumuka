@@ -1,22 +1,23 @@
-import { Button } from '@/components/ui/button';
-import { toast } from '@/components/ui/toast';
+import { AudienceSection } from '../components/AudienceSection';
+import { FeaturesSection } from '../components/FeaturesSection';
+import { FinalCTASection } from '../components/FinalCTASection';
+import { HomeFooter } from '../components/HomeFooter';
+import { HeroSection } from '../components/HeroSection';
+import { JourneySection } from '../components/JourneySection';
+import { WhatIsSection } from '../components/WhatIsSection';
 
 export default function HomePage() {
   return (
-    <div className="container py-16">
-      <h1 className="text-4xl font-bold bg-red-500">KUMUKA — em construção</h1>
-      <Button
-        className="mt-4"
-        onClick={() =>
-          toast.add({
-            title: 'Olá!',
-            description: 'O toast está a funcionar.',
-            type: 'success',
-          })
-        }
-      >
-        Testar toast
-      </Button>
-    </div>
+    <>
+      <main>
+        <HeroSection />
+        <WhatIsSection />
+        <JourneySection />
+        <FeaturesSection />
+        <AudienceSection />
+        <FinalCTASection />
+      </main>
+      <HomeFooter />
+    </>
   );
 }

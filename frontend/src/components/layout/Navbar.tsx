@@ -59,11 +59,20 @@ export function Navbar() {
         <div className="flex items-center gap-2">
           {!isAuthenticated ? (
             <>
-              <Button variant="ghost" size="sm">
-                <Link to={ROUTES.auth.login}>Entrar</Link>
+              <Button
+                nativeButton={false}
+                render={<Link to={ROUTES.auth.login} />}
+                size="sm"
+                variant="ghost"
+              >
+                Entrar
               </Button>
-              <Button size="sm">
-                <Link to={ROUTES.auth.register}>Começar agora</Link>
+              <Button
+                nativeButton={false}
+                render={<Link to={ROUTES.auth.register} />}
+                size="sm"
+              >
+                Começar agora
               </Button>
             </>
           ) : (

@@ -1,0 +1,69 @@
+import { BookOpen, BriefcaseBusiness, Target } from 'lucide-react';
+import type { LucideIcon } from 'lucide-react';
+import {
+  Card,
+  CardContent,
+  CardHeader,
+  CardTitle,
+} from '@/components/ui/card';
+
+const pillars: {
+  title: string;
+  description: string;
+  icon: LucideIcon;
+}[] = [
+  {
+    title: 'Aprender fazendo',
+    description:
+      'Explora conteúdos e põe as ideias em prática com desafios reais.',
+    icon: BookOpen,
+  },
+  {
+    title: 'Provar o que sabes',
+    description:
+      'Constrói evidências do teu trabalho e reúne tudo no teu portefólio.',
+    icon: Target,
+  },
+  {
+    title: 'Encontrar oportunidades',
+    description:
+      'Descobre experiências e oportunidades para dar o próximo passo.',
+    icon: BriefcaseBusiness,
+  },
+];
+
+export function WhatIsSection() {
+  return (
+    <section
+      aria-labelledby="what-is-title"
+      className="container scroll-mt-20 py-16 sm:py-24"
+      id="o-que-e-a-kumuka"
+    >
+      <div className="mx-auto max-w-2xl text-center">
+        <h2 className="text-3xl font-bold tracking-tight sm:text-4xl" id="what-is-title">
+          O que é a KUMUKA
+        </h2>
+        <p className="mt-4 text-pretty leading-7 text-muted-foreground">
+          A KUMUKA liga aprendizagem a oportunidades. Aqui, transformas o que
+          aprendes em competências, mostras o que sabes fazer e preparas o teu
+          próximo passo.
+        </p>
+      </div>
+      <div className="mt-10 grid gap-4 sm:mt-14 md:grid-cols-3">
+        {pillars.map(({ title, description, icon: Icon }) => (
+          <Card className="h-full transition-shadow hover:shadow-md" key={title}>
+            <CardHeader>
+              <div className="mb-3 flex size-12 items-center justify-center rounded-xl bg-primary/10 text-primary">
+                <Icon aria-hidden="true" className="size-6" />
+              </div>
+              <CardTitle className="text-lg">{title}</CardTitle>
+            </CardHeader>
+            <CardContent className="leading-6 text-muted-foreground">
+              {description}
+            </CardContent>
+          </Card>
+        ))}
+      </div>
+    </section>
+  );
+}
