@@ -1,3 +1,229 @@
+import {
+  ArrowRight,
+  Award,
+  BookOpen,
+  BriefcaseBusiness,
+  Compass,
+  Hammer,
+  MapPin,
+  Target,
+  TrendingUp,
+} from 'lucide-react';
+import type { LucideIcon } from 'lucide-react';
+import { Link } from 'react-router-dom';
+import { Button } from '@/components/ui/button';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { EmptyState } from '@/components/shared/EmptyState';
+import { ErrorState } from '@/components/shared/ErrorState';
+import { PageHeader } from '@/components/shared/PageHeader';
+import { StatusBadge } from '@/components/shared/StatusBadge';
+import { ROUTES } from '@/lib/constants/routes';
+import { useExperiences } from '@/features/experiences/hooks/useExperiences';
+import { useCourses } from '@/features/learn/hooks/useCourses';
+import { useQuickLearnings } from '@/features/learn/hooks/useQuickLearnings';
+import { useTrails } from '@/features/learn/hooks/useTrails';
+import { useProjects } from '@/features/profile/hooks/useProfile';
+import { useAuthStore } from '@/stores/authStore';
+import { useAchievements } from '@/features/dashboard/hooks/useAchievements';
+import { useProgress } from '@/features/dashboard/hooks/useProgress';
+
+const milestones: { title: string; description: string; icon: LucideIcon }[] = [
+  { title: 'Aprender', description: 'Explora temas e constrói uma base de conhecimento.', icon: BookOpen },
+  { title: 'Desenvolver', description: 'Pratica competências que podes usar no dia a dia.', icon: TrendingUp },
+  { title: 'Fazer', description: 'Aplica o que sabes em projectos e desafios.', icon: Hammer },
+  { title: 'Provar', description: 'Reúne evidências e apresenta o teu trabalho.', icon: Award },
+  { title: 'Experimentar', description: 'Participa em experiências e conhece novas áreas.', icon: Compass },
+  { title: 'Avançar', description: 'Encontra oportunidades para o teu próximo passo.', icon: BriefcaseBusiness },
+];
+
 export default function JourneyPage() {
-  return <div>Minha Jornada — em breve</div>;
+  const userId = useAuthStore((state) => state.user?.id ?? '');
+  const progress = useProgress(userId);
+  const trails = useTrails();
+  const courses = useCourses();
+  const quickLearnings = useQuickLearnings();
+  const projects = useProjects(userId);
+  const achievements = useAchievements(userId);
+  const experiences = useExperiences();
+  const records = progress.data ?? [];
+  const averageProgress = records.length
+    ? Math.round(records.reduce((total, item) => total + item.percentual, 0) / records.length)
+    : 0;
+  const learningItems = [
+    ...(trails.data ?? []).map((item) => ({ id: item.id, slug: item.slug, title: item.titulo, type: 'trail' as const })),
+    ...(courses.data ?? []).map((item) => ({ id: item.id, slug: item.slug, title: item.titulo, type: 'course' as const })),
+    ...(quickLearnings.data ?? []).map((item) => ({ id: item.id, slug: item.slug, title: item.titulo, type: 'quick-learning' as const })),
+  ];
+  const activities = records.map((record) => {
+    const item = learningItems.find((entry) => entry.id === record.recursoId);
+    if (!item) return null;
+    const to =
+      item.type === 'trail'
+        ? ROUTES.learn.trail(item.slug)
+        : item.type === 'course'
+          ? ROUTES.learn.course(item.slug)
+          : ROUTES.learn.quickLearning(item.slug);
+    return { ...item, to, percent: record.percentual, status: record.estado };
+  }).filter((item): item is NonNullable<typeof item> => item !== null);
+  const enrolledExperiences = experiences.data?.filter((item) => item.estado === 'inscrita') ?? [];
+  const milestoneStatus = [
+    records.some((item) => item.estado === 'concluido')
+      ? { label: 'Concluído', tone: 'success' as const }
+      : records.length
+        ? { label: 'Em curso', tone: 'info' as const }
+        : { label: 'Por começar', tone: 'neutral' as const },
+    records.some((item) => item.estado === 'em_progresso') ? { label: 'Em curso', tone: 'info' as const } : { label: 'A seguir', tone: 'neutral' as const },
+    projects.data?.length ? { label: `${projects.data.length} projectos`, tone: 'success' as const } : { label: 'A seguir', tone: 'neutral' as const },
+    achievements.data?.some((item) => item.unlocked) ? { label: 'Com evidências', tone: 'success' as const } : { label: 'A seguir', tone: 'neutral' as const },
+    enrolledExperiences.length ? { label: 'Inscrita', tone: 'info' as const } : { label: 'A seguir', tone: 'neutral' as const },
+    { label: 'A seguir', tone: 'neutral' as const },
+  ];
+  const isLoading =
+    progress.isLoading || trails.isLoading || courses.isLoading ||
+    quickLearnings.isLoading || projects.isLoading || achievements.isLoading ||
+    experiences.isLoading;
+  const hasError =
+    progress.isError || trails.isError || courses.isError ||
+    quickLearnings.isError || projects.isError || achievements.isError ||
+    experiences.isError;
+
+  return (
+    <div className="space-y-8">
+      <PageHeader
+        description="Uma jornada que liga aprendizagem, prática e oportunidades."
+        title="Minha Jornada"
+      />
+
+      {hasError ? (
+        <ErrorState message="Não foi possível carregar os dados da tua jornada." />
+      ) : (
+        <>
+          <Card className="overflow-hidden bg-[image:var(--gradient-surface)]">
+            <CardHeader>
+              <p className="text-xs font-semibold uppercase tracking-[0.14em] text-primary">O teu percurso</p>
+              <CardTitle className="text-xl">Cada passo conta</CardTitle>
+              <p className="max-w-2xl text-sm leading-6 text-muted-foreground">
+                O progresso abaixo é calculado a partir das actividades de aprendizagem registadas.
+              </p>
+            </CardHeader>
+            <CardContent>
+              {isLoading ? (
+                <p aria-live="polite" className="text-sm text-muted-foreground">A carregar a tua jornada…</p>
+              ) : (
+                <>
+                  <div
+                    aria-label={`${averageProgress}% de progresso médio nas aprendizagens`}
+                    aria-valuemax={100}
+                    aria-valuemin={0}
+                    aria-valuenow={averageProgress}
+                    className="h-2 overflow-hidden rounded-full bg-surface-3"
+                    role="progressbar"
+                  >
+                    <div className="h-full rounded-full bg-primary" style={{ width: `${averageProgress}%` }} />
+                  </div>
+                  <p className="mt-2 text-xs text-muted-foreground">
+                    {averageProgress}% de progresso médio em {records.length} actividades iniciadas.
+                  </p>
+                </>
+              )}
+            </CardContent>
+          </Card>
+
+          <section aria-labelledby="journey-steps-title">
+            <h2 className="mb-5 text-xl font-semibold tracking-tight" id="journey-steps-title">
+              O caminho à tua frente
+            </h2>
+            <ol className="relative space-y-4 before:absolute before:bottom-8 before:left-6 before:top-8 before:w-px before:bg-border">
+              {milestones.map(({ title, description, icon: Icon }, index) => (
+                <li className="relative" key={title}>
+                  <Card className="relative ml-0 border-border bg-card sm:ml-2">
+                    <CardContent className="flex items-center gap-4 p-4 sm:p-5">
+                      <span className="z-10 flex size-12 shrink-0 items-center justify-center rounded-xl border border-border bg-surface-2 text-primary">
+                        <Icon aria-hidden="true" className="size-5" />
+                      </span>
+                      <div className="min-w-0 flex-1">
+                        <div className="flex flex-wrap items-center gap-2">
+                          <span className="text-xs font-semibold tabular-nums text-subtle-foreground">
+                            {String(index + 1).padStart(2, '0')}
+                          </span>
+                          <h3 className="font-semibold">{title}</h3>
+                        </div>
+                        <p className="mt-1 text-sm leading-6 text-muted-foreground">{description}</p>
+                      </div>
+                      <StatusBadge status={isLoading ? 'neutral' : milestoneStatus[index].tone}>
+                        {isLoading ? 'A carregar' : milestoneStatus[index].label}
+                      </StatusBadge>
+                    </CardContent>
+                  </Card>
+                </li>
+              ))}
+            </ol>
+          </section>
+
+          <section aria-labelledby="journey-activities-title" className="space-y-4">
+            <div>
+              <h2 className="text-xl font-semibold tracking-tight" id="journey-activities-title">
+                Aprendizagens no teu percurso
+              </h2>
+              <p className="mt-1 text-sm text-muted-foreground">
+                Actividades iniciadas e o progresso registado em cada uma.
+              </p>
+            </div>
+            {isLoading ? (
+              <p aria-live="polite" className="text-sm text-muted-foreground">A carregar actividades…</p>
+            ) : activities.length ? (
+              <ul className="grid gap-3 sm:grid-cols-2">
+                {activities.map((item) => (
+                  <li key={item.id}>
+                    <Link
+                      className="block rounded-xl border border-border bg-card p-4 hover:border-primary/50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+                      to={item.to}
+                    >
+                      <div className="flex items-center justify-between gap-3">
+                        <h3 className="font-semibold">{item.title}</h3>
+                        <StatusBadge status={item.status === 'concluido' ? 'success' : 'info'}>
+                          {item.status === 'concluido' ? 'Concluída' : 'Em progresso'}
+                        </StatusBadge>
+                      </div>
+                      <p className="mt-2 text-sm text-muted-foreground">{item.percent}% concluído</p>
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            ) : (
+              <EmptyState
+                description="Explora conteúdos para começares uma actividade."
+                icon={Target}
+                title="Ainda não há aprendizagens iniciadas"
+                action={
+                  <Button nativeButton={false} render={<Link to={ROUTES.learn.root} />}>
+                    Encontrar algo para aprender
+                    <ArrowRight aria-hidden="true" />
+                  </Button>
+                }
+              />
+            )}
+          </section>
+          {enrolledExperiences.length > 0 && (
+            <section aria-labelledby="journey-experiences-title" className="space-y-3">
+              <h2 className="text-xl font-semibold tracking-tight" id="journey-experiences-title">
+                Experiências em que estás inscrita
+              </h2>
+              {enrolledExperiences.map((experience) => (
+                <Link
+                  className="flex min-h-14 items-center gap-3 rounded-xl border border-border bg-card p-4 hover:border-primary/50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+                  key={experience.id}
+                  to={ROUTES.experiences.detail(experience.slug)}
+                >
+                  <MapPin aria-hidden="true" className="size-5 text-primary" />
+                  <span className="flex-1 font-medium">{experience.titulo}</span>
+                  <span className="text-sm text-muted-foreground">{experience.data}</span>
+                </Link>
+              ))}
+            </section>
+          )}
+        </>
+      )}
+    </div>
+  );
 }

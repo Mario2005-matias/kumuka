@@ -12,7 +12,10 @@ const ITEMS = [
 
 export function BottomNavigation() {
   return (
-    <nav className="fixed bottom-0 left-0 right-0 z-40 border-t bg-background md:hidden">
+    <nav
+      aria-label="Navegação inferior"
+      className="fixed inset-x-0 bottom-0 z-40 border-t bg-surface-1/95 pb-[env(safe-area-inset-bottom)] backdrop-blur-xl md:hidden"
+    >
       <div className="grid grid-cols-4">
         {ITEMS.map((item) => {
           const Icon = item.icon;
@@ -22,14 +25,14 @@ export function BottomNavigation() {
               to={item.href}
               className={({ isActive }) =>
                 cn(
-                  'flex flex-col items-center justify-center gap-1 py-2 text-xs transition-colors',
+                  'flex min-h-14 flex-col items-center justify-center gap-1 py-2 text-xs transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-ring',
                   isActive
-                    ? 'text-primary'
-                    : 'text-muted-foreground hover:text-foreground',
+                    ? 'bg-primary/10 text-primary'
+                    : 'text-muted-foreground hover:bg-surface-3 hover:text-foreground',
                 )
               }
             >
-              <Icon className="h-5 w-5" />
+              <Icon aria-hidden="true" className="h-5 w-5" />
               <span>{item.label}</span>
             </NavLink>
           );

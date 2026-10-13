@@ -18,16 +18,16 @@ export function ErrorState({
   return (
     <div
       className={cn(
-        'flex flex-col items-center justify-center gap-3 rounded-lg border border-destructive/20 bg-destructive/5 p-8 text-center',
+        'flex flex-col items-center justify-center gap-4 rounded-xl border border-destructive/30 bg-destructive/5 p-8 text-center',
         className,
       )}
     >
-      <div className="flex h-12 w-12 items-center justify-center rounded-full bg-destructive/10">
-        <AlertTriangle className="h-6 w-6 text-destructive" />
+      <div className="flex size-14 items-center justify-center rounded-2xl bg-destructive/10">
+        <AlertTriangle aria-hidden="true" className="size-7 text-destructive" />
       </div>
-      <div className="space-y-1">
-        <h3 className="font-semibold">{title}</h3>
-        <p className="text-sm text-muted-foreground">{message}</p>
+      <div className="max-w-md space-y-2">
+        <h3 className="text-lg font-semibold tracking-tight">{title}</h3>
+        <p className="text-sm leading-6 text-muted-foreground">{message}</p>
       </div>
       {onRetry && (
         <Button variant="outline" size="sm" onClick={onRetry}>

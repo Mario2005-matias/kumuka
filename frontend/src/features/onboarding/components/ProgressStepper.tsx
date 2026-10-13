@@ -24,7 +24,7 @@ export function ProgressStepper({ currentStep }: ProgressStepperProps) {
       </div>
       <div className="h-2 overflow-hidden rounded-full bg-muted">
         <div
-          className="h-full rounded-full bg-primary transition-[width]"
+          className="h-full rounded-full bg-[image:var(--gradient-brand)] transition-[width]"
           style={{ width: `${(completed / ONBOARDING_STEPS.length) * 100}%` }}
         />
       </div>

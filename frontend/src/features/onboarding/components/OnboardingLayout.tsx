@@ -16,7 +16,7 @@ export function OnboardingLayout({
   onBack,
 }: OnboardingLayoutProps) {
   return (
-    <div className="min-h-screen bg-muted/40 px-4 py-6 sm:py-10">
+    <div className="min-h-screen bg-gradient-to-br from-primary/5 via-background to-background px-4 py-6 sm:py-10">
       <div className="mx-auto flex w-full max-w-2xl flex-col gap-8">
         <header className="flex items-center justify-between gap-6">
           <Link
@@ -31,7 +31,7 @@ export function OnboardingLayout({
           </div>
         </header>
 
-        <main className="rounded-2xl border bg-background p-5 shadow-sm sm:p-9">
+        <main className="rounded-2xl border border-border bg-[image:var(--gradient-surface)] p-5 shadow-lg shadow-primary/5 sm:p-9">
           {children}
         </main>
 

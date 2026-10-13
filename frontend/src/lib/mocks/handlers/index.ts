@@ -1,0 +1,11 @@
+export { authHandler } from './auth.handler';
+export { profileHandler } from './profile.handler';
+export { trailsHandler } from './trails.handler';
+export { coursesHandler } from './courses.handler';
+export { quickLearningsHandler } from './quickLearnings.handler';
+export { guidesHandler } from './guides.handler';
+export { projectsHandler } from './projects.handler';
+export { experiencesHandler } from './experiences.handler';
+export { progressHandler } from './progress.handler';
+export { achievementsHandler } from './achievements.handler';
+export { recommendationsHandler } from './recommendations.handler';

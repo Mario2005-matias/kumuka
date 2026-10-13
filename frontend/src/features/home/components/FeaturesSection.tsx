@@ -7,6 +7,10 @@ import {
   Zap,
 } from 'lucide-react';
 import type { LucideIcon } from 'lucide-react';
+import { motion } from 'motion/react';
+import { usePrefersReducedMotion } from '../hooks/usePrefersReducedMotion';
+import { revealSection } from '../lib/animations/sectionAnimations';
+import { useScrollAnimation } from '../hooks/useScrollAnimation';
 import {
   Card,
   CardContent,
@@ -52,36 +56,55 @@ const features: {
 ];
 
 export function FeaturesSection() {
+  const sectionRef = useScrollAnimation(revealSection);
+  const prefersReducedMotion = usePrefersReducedMotion();
+
   return (
     <section
       aria-labelledby="features-title"
-      className="container py-16 sm:py-24"
+      className="container mx-auto px-4 py-20 sm:px-6 sm:py-28 lg:px-8"
       id="o-que-encontrar"
+      ref={sectionRef}
     >
       <div className="mx-auto max-w-2xl text-center">
-        <h2 className="text-3xl font-bold tracking-tight sm:text-4xl" id="features-title">
+        <h2
+          className="text-3xl font-bold tracking-tight sm:text-4xl"
+          data-reveal
+          id="features-title"
+        >
           O que vais encontrar
         </h2>
-        <p className="mt-4 leading-7 text-muted-foreground">
+        <p className="mt-4 leading-7 text-muted-foreground" data-reveal>
           Ferramentas para aprender, praticar e mostrar o teu progresso.
         </p>
       </div>
       <div className="mt-10 grid gap-4 sm:mt-14 sm:grid-cols-2 lg:grid-cols-3">
         {features.map(({ title, description, icon: Icon }) => (
-          <Card
-            className="group h-full transition-shadow hover:shadow-md"
+          <motion.div
+            className="h-full"
             key={title}
+            transition={{ duration: 0.25, ease: 'easeOut' }}
+            whileHover={prefersReducedMotion ? undefined : { scale: 1.02 }}
           >
-            <CardHeader>
-              <div className="mb-3 flex size-12 items-center justify-center rounded-xl bg-primary/10 text-primary transition-colors group-hover:bg-primary group-hover:text-primary-foreground">
-                <Icon aria-hidden="true" className="size-6" />
-              </div>
-              <CardTitle className="text-lg">{title}</CardTitle>
-            </CardHeader>
-            <CardContent className="leading-6 text-muted-foreground">
-              {description}
-            </CardContent>
-          </Card>
+            <Card
+              className="group h-full border border-border/70 bg-card/80 transition-[border-color,box-shadow] duration-300 hover:border-primary/50 hover:shadow-xl hover:shadow-primary/5"
+              data-reveal
+            >
+              <CardHeader>
+                <motion.div
+                  className="mb-3 flex size-14 items-center justify-center rounded-2xl bg-primary/10 text-primary transition-colors duration-300 group-hover:bg-primary group-hover:text-primary-foreground"
+                  transition={{ duration: 0.25, ease: 'easeOut' }}
+                  whileHover={prefersReducedMotion ? undefined : { rotate: 5 }}
+                >
+                  <Icon aria-hidden="true" className="size-7" />
+                </motion.div>
+                <CardTitle className="text-lg">{title}</CardTitle>
+              </CardHeader>
+              <CardContent className="leading-6 text-muted-foreground">
+                {description}
+              </CardContent>
+            </Card>
+          </motion.div>
         ))}
       </div>
     </section>

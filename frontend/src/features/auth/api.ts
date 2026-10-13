@@ -1,133 +1,55 @@
+import { env } from '@/config/env';
+import { api } from '@/lib/api/client';
 import type {
   AuthResponse,
+  ForgotPasswordInput,
   LoginInput,
   RegisterInput,
-  ForgotPasswordInput,
+  ResetPasswordInput,
 } from './types';
-
-// Simular latência de rede
-const delay = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
-
-// Credenciais de teste
-const TEST_USER = {
-  email: 'teste@kumuka.ao',
-  password: '123456',
-};
-
-// Chave do localStorage
-const MOCK_USERS_KEY = 'kumuka-mock-users';
-
-// Utilizadores registados (mock)
-interface MockUser {
-  id: string;
-  email: string;
-  password: string;
-}
-
-function getMockUsers(): MockUser[] {
-  try {
-    const raw = localStorage.getItem(MOCK_USERS_KEY);
-    return raw ? JSON.parse(raw) : [];
-  } catch {
-    return [];
-  }
-}
-
-function saveMockUsers(users: MockUser[]) {
-  localStorage.setItem(MOCK_USERS_KEY, JSON.stringify(users));
-}
-
-// Gerar ID simples (mock)
-function generateId() {
-  return Math.random().toString(36).slice(2, 11);
-}
-
-// ============================================================
-// API MOCK
-// ============================================================
 
 export const authApi = {
   async login(input: LoginInput): Promise<AuthResponse> {
-    await delay(600);
-
-    // Credenciais de teste
-    if (input.email === TEST_USER.email && input.password === TEST_USER.password) {
-      return {
-        user: {
-          id: 'test-user-1',
-          email: input.email,
-          role: 'student',
-          createdAt: new Date().toISOString(),
-        },
-        token: 'mock-token-' + generateId(),
-      };
+    if (env.useMocks && import.meta.env.DEV) {
+      const { authHandler } = await import('@/lib/mocks/handlers/auth.handler');
+      return authHandler.login(input);
     }
-
-    // Utilizadores registados
-    const users = getMockUsers();
-    const found = users.find(
-      (u) => u.email === input.email && u.password === input.password,
-    );
-
-    if (!found) {
-      throw new Error('Email ou password incorretos');
-    }
-
-    return {
-      user: {
-        id: found.id,
-        email: found.email,
-        role: 'student',
-        createdAt: new Date().toISOString(),
-      },
-      token: 'mock-token-' + generateId(),
-    };
+    const { data } = await api.post<AuthResponse>('/auth/login', input);
+    return data;
   },
 
   async register(input: RegisterInput): Promise<AuthResponse> {
-    await delay(800);
-
-    const users = getMockUsers();
-
-    // Verificar email duplicado
-    if (users.some((u) => u.email === input.email)) {
-      throw new Error('Este email já está registado');
+    if (env.useMocks && import.meta.env.DEV) {
+      const { authHandler } = await import('@/lib/mocks/handlers/auth.handler');
+      return authHandler.register(input);
     }
-
-    // Criar novo utilizador
-    const newUser: MockUser = {
-      id: generateId(),
-      email: input.email,
-      password: input.password,
-    };
-
-    users.push(newUser);
-    saveMockUsers(users);
-
-    return {
-      user: {
-        id: newUser.id,
-        email: newUser.email,
-        role: 'student',
-        createdAt: new Date().toISOString(),
-      },
-      token: 'mock-token-' + generateId(),
-    };
+    const payload = { email: input.email, password: input.password };
+    const { data } = await api.post<AuthResponse>('/auth/register', payload);
+    return data;
   },
 
   async logout(): Promise<void> {
-    await delay(300);
-    // Nada a fazer no mock — o store trata de limpar
+    if (env.useMocks && import.meta.env.DEV) {
+      const { authHandler } = await import('@/lib/mocks/handlers/auth.handler');
+      return authHandler.logout();
+    }
+    await api.post('/auth/logout');
   },
 
   async forgotPassword(input: ForgotPasswordInput): Promise<void> {
-    await delay(700);
-    // Simular sucesso sempre (por segurança, não revelar se email existe)
-    console.log('[mock] Email de recuperação enviado para:', input.email);
+    if (env.useMocks && import.meta.env.DEV) {
+      const { authHandler } = await import('@/lib/mocks/handlers/auth.handler');
+      return authHandler.forgotPassword(input);
+    }
+    await api.post('/auth/forgot-password', input);
   },
 
-  async resetPassword(token: string, password: string): Promise<void> {
-    await delay(700);
-    console.log('[mock] Password redefinida. Token:', token);
+  async resetPassword(input: ResetPasswordInput): Promise<void> {
+    if (env.useMocks && import.meta.env.DEV) {
+      const { authHandler } = await import('@/lib/mocks/handlers/auth.handler');
+      return authHandler.resetPassword(input);
+    }
+    const payload = { token: input.token, password: input.password };
+    await api.post('/auth/reset-password', payload);
   },
 };

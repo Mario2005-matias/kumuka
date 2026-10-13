@@ -1,4 +1,6 @@
 import { Link } from 'react-router-dom';
+import { revealSection } from '../lib/animations/sectionAnimations';
+import { useScrollAnimation } from '../hooks/useScrollAnimation';
 import { ROUTES } from '@/lib/constants/routes';
 
 const footerLinks = [
@@ -8,10 +10,12 @@ const footerLinks = [
 ];
 
 export function HomeFooter() {
+  const footerRef = useScrollAnimation(revealSection);
+
   return (
-    <footer className="border-t bg-background">
-      <div className="container flex flex-col gap-6 py-8 sm:flex-row sm:items-center sm:justify-between">
-        <div>
+    <footer className="border-t bg-background" ref={footerRef}>
+      <div className="container mx-auto flex flex-col gap-6 px-4 py-8 sm:flex-row sm:items-center sm:justify-between sm:px-6 lg:px-8">
+        <div data-reveal>
           <Link
             className="rounded-sm text-lg font-bold tracking-tight text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
             to={ROUTES.home}
@@ -22,7 +26,7 @@ export function HomeFooter() {
             Constrói o teu futuro.
           </p>
         </div>
-        <nav aria-label="Links do rodapé">
+        <nav aria-label="Links do rodapé" data-reveal>
           <ul className="flex flex-wrap gap-x-6 gap-y-2">
             {footerLinks.map(({ label, to }) => (
               <li key={label}>
@@ -36,8 +40,8 @@ export function HomeFooter() {
             ))}
           </ul>
         </nav>
-        <p className="text-sm text-muted-foreground sm:text-right">
-          © {new Date().getFullYear()} KUMUKA. Todos os direitos reservados.
+        <p className="text-sm text-muted-foreground sm:text-right" data-reveal>
+          © {new Date().getFullYear()} KUMUKA. Constrói o teu futuro.
         </p>
       </div>
     </footer>

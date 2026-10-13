@@ -1,5 +1,5 @@
-import { Loader2 } from 'lucide-react';
 import { cn } from '@/lib/utils';
+import { Skeleton } from './Skeleton';
 
 interface LoadingStateProps {
   message?: string;
@@ -12,13 +12,21 @@ export function LoadingState({
 }: LoadingStateProps) {
   return (
     <div
+      aria-busy="true"
+      aria-live="polite"
       className={cn(
-        'flex flex-col items-center justify-center gap-3 py-12 text-center',
+        'space-y-4 py-8',
         className,
       )}
     >
-      <Loader2 className="h-8 w-8 animate-spin text-muted-foreground" />
-      <p className="text-sm text-muted-foreground">{message}</p>
+      <span className="sr-only">{message}</span>
+      <Skeleton className="h-8 w-52" />
+      <Skeleton className="h-4 w-72 max-w-full" />
+      <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        <Skeleton className="h-40" />
+        <Skeleton className="h-40" />
+        <Skeleton className="h-40 sm:hidden lg:block" />
+      </div>
     </div>
   );
 }

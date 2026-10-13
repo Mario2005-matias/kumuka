@@ -1,11 +1,6 @@
-export type UserRole = 'student';
+import type { User } from '@/types/user';
 
-export interface User {
-  id: string;
-  email: string;
-  role: UserRole;
-  createdAt: string;
-}
+export type { User, UserRole } from '@/types/user';
 
 export interface AuthResponse {
   user: User;
