@@ -19,7 +19,13 @@ export function InterestsStep({ value, onChange, onNext }: InterestsStepProps) {
       </div>
       <ChipMultiSelect
         label="Os teus interesses"
-        onChange={onChange}
+        onToggle={(interest) =>
+          onChange(
+            value.includes(interest)
+              ? value.filter((selected) => selected !== interest)
+              : [...value, interest],
+          )
+        }
         options={INTEREST_OPTIONS}
         selected={value}
       />

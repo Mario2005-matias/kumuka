@@ -49,10 +49,12 @@ export interface OnboardingDraft {
 export interface OnboardingState {
   step: number;
   draft: OnboardingDraft;
+  completed: boolean;
   credentials: RegisterInput | null;
   nextStep: () => void;
   prevStep: () => void;
   updateDraft: (draft: Partial<OnboardingDraft>) => void;
   setCredentials: (credentials: RegisterInput | null) => void;
+  complete: () => void;
   reset: () => void;
 }

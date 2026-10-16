@@ -31,7 +31,7 @@ export function HomeFooter() {
             {footerLinks.map(({ label, to }) => (
               <li key={label}>
                 <Link
-                  className="rounded-sm text-sm text-muted-foreground transition-colors hover:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+                  className="inline-flex min-h-11 items-center rounded-sm text-sm text-muted-foreground transition-colors hover:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
                   to={to}
                 >
                   {label}

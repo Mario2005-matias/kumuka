@@ -2,22 +2,25 @@ import { cn } from '@/lib/utils';
 import { Check } from 'lucide-react';
 
 interface ChipMultiSelectProps {
+  label: string;
   options: readonly string[];
   selected: string[];
   onToggle: (option: string) => void;
 }
 
 export function ChipMultiSelect({
+  label,
   options,
   selected,
   onToggle,
 }: ChipMultiSelectProps) {
   return (
-    <div className="flex flex-wrap gap-2">
+    <div aria-label={label} className="flex flex-wrap gap-2" role="group">
       {options.map((option) => {
         const isSelected = selected.includes(option);
         return (
           <button
+            aria-pressed={isSelected}
             key={option}
             type="button"
             onClick={() => onToggle(option)}

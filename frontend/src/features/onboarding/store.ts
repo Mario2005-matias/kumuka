@@ -3,7 +3,10 @@ import { persist } from 'zustand/middleware';
 import type { OnboardingDraft, OnboardingState } from './types';
 import { ONBOARDING_STEPS } from './types';
 
-type PersistedOnboardingState = Pick<OnboardingState, 'step' | 'draft'>;
+type PersistedOnboardingState = Pick<
+  OnboardingState,
+  'step' | 'draft' | 'completed'
+>;
 
 const initialDraft: OnboardingDraft = {
   name: '',
@@ -32,6 +35,7 @@ function restorePersistedState(value: unknown): PersistedOnboardingState {
 
   return {
     step,
+    completed: typeof saved.completed === 'boolean' ? saved.completed : false,
     draft: {
       name:
         typeof rawDraft.name === 'string'
@@ -73,6 +77,7 @@ export const useOnboardingStore = create<OnboardingState>()(
     (set) => ({
       step: 0,
       draft: initialDraft,
+      completed: false,
       credentials: null,
       nextStep: () =>
         set((state) => ({
@@ -82,12 +87,14 @@ export const useOnboardingStore = create<OnboardingState>()(
       updateDraft: (draft) =>
         set((state) => ({ draft: { ...state.draft, ...draft } })),
       setCredentials: (credentials) => set({ credentials }),
-      reset: () => set({ step: 0, draft: initialDraft, credentials: null }),
+      complete: () => set({ completed: true }),
+      reset: () =>
+        set({ step: 0, draft: initialDraft, completed: false, credentials: null }),
     }),
     {
       name: 'kumuka-onboarding',
-      version: 1,
-      partialize: ({ step, draft }) => ({ step, draft }),
+      version: 2,
+      partialize: ({ step, draft, completed }) => ({ step, draft, completed }),
       migrate: (persistedState) => restorePersistedState(persistedState),
     },
   ),

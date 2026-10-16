@@ -32,7 +32,10 @@ export function Navbar() {
     <header className="sticky top-0 z-40 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <div className="container flex h-16 items-center justify-between">
         <div className="flex items-center gap-8">
-          <Link to={ROUTES.home} className="text-xl font-bold tracking-tight">
+          <Link
+            className="inline-flex min-h-11 items-center text-xl font-bold tracking-tight"
+            to={ROUTES.home}
+          >
             KUMUKA
           </Link>
 
@@ -61,11 +64,22 @@ export function Navbar() {
         <div className="flex items-center gap-2">
           {!isAuthenticated ? (
             <>
-              <Button variant="ghost" size="sm">
-                <Link to={ROUTES.auth.login}>Entrar</Link>
+              <Button
+                className="min-h-11 px-3"
+                nativeButton={false}
+                render={<Link to={ROUTES.auth.login} />}
+                size="sm"
+                variant="ghost"
+              >
+                Entrar
               </Button>
-              <Button size="sm">
-                <Link to={ROUTES.auth.register}>Começar agora</Link>
+              <Button
+                className="min-h-11 px-4"
+                nativeButton={false}
+                render={<Link to={ROUTES.auth.register} />}
+                size="sm"
+              >
+                Começar agora
               </Button>
             </>
           ) : (

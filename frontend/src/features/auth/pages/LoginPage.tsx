@@ -1,27 +1,27 @@
-import { Link } from 'react-router-dom';
-import { useForm, Controller } from 'react-hook-form';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { Loader2 } from 'lucide-react';
+import { Link } from "react-router-dom";
+import { useForm, Controller } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { Loader2 } from "lucide-react";
 
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
 import {
   Field,
   FieldError,
   FieldGroup,
   FieldLabel,
-} from '@/components/ui/field';
+} from "@/components/ui/field";
 
-import { useLogin } from '../hooks';
-import { loginSchema, type LoginFormValues } from '../schemas';
-import { ROUTES } from '@/lib/constants/routes';
+import { useLogin } from "../hooks";
+import { loginSchema, type LoginFormValues } from "../schemas";
+import { ROUTES } from "@/lib/constants/routes";
 
 export default function LoginPage() {
   const login = useLogin();
 
   const form = useForm<LoginFormValues>({
     resolver: zodResolver(loginSchema),
-    defaultValues: { email: '', password: '' },
+    defaultValues: { email: "", password: "" },
   });
 
   const onSubmit = (values: LoginFormValues) => {
@@ -38,25 +38,26 @@ export default function LoginPage() {
       </div>
 
       <form onSubmit={form.handleSubmit(onSubmit)} noValidate>
-        <FieldGroup className="space-y-4">
+        <FieldGroup className="space-y-4 ">
           <Controller
             control={form.control}
             name="email"
             render={({ field, fieldState }) => (
-              <Field data-invalid={fieldState.invalid}>
+              <Field className="h-12" data-invalid={fieldState.invalid}>
                 <FieldLabel htmlFor={field.name}>Email</FieldLabel>
                 <Input
                   {...field}
                   id={field.name}
                   type="email"
-                  placeholder="o.teu@email.com"
+                  className="py-5"
+                  placeholder="exemplo@email.com"
                   autoComplete="email"
                   disabled={login.isPending}
                   aria-invalid={fieldState.invalid}
                 />
-                {fieldState.invalid && (
+             {/*{fieldState.invalid && (
                   <FieldError errors={[fieldState.error]} />
-                )}
+                )}*/} 
               </Field>
             )}
           />
@@ -65,12 +66,13 @@ export default function LoginPage() {
             control={form.control}
             name="password"
             render={({ field, fieldState }) => (
-              <Field data-invalid={fieldState.invalid}>
+              <Field className="h-12" data-invalid={fieldState.invalid}>
                 <FieldLabel htmlFor={field.name}>Password</FieldLabel>
                 <Input
                   {...field}
                   id={field.name}
                   type="password"
+                  className="py-5"
                   placeholder="A tua password"
                   autoComplete="current-password"
                   disabled={login.isPending}
@@ -94,20 +96,20 @@ export default function LoginPage() {
 
           <Button
             type="submit"
-            className="w-full"
+            className="w-full h-10"
             size="lg"
             disabled={login.isPending}
           >
             {login.isPending && (
               <Loader2 className="mr-2 h-4 w-4 animate-spin" />
             )}
-            {login.isPending ? 'A entrar...' : 'Entrar'}
+            {login.isPending ? "A entrar..." : "Entrar"}
           </Button>
         </FieldGroup>
       </form>
 
       <p className="text-center text-sm text-muted-foreground">
-        Ainda não tens conta?{' '}
+        Ainda não tens conta?{" "}
         <Link
           to={ROUTES.onboarding.root}
           className="font-medium text-primary underline-offset-4 hover:underline"
@@ -118,7 +120,7 @@ export default function LoginPage() {
 
       <div className="rounded-lg border border-dashed bg-muted/30 p-3 text-center">
         <p className="text-xs text-muted-foreground">
-          <strong>Credenciais de teste:</strong> teste@kumuka.ao / 123456
+          <strong>Credenciais de teste:</strong> maria.silva@kumuka.ao / 123456
         </p>
       </div>
     </div>

@@ -1,4 +1,4 @@
-import { ArrowDown, ArrowRight, BriefcaseBusiness, BookOpen, Target, Wrench } from 'lucide-react';
+import { ArrowDown, ArrowRight, BriefcaseBusiness, BookOpen, Sparkles, Target, Wrench } from 'lucide-react';
 import { useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { useGsapContext } from '../hooks/useGsapContext';
@@ -40,6 +40,7 @@ export function HeroSection() {
             data-hero-badge
             variant="secondary"
           >
+            <Sparkles aria-hidden="true" className="mr-1 size-3.5" />
             Líderes do Futuro · Angola · 2026
           </Badge>
           <h1
@@ -69,7 +70,7 @@ export function HeroSection() {
             data-hero-actions
           >
             <Button
-              className="min-h-11 w-full sm:w-auto"
+              className="min-h-11 w-full px-6 py-3 transition-transform hover:scale-[1.02] hover:shadow-xl hover:shadow-primary/25 active:scale-[0.98] sm:w-auto"
               nativeButton={false}
               render={<Link to={ROUTES.onboarding.root} />}
               size="lg"
@@ -78,7 +79,7 @@ export function HeroSection() {
               <ArrowRight aria-hidden="true" />
             </Button>
             <Button
-              className="min-h-11 w-full sm:w-auto"
+              className="min-h-11 w-full px-6 py-3 transition-transform hover:scale-[1.02] sm:w-auto"
               nativeButton={false}
               render={<Link to={ROUTES.auth.login} />}
               size="lg"
@@ -88,7 +89,7 @@ export function HeroSection() {
             </Button>
           </div>
           <a
-            className="mt-8 inline-flex min-h-10 items-center gap-2 rounded-md text-sm font-medium text-muted-foreground transition-colors hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+            className="mt-8 inline-flex min-h-11 items-center gap-2 rounded-md text-sm font-medium text-muted-foreground transition-colors hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
             data-hero-scroll
             href="#o-que-e-a-kumuka"
           >

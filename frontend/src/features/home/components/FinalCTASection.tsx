@@ -23,7 +23,7 @@ export function FinalCTASection() {
         aria-hidden="true"
         className="pointer-events-none absolute -right-24 -top-28 -z-10 size-80 rounded-full border border-primary-foreground/10 sm:size-96"
       />
-      <div className="container mx-auto px-4 py-16 text-center sm:px-6 sm:py-20 lg:px-8">
+      <div className="container mx-auto px-4 py-20 text-center sm:px-6 sm:py-24 lg:px-8">
         <h2
           className="mx-auto max-w-3xl text-balance text-3xl font-bold tracking-tight sm:text-4xl"
           data-reveal
@@ -32,11 +32,11 @@ export function FinalCTASection() {
           Estás pronto para construir o teu futuro?
         </h2>
         <p className="mx-auto mt-4 max-w-xl text-pretty leading-7 text-primary-foreground/85" data-reveal>
-          Começa agora. Leva menos de 2 minutos a criar o teu perfil.
+          Cria o teu perfil e escolhe por onde queres começar.
         </p>
         <div className="mt-8 flex flex-col justify-center gap-3 sm:flex-row" data-reveal>
           <Button
-            className="min-h-11 w-full sm:w-auto"
+            className="min-h-11 w-full px-6 py-3 transition-transform hover:scale-[1.02] active:scale-[0.98] sm:w-auto"
             nativeButton={false}
             render={<Link to={ROUTES.onboarding.root} />}
             size="lg"
@@ -46,7 +46,7 @@ export function FinalCTASection() {
             <ArrowRight aria-hidden="true" />
           </Button>
           <Button
-            className="min-h-11 w-full border-primary-foreground/50 bg-transparent text-primary-foreground hover:bg-primary-foreground/10 hover:text-primary-foreground sm:w-auto"
+            className="min-h-11 w-full border-primary-foreground/50 bg-transparent px-6 py-3 text-primary-foreground transition-transform hover:scale-[1.02] hover:bg-primary-foreground/10 hover:text-primary-foreground sm:w-auto"
             nativeButton={false}
             render={<Link to={ROUTES.auth.login} />}
             size="lg"

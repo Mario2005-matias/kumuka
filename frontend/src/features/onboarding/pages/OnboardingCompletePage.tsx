@@ -5,6 +5,7 @@ import { useOnboardingStore } from '../store';
 
 export default function OnboardingCompletePage() {
   const name = useOnboardingStore((state) => state.draft.name);
+  const complete = useOnboardingStore((state) => state.complete);
 
   return (
     <main className="flex min-h-screen items-center justify-center bg-muted/40 px-4 py-10">
@@ -27,6 +28,7 @@ export default function OnboardingCompletePage() {
         <Button
           className="w-full"
           nativeButton={false}
+          onClick={complete}
           render={<Link to={ROUTES.dashboard} />}
         >
           Explorar a KUMUKA

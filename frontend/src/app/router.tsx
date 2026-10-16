@@ -7,6 +7,7 @@ import { PublicLayout } from "@/components/layout/PublicLayout";
 import { AppShell } from "@/components/layout/AppShell";
 import { AuthLayout } from "@/components/layout/AuthLayout";
 import { LoadingState } from "@/components/shared/LoadingState";
+import { OnboardingGuard } from "@/features/onboarding/guards/OnboardingGuard";
 
 import NotFoundPage from "@/features/system/pages/NotFoundPage";
 import ServerErrorPage from "@/features/system/pages/ServerErrorPage";
@@ -25,7 +26,6 @@ const DashboardPage = lazy(
 );
 const LearnHubPage = lazy(() => import("@/features/learn/pages/LearnHubPage"));
 const JourneyPage = lazy(() => import("@/features/journey/pages/JourneyPage"));
-const OnboardingGuard = lazy(() => import("@/features/onboarding/guards/OnboardingGuard"));
 const ProfilePage = lazy(() => import("@/features/profile/pages/ProfilePage"));
 const ExperiencesPage = lazy(
   () => import("@/features/experiences/pages/ExperiencesPage"), 
@@ -76,14 +76,6 @@ export function AppRouter() {
       </Route>
 
       {/* Onboarding — público, mas com fluxo próprio */}
-      <Route
-        path={ROUTES.onboarding.root}
-        element={
-          <Lazy>
-            <OnboardingPage />
-          </Lazy>
-        }
-      />
       <Route
         path={ROUTES.onboarding.complete}
         element={
