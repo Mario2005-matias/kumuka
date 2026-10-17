@@ -9,15 +9,17 @@ import { WhatIsSection } from '../components/WhatIsSection';
 
 export default function HomePage() {
   return (
-    <main>
-      <HeroSection />
-      <WhatIsSection />
-      <JourneySection />
-      <FeaturesSection />
-      <AudienceSection />
-      <StatsSection />
-      <FinalCTASection />
+    <>
+      <main>
+        <HeroSection />
+        <WhatIsSection />
+        <JourneySection />
+        <FeaturesSection />
+        <AudienceSection />
+        <StatsSection />
+        <FinalCTASection />
+      </main>
       <HomeFooter />
-    </main>
+    </>
   );
 }

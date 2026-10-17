@@ -1,10 +1,19 @@
 import { useQuery } from '@tanstack/react-query';
 import { env } from '@/config/env';
 import { api } from '@/lib/api/client';
-import type { Course } from '@/types/course';
-import type { CatalogParams } from './useTrails';
+import type { Course, CourseLevel, CourseModule } from '@/types/course';
 
-export function useCourses(params?: CatalogParams) {
+export interface CourseCatalogParams {
+  search?: string;
+  nivel?: CourseLevel;
+  categoria?: string;
+  duracao?: 'menos-5' | '5-10' | 'mais-10';
+  acesso?: Course['acesso'];
+  page?: number;
+  pageSize?: number;
+}
+
+export function useCourses(params?: CourseCatalogParams) {
   return useQuery({
     queryKey: ['courses', params],
     queryFn: async (): Promise<Course[]> => {
@@ -37,12 +46,12 @@ export function useCourseModule(slug: string, moduleId: string) {
   return useQuery({
     queryKey: ['courses', slug, 'modules', moduleId],
     enabled: Boolean(slug && moduleId),
-    queryFn: async (): Promise<Course['modulos'][number] | null> => {
+    queryFn: async (): Promise<CourseModule | null> => {
       if (env.useMocks && import.meta.env.DEV) {
         const { coursesHandler } = await import('@/lib/mocks/handlers/courses.handler');
         return coursesHandler.module(slug, moduleId);
       }
-      const { data } = await api.get<Course['modulos'][number] | null>(
+      const { data } = await api.get<CourseModule | null>(
         `/courses/${encodeURIComponent(slug)}/modules/${encodeURIComponent(moduleId)}`,
       );
       return data;

@@ -1,168 +1,142 @@
-import {
-  ArrowRight,
-  CalendarDays,
-  Compass,
-  MapPin,
-  UsersRound,
-} from 'lucide-react';
-import { Link } from 'react-router-dom';
-import { Button } from '@/components/ui/button';
-import { Card, CardContent } from '@/components/ui/card';
+import { CalendarDays, MapPin, Search, UsersRound, X } from 'lucide-react';
+import { Link, useSearchParams } from 'react-router-dom';
 import { EmptyState } from '@/components/shared/EmptyState';
 import { ErrorState } from '@/components/shared/ErrorState';
 import { PageHeader } from '@/components/shared/PageHeader';
-import { SectionCard } from '@/components/shared/SectionCard';
 import { StatusBadge } from '@/components/shared/StatusBadge';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { useExperiences } from '@/features/experiences/hooks/useExperiences';
+import { useAuthStore } from '@/stores/authStore';
 import { ROUTES } from '@/lib/constants/routes';
-import { useExperiences } from '../hooks/useExperiences';
+import type { Experience, ExperienceModality, TipoExperiencia } from '@/types/experience';
 
-const experienceTypes = [
-  {
-    title: 'Workshops',
-    description: 'Aprende e pratica em sessões orientadas.',
-    icon: UsersRound,
-  },
-  {
-    title: 'Eventos',
-    description: 'Conhece pessoas e explora novas áreas.',
-    icon: CalendarDays,
-  },
-  {
-    title: 'Programas',
-    description: 'Participa em iniciativas de desenvolvimento.',
-    icon: Compass,
-  },
+const selectClass = 'min-h-11 w-full rounded-lg border border-input bg-background px-3 text-base focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring md:text-sm';
+const types: { value: TipoExperiencia; label: string }[] = [
+  { value: 'programa', label: 'Programa' },
+  { value: 'workshop', label: 'Workshop' },
+  { value: 'evento', label: 'Evento' },
+  { value: 'mentoria', label: 'Mentoria' },
+  { value: 'desafio', label: 'Desafio' },
 ];
 
-function statusLabel(status: 'inscrita' | 'aberta' | 'sem-vagas' | 'futura') {
-  if (status === 'inscrita') return { label: 'Inscrita', tone: 'success' as const };
-  if (status === 'sem-vagas') return { label: 'Sem vagas', tone: 'warning' as const };
-  if (status === 'futura') return { label: 'Futura', tone: 'neutral' as const };
+function readState(experience: Experience) {
+  if (experience.estado === 'inscrita') return { label: 'Inscrita', tone: 'success' as const };
+  if (experience.estado === 'sem-vagas') return { label: 'Sem vagas', tone: 'warning' as const };
+  if (experience.estado === 'encerrada') return { label: 'Encerrada', tone: 'neutral' as const };
   return { label: 'Com vagas', tone: 'info' as const };
 }
 
+function dateLabel(date: string) {
+  return new Intl.DateTimeFormat('pt-AO', { dateStyle: 'long' }).format(new Date(`${date}T12:00:00`));
+}
+
 export default function ExperiencesPage() {
-  const experiences = useExperiences();
+  const [searchParams, setSearchParams] = useSearchParams();
+  const userId = useAuthStore((state) => state.user?.id ?? '');
+  const search = searchParams.get('q') ?? '';
+  const tipo = searchParams.get('tipo') ?? '';
+  const modalidade = searchParams.get('modalidade') ?? '';
+  const periodo = searchParams.get('periodo') ?? '';
+  const localizacao = searchParams.get('localizacao') ?? '';
+  const experiences = useExperiences({
+    search: search || undefined,
+    tipo: types.some((item) => item.value === tipo) ? tipo as TipoExperiencia : undefined,
+    modalidade: ['online', 'presencial', 'hibrido'].includes(modalidade)
+      ? modalidade as ExperienceModality
+      : undefined,
+    periodo: ['semana', 'mes', 'tres-meses'].includes(periodo)
+      ? periodo as 'semana' | 'mes' | 'tres-meses'
+      : undefined,
+    localizacao: localizacao || undefined,
+  }, userId);
+
+  function update(key: string, value: string) {
+    const next = new URLSearchParams(searchParams);
+    if (value) next.set(key, value);
+    else next.delete(key);
+    setSearchParams(next, { replace: true });
+  }
+
+  function clear() {
+    setSearchParams({}, { replace: true });
+  }
 
   return (
     <div className="space-y-8">
       <PageHeader
-        description="Sai da teoria, experimenta e conhece novas possibilidades."
+        description="Participa em programas, workshops e actividades para pôr as tuas competências em prática."
         title="Experiências"
       />
-
-      <Card className="overflow-hidden border-border bg-[image:var(--gradient-surface)]">
-        <div className="grid gap-6 p-5 sm:p-7 lg:grid-cols-[1fr_auto] lg:items-center">
-          <div className="max-w-2xl">
-            <span className="flex size-11 items-center justify-center rounded-xl bg-primary/10 text-primary">
-              <Compass aria-hidden="true" className="size-5" />
-            </span>
-            <h2 className="mt-4 text-xl font-semibold tracking-tight">
-              Aprende também pela experiência
-            </h2>
-            <p className="mt-2 text-sm leading-6 text-muted-foreground">
-              Workshops, eventos e programas podem ajudar-te a pôr competências
-              em prática e descobrir o que queres fazer a seguir.
-            </p>
-          </div>
-          <Button
-            className="w-full sm:w-auto"
-            nativeButton={false}
-            render={<Link to={ROUTES.learn.root} />}
-            variant="outline"
-          >
-            Preparar-me para participar
-            <ArrowRight aria-hidden="true" />
-          </Button>
+      <div className="grid gap-3 rounded-xl border border-border bg-card p-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-[minmax(15rem,2fr)_repeat(4,minmax(9rem,1fr))_auto] xl:items-end">
+        <div className="relative sm:col-span-2 xl:col-span-1">
+          <label className="mb-2 block text-sm font-medium" htmlFor="experience-search">Pesquisar</label>
+          <Search aria-hidden="true" className="absolute left-3 top-[2.65rem] size-4 text-muted-foreground" />
+          <Input className="min-h-11 pl-9" id="experience-search" onChange={(event) => update('q', event.currentTarget.value)} placeholder="Ex.: tecnologia" value={search} />
         </div>
-      </Card>
-
-      <section aria-labelledby="experience-types-title" className="space-y-4">
         <div>
-          <p className="text-xs font-semibold uppercase tracking-[0.14em] text-primary">
-            Descobrir
-          </p>
-          <h2 className="mt-2 text-2xl font-bold tracking-tight" id="experience-types-title">
-            Formas de experimentar
-          </h2>
+          <label className="mb-2 block text-sm font-medium" htmlFor="experience-type">Tipo</label>
+          <select className={selectClass} id="experience-type" onChange={(event) => update('tipo', event.currentTarget.value)} value={tipo}>
+            <option value="">Todos</option>{types.map((item) => <option key={item.value} value={item.value}>{item.label}</option>)}
+          </select>
         </div>
-        <div className="grid gap-4 md:grid-cols-3">
-          {experienceTypes.map(({ title, description, icon: Icon }) => (
-            <Card className="border-border transition-colors hover:border-primary/50" key={title}>
-              <CardContent className="flex items-start gap-4 p-5 sm:p-6">
-                <span className="flex size-11 shrink-0 items-center justify-center rounded-xl bg-primary/10 text-primary">
-                  <Icon aria-hidden="true" className="size-5" />
-                </span>
-                <div>
-                  <h3 className="font-semibold">{title}</h3>
-                  <p className="mt-1 text-sm leading-6 text-muted-foreground">{description}</p>
+        <div>
+          <label className="mb-2 block text-sm font-medium" htmlFor="experience-mode">Modalidade</label>
+          <select className={selectClass} id="experience-mode" onChange={(event) => update('modalidade', event.currentTarget.value)} value={modalidade}>
+            <option value="">Todas</option><option value="online">Online</option><option value="presencial">Presencial</option><option value="hibrido">Híbrido</option>
+          </select>
+        </div>
+        <div>
+          <label className="mb-2 block text-sm font-medium" htmlFor="experience-date">Data</label>
+          <select className={selectClass} id="experience-date" onChange={(event) => update('periodo', event.currentTarget.value)} value={periodo}>
+            <option value="">Qualquer data</option><option value="semana">Esta semana</option><option value="mes">Este mês</option><option value="tres-meses">Próximos 3 meses</option>
+          </select>
+        </div>
+        <div>
+          <label className="mb-2 block text-sm font-medium" htmlFor="experience-location">Localização</label>
+          <Input className="min-h-11" id="experience-location" onChange={(event) => update('localizacao', event.currentTarget.value)} placeholder="Ex.: Luanda" value={localizacao} />
+        </div>
+        <Button className="min-h-11 w-full sm:col-span-2 xl:col-span-1" onClick={clear} type="button" variant="outline">
+          <X aria-hidden="true" />Limpar
+        </Button>
+      </div>
+      {experiences.isLoading ? (
+        <section aria-label="A carregar experiências" className="grid gap-5 sm:grid-cols-2 xl:grid-cols-3">
+          {Array.from({ length: 6 }, (_, index) => <div aria-hidden="true" className="h-96 animate-pulse rounded-xl border border-border bg-card p-5" key={index}><div className="h-36 rounded-lg bg-surface-2" /><div className="mt-5 h-5 w-3/4 rounded bg-surface-2" /><div className="mt-3 h-4 w-1/2 rounded bg-surface-2" /><div className="mt-8 h-11 rounded-lg bg-surface-2" /></div>)}
+        </section>
+      ) : experiences.isError ? (
+        <ErrorState message="Não foi possível carregar as experiências." onRetry={() => void experiences.refetch()} />
+      ) : experiences.data?.length ? (
+        <section aria-label="Resultados das experiências" className="grid gap-5 sm:grid-cols-2 xl:grid-cols-3">
+          {experiences.data.map((experience) => {
+            const state = readState(experience);
+            return (
+              <article className="flex flex-col overflow-hidden rounded-xl border border-border bg-card" key={experience.id}>
+                <div aria-hidden="true" className="flex aspect-[16/8] items-end bg-[image:var(--gradient-surface)] p-5">
+                  <StatusBadge status="info">{types.find((item) => item.value === experience.tipo)?.label ?? experience.tipo}</StatusBadge>
                 </div>
-              </CardContent>
-            </Card>
-          ))}
-        </div>
-      </section>
-
-      <SectionCard
-        description="Programas, encontros e actividades com datas e locais definidos."
-        title="Explora oportunidades"
-      >
-        {experiences.isLoading ? (
-          <p aria-live="polite" className="text-sm text-muted-foreground">A carregar experiências…</p>
-        ) : experiences.isError ? (
-          <ErrorState message="Não foi possível carregar as experiências." />
-        ) : experiences.data?.length ? (
-          <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
-            {experiences.data.map((experience) => {
-              const state = statusLabel(experience.estado);
-              return (
-                <Card className="flex flex-col border-border" key={experience.id}>
-                  <CardContent className="flex flex-1 flex-col p-5">
-                    <div className="flex items-start justify-between gap-3">
-                      <h3 className="font-semibold">{experience.titulo}</h3>
-                      <StatusBadge className="shrink-0" status={state.tone}>{state.label}</StatusBadge>
-                    </div>
-                    <p className="mt-2 text-sm leading-6 text-muted-foreground">{experience.descricao}</p>
-                    <dl className="mt-4 space-y-2 text-sm text-muted-foreground">
-                      <div className="flex items-center gap-2">
-                        <CalendarDays aria-hidden="true" className="size-4 text-primary" />
-                        <dt className="sr-only">Data</dt>
-                        <dd>{experience.data}</dd>
-                      </div>
-                      <div className="flex items-center gap-2">
-                        <MapPin aria-hidden="true" className="size-4 text-primary" />
-                        <dt className="sr-only">Local</dt>
-                        <dd>{experience.local} · {experience.modalidade}</dd>
-                      </div>
-                      <div className="flex items-center gap-2">
-                        <UsersRound aria-hidden="true" className="size-4 text-primary" />
-                        <dt className="sr-only">Vagas</dt>
-                        <dd>{Math.max(experience.vagas - experience.vagasOcupadas, 0)} vagas disponíveis</dd>
-                      </div>
-                    </dl>
-                    <Button
-                      className="mt-auto pt-6"
-                      nativeButton={false}
-                      render={<Link to={ROUTES.experiences.detail(experience.slug)} />}
-                      variant="ghost"
-                    >
-                      Ver detalhes
-                      <ArrowRight aria-hidden="true" />
-                    </Button>
-                  </CardContent>
-                </Card>
-              );
-            })}
-          </div>
-        ) : (
-          <EmptyState
-            className="border-0 bg-transparent py-5"
-            description="Neste momento, não há experiências para mostrar."
-            icon={MapPin}
-            title="Ainda não há experiências disponíveis"
-          />
-        )}
-      </SectionCard>
+                <div className="flex flex-1 flex-col p-5">
+                  <div className="flex items-start justify-between gap-3">
+                    <h2 className="font-semibold">{experience.titulo}</h2>
+                    <StatusBadge className="shrink-0" status={state.tone}>{state.label}</StatusBadge>
+                  </div>
+                  <p className="mt-2 text-sm leading-6 text-muted-foreground">{experience.subtitulo}</p>
+                  <dl className="mt-4 space-y-2 text-sm text-muted-foreground">
+                    <div className="flex items-center gap-2"><CalendarDays aria-hidden="true" className="size-4 text-primary" /><dt className="sr-only">Data</dt><dd>{dateLabel(experience.data)} · {experience.hora}</dd></div>
+                    <div className="flex items-center gap-2"><MapPin aria-hidden="true" className="size-4 text-primary" /><dt className="sr-only">Local</dt><dd>{experience.local} · {experience.modalidade}</dd></div>
+                    <div className="flex items-center gap-2"><UsersRound aria-hidden="true" className="size-4 text-primary" /><dt className="sr-only">Vagas</dt><dd>{experience.vagasOcupadas}/{experience.vagas} preenchidas</dd></div>
+                  </dl>
+                  <Button className="mt-auto min-h-11 w-full pt-5" nativeButton={false} render={<Link to={ROUTES.experiences.detail(experience.slug)} />}>
+                    Saber mais
+                  </Button>
+                </div>
+              </article>
+            );
+          })}
+        </section>
+      ) : (
+        <EmptyState description="Altera os filtros para procurar outras actividades." icon={CalendarDays} title="Nenhuma experiência encontrada" />
+      )}
     </div>
   );
 }

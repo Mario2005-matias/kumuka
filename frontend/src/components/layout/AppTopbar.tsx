@@ -23,6 +23,7 @@ import {
 } from '@/components/ui/dropdown-menu';
 import { ROUTES } from '@/lib/constants/routes';
 import { useAuthStore } from '@/stores/authStore';
+import { ModeToggle } from '../shared/mode-toggle';
 
 interface AppTopbarProps {
   onOpenMobileMenu: () => void;
@@ -34,6 +35,7 @@ const pageLabels: Record<string, string> = {
   [ROUTES.journey]: 'Minha Jornada',
   [ROUTES.profile]: 'Perfil',
   [ROUTES.experiences.root]: 'Experiências',
+  [ROUTES.opportunities.root]: 'Oportunidades',
 };
 
 const searchLinks = [
@@ -41,6 +43,7 @@ const searchLinks = [
   { label: 'Aprender', description: 'Conteúdos e trilhas', to: ROUTES.learn.root },
   { label: 'Minha Jornada', description: 'O teu percurso', to: ROUTES.journey },
   { label: 'Experiências', description: 'Programas e eventos', to: ROUTES.experiences.root },
+  { label: 'Oportunidades', description: 'Estágios, bolsas e programas', to: ROUTES.opportunities.root },
   { label: 'Perfil', description: 'A tua conta', to: ROUTES.profile },
 ];
 
@@ -59,6 +62,8 @@ export function AppTopbar({ onOpenMobileMenu }: AppTopbarProps) {
       ? 'Aprender'
       : location.pathname.startsWith(ROUTES.experiences.root)
         ? 'Experiências'
+        : location.pathname.startsWith(ROUTES.opportunities.root)
+          ? 'Oportunidades'
         : 'KUMUKA');
   const results = useMemo(() => {
     const normalized = query.trim().toLocaleLowerCase();
@@ -169,6 +174,7 @@ export function AppTopbar({ onOpenMobileMenu }: AppTopbarProps) {
         >
           <Bell aria-hidden="true" className="size-[18px]" />
         </Button>
+        <ModeToggle/>
         <DropdownMenu>
           <DropdownMenuTrigger
             aria-label="Abrir menu da conta"

@@ -1,7 +1,7 @@
 import type { Achievement } from '@/types/achievement';
 
 /**
- * Seis conquistas: quatro desbloqueadas e duas ainda bloqueadas.
+ * Conquistas demonstrativas, incluindo a primeira trilha concluída.
  * Consumidas por: achievements.handler.ts.
  */
 export const mockAchievements: Achievement[] = [
@@ -11,4 +11,6 @@ export const mockAchievements: Achievement[] = [
   { id: 'ach-004', titulo: 'Primeiro Projecto', descricao: 'Adiciona um projecto ao teu portefólio.', unlocked: true, unlockedAt: '2026-08-20T10:00:00Z' },
   { id: 'ach-005', titulo: 'Primeira Experiência', descricao: 'Participa numa experiência em que te inscreveste.', unlocked: false, unlockedAt: null },
   { id: 'ach-006', titulo: 'Primeiro Certificado', descricao: 'Conclui uma aprendizagem que disponibilize certificado.', unlocked: false, unlockedAt: null },
+  { id: 'ach-007', titulo: 'Primeira Trilha Concluída', descricao: 'Conclui todos os módulos de uma trilha de aprendizagem.', unlocked: false, unlockedAt: null },
+  { id: 'ach-008', titulo: 'Primeiro Curso Concluído', descricao: 'Conclui todos os módulos de um curso de aprendizagem.', unlocked: false, unlockedAt: null },
 ];

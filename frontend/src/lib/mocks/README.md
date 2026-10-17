@@ -49,14 +49,68 @@ remove `src/lib/mocks/` e as chamadas dinâmicas aos handlers.
 ## Mocks existentes
 
 Utilizadores, perfis, trilhas, cursos, aprendizados curtos, guias, projectos,
-experiências, conquistas, progresso e competências. Há seis trilhas, cinco
-cursos (a lista de cursos especifica cinco embora a regra de cobertura exija
-seis), oito aprendizados, seis guias, dois projectos, seis experiências e seis
-conquistas.
+experiências, oportunidades, empresas, conquistas, progresso e competências.
+Há seis trilhas com 8, 6, 10, 6, 5 e 8 módulos, cinco cursos com 5, 4, 3, 5 e
+4 módulos, oito aprendizados, seis guias, dois projectos, seis experiências,
+cinco oportunidades, cinco empresas e oito conquistas.
 
-As seis experiências mantêm as datas do pedido, todas futuras; por isso não
-existe uma experiência encerrada. As datas dos eventos continuam em formato
-ISO de calendário (`YYYY-MM-DD`), tal como fornecidas.
+### Trilhas e progresso
+
+Cada trilha tem fases ordenadas, módulos, conteúdos (`contentItems`) e uma
+actividade. O catálogo permite filtrar por pesquisa, nível, duração e
+categoria. O progresso demonstra a trilha 1 concluída e a trilha 2 a 35%,
+na fase 2, módulo 1. O catálogo guarda filtros na URL e em `localStorage`
+(`kumuka-trails-filters`).
+
+O progresso detalhado é guardado em `kumuka-mock-progress`: conteúdos lidos,
+actividades submetidas, rascunhos e módulos concluídos. O fluxo é sequencial:
+é necessário iniciar a trilha, ler todos os conteúdos do módulo e submeter a
+actividade quando obrigatória antes de avançar. A conclusão final desbloqueia
+a conquista `ach-007`. Os uploads de demonstração guardam apenas o nome do
+ficheiro, não enviam conteúdo binário.
+
+### Cursos e progresso
+
+Os cinco cursos têm a quantidade de módulos especificada, três conteúdos e
+uma actividade por módulo. O curso “Excel do Zero ao Avançado” tem cinco
+módulos e retoma no quinto com 70% de progresso. A leitura, os rascunhos, as
+actividades submetidas, os módulos concluídos e a conquista `ach-008` são
+guardados em `kumuka-mock-progress`, partilhado com o painel e a jornada.
+Os filtros de cursos ficam na URL e em `kumuka-courses-filters`. Uploads
+guardam apenas o nome do ficheiro.
+
+Para testar manualmente, inicia sessão como `maria.silva@kumuka.ao` /
+`123456` e abre `/aprender/cursos`. Pesquisa “Excel” e confirma o progresso
+demonstrativo; abre o curso e usa “Continuar” para retomar no módulo 5. Lê
+cada conteúdo, guarda um rascunho, submete a actividade e avança pelos módulos.
+No último módulo, conclui o curso e confirma a página de conclusão, o
+certificado demonstrativo e a conquista no perfil. Actualiza a página durante
+um módulo para verificar a persistência. Os módulos seguintes permanecem
+bloqueados até à conclusão do anterior.
+
+### Experiências
+
+O catálogo permite filtrar por tipo, modalidade, período e localização, com
+os filtros representados na URL. O detalhe inclui benefícios, requisitos,
+programa, oradores, organizador e informação logística. As inscrições são
+guardadas em `kumuka-mock-experience-registrations`, verificam vagas e impedem
+uma segunda inscrição activa.
+
+### Oportunidades e empresas
+
+O catálogo filtra por tipo, área, empresa, localização, modalidade e prazo.
+Os detalhes mostram responsabilidades, requisitos, benefícios e perfil da
+empresa. Candidaturas e manifestações de interesse ficam em
+`kumuka-mock-opportunity-applications` e são únicas por utilizador e
+oportunidade. Os dados de demonstração incluem cinco empresas e cinco
+oportunidades.
+
+Para testar, inicia sessão como `maria.silva@kumuka.ao` / `123456` e abre
+`/experiencias` ou `/oportunidades`. Abre um cartão para consultar os detalhes
+e testar inscrição ou candidatura; regressa ou actualiza a página para
+confirmar o estado guardado. A experiência `Futuro Carreira 2026` começa com
+inscrição demo activa. As datas dos eventos e prazos usam ISO de calendário
+(`YYYY-MM-DD`).
 
 ## Convenções
 

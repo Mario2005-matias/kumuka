@@ -1,13 +1,16 @@
 import {
   mockAchievements,
   mockCompetences,
+  mockCompanies,
   mockCourses,
+  mockExperienceRegistrations,
   mockExperiences,
   mockGuides,
   mockProfiles,
   mockProjects,
   mockProgress,
   mockQuickLearnings,
+  mockOpportunities,
   mockTrails,
   mockUsers,
 } from './data';
@@ -29,7 +32,19 @@ export function seedMocks(
   storage.setItem('kumuka-mock-guides', JSON.stringify(mockGuides));
   storage.setItem('kumuka-mock-projects', JSON.stringify(mockProjects));
   storage.setItem('kumuka-mock-experiences', JSON.stringify(mockExperiences));
-  storage.setItem('kumuka-mock-achievements', JSON.stringify(mockAchievements));
-  storage.setItem('kumuka-mock-progress', JSON.stringify(mockProgress));
+  storage.setItem('kumuka-mock-companies', JSON.stringify(mockCompanies));
+  storage.setItem('kumuka-mock-opportunities', JSON.stringify(mockOpportunities));
+  if (!storage.getItem('kumuka-mock-experience-registrations')) {
+    storage.setItem(
+      'kumuka-mock-experience-registrations',
+      JSON.stringify(mockExperienceRegistrations),
+    );
+  }
+  if (!storage.getItem('kumuka-mock-achievements')) {
+    storage.setItem('kumuka-mock-achievements', JSON.stringify(mockAchievements));
+  }
+  if (!storage.getItem('kumuka-mock-progress')) {
+    storage.setItem('kumuka-mock-progress', JSON.stringify(mockProgress));
+  }
   storage.setItem('kumuka-mock-competences', JSON.stringify(mockCompetences));
 }

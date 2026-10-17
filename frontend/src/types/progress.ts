@@ -9,6 +9,13 @@ export interface LearningProgress {
   percentual: number;
   estado: ProgressStatus;
   moduloAtualId: string | null;
+  modulosConcluidos?: string[];
+  atividadesSubmetidas?: string[];
+  conteudosLidos?: string[];
+  rascunhosAtividade?: Record<string, string>;
+  moduloAtual?: number;
+  faseAtual?: number;
+  fasesConcluidas?: string[];
   iniciadoEm: string;
   atualizadoEm: string;
   concluidoEm: string | null;

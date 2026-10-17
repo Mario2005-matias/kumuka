@@ -218,7 +218,7 @@ export default function LearnContentPage() {
       {isModule && selectedModule && (
         <article className="space-y-4 rounded-xl border border-border bg-card p-5 sm:p-7">
           <p className="text-sm leading-6 text-muted-foreground">{selectedModule.descricao}</p>
-          {selectedModule.conteudos.map((content) => (
+          {selectedModule.contentItems.map((content) => (
             <section className="border-t border-border pt-4" key={content.id}>
               <h2 className="font-semibold">{content.titulo}</h2>
               <p className="mt-2 text-sm leading-6 text-muted-foreground">{content.conteudo}</p>

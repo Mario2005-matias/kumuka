@@ -1,6 +1,7 @@
 import {
   BookOpen,
   Compass,
+  BriefcaseBusiness,
   GraduationCap,
   Home,
   LogOut,
@@ -41,6 +42,7 @@ const groups: {
     label: 'Descobrir',
     links: [
       { label: 'Experiências', to: ROUTES.experiences.root, icon: Compass },
+      { label: 'Oportunidades', to: ROUTES.opportunities.root, icon: BriefcaseBusiness },
     ],
   },
   {
