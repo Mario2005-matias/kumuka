@@ -11,8 +11,10 @@ import { useCourseProgress, useCourseProgressList } from '@/features/learn/hooks
 import { useCourse, useCourses } from '@/features/learn/hooks/useCourses';
 import { ROUTES } from '@/lib/constants/routes';
 import { useAuthStore } from '@/stores/authStore';
+import { useTranslation } from 'react-i18next';
 
 export default function CourseCompletePage() {
+  const { t } = useTranslation('learning');
   const { slug = '' } = useParams();
   const userId = useAuthStore((state) => state.user?.id ?? '');
   const course = useCourse(slug);
@@ -25,13 +27,13 @@ export default function CourseCompletePage() {
   if (!course.data) {
     return (
       <EmptyState
-        description="Volta ao catálogo para escolher um curso disponível."
+        description={t('courseCompletion.notFoundDescription')}
         icon={Award}
-        title="Curso não encontrado"
+        title={t('courseCompletion.notFoundTitle')}
       />
     );
   }
-  if (progress.isLoading) return <p aria-live="polite">A carregar o teu progresso…</p>;
+  if (progress.isLoading) return <p aria-live="polite">{t('courseCompletion.loading')}</p>;
   if (progress.isError) return <ErrorState onRetry={() => void progress.refetch()} />;
   if (!progress.data || progress.data.estado !== 'concluido') {
     return <Navigate replace to={ROUTES.learn.course(course.data.slug)} />;
@@ -50,31 +52,31 @@ export default function CourseCompletePage() {
         <span className="absolute right-[30%] top-1 size-2 -rotate-12 animate-bounce rounded-full bg-primary motion-reduce:animate-none [animation-delay:250ms]" />
       </div>
       <PageHeader
-        description={`Parabéns! Dominaste ${course.data.competenciaCentral}. O teu progresso ficou guardado.`}
-        title="Curso concluído!"
+        description={t('courseCompletion.description', { skill: course.data.competenciaCentral })}
+        title={t('courseCompletion.title')}
       />
       <CourseCompletionCard course={course.data} progress={progress.data} />
       <section className="rounded-xl border border-success/30 bg-success/5 p-5 sm:p-6">
         <h2 className="flex items-center gap-2 font-semibold">
           <BadgeCheck aria-hidden="true" className="size-5 text-success" />
-          O que ganhaste
+          {t('courseCompletion.whatYouEarned')}
         </h2>
         <p className="mt-2 text-sm leading-6 text-muted-foreground">
-          Desbloqueaste a conquista “Primeiro Curso Concluído”. A conquista fica disponível no teu perfil.
+          {t('courseCompletion.achievementDescription')}
         </p>
       </section>
-      <section aria-label="Próximas acções" className="grid gap-3 sm:grid-cols-3">
+      <section aria-label={t('courseCompletion.nextActions')} className="grid gap-3 sm:grid-cols-3">
         <Button className="min-h-11 w-full" nativeButton={false} render={<Link to={ROUTES.profile} />}>
           <UserRound aria-hidden="true" />
-          Ver portefólio
+          {t('courseCompletion.viewPortfolio')}
         </Button>
         <Button className="min-h-11 w-full" nativeButton={false} render={<Link to={ROUTES.learn.courses} />} variant="outline">
           <ArrowLeft aria-hidden="true" />
-          Explorar mais cursos
+          {t('courseCompletion.moreCourses')}
         </Button>
         <Button className="min-h-11 w-full" nativeButton={false} render={<Link to={ROUTES.dashboard} />} variant="outline">
           <LayoutDashboard aria-hidden="true" />
-          Voltar ao dashboard
+          {t('courseCompletion.dashboard')}
         </Button>
       </section>
       <RelatedCourses

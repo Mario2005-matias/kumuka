@@ -1,5 +1,19 @@
 # React + TypeScript + Vite
 
+## Localisation
+
+The frontend supports Portuguese (`pt`, default/fallback), English (`en`) and French (`fr`) through i18next and react-i18next. Language preference is detected from `localStorage` (`kumuka-language`) before the browser preference, and can be changed with the language switcher in the site headers.
+
+Translation resources are JSON files in `public/locales/<language>/<namespace>.json`. The namespaces are declared in `src/i18n/index.ts`; Portuguese resources define the type-safe key shape in `src/i18n/types.d.ts`.
+
+To add or update interface copy:
+
+1. Add the key to the Portuguese resource and provide the same key in the English and French resources.
+2. Use `useTranslation('<namespace>')` and render the typed key with `t('...')`; use i18next plural keys (`_one`, `_other`) for counted text.
+3. Keep user-generated and demo/domain content in its source language; translate interface labels, actions, validation feedback and accessibility text.
+
+The language switcher updates the document `lang` attribute (`pt-AO` for Portuguese) without reloading the application.
+
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
 Currently, two official plugins are available:

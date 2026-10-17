@@ -3,8 +3,15 @@ import { Link } from 'react-router-dom';
 import { Card, CardContent } from '@/components/ui/card';
 import { StatusBadge } from '@/components/shared/StatusBadge';
 import { ROUTES } from '@/lib/constants/routes';
-import type { Trail, TrailProgress } from '@/types/trail';
+import type { Trail, TrailLevel, TrailProgress } from '@/types/trail';
 import { ProgressBar } from './ProgressBar';
+import { useTranslation } from 'react-i18next';
+
+const levelTranslationKeys: Record<TrailLevel, 'courseFilters.beginner' | 'courseFilters.intermediate' | 'courseFilters.advanced'> = {
+  iniciante: 'courseFilters.beginner',
+  intermedio: 'courseFilters.intermediate',
+  avancado: 'courseFilters.advanced',
+};
 
 interface TrailCardProps {
   trail: Trail;
@@ -12,12 +19,13 @@ interface TrailCardProps {
 }
 
 export function TrailCard({ trail, progress }: TrailCardProps) {
+  const { t } = useTranslation('learning');
   const completed = progress?.estado === 'concluido';
   const action = completed
-    ? 'Rever'
+    ? t('common.review')
     : progress
-      ? 'Continuar'
-      : 'Começar';
+      ? t('common.continue')
+      : t('common.start');
 
   return (
     <Link
@@ -32,7 +40,7 @@ export function TrailCard({ trail, progress }: TrailCardProps) {
           <div className="absolute right-4 top-4 flex size-11 items-center justify-center rounded-xl border border-border/70 bg-card/80 text-primary">
             <BookOpen aria-hidden="true" className="size-5" />
           </div>
-          <StatusBadge status="neutral">{trail.nivel}</StatusBadge>
+          <StatusBadge status="neutral">{t(levelTranslationKeys[trail.nivel])}</StatusBadge>
         </div>
         <CardContent className="flex h-[calc(100%-7rem)] flex-col p-5 sm:p-6">
           <h2 className="line-clamp-2 min-h-14 text-lg font-semibold tracking-tight">
@@ -52,14 +60,14 @@ export function TrailCard({ trail, progress }: TrailCardProps) {
             <div className="mt-4 space-y-2">
               <div className="flex items-center justify-between gap-3 text-sm">
                 <span className="font-medium">
-                  {completed ? 'Concluída' : 'Em progresso'}
+                  {completed ? t('common.completed') : t('common.inProgress')}
                 </span>
                 <span className="text-muted-foreground">
-                  {progress.percentual}% concluído
+                  {t('hub.completed', { percent: progress.percentual })}
                 </span>
               </div>
               <ProgressBar
-                label={`Progresso na trilha ${trail.titulo}`}
+                label={t('trailDetails.progressLabel', { title: trail.titulo })}
                 value={progress.percentual}
               />
             </div>

@@ -1,0 +1,86 @@
+{
+  "language": {
+    "change": "Changer de langue",
+    "label": "Langue",
+    "pt": "Portugais",
+    "en": "Anglais",
+    "fr": "Français"
+  },
+  "theme": {
+    "change": "Changer de thème",
+    "title": "Thème",
+    "light": "Clair",
+    "dark": "Sombre",
+    "system": "Système"
+  },
+  "navigation": {
+    "space": "Espace",
+    "discover": "Découvrir",
+    "account": "Compte",
+    "home": "Accueil",
+    "learn": "Apprendre",
+    "journey": "Mon parcours",
+    "journeyShort": "Parcours",
+    "profile": "Profil",
+    "experiences": "Expériences",
+    "opportunities": "Opportunités",
+    "primary": "Navigation principale",
+    "bottom": "Navigation inférieure",
+    "close": "Fermer la navigation",
+    "open": "Ouvrir la navigation",
+    "collapse": "Réduire le menu",
+    "expand": "Développer le menu",
+    "logout": "Se déconnecter",
+    "brandTagline": "Construis ton avenir."
+  },
+  "actions": {
+    "login": "Se connecter",
+    "start": "Commencer",
+    "continue": "Continuer",
+    "back": "Retour",
+    "explore": "Explorer les contenus",
+    "retry": "Réessayer",
+    "viewAll": "Tout voir",
+    "details": "Voir les détails",
+    "save": "Enregistrer",
+    "cancel": "Annuler",
+    "search": "Rechercher"
+  },
+  "search": {
+    "open": "Rechercher (Ctrl+K)",
+    "dialog": "Recherche globale",
+    "pages": "Rechercher des pages",
+    "placeholder": "Rechercher dans KUMUKA...",
+    "empty": "Aucun résultat trouvé.",
+    "keyboardHelp": "Utilise ↑↓ pour naviguer · Entrée pour ouvrir · Échap pour fermer",
+    "description": {
+      "home": "Ton espace KUMUKA",
+      "learn": "Contenus et parcours",
+      "journey": "Ta progression",
+      "experiences": "Programmes et événements",
+      "opportunities": "Stages, bourses et programmes",
+      "profile": "Ton compte"
+    }
+  },
+  "notifications": {
+    "soon": "Notifications (bientôt)"
+  },
+  "account": {
+    "open": "Ouvrir le menu du compte",
+    "yourAccount": "Ton compte"
+  },
+  "breadcrumb": {
+    "home": "KUMUKA"
+  },
+  "states": {
+    "loading": "Chargement…",
+    "errorTitle": "Une erreur s’est produite",
+    "error": "Impossible de charger ces informations. Réessaie.",
+    "empty": "Aucune information à afficher pour le moment."
+  },
+  "status": {
+    "completed": "Terminé",
+    "inProgress": "En cours",
+    "notStarted": "À commencer"
+  }
+}

@@ -19,8 +19,10 @@ import { useExperiences } from '@/features/experiences/hooks/useExperiences';
 import { useAchievements } from '@/features/dashboard/hooks/useAchievements';
 import { useAuthStore } from '@/stores/authStore';
 import { useProfile, useProfileCompetences, useProjects } from '../hooks/useProfile';
+import { useTranslation } from 'react-i18next';
 
 export default function ProfilePage() {
+  const { t } = useTranslation('profile');
   const user = useAuthStore((state) => state.user);
   const userId = user?.id ?? '';
   const profile = useProfile(userId);
@@ -39,8 +41,8 @@ export default function ProfilePage() {
   if (profile.isLoading) {
     return (
       <div className="space-y-8">
-        <PageHeader description="Organiza os teus dados e reúne aquilo que queres mostrar." title="Perfil" />
-        <LoadingState message="A carregar o perfil…" />
+        <PageHeader description={t('description')} title={t('title')} />
+        <LoadingState message={t('loading')} />
       </div>
     );
   }
@@ -48,8 +50,8 @@ export default function ProfilePage() {
   if (profile.isError) {
     return (
       <div className="space-y-8">
-        <PageHeader description="Organiza os teus dados e reúne aquilo que queres mostrar." title="Perfil" />
-        <ErrorState message="Não foi possível carregar o teu perfil." />
+        <PageHeader description={t('description')} title={t('title')} />
+        <ErrorState message={t('error')} />
       </div>
     );
   }
@@ -57,11 +59,11 @@ export default function ProfilePage() {
   if (!profile.data) {
     return (
       <div className="space-y-8">
-        <PageHeader description="Organiza os teus dados e reúne aquilo que queres mostrar." title="Perfil" />
+        <PageHeader description={t('description')} title={t('title')} />
         <EmptyState
-          description="Completa o onboarding para criares o teu perfil."
+          description={t('emptyDescription')}
           icon={UserRound}
-          title="Ainda não tens um perfil de demonstração"
+          title={t('emptyTitle')}
         />
       </div>
     );
@@ -70,8 +72,8 @@ export default function ProfilePage() {
   return (
     <div className="space-y-8">
       <PageHeader
-        description="Organiza os teus dados e reúne aquilo que queres mostrar."
-        title="Perfil"
+        description={t('description')}
+        title={t('title')}
       />
 
       <Card className="overflow-hidden border-border bg-[image:var(--gradient-surface)]">
@@ -83,21 +85,21 @@ export default function ProfilePage() {
             </AvatarFallback>
           </Avatar>
           <div className="min-w-0 pb-1">
-            <p className="text-xs font-semibold uppercase tracking-[0.14em] text-primary">Perfil KUMUKA</p>
+            <p className="text-xs font-semibold uppercase tracking-[0.14em] text-primary">{t('kumukaProfile')}</p>
             <h2 className="mt-1 text-xl font-bold tracking-tight">{profile.data.nome}</h2>
             <p className="mt-1 text-sm text-muted-foreground">{profile.data.bio}</p>
           </div>
         </CardContent>
       </Card>
 
-      <nav aria-label="Secções do perfil" className="overflow-x-auto">
+      <nav aria-label={t('sections.nav')} className="overflow-x-auto">
         <ul className="flex min-w-max gap-2 border-b border-border">
           {[
-            ['Dados', '#profile-data'],
-            ['Competências', '#profile-skills'],
-            ['Projectos', '#profile-projects'],
-            ['Experiências', '#profile-experiences'],
-            ['Evidências', '#profile-evidence'],
+            [t('sections.data'), '#profile-data'],
+            [t('sections.skills'), '#profile-skills'],
+            [t('sections.projects'), '#profile-projects'],
+            [t('sections.experiences'), '#profile-experiences'],
+            [t('sections.evidence'), '#profile-evidence'],
           ].map(([label, href], index) => (
             <li key={href}>
               <a
@@ -117,28 +119,28 @@ export default function ProfilePage() {
       </nav>
 
       <div className="grid gap-4 xl:grid-cols-2">
-        <SectionCard description="Informação associada à tua conta." id="profile-data" title="Dados da conta">
+        <SectionCard description={t('accountDescription')} id="profile-data" title={t('accountData')}>
           <dl className="space-y-4">
             <div className="flex items-start gap-3">
               <Mail aria-hidden="true" className="mt-0.5 size-4 text-primary" />
               <div>
-                <dt className="text-xs font-medium uppercase tracking-wide text-muted-foreground">Email</dt>
-                <dd className="mt-1 break-all text-sm">{user?.email ?? 'Não disponível'}</dd>
+                <dt className="text-xs font-medium uppercase tracking-wide text-muted-foreground">{t('email')}</dt>
+                <dd className="mt-1 break-all text-sm">{user?.email ?? t('notAvailable')}</dd>
               </div>
             </div>
             <div className="flex items-start gap-3">
               <UserRound aria-hidden="true" className="mt-0.5 size-4 text-primary" />
               <div>
-                <dt className="text-xs font-medium uppercase tracking-wide text-muted-foreground">Situação</dt>
+                <dt className="text-xs font-medium uppercase tracking-wide text-muted-foreground">{t('situation')}</dt>
                 <dd className="mt-1 text-sm">{profile.data.situacao} · {profile.data.faixaEtaria} anos</dd>
               </div>
             </div>
             <div>
-              <dt className="text-xs font-medium uppercase tracking-wide text-muted-foreground">Objectivo</dt>
+              <dt className="text-xs font-medium uppercase tracking-wide text-muted-foreground">{t('goal')}</dt>
               <dd className="mt-1 text-sm">{profile.data.objetivo}</dd>
             </div>
             <div>
-              <dt className="text-xs font-medium uppercase tracking-wide text-muted-foreground">Interesses</dt>
+              <dt className="text-xs font-medium uppercase tracking-wide text-muted-foreground">{t('interests')}</dt>
               <dd className="mt-2 flex flex-wrap gap-2">
                 {profile.data.interesses.map((interest) => <Badge key={interest} variant="secondary">{interest}</Badge>)}
               </dd>
@@ -146,11 +148,11 @@ export default function ProfilePage() {
           </dl>
         </SectionCard>
 
-        <SectionCard description="Competências que fazem parte do teu perfil." id="profile-skills" title="Competências">
+        <SectionCard description={t('skillsDescription')} id="profile-skills" title={t('sections.skills')}>
           {competences.isLoading ? (
-            <p className="text-sm text-muted-foreground">A carregar competências…</p>
+            <p className="text-sm text-muted-foreground">{t('loadingSkills')}</p>
           ) : competences.isError ? (
-            <ErrorState message="Não foi possível carregar as competências." />
+            <ErrorState message={t('skillsError')} />
           ) : competences.data?.length ? (
             <ul className="flex flex-wrap gap-2">
               {competences.data.map((competence) => (
@@ -158,15 +160,15 @@ export default function ProfilePage() {
               ))}
             </ul>
           ) : (
-            <EmptyState className="border-0 bg-transparent py-4" description="As competências desenvolvidas vão aparecer aqui." icon={Award} title="Ainda não há competências para mostrar" />
+            <EmptyState className="border-0 bg-transparent py-4" description={t('skillsEmptyDescription')} icon={Award} title={t('skillsEmptyTitle')} />
           )}
         </SectionCard>
 
-        <SectionCard description="Projectos que mostram o que sabes fazer." id="profile-projects" title="Portefólio">
+        <SectionCard description={t('projectsDescription')} id="profile-projects" title={t('portfolio')}>
           {projects.isLoading ? (
-            <p className="text-sm text-muted-foreground">A carregar projectos…</p>
+            <p className="text-sm text-muted-foreground">{t('loadingProjects')}</p>
           ) : projects.isError ? (
-            <ErrorState message="Não foi possível carregar os projectos." />
+            <ErrorState message={t('projectsError')} />
           ) : projects.data?.length ? (
             <ul className="space-y-3">
               {projects.data.map((project) => (
@@ -176,7 +178,7 @@ export default function ProfilePage() {
                       <h3 className="font-semibold">{project.titulo}</h3>
                       <p className="mt-1 text-sm leading-6 text-muted-foreground">{project.descricao}</p>
                     </div>
-                    <StatusBadge status="info">{project.tipo === 'tecnico' ? 'Técnico' : 'Criativo'}</StatusBadge>
+                    <StatusBadge status="info">{project.tipo === 'tecnico' ? t('projectType.technical') : t('projectType.creative')}</StatusBadge>
                   </div>
                   <ul className="mt-3 flex flex-wrap gap-2">
                     {project.competencias.map((skill) => <li key={skill}><Badge variant="outline">{skill}</Badge></li>)}
@@ -187,42 +189,42 @@ export default function ProfilePage() {
                     rel="noreferrer"
                     target="_blank"
                   >
-                    Ver projecto
+                    {t('viewProject')}
                     <ExternalLink aria-hidden="true" className="size-4" />
                   </a>
                 </li>
               ))}
             </ul>
           ) : (
-            <EmptyState className="border-0 bg-transparent py-4" description="Os teus projectos vão ficar reunidos nesta área." icon={FolderKanban} title="Ainda não há projectos para mostrar" />
+            <EmptyState className="border-0 bg-transparent py-4" description={t('projectsEmptyDescription')} icon={FolderKanban} title={t('projectsEmptyTitle')} />
           )}
         </SectionCard>
 
-        <SectionCard description="Programas e actividades em que participas." id="profile-experiences" title="Experiências">
+        <SectionCard description={t('experiencesDescription')} id="profile-experiences" title={t('sections.experiences')}>
           {experiences.isLoading ? (
-            <p className="text-sm text-muted-foreground">A carregar experiências…</p>
+            <p className="text-sm text-muted-foreground">{t('loadingExperiences')}</p>
           ) : experiences.isError ? (
-            <ErrorState message="Não foi possível carregar as experiências." />
+            <ErrorState message={t('experiencesError')} />
           ) : enrolled.length ? (
             <ul className="space-y-3">
               {enrolled.map((experience) => (
                 <li className="rounded-lg border border-border p-4" key={experience.id}>
                   <h3 className="font-semibold">{experience.titulo}</h3>
                   <p className="mt-1 text-sm text-muted-foreground">{experience.data} · {experience.local}</p>
-                  <StatusBadge className="mt-3" status="success">Inscrita</StatusBadge>
+                  <StatusBadge className="mt-3" status="success">{t('enrolled')}</StatusBadge>
                 </li>
               ))}
             </ul>
           ) : (
-            <EmptyState className="border-0 bg-transparent py-4" description="As experiências em que participas vão aparecer aqui." icon={BriefcaseBusiness} title="Ainda não há experiências no teu perfil" />
+            <EmptyState className="border-0 bg-transparent py-4" description={t('experiencesEmptyDescription')} icon={BriefcaseBusiness} title={t('experiencesEmptyTitle')} />
           )}
         </SectionCard>
 
-        <SectionCard description="Resultados concretos daquilo que aprendeste e criaste." id="profile-evidence" title="Evidências">
+        <SectionCard description={t('evidenceDescription')} id="profile-evidence" title={t('evidence')}>
           {achievements.isLoading ? (
-            <p className="text-sm text-muted-foreground">A carregar evidências…</p>
+            <p className="text-sm text-muted-foreground">{t('loadingEvidence')}</p>
           ) : achievements.isError ? (
-            <ErrorState message="Não foi possível carregar as evidências." />
+            <ErrorState message={t('evidenceError')} />
           ) : achievements.data?.some((item) => item.unlocked) ? (
             <ul className="space-y-3">
               {achievements.data.filter((item) => item.unlocked).map((item) => (
@@ -236,7 +238,7 @@ export default function ProfilePage() {
               ))}
             </ul>
           ) : (
-            <EmptyState className="border-0 bg-transparent py-4" description="As evidências do teu trabalho vão ficar guardadas nesta área." icon={Award} title="Ainda não há evidências para mostrar" />
+            <EmptyState className="border-0 bg-transparent py-4" description={t('evidenceEmptyDescription')} icon={Award} title={t('evidenceEmptyTitle')} />
           )}
         </SectionCard>
       </div>

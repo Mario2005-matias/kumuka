@@ -4,6 +4,7 @@ import { Card, CardContent } from '@/components/ui/card';
 import type { Course, CourseModule, CourseProgress } from '@/types/course';
 import { ROUTES } from '@/lib/constants/routes';
 import { CourseProgressBar } from './CourseProgressBar';
+import { useTranslation } from 'react-i18next';
 
 export type CourseModuleState = 'completed' | 'active' | 'available' | 'locked';
 
@@ -20,6 +21,7 @@ export function CourseModuleCard({
   progress,
   state,
 }: CourseModuleCardProps) {
+  const { t } = useTranslation('learning');
   const complete = state === 'completed';
   const locked = state === 'locked';
   const current = progress?.moduloAtualId === module.id;
@@ -28,7 +30,7 @@ export function CourseModuleCard({
   ).length ?? 0;
   const icon = locked ? LockKeyhole : complete ? CheckCircle2 : current ? PlayCircle : Circle;
   const Icon = icon;
-  const label = locked ? 'Bloqueado' : complete ? 'Rever' : current ? 'Continuar' : 'Começar';
+  const label = locked ? t('common.locked') : complete ? t('common.review') : current ? t('common.continue') : t('common.start');
   const card = (
     <Card className={`h-full border-border ${locked ? 'bg-muted/30 opacity-75' : 'transition-[border-color,box-shadow] hover:border-primary/50 hover:shadow-lg'}`}>
       <CardContent className="flex h-full flex-col gap-4 p-4 sm:p-5">
@@ -40,7 +42,7 @@ export function CourseModuleCard({
           </span>
           <div className="min-w-0 flex-1">
             <p className="text-xs font-semibold uppercase tracking-wide text-muted-foreground">
-              Módulo {String(module.ordem).padStart(2, '0')}
+              {t('common.moduleNumber', { number: String(module.ordem).padStart(2, '0') })}
             </p>
             <h3 className="mt-1 font-semibold">{module.titulo}</h3>
             <p className="mt-1 text-sm leading-6 text-muted-foreground">{module.descricao}</p>
@@ -48,11 +50,11 @@ export function CourseModuleCard({
         </div>
         <div className="flex items-center gap-2 text-sm text-muted-foreground">
           <Clock3 aria-hidden="true" className="size-4 text-primary" />
-          {module.duracao} min
+          {t('catalog.duration', { count: module.duracao })}
         </div>
         {progress && !locked && (
           <CourseProgressBar
-            courseTitle={`${course.titulo}, módulo ${module.ordem}`}
+            courseTitle={t('courseDetails.moduleLabel', { title: course.titulo, number: module.ordem })}
             value={complete ? 100 : Math.round((readCount / module.contentItems.length) * 100)}
           />
         )}
@@ -65,7 +67,7 @@ export function CourseModuleCard({
     </Card>
   );
   if (locked) {
-    return <div aria-disabled="true" className="cursor-not-allowed" title="Conclui o módulo anterior para desbloquear este módulo.">{card}</div>;
+    return <div aria-disabled="true" className="cursor-not-allowed" title={t('common.unlockPrevious')}>{card}</div>;
   }
   return (
     <Link

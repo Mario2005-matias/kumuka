@@ -16,11 +16,14 @@ import { ROUTES } from "@/lib/constants/routes";
 import { DESKTOP_NAV } from "@/lib/constants/navigation";
 import { cn } from "@/lib/utils";
 import { ModeToggle } from "@/components/shared/mode-toggle";
+import { LanguageSwitcher } from "@/components/shared/LanguageSwitcher";
+import { useTranslation } from "react-i18next";
 
 export function Navbar() {
   const { user, isAuthenticated, clearAuth } = useAuthStore();
   const navigate = useNavigate();
   const logout = useLogout();
+  const { t } = useTranslation("common");
 
   const handleLogout = () => {
     clearAuth();
@@ -55,7 +58,7 @@ export function Navbar() {
                     )
                   }
                 >
-                  {item.label}
+                  {t(`navigation.${item.translationKey}`)}
                 </NavLink>
               ))}
             </nav>
@@ -63,6 +66,7 @@ export function Navbar() {
         </div>
 
         <div className="flex items-center gap-2">
+          <LanguageSwitcher />
           <ModeToggle />
           {!isAuthenticated ? (
             <>
@@ -73,7 +77,7 @@ export function Navbar() {
                 size="sm"
                 variant="ghost"
               >
-                Entrar
+                {t("actions.login")}
               </Button>
               <Button
                 className="min-h-11 px-4"
@@ -81,7 +85,7 @@ export function Navbar() {
                 render={<Link to={ROUTES.auth.register} />}
                 size="sm"
               >
-                Começar agora
+                {t("actions.start")}
               </Button>
             </>
           ) : (
@@ -100,16 +104,16 @@ export function Navbar() {
                 <DropdownMenuSeparator />
                 <DropdownMenuItem onSelect={() => navigate(ROUTES.profile)}>
                   <UserIcon className="mr-2 h-4 w-4" />
-                  Perfil
+                  {t("navigation.profile")}
                 </DropdownMenuItem>
                 <DropdownMenuSeparator />
                 <DropdownMenuItem onSelect={handleLogout}>
                   <LogOut className="mr-2 h-4 w-4" />
-                  Sair
+                  {t("navigation.logout")}
                 </DropdownMenuItem>
                 <DropdownMenuItem onSelect={() => logout.mutate()}>
                   <LogOut className="mr-2 h-4 w-4" />
-                  Sair
+                  {t("navigation.logout")}
                 </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>

@@ -2,14 +2,17 @@ import { Link } from 'react-router-dom';
 import { revealSection } from '../lib/animations/sectionAnimations';
 import { useScrollAnimation } from '../hooks/useScrollAnimation';
 import { ROUTES } from '@/lib/constants/routes';
+import { useTranslation } from 'react-i18next';
 
 const footerLinks = [
-  { label: 'Aprender', to: ROUTES.learn.root },
-  { label: 'Experiências', to: ROUTES.experiences.root },
-  { label: 'Entrar', to: ROUTES.auth.login },
-];
+  { key: 'learn', to: ROUTES.learn.root },
+  { key: 'experiences', to: ROUTES.experiences.root },
+  { key: 'login', to: ROUTES.auth.login },
+] as const;
 
 export function HomeFooter() {
+  const { t: tCommon } = useTranslation('common');
+  const { t } = useTranslation('home');
   const footerRef = useScrollAnimation(revealSection);
 
   return (
@@ -23,25 +26,27 @@ export function HomeFooter() {
             KUMUKA
           </Link>
           <p className="mt-1 text-sm text-muted-foreground">
-            Constrói o teu futuro.
+            {t('footer.tagline')}
           </p>
         </div>
-        <nav aria-label="Links do rodapé" data-reveal>
+        <nav aria-label={tCommon('navigation.bottom')} data-reveal>
           <ul className="flex flex-wrap gap-x-6 gap-y-2">
-            {footerLinks.map(({ label, to }) => (
-              <li key={label}>
+            {footerLinks.map(({ key, to }) => (
+              <li key={key}>
                 <Link
                   className="inline-flex min-h-11 items-center rounded-sm text-sm text-muted-foreground transition-colors hover:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
                   to={to}
                 >
-                  {label}
+                  {key === 'login'
+                    ? tCommon('actions.login')
+                    : tCommon(`navigation.${key}`)}
                 </Link>
               </li>
             ))}
           </ul>
         </nav>
         <p className="text-sm text-muted-foreground sm:text-right" data-reveal>
-          © {new Date().getFullYear()} KUMUKA. Constrói o teu futuro.
+          © {new Date().getFullYear()} KUMUKA. {t('footer.tagline')}
         </p>
       </div>
     </footer>

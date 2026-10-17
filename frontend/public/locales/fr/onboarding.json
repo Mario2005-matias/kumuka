@@ -1,0 +1,105 @@
+{
+  "steps": {
+    "welcome": "Bienvenue",
+    "credentials": "Compte",
+    "name": "Nom",
+    "age": "Âge",
+    "situation": "Situation",
+    "interests": "Intérêts",
+    "goal": "Objectif",
+    "reward": "Ton parcours"
+  },
+  "welcome": {
+    "eyebrow": "Ton prochain chapitre commence ici",
+    "title": "Bienvenue chez KUMUKA",
+    "description": "Faisons connaissance pour t’aider à découvrir des opportunités, développer tes compétences et avancer à ton rythme.",
+    "start": "Commençons"
+  },
+  "credentials": {
+    "continue": "Continuer",
+    "alreadyReady": "Ton compte est prêt",
+    "alreadyReadyDescription": "Continue à personnaliser ton expérience KUMUKA.",
+    "title": "Crée ton compte",
+    "description": "Utilise une adresse e-mail accessible et choisis un mot de passe sécurisé.",
+    "email": "E-mail",
+    "emailPlaceholder": "toi@exemple.com",
+    "password": "Mot de passe",
+    "confirmPassword": "Confirmer le mot de passe",
+    "requiredEmail": "L’e-mail est obligatoire.",
+    "invalidEmail": "Saisis une adresse e-mail valide.",
+    "shortPassword": "Le mot de passe doit contenir au moins {{count}} caractères.",
+    "requiredConfirmation": "Confirme ton mot de passe.",
+    "passwordMismatch": "Les mots de passe ne correspondent pas.",
+    "creating": "Création du compte…",
+    "createAndContinue": "Créer le compte et continuer"
+  },
+  "name": {
+    "title": "Comment pouvons-nous t’appeler ?",
+    "description": "Indique le prénom que tu préfères utiliser.",
+    "label": "Ton prénom",
+    "placeholder": "Par exemple, Ana",
+    "minLength": "Saisis au moins deux caractères."
+  },
+  "age": {
+    "title": "Quel âge as-tu ?",
+    "description": "Nous te proposerons des opportunités adaptées à ta situation.",
+    "label": "Âge",
+    "invalid": "Saisis un âge valide."
+  },
+  "situation": {
+    "title": "Que fais-tu en ce moment ?",
+    "description": "Il n’y a pas de bonne ou de mauvaise réponse."
+  },
+  "interests": {
+    "title": "Qu’aimerais-tu explorer ?",
+    "description": "Choisis un ou plusieurs sujets qui t’intéressent.",
+    "label": "Tes centres d’intérêt"
+  },
+  "goal": {
+    "title": "Quel est ton objectif principal ?",
+    "description": "Ta réponse nous aide à privilégier ce qui compte pour toi."
+  },
+  "options": {
+    "situations": {
+      "studying": "Je fais des études",
+      "jobSearch": "Je cherche un emploi",
+      "working": "Je travaille déjà",
+      "business": "J’ai une entreprise ou un projet",
+      "other": "Une autre situation"
+    },
+    "interests": {
+      "technology": "Technologie",
+      "entrepreneurship": "Entrepreneuriat",
+      "creativity": "Créativité",
+      "leadership": "Leadership",
+      "finance": "Finance",
+      "communication": "Communication",
+      "science": "Sciences",
+      "employability": "Employabilité"
+    },
+    "goals": {
+      "skill": "Apprendre une nouvelle compétence",
+      "firstJob": "Me préparer à mon premier emploi",
+      "business": "Créer ma propre entreprise",
+      "career": "Évoluer dans mon emploi actuel",
+      "explore": "Découvrir ce que je veux faire"
+    }
+  },
+  "reward": {
+    "almost": "Tu y es presque !",
+    "almostNamed": "Tu y es presque, {{name}} !",
+    "description": "Ton profil est prêt à ouvrir de nouvelles possibilités.",
+    "journeyTitle": "Ton parcours KUMUKA",
+    "journeyDescription": "Ton parcours commence avec des recommandations adaptées à tes intérêts et à tes objectifs.",
+    "goal": "Objectif :",
+    "interests": "Intérêts :",
+    "complete": "Terminer mon profil"
+  },
+  "complete": {
+    "congratulations": "Félicitations !",
+    "congratulationsNamed": "Félicitations, {{name}} !",
+    "description": "Ton profil KUMUKA est prêt. Ta prochaine opportunité commence maintenant.",
+    "explore": "Explorer KUMUKA"
+  },
+  "progress": "Étape {{current}} sur {{total}}"
+}

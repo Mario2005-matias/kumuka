@@ -9,6 +9,7 @@ import { Link } from 'react-router-dom';
 import { Card, CardContent } from '@/components/ui/card';
 import type { Trail, TrailModule, TrailProgress } from '@/types/trail';
 import { ProgressBar } from './ProgressBar';
+import { useTranslation } from 'react-i18next';
 
 type ModuleState = 'completed' | 'active' | 'available' | 'locked';
 
@@ -25,6 +26,7 @@ export function ModuleCard({
   progress,
   state,
 }: ModuleCardProps) {
+  const { t } = useTranslation('learning');
   const isLocked = state === 'locked';
   const isComplete = state === 'completed';
   const isCurrent = progress?.moduloAtualId === module.id;
@@ -38,12 +40,12 @@ export function ModuleCard({
       ? Math.round((readCount / module.contentItems.length) * 100)
       : 0;
   const action = isLocked
-    ? 'Bloqueado'
+    ? t('common.locked')
     : isComplete
-      ? 'Rever'
+      ? t('common.review')
       : isCurrent
-        ? 'Continuar'
-        : 'Começar';
+        ? t('common.continue')
+        : t('common.start');
   const StateIcon = isLocked
     ? LockKeyhole
     : isComplete
@@ -76,7 +78,7 @@ export function ModuleCard({
           </span>
           <div className="min-w-0 flex-1">
             <p className="text-xs font-semibold uppercase tracking-wide text-muted-foreground">
-              Módulo {String(module.ordem).padStart(2, '0')}
+              {t('common.moduleNumber', { number: String(module.ordem).padStart(2, '0') })}
             </p>
             <h3 className="mt-1 font-semibold">{module.titulo}</h3>
             <p className="mt-1 text-sm leading-6 text-muted-foreground">
@@ -86,11 +88,11 @@ export function ModuleCard({
         </div>
         <div className="flex items-center gap-2 text-sm text-muted-foreground">
           <Clock3 aria-hidden="true" className="size-4 text-primary" />
-          {module.duracao} min
+          {t('catalog.duration', { count: module.duracao })}
         </div>
         {progress && !isLocked && (
           <ProgressBar
-            label={`Progresso do módulo ${module.titulo}`}
+            label={t('trailModule.moduleProgressLabel', { title: module.titulo })}
             value={modulePercent}
           />
         )}
@@ -111,7 +113,7 @@ export function ModuleCard({
 
   if (isLocked) {
     return (
-      <div aria-disabled="true" className="cursor-not-allowed" title="Conclui o módulo anterior para desbloquear este módulo.">
+      <div aria-disabled="true" className="cursor-not-allowed" title={t('common.unlockPrevious')}>
         {content}
       </div>
     );

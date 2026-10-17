@@ -8,29 +8,31 @@ import { useTrailProgress } from '@/features/learn/hooks/useTrailFlow';
 import { useTrail } from '@/features/learn/hooks/useTrails';
 import { ROUTES } from '@/lib/constants/routes';
 import { useAuthStore } from '@/stores/authStore';
+import { useTranslation } from 'react-i18next';
 
 export default function TrailCompletionPage() {
+  const { t } = useTranslation('learning');
   const { slug = '' } = useParams();
   const userId = useAuthStore((state) => state.user?.id ?? '');
   const trail = useTrail(slug);
   const progress = useTrailProgress(userId, trail.data?.id ?? '');
 
-  if (trail.isLoading) return <p aria-live="polite">A carregar conclusão…</p>;
+  if (trail.isLoading) return <p aria-live="polite">{t('trailCompletion.loading')}</p>;
   if (trail.isError) {
-    return <p className="text-sm text-destructive" role="alert">Não foi possível carregar esta trilha.</p>;
+    return <p className="text-sm text-destructive" role="alert">{t('trailCompletion.error')}</p>;
   }
   if (!trail.data) {
     return (
       <EmptyState
-        description="Volta ao catálogo para escolher uma trilha disponível."
+        description={t('trailCompletion.notFoundDescription')}
         icon={BookOpen}
-        title="Trilha não encontrada"
+        title={t('trailCompletion.notFoundTitle')}
       />
     );
   }
-  if (progress.isLoading) return <p aria-live="polite">A carregar o teu progresso…</p>;
+  if (progress.isLoading) return <p aria-live="polite">{t('trailCompletion.loadingProgress')}</p>;
   if (progress.isError) {
-    return <p className="text-sm text-destructive" role="alert">Não foi possível carregar o teu progresso.</p>;
+    return <p className="text-sm text-destructive" role="alert">{t('trailCompletion.progressError')}</p>;
   }
   if (!progress.data || progress.data.estado !== 'concluido') {
     return <Navigate replace to={ROUTES.learn.trail(trail.data.slug)} />;
@@ -47,11 +49,11 @@ export default function TrailCompletionPage() {
             variant="outline"
           >
             <ArrowLeft aria-hidden="true" />
-            Explorar trilhas
+            {t('trailCompletion.explore')}
           </Button>
         }
-        description="Parabéns por completares o percurso. O teu progresso ficou guardado."
-        title="Trilha concluída!"
+        description={t('trailCompletion.description')}
+        title={t('trailCompletion.title')}
       />
       <TrailCompletionCard progress={progress.data} trail={trail.data} />
       <div className="flex flex-col gap-3 sm:flex-row">
@@ -60,7 +62,7 @@ export default function TrailCompletionPage() {
           nativeButton={false}
           render={<Link to={ROUTES.learn.trail(trail.data.slug)} />}
         >
-          Rever módulos
+          {t('trailCompletion.reviewModules')}
         </Button>
         <Button
           className="min-h-11 w-full sm:w-auto"
@@ -68,7 +70,7 @@ export default function TrailCompletionPage() {
           render={<Link to={ROUTES.learn.trails} />}
           variant="outline"
         >
-          Descobrir outra trilha
+          {t('trailCompletion.anotherTrail')}
         </Button>
       </div>
     </div>

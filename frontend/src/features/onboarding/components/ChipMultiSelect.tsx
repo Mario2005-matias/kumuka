@@ -6,6 +6,7 @@ interface ChipMultiSelectProps {
   options: readonly string[];
   selected: string[];
   onToggle: (option: string) => void;
+  getLabel?: (option: string) => string;
 }
 
 export function ChipMultiSelect({
@@ -13,6 +14,7 @@ export function ChipMultiSelect({
   options,
   selected,
   onToggle,
+  getLabel = (option) => option,
 }: ChipMultiSelectProps) {
   return (
     <div aria-label={label} className="flex flex-wrap gap-2" role="group">
@@ -33,7 +35,7 @@ export function ChipMultiSelect({
             )}
           >
             {isSelected && <Check className="h-3.5 w-3.5" />}
-            {option}
+            {getLabel(option)}
           </button>
         );
       })}

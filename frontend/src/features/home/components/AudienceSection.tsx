@@ -11,16 +11,18 @@ import { Badge } from '@/components/ui/badge';
 import { usePrefersReducedMotion } from '../hooks/usePrefersReducedMotion';
 import { revealSection } from '../lib/animations/sectionAnimations';
 import { useScrollAnimation } from '../hooks/useScrollAnimation';
+import { useTranslation } from 'react-i18next';
 
-const audiences: { label: string; icon: LucideIcon }[] = [
-  { label: 'Estudantes', icon: School },
-  { label: 'Universitários', icon: GraduationCap },
-  { label: 'Recém-formados', icon: BriefcaseBusiness },
-  { label: 'À procura de oportunidade', icon: Search },
-  { label: 'Empreendedores', icon: Lightbulb },
+const audiences: { key: 'students' | 'university' | 'graduates' | 'opportunity' | 'entrepreneurs'; icon: LucideIcon }[] = [
+  { key: 'students', icon: School },
+  { key: 'university', icon: GraduationCap },
+  { key: 'graduates', icon: BriefcaseBusiness },
+  { key: 'opportunity', icon: Search },
+  { key: 'entrepreneurs', icon: Lightbulb },
 ];
 
 export function AudienceSection() {
+  const { t } = useTranslation('home');
   const sectionRef = useScrollAnimation(revealSection);
   const prefersReducedMotion = usePrefersReducedMotion();
 
@@ -38,17 +40,17 @@ export function AudienceSection() {
             data-reveal
             id="audience-title"
           >
-            Para quem é a KUMUKA
+            {t('audiencesHeading')}
           </h2>
           <p className="mt-4 leading-7 text-muted-foreground" data-reveal>
-            Para jovens com vontade de aprender, fazer e avançar.
+            {t('sections.audienceDescription')}
           </p>
         </div>
         <ul className="mx-auto mt-10 flex max-w-4xl flex-wrap justify-center gap-3 sm:mt-12">
-          {audiences.map(({ label, icon: Icon }) => (
+          {audiences.map(({ key, icon: Icon }) => (
             <motion.li
               data-reveal
-              key={label}
+              key={key}
               transition={{ duration: 0.22, ease: 'easeOut' }}
               whileHover={prefersReducedMotion ? undefined : { scale: 1.04 }}
             >
@@ -62,7 +64,7 @@ export function AudienceSection() {
                 >
                   <Icon aria-hidden="true" className="size-4 text-primary" />
                 </motion.span>
-                {label}
+                {t(`sections.audiences.${key}`)}
               </Badge>
             </motion.li>
           ))}

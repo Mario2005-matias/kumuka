@@ -26,32 +26,28 @@ import { useAuthStore } from '@/stores/authStore';
 import { useAchievements } from '../hooks/useAchievements';
 import { useProgress } from '../hooks/useProgress';
 import { useRecommendations } from '../hooks/useRecommendations';
+import { useTranslation } from 'react-i18next';
 
 const exploreCards = [
   {
-    title: 'Aprender',
-    description: 'Encontra trilhas, cursos, aprendizados e guias.',
+    key: 'learn',
     icon: BookOpen,
     to: ROUTES.learn.root,
-    action: 'Explorar conteúdos',
   },
   {
-    title: 'Minha Jornada',
-    description: 'Acompanha os passos que te ajudam a avançar.',
+    key: 'journey',
     icon: Map,
     to: ROUTES.journey,
-    action: 'Ver a jornada',
   },
   {
-    title: 'Experiências',
-    description: 'Descobre programas, workshops e eventos.',
+    key: 'experiences',
     icon: Compass,
     to: ROUTES.experiences.root,
-    action: 'Ver experiências',
   },
-];
+] as const;
 
 export default function DashboardPage() {
+  const { t } = useTranslation('dashboard');
   const user = useAuthStore((state) => state.user);
   const userId = user?.id ?? '';
   const progress = useProgress(userId);
@@ -100,11 +96,11 @@ export default function DashboardPage() {
     return (
       <div className="space-y-8">
         <PageHeader
-          description="Aprende, pratica e transforma as tuas competências em novas possibilidades."
-          title="O teu espaço KUMUKA"
+          description={t('description')}
+          title={t('title')}
         />
         <ErrorState
-          message="Não foi possível carregar os dados do teu espaço. Tenta novamente."
+          message={t('error')}
         />
       </div>
     );
@@ -113,56 +109,60 @@ export default function DashboardPage() {
   return (
     <div className="space-y-8">
       <PageHeader
-        description="Aprende, pratica e transforma as tuas competências em novas possibilidades."
-        title={profile.data?.nome ? `Olá, ${profile.data.nome.split(' ')[0]}` : 'O teu espaço KUMUKA'}
+        description={t('description')}
+        title={
+          profile.data?.nome
+            ? t('greeting', { name: profile.data.nome.split(' ')[0] })
+            : t('title')
+        }
       />
 
       {isLoading ? (
-        <p aria-live="polite" className="text-sm text-muted-foreground">A carregar o teu resumo…</p>
+        <p aria-live="polite" className="text-sm text-muted-foreground">{t('loadingSummary')}</p>
       ) : (
-        <section aria-label="Resumo do teu progresso" className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
+        <section aria-label={t('summary')} className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
           <StatCard
-            description="Média das actividades iniciadas"
+            description={t('averageDescription')}
             icon={Target}
-            label="Progresso"
+            label={t('progress')}
             value={`${averageProgress}%`}
           />
           <StatCard
-            description={`${trailCount} com progresso registado`}
+            description={t('trailsCount', { count: trailCount })}
             icon={BookOpen}
-            label="Trilhas"
+            label={t('trails')}
             value={trailCount}
           />
           <StatCard
-            description="Oportunidades no catálogo"
+            description={t('catalogue')}
             icon={BriefcaseBusiness}
-            label="Experiências"
+            label={t('experiences')}
             value={experienceCount}
           />
           <StatCard
-            description="Já desbloqueadas"
+            description={t('unlocked')}
             icon={Award}
-            label="Conquistas"
+            label={t('achievements')}
             value={unlockedCount}
           />
         </section>
       )}
 
       <SectionCard
-        description="Retoma uma actividade que já começaste."
-        title="Continua onde paraste"
+        description={t('continueDescription')}
+        title={t('continueTitle')}
       >
         {progress.isLoading || trails.isLoading || courses.isLoading ? (
-          <p aria-live="polite" className="text-sm text-muted-foreground">A carregar actividades…</p>
+          <p aria-live="polite" className="text-sm text-muted-foreground">{t('loadingActivities')}</p>
         ) : continuing.length ? (
           <div className="grid gap-3 sm:grid-cols-2">
             {continuing.map((item) => (
               <Card className="border-border" key={item.id}>
                 <CardContent className="p-4">
                   <h3 className="font-semibold">{item.title}</h3>
-                  <p className="mt-1 text-sm text-muted-foreground">{item.percent}% concluído</p>
+                  <p className="mt-1 text-sm text-muted-foreground">{t('completed', { percent: item.percent })}</p>
                   <div
-                    aria-label={`${item.percent}% concluído`}
+                    aria-label={t('completed', { percent: item.percent })}
                     aria-valuemax={100}
                     aria-valuemin={0}
                     aria-valuenow={item.percent}
@@ -177,7 +177,7 @@ export default function DashboardPage() {
                     render={<Link to={item.href} />}
                     variant="ghost"
                   >
-                    Continuar
+                    {t('continue')}
                     <ArrowRight aria-hidden="true" />
                   </Button>
                 </CardContent>
@@ -187,12 +187,12 @@ export default function DashboardPage() {
         ) : (
           <EmptyState
             className="border-0 bg-transparent py-5"
-            description="Explora os conteúdos e escolhe por onde queres começar."
+            description={t('noActivitiesDescription')}
             icon={FolderOpen}
-            title="Ainda não tens actividades em curso"
+            title={t('noActivitiesTitle')}
             action={
               <Button nativeButton={false} render={<Link to={ROUTES.learn.root} />}>
-                Explorar conteúdos
+                {t('exploreContent')}
                 <ArrowRight aria-hidden="true" />
               </Button>
             }
@@ -203,14 +203,14 @@ export default function DashboardPage() {
       <section aria-labelledby="recommendations-title" className="space-y-4">
         <div>
           <p className="text-xs font-semibold uppercase tracking-[0.14em] text-primary">
-            Descobrir
+            {t('discover')}
           </p>
           <h2 className="mt-2 text-2xl font-bold tracking-tight" id="recommendations-title">
-            Recomendado para ti
+            {t('recommended')}
           </h2>
         </div>
         {recommendations.isLoading ? (
-          <p aria-live="polite" className="text-sm text-muted-foreground">A carregar recomendações…</p>
+          <p aria-live="polite" className="text-sm text-muted-foreground">{t('loadingRecommendations')}</p>
         ) : recommendations.data?.length ? (
           <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
             {recommendations.data.map((recommendation) => {
@@ -228,12 +228,12 @@ export default function DashboardPage() {
                   <CardContent className="flex h-full flex-col p-4">
                     <p className="text-xs font-medium capitalize text-primary">
                       {recommendation.tipo === 'quick-learning'
-                        ? 'Aprendizado curto'
+                        ? t('recommendationTypes.quickLearning')
                         : recommendation.tipo === 'trail'
-                          ? 'Trilha'
+                          ? t('recommendationTypes.trail')
                           : recommendation.tipo === 'course'
-                            ? 'Curso'
-                            : 'Guia'}
+                            ? t('recommendationTypes.course')
+                            : t('recommendationTypes.guide')}
                     </p>
                     <h3 className="mt-2 font-semibold">{item.titulo}</h3>
                     <p className="mt-2 flex-1 text-sm leading-6 text-muted-foreground">{item.descricao}</p>
@@ -243,7 +243,7 @@ export default function DashboardPage() {
                       render={<Link to={to} />}
                       variant="ghost"
                     >
-                      Explorar
+                      {t('explore')}
                       <ArrowRight aria-hidden="true" />
                     </Button>
                   </CardContent>
@@ -254,9 +254,9 @@ export default function DashboardPage() {
         ) : (
           <EmptyState
             className="border-0 bg-transparent py-5"
-            description="Quando houver novas sugestões, vão aparecer aqui."
+            description={t('noRecommendationsDescription')}
             icon={BookOpen}
-            title="Ainda não há recomendações"
+            title={t('noRecommendationsTitle')}
           />
         )}
       </section>
@@ -264,30 +264,30 @@ export default function DashboardPage() {
       <section aria-labelledby="explore-title" className="space-y-4">
         <div>
           <p className="text-xs font-semibold uppercase tracking-[0.14em] text-primary">
-            O próximo passo
+            {t('nextStep')}
           </p>
           <h2 className="mt-2 text-2xl font-bold tracking-tight" id="explore-title">
-            Explora a KUMUKA
+            {t('exploreKumuka')}
           </h2>
         </div>
         <div className="grid gap-4 md:grid-cols-3">
-          {exploreCards.map(({ title, description, icon: Icon, to, action }) => (
-            <Card className="group border-border transition-colors hover:border-primary/50" key={title}>
+          {exploreCards.map(({ key, icon: Icon, to }) => (
+            <Card className="group border-border transition-colors hover:border-primary/50" key={key}>
               <CardHeader>
                 <span className="mb-3 flex size-11 items-center justify-center rounded-xl bg-primary/10 text-primary group-hover:bg-primary group-hover:text-primary-foreground">
                   <Icon aria-hidden="true" className="size-5" />
                 </span>
-                <CardTitle className="text-lg">{title}</CardTitle>
+                <CardTitle className="text-lg">{t(`exploreCards.${key}.title`)}</CardTitle>
               </CardHeader>
               <CardContent>
-                <p className="min-h-12 text-sm leading-6 text-muted-foreground">{description}</p>
+                <p className="min-h-12 text-sm leading-6 text-muted-foreground">{t(`exploreCards.${key}.description`)}</p>
                 <Button
                   className="mt-4 px-0 text-primary"
                   nativeButton={false}
                   render={<Link to={to} />}
                   variant="ghost"
                 >
-                  {action}
+                  {t(`exploreCards.${key}.action`)}
                   <ArrowRight aria-hidden="true" />
                 </Button>
               </CardContent>
@@ -298,8 +298,8 @@ export default function DashboardPage() {
 
       <div className="grid gap-4 xl:grid-cols-2">
         <SectionCard
-          description="Programas e actividades para conhecer e experimentar."
-          title="Próximas experiências"
+          description={t('upcomingExperiencesDescription')}
+          title={t('upcomingExperiences')}
           action={
             <Button
               nativeButton={false}
@@ -307,12 +307,12 @@ export default function DashboardPage() {
               size="sm"
               variant="ghost"
             >
-              Ver todas
+              {t('all')}
             </Button>
           }
         >
           {experiences.isLoading ? (
-            <p aria-live="polite" className="text-sm text-muted-foreground">A carregar experiências…</p>
+            <p aria-live="polite" className="text-sm text-muted-foreground">{t('loadingExperiences')}</p>
           ) : nextExperiences.length ? (
             <ul className="space-y-3">
               {nextExperiences.map((experience) => (
@@ -324,7 +324,7 @@ export default function DashboardPage() {
                     <div className="flex flex-wrap items-center justify-between gap-2">
                       <h3 className="font-semibold">{experience.titulo}</h3>
                       <StatusBadge status={experience.estado === 'inscrita' ? 'success' : experience.estado === 'futura' ? 'neutral' : experience.estado === 'sem-vagas' ? 'warning' : 'info'}>
-                        {experience.estado === 'inscrita' ? 'Inscrita' : experience.estado === 'futura' ? 'Futura' : experience.estado === 'sem-vagas' ? 'Sem vagas' : 'Com vagas'}
+                        {experience.estado === 'inscrita' ? t('experienceStatus.enrolled') : experience.estado === 'futura' ? t('experienceStatus.future') : experience.estado === 'sem-vagas' ? t('experienceStatus.noVacancies') : t('experienceStatus.available')}
                       </StatusBadge>
                     </div>
                     <p className="mt-1 text-sm text-muted-foreground">{experience.data} · {experience.local}</p>
@@ -335,18 +335,18 @@ export default function DashboardPage() {
           ) : (
             <EmptyState
               className="border-0 bg-transparent py-5"
-              description="As experiências disponíveis vão aparecer aqui."
+              description={t('noExperiencesDescription')}
               icon={Compass}
-              title="Ainda não há experiências para mostrar"
+              title={t('noExperiencesTitle')}
             />
           )}
         </SectionCard>
         <SectionCard
-          description="Resultados que já fazem parte do teu percurso."
-          title="Conquistas recentes"
+          description={t('recentAchievementsDescription')}
+          title={t('recentAchievements')}
         >
           {achievements.isLoading ? (
-            <p aria-live="polite" className="text-sm text-muted-foreground">A carregar conquistas…</p>
+            <p aria-live="polite" className="text-sm text-muted-foreground">{t('loadingAchievements')}</p>
           ) : recentAchievements.length ? (
             <ul className="space-y-3">
               {recentAchievements.map((achievement) => (
@@ -362,9 +362,9 @@ export default function DashboardPage() {
           ) : (
             <EmptyState
               className="border-0 bg-transparent py-5"
-              description="Quando completares actividades, as tuas conquistas ficam reunidas aqui."
+              description={t('firstAchievementDescription')}
               icon={Award}
-              title="A tua primeira conquista está por vir"
+              title={t('firstAchievementTitle')}
             />
           )}
         </SectionCard>

@@ -1,0 +1,16 @@
+{
+  "notFound": {
+    "title": "Page not found",
+    "description": "This page does not exist.",
+    "backHome": "Back to home"
+  },
+  "forbidden": {
+    "title": "Access denied",
+    "description": "You don't have permission to access this page."
+  },
+  "serverError": {
+    "title": "Server error",
+    "description": "Something went wrong on our end."
+  },
+  "notAvailable": "Not available"
+}

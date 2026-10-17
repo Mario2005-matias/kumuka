@@ -1,0 +1,42 @@
+{
+  "title": "My Journey",
+  "description": "A journey connecting learning, practice and opportunity.",
+  "error": "We couldn't load your journey.",
+  "overview": "Your journey",
+  "overviewTitle": "Every step counts",
+  "overviewDescription": "The progress below is based on your recorded learning activities.",
+  "averageProgress": "{{percent}}% average progress across {{count}} started activities.",
+  "loading": "Loading your journey…",
+  "loadingActivities": "Loading activities…",
+  "stepsTitle": "The path ahead",
+  "steps": {
+    "learn": { "title": "Learn", "description": "Explore topics and build a foundation of knowledge." },
+    "develop": { "title": "Develop", "description": "Practise skills you can use in everyday life." },
+    "do": { "title": "Do", "description": "Apply what you know to projects and challenges." },
+    "prove": { "title": "Prove", "description": "Collect evidence and showcase your work." },
+    "experience": { "title": "Experience", "description": "Take part in experiences and discover new fields." },
+    "advance": { "title": "Move forward", "description": "Find opportunities for your next step." }
+  },
+  "milestones": {
+    "completed": "Completed",
+    "inProgress": "In progress",
+    "notStarted": "Not started",
+    "next": "Up next",
+    "projects_one": "{{count}} project",
+    "projects_other": "{{count}} projects",
+    "withEvidence": "With evidence",
+    "enrolled": "Enrolled",
+    "loading": "Loading"
+  },
+  "activitiesTitle": "Learning on your journey",
+  "activitiesDescription": "Activities you've started and your recorded progress.",
+  "activityStatus": {
+    "completed": "Completed",
+    "inProgress": "In progress"
+  },
+  "activityProgress": "{{percent}}% complete",
+  "emptyTitle": "You haven't started learning yet",
+  "emptyDescription": "Explore the content to start an activity.",
+  "findLearning": "Find something to learn",
+  "enrolledTitle": "Experiences you're enrolled in"
+}

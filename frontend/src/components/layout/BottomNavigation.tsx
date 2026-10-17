@@ -2,18 +2,21 @@ import { NavLink } from 'react-router-dom';
 import { Home, BookOpen, Map, User } from 'lucide-react';
 import { ROUTES } from '@/lib/constants/routes';
 import { cn } from '@/lib/utils';
+import { useTranslation } from 'react-i18next';
 
 const ITEMS = [
-  { label: 'Início', href: ROUTES.dashboard, icon: Home },
-  { label: 'Aprender', href: ROUTES.learn.root, icon: BookOpen },
-  { label: 'Jornada', href: ROUTES.journey, icon: Map },
-  { label: 'Perfil', href: ROUTES.profile, icon: User },
+  { translationKey: 'home', href: ROUTES.dashboard, icon: Home },
+  { translationKey: 'learn', href: ROUTES.learn.root, icon: BookOpen },
+  { translationKey: 'journeyShort', href: ROUTES.journey, icon: Map },
+  { translationKey: 'profile', href: ROUTES.profile, icon: User },
 ] as const;
 
 export function BottomNavigation() {
+  const { t } = useTranslation('common');
+
   return (
     <nav
-      aria-label="Navegação inferior"
+      aria-label={t('navigation.bottom')}
       className="fixed inset-x-0 bottom-0 z-40 border-t bg-surface-1/95 pb-[env(safe-area-inset-bottom)] backdrop-blur-xl md:hidden"
     >
       <div className="grid grid-cols-4">
@@ -33,7 +36,7 @@ export function BottomNavigation() {
               }
             >
               <Icon aria-hidden="true" className="h-5 w-5" />
-              <span>{item.label}</span>
+              <span>{t(`navigation.${item.translationKey}`)}</span>
             </NavLink>
           );
         })}

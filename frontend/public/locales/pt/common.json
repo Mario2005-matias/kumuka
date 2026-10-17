@@ -1,0 +1,86 @@
+{
+  "language": {
+    "change": "Alterar idioma",
+    "label": "Idioma",
+    "pt": "Português",
+    "en": "Inglês",
+    "fr": "Francês"
+  },
+  "theme": {
+    "change": "Alterar tema",
+    "title": "Tema",
+    "light": "Claro",
+    "dark": "Escuro",
+    "system": "Sistema"
+  },
+  "navigation": {
+    "space": "Espaço",
+    "discover": "Descobrir",
+    "account": "Conta",
+    "home": "Início",
+    "learn": "Aprender",
+    "journey": "Minha Jornada",
+    "journeyShort": "Jornada",
+    "profile": "Perfil",
+    "experiences": "Experiências",
+    "opportunities": "Oportunidades",
+    "primary": "Navegação principal",
+    "bottom": "Navegação inferior",
+    "close": "Fechar navegação",
+    "open": "Abrir navegação",
+    "collapse": "Recolher menu",
+    "expand": "Expandir menu",
+    "logout": "Sair",
+    "brandTagline": "Constrói o teu futuro."
+  },
+  "actions": {
+    "login": "Entrar",
+    "start": "Começar agora",
+    "continue": "Continuar",
+    "back": "Voltar",
+    "explore": "Explorar conteúdos",
+    "retry": "Tentar novamente",
+    "viewAll": "Ver tudo",
+    "details": "Ver detalhes",
+    "save": "Guardar",
+    "cancel": "Cancelar",
+    "search": "Pesquisar"
+  },
+  "search": {
+    "open": "Pesquisar (Ctrl+K)",
+    "dialog": "Pesquisa global",
+    "pages": "Pesquisar páginas",
+    "placeholder": "Pesquisar áreas da KUMUKA...",
+    "empty": "Não encontrámos resultados.",
+    "keyboardHelp": "Usa ↑↓ para navegar · Enter para abrir · Esc para fechar",
+    "description": {
+      "home": "O teu espaço KUMUKA",
+      "learn": "Conteúdos e trilhas",
+      "journey": "O teu percurso",
+      "experiences": "Programas e eventos",
+      "opportunities": "Estágios, bolsas e programas",
+      "profile": "A tua conta"
+    }
+  },
+  "notifications": {
+    "soon": "Notificações (em breve)"
+  },
+  "account": {
+    "open": "Abrir menu da conta",
+    "yourAccount": "A tua conta"
+  },
+  "breadcrumb": {
+    "home": "KUMUKA"
+  },
+  "states": {
+    "loading": "A carregar…",
+    "errorTitle": "Algo correu mal",
+    "error": "Não foi possível carregar esta informação. Tenta novamente.",
+    "empty": "Ainda não há informação para mostrar."
+  },
+  "status": {
+    "completed": "Concluído",
+    "inProgress": "Em curso",
+    "notStarted": "Por começar"
+  }
+}

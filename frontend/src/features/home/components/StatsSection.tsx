@@ -1,12 +1,13 @@
 import { useScrollAnimation, type ScrollAnimation } from '../hooks/useScrollAnimation';
 import { Card, CardContent } from '@/components/ui/card';
+import { useTranslation } from 'react-i18next';
 
 const catalogStats = [
-  { value: 6, label: 'trilhas de aprendizagem' },
-  { value: 5, label: 'cursos práticos' },
-  { value: 8, label: 'aprendizados curtos' },
-  { value: 6, label: 'guias para consulta' },
-];
+  { value: 6, key: 'trails' },
+  { value: 5, key: 'courses' },
+  { value: 8, key: 'quickLearnings' },
+  { value: 6, key: 'guides' },
+] as const;
 
 const animateStats: ScrollAnimation = (gsap, scope, options) => {
   scope.querySelectorAll<HTMLElement>('[data-stat-count]').forEach((element) => {
@@ -32,6 +33,7 @@ const animateStats: ScrollAnimation = (gsap, scope, options) => {
 };
 
 export function StatsSection() {
+  const { t } = useTranslation('home');
   const sectionRef = useScrollAnimation(animateStats);
 
   return (
@@ -48,16 +50,15 @@ export function StatsSection() {
             data-reveal
             id="catalog-stats-title"
           >
-            Um ponto de partida concreto
+            {t('sections.statsHeading')}
           </h2>
           <p className="mt-4 leading-7 text-muted-foreground" data-reveal>
-            Explora os conteúdos disponíveis no catálogo de demonstração da
-            KUMUKA e escolhe o próximo passo ao teu ritmo.
+            {t('sections.statsDescription')}
           </p>
         </div>
         <ul className="mt-10 grid grid-cols-2 gap-4 sm:mt-14 lg:grid-cols-4">
-          {catalogStats.map(({ value, label }) => (
-            <li data-reveal key={label}>
+          {catalogStats.map(({ value, key }) => (
+            <li data-reveal key={key}>
               <Card className="h-full border-border/70 bg-card/80 text-center transition-[border-color,box-shadow,transform] duration-300 hover:-translate-y-1 hover:border-primary/50 hover:shadow-xl hover:shadow-primary/5">
                 <CardContent className="p-5 sm:p-6">
                   <span aria-hidden="true">
@@ -65,11 +66,11 @@ export function StatsSection() {
                       <span data-stat-count={value}>{value}</span>+
                     </span>
                     <span className="mt-2 block text-sm leading-6 text-muted-foreground">
-                      {label}
+                      {t(`sections.stats.${key}`)}
                     </span>
                   </span>
                   <span className="sr-only">
-                    {value}+ {label}
+                    {value}+ {t(`sections.stats.${key}`)}
                   </span>
                 </CardContent>
               </Card>
@@ -77,8 +78,7 @@ export function StatsSection() {
           ))}
         </ul>
         <p className="mt-5 text-center text-xs text-muted-foreground">
-          Quantidades do catálogo de demonstração; podem mudar durante a
-          validação do produto.
+          {t('sections.statsNote')}
         </p>
       </div>
     </section>

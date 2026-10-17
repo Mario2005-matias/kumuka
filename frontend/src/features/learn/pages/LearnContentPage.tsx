@@ -21,35 +21,26 @@ import {
   useTrail,
   useTrailModule,
 } from '../hooks/useTrails';
+import { useTranslation } from 'react-i18next';
 
-const categories = {
-  trilhas: {
-    title: 'Trilhas',
-    description: 'Jornadas completas para desenvolver competências.',
-  },
-  cursos: {
-    title: 'Cursos',
-    description: 'Aprendizagem estruturada e organizada por temas.',
-  },
-  aprendizados: {
-    title: 'Aprendizados',
-    description: 'Conteúdos curtos para aprender algo novo.',
-  },
-  guias: {
-    title: 'Guias',
-    description: 'Materiais práticos para consultar quando precisares.',
-  },
-} as const;
+const categories = ['trilhas', 'cursos', 'aprendizados', 'guias'] as const;
 
 const categoryPaths = [
-  { label: 'Tudo', to: ROUTES.learn.root, key: '' },
-  { label: 'Trilhas', to: ROUTES.learn.trails, key: 'trilhas' },
-  { label: 'Cursos', to: ROUTES.learn.courses, key: 'cursos' },
-  { label: 'Aprendizados', to: ROUTES.learn.quickLearnings, key: 'aprendizados' },
-  { label: 'Guias', to: ROUTES.learn.guides, key: 'guias' },
-];
+  { label: 'all', to: ROUTES.learn.root, key: '' },
+  { label: 'trails', to: ROUTES.learn.trails, key: 'trilhas' },
+  { label: 'courses', to: ROUTES.learn.courses, key: 'cursos' },
+  { label: 'quickLearnings', to: ROUTES.learn.quickLearnings, key: 'aprendizados' },
+  { label: 'guides', to: ROUTES.learn.guides, key: 'guias' },
+] as const;
 
-type CategoryKey = keyof typeof categories;
+type CategoryKey = typeof categories[number];
+type CategoryTranslationKey = 'trails' | 'courses' | 'quickLearnings' | 'guides';
+const categoryTranslationKey: Record<CategoryKey, CategoryTranslationKey> = {
+  trilhas: 'trails',
+  cursos: 'courses',
+  aprendizados: 'quickLearnings',
+  guias: 'guides',
+};
 
 const apiCategoryByRoute: Record<CategoryKey, LearningCatalogCategory> = {
   trilhas: 'trails',
@@ -71,12 +62,13 @@ function formatSlug(value: string) {
 }
 
 export default function LearnContentPage() {
+  const { t } = useTranslation('learning');
   const { pathname } = useLocation();
   const userId = useAuthStore((state) => state.user?.id ?? '');
   const segments = pathname.split('/').filter(Boolean);
   const rawCategoryKey = segments[1] ?? '';
   const categoryKey = isCategory(rawCategoryKey) ? rawCategoryKey : null;
-  const category = categoryKey ? categories[categoryKey] : undefined;
+  const categoryTranslation = categoryKey ? categoryTranslationKey[categoryKey] : undefined;
   const apiCategory = categoryKey ? apiCategoryByRoute[categoryKey] : null;
   const moduleIndex = segments.indexOf('modulo');
   const isModule = moduleIndex !== -1;
@@ -118,10 +110,10 @@ export default function LearnContentPage() {
   const detailError =
     trail.isError || course.isError || quickLearning.isError || guide.isError;
   const title = isModule
-    ? selectedModule?.titulo ?? `Módulo ${formatSlug(moduleId)}`
+    ? selectedModule?.titulo ?? t('common.moduleNumber', { number: formatSlug(moduleId) })
     : isDetail
       ? item?.titulo ?? formatSlug(slug)
-      : category?.title ?? 'Aprender';
+      : categoryTranslation ? t(`hub.categories.${categoryTranslation}.title`) : t('hub.title');
   const parentPath = `/${segments.slice(0, 2).join('/')}`;
 
   return (
@@ -134,15 +126,15 @@ export default function LearnContentPage() {
             variant="outline"
           >
             <ArrowLeft aria-hidden="true" />
-            {isDetail || isModule ? `Voltar a ${category?.title ?? 'Aprender'}` : 'Voltar a Aprender'}
+            {isDetail || isModule ? t('content.backToCategory', { category: categoryTranslation ? t(`hub.categories.${categoryTranslation}.title`) : t('hub.title') }) : t('content.backToLearning')}
           </Button>
         }
-        description={isDetail || isModule ? item?.descricao ?? 'Conteúdo de aprendizagem KUMUKA.' : category?.description}
+        description={isDetail || isModule ? item?.descricao ?? t('content.defaultDescription') : categoryTranslation ? t(`hub.categories.${categoryTranslation}.description`) : t('hub.description')}
         title={title}
       />
 
       {!isDetail && !isModule && (
-        <nav aria-label="Categorias de aprendizagem" className="overflow-x-auto">
+        <nav aria-label={t('hub.categoriesLabel')} className="overflow-x-auto">
           <ul className="flex min-w-max gap-2 border-b border-border">
             {categoryPaths.map((entry) => (
               <li key={entry.to}>
@@ -155,7 +147,7 @@ export default function LearnContentPage() {
                   }`}
                   to={entry.to}
                 >
-                  {entry.label}
+                  {t(`hub.tabs.${entry.label}`)}
                 </Link>
               </li>
             ))}
@@ -175,21 +167,21 @@ export default function LearnContentPage() {
 
       {(isDetail || isModule) && !isDetailLoading && !detailError && !item && (
         <EmptyState
-          description="Confirma a ligação e volta à categoria para escolher outro conteúdo."
+          description={t('content.notFoundDescription')}
           icon={BookOpen}
-          title="Conteúdo não encontrado"
+          title={t('content.notFoundTitle')}
         />
       )}
 
       {(isDetail || isModule) && isDetailLoading && (
-        <p aria-live="polite" className="text-sm text-muted-foreground">A carregar conteúdo…</p>
+        <p aria-live="polite" className="text-sm text-muted-foreground">{t('content.loading')}</p>
       )}
 
-      {(isDetail || isModule) && detailError && <p role="alert" className="text-sm text-destructive">Não foi possível carregar este conteúdo.</p>}
+      {(isDetail || isModule) && detailError && <p role="alert" className="text-sm text-destructive">{t('content.error')}</p>}
 
       {isDetail && item && !isModule && (
         'modulos' in item ? (
-          <section aria-label="Módulos do conteúdo" className="space-y-3">
+          <section aria-label={t('content.modules')} className="space-y-3">
             {item.modulos.map((module) => (
               <Link
                 className="block rounded-xl border border-border bg-card p-4 transition-colors hover:border-primary/50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
@@ -202,7 +194,7 @@ export default function LearnContentPage() {
               >
                 <h2 className="font-semibold">{module.titulo}</h2>
                 <p className="mt-1 text-sm leading-6 text-muted-foreground">{module.descricao}</p>
-                <p className="mt-2 text-xs text-muted-foreground">{module.duracao} min</p>
+                <p className="mt-2 text-xs text-muted-foreground">{t('catalog.duration', { count: module.duracao })}</p>
               </Link>
             ))}
           </section>

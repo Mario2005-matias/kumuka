@@ -26,17 +26,19 @@ import { useProjects } from '@/features/profile/hooks/useProfile';
 import { useAuthStore } from '@/stores/authStore';
 import { useAchievements } from '@/features/dashboard/hooks/useAchievements';
 import { useProgress } from '@/features/dashboard/hooks/useProgress';
+import { useTranslation } from 'react-i18next';
 
-const milestones: { title: string; description: string; icon: LucideIcon }[] = [
-  { title: 'Aprender', description: 'Explora temas e constrói uma base de conhecimento.', icon: BookOpen },
-  { title: 'Desenvolver', description: 'Pratica competências que podes usar no dia a dia.', icon: TrendingUp },
-  { title: 'Fazer', description: 'Aplica o que sabes em projectos e desafios.', icon: Hammer },
-  { title: 'Provar', description: 'Reúne evidências e apresenta o teu trabalho.', icon: Award },
-  { title: 'Experimentar', description: 'Participa em experiências e conhece novas áreas.', icon: Compass },
-  { title: 'Avançar', description: 'Encontra oportunidades para o teu próximo passo.', icon: BriefcaseBusiness },
+const milestones: { key: 'learn' | 'develop' | 'do' | 'prove' | 'experience' | 'advance'; icon: LucideIcon }[] = [
+  { key: 'learn', icon: BookOpen },
+  { key: 'develop', icon: TrendingUp },
+  { key: 'do', icon: Hammer },
+  { key: 'prove', icon: Award },
+  { key: 'experience', icon: Compass },
+  { key: 'advance', icon: BriefcaseBusiness },
 ];
 
 export default function JourneyPage() {
+  const { t } = useTranslation('journey');
   const userId = useAuthStore((state) => state.user?.id ?? '');
   const progress = useProgress(userId);
   const trails = useTrails();
@@ -68,15 +70,15 @@ export default function JourneyPage() {
   const enrolledExperiences = experiences.data?.filter((item) => item.estado === 'inscrita') ?? [];
   const milestoneStatus = [
     records.some((item) => item.estado === 'concluido')
-      ? { label: 'Concluído', tone: 'success' as const }
+      ? { label: t('milestones.completed'), tone: 'success' as const }
       : records.length
-        ? { label: 'Em curso', tone: 'info' as const }
-        : { label: 'Por começar', tone: 'neutral' as const },
-    records.some((item) => item.estado === 'em_progresso') ? { label: 'Em curso', tone: 'info' as const } : { label: 'A seguir', tone: 'neutral' as const },
-    projects.data?.length ? { label: `${projects.data.length} projectos`, tone: 'success' as const } : { label: 'A seguir', tone: 'neutral' as const },
-    achievements.data?.some((item) => item.unlocked) ? { label: 'Com evidências', tone: 'success' as const } : { label: 'A seguir', tone: 'neutral' as const },
-    enrolledExperiences.length ? { label: 'Inscrita', tone: 'info' as const } : { label: 'A seguir', tone: 'neutral' as const },
-    { label: 'A seguir', tone: 'neutral' as const },
+        ? { label: t('milestones.inProgress'), tone: 'info' as const }
+        : { label: t('milestones.notStarted'), tone: 'neutral' as const },
+    records.some((item) => item.estado === 'em_progresso') ? { label: t('milestones.inProgress'), tone: 'info' as const } : { label: t('milestones.next'), tone: 'neutral' as const },
+    projects.data?.length ? { label: t('milestones.projects', { count: projects.data.length }), tone: 'success' as const } : { label: t('milestones.next'), tone: 'neutral' as const },
+    achievements.data?.some((item) => item.unlocked) ? { label: t('milestones.withEvidence'), tone: 'success' as const } : { label: t('milestones.next'), tone: 'neutral' as const },
+    enrolledExperiences.length ? { label: t('milestones.enrolled'), tone: 'info' as const } : { label: t('milestones.next'), tone: 'neutral' as const },
+    { label: t('milestones.next'), tone: 'neutral' as const },
   ];
   const isLoading =
     progress.isLoading || trails.isLoading || courses.isLoading ||
@@ -90,29 +92,29 @@ export default function JourneyPage() {
   return (
     <div className="space-y-8">
       <PageHeader
-        description="Uma jornada que liga aprendizagem, prática e oportunidades."
-        title="Minha Jornada"
+        description={t('description')}
+        title={t('title')}
       />
 
       {hasError ? (
-        <ErrorState message="Não foi possível carregar os dados da tua jornada." />
+        <ErrorState message={t('error')} />
       ) : (
         <>
           <Card className="overflow-hidden bg-[image:var(--gradient-surface)]">
             <CardHeader>
-              <p className="text-xs font-semibold uppercase tracking-[0.14em] text-primary">O teu percurso</p>
-              <CardTitle className="text-xl">Cada passo conta</CardTitle>
+              <p className="text-xs font-semibold uppercase tracking-[0.14em] text-primary">{t('overview')}</p>
+              <CardTitle className="text-xl">{t('overviewTitle')}</CardTitle>
               <p className="max-w-2xl text-sm leading-6 text-muted-foreground">
-                O progresso abaixo é calculado a partir das actividades de aprendizagem registadas.
+                {t('overviewDescription')}
               </p>
             </CardHeader>
             <CardContent>
               {isLoading ? (
-                <p aria-live="polite" className="text-sm text-muted-foreground">A carregar a tua jornada…</p>
+                <p aria-live="polite" className="text-sm text-muted-foreground">{t('loading')}</p>
               ) : (
                 <>
                   <div
-                    aria-label={`${averageProgress}% de progresso médio nas aprendizagens`}
+                    aria-label={t('averageProgress', { percent: averageProgress, count: records.length })}
                     aria-valuemax={100}
                     aria-valuemin={0}
                     aria-valuenow={averageProgress}
@@ -122,7 +124,7 @@ export default function JourneyPage() {
                     <div className="h-full rounded-full bg-primary" style={{ width: `${averageProgress}%` }} />
                   </div>
                   <p className="mt-2 text-xs text-muted-foreground">
-                    {averageProgress}% de progresso médio em {records.length} actividades iniciadas.
+                    {t('averageProgress', { percent: averageProgress, count: records.length })}
                   </p>
                 </>
               )}
@@ -131,11 +133,11 @@ export default function JourneyPage() {
 
           <section aria-labelledby="journey-steps-title">
             <h2 className="mb-5 text-xl font-semibold tracking-tight" id="journey-steps-title">
-              O caminho à tua frente
+              {t('stepsTitle')}
             </h2>
             <ol className="relative space-y-4 before:absolute before:bottom-8 before:left-6 before:top-8 before:w-px before:bg-border">
-              {milestones.map(({ title, description, icon: Icon }, index) => (
-                <li className="relative" key={title}>
+              {milestones.map(({ key, icon: Icon }, index) => (
+                <li className="relative" key={key}>
                   <Card className="relative ml-0 border-border bg-card sm:ml-2">
                     <CardContent className="flex items-center gap-4 p-4 sm:p-5">
                       <span className="z-10 flex size-12 shrink-0 items-center justify-center rounded-xl border border-border bg-surface-2 text-primary">
@@ -146,12 +148,12 @@ export default function JourneyPage() {
                           <span className="text-xs font-semibold tabular-nums text-subtle-foreground">
                             {String(index + 1).padStart(2, '0')}
                           </span>
-                          <h3 className="font-semibold">{title}</h3>
+                          <h3 className="font-semibold">{t(`steps.${key}.title`)}</h3>
                         </div>
-                        <p className="mt-1 text-sm leading-6 text-muted-foreground">{description}</p>
+                        <p className="mt-1 text-sm leading-6 text-muted-foreground">{t(`steps.${key}.description`)}</p>
                       </div>
                       <StatusBadge status={isLoading ? 'neutral' : milestoneStatus[index].tone}>
-                        {isLoading ? 'A carregar' : milestoneStatus[index].label}
+                        {isLoading ? t('milestones.loading') : milestoneStatus[index].label}
                       </StatusBadge>
                     </CardContent>
                   </Card>
@@ -163,14 +165,14 @@ export default function JourneyPage() {
           <section aria-labelledby="journey-activities-title" className="space-y-4">
             <div>
               <h2 className="text-xl font-semibold tracking-tight" id="journey-activities-title">
-                Aprendizagens no teu percurso
+                {t('activitiesTitle')}
               </h2>
               <p className="mt-1 text-sm text-muted-foreground">
-                Actividades iniciadas e o progresso registado em cada uma.
+                {t('activitiesDescription')}
               </p>
             </div>
             {isLoading ? (
-              <p aria-live="polite" className="text-sm text-muted-foreground">A carregar actividades…</p>
+              <p aria-live="polite" className="text-sm text-muted-foreground">{t('loadingActivities')}</p>
             ) : activities.length ? (
               <ul className="grid gap-3 sm:grid-cols-2">
                 {activities.map((item) => (
@@ -182,22 +184,22 @@ export default function JourneyPage() {
                       <div className="flex items-center justify-between gap-3">
                         <h3 className="font-semibold">{item.title}</h3>
                         <StatusBadge status={item.status === 'concluido' ? 'success' : 'info'}>
-                          {item.status === 'concluido' ? 'Concluída' : 'Em progresso'}
+                          {item.status === 'concluido' ? t('activityStatus.completed') : t('activityStatus.inProgress')}
                         </StatusBadge>
                       </div>
-                      <p className="mt-2 text-sm text-muted-foreground">{item.percent}% concluído</p>
+                      <p className="mt-2 text-sm text-muted-foreground">{t('activityProgress', { percent: item.percent })}</p>
                     </Link>
                   </li>
                 ))}
               </ul>
             ) : (
               <EmptyState
-                description="Explora conteúdos para começares uma actividade."
+                description={t('emptyDescription')}
                 icon={Target}
-                title="Ainda não há aprendizagens iniciadas"
+                title={t('emptyTitle')}
                 action={
                   <Button nativeButton={false} render={<Link to={ROUTES.learn.root} />}>
-                    Encontrar algo para aprender
+                    {t('findLearning')}
                     <ArrowRight aria-hidden="true" />
                   </Button>
                 }
@@ -207,7 +209,7 @@ export default function JourneyPage() {
           {enrolledExperiences.length > 0 && (
             <section aria-labelledby="journey-experiences-title" className="space-y-3">
               <h2 className="text-xl font-semibold tracking-tight" id="journey-experiences-title">
-                Experiências em que estás inscrita
+                {t('enrolledTitle')}
               </h2>
               {enrolledExperiences.map((experience) => (
                 <Link

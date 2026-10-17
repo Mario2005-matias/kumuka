@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { useAuthStore } from '@/stores/authStore';
 import { toast } from '@/components/ui/toast';
 import { authApi } from './api';
+import { useTranslation } from 'react-i18next';
 import { ROUTES } from '@/lib/constants/routes';
 import type {
   LoginInput,
@@ -11,6 +12,7 @@ import type {
 } from './types';
 
 export function useLogin() {
+  const { t } = useTranslation('auth');
   const setAuth = useAuthStore((s) => s.setAuth);
   const navigate = useNavigate();
 
@@ -19,15 +21,15 @@ export function useLogin() {
     onSuccess: (data) => {
       setAuth(data.user, data.token);
       toast.add({
-        title: 'Bem-vindo de volta!',
-        description: 'Sessão iniciada com sucesso.',
+        title: t('toasts.welcome'),
+        description: t('toasts.loginSuccess'),
         type: 'success',
       });
       navigate(ROUTES.dashboard);
     },
     onError: (error: Error) => {
       toast.add({
-        title: 'Erro ao entrar',
+        title: t('toasts.loginError'),
         description: error.message,
         type: 'error',
       });
@@ -36,6 +38,7 @@ export function useLogin() {
 }
 
 export function useRegister() {
+  const { t } = useTranslation('auth');
   const setAuth = useAuthStore((s) => s.setAuth);
   const navigate = useNavigate();
 
@@ -44,15 +47,15 @@ export function useRegister() {
     onSuccess: (data) => {
       setAuth(data.user, data.token);
       toast.add({
-        title: 'Conta criada!',
-        description: 'Vamos conhecer-te melhor.',
+        title: t('toasts.accountCreated'),
+        description: t('toasts.gettingToKnowYou'),
         type: 'success',
       });
       navigate(ROUTES.onboarding.root);
     },
     onError: (error: Error) => {
       toast.add({
-        title: 'Erro ao criar conta',
+        title: t('toasts.registerError'),
         description: error.message,
         type: 'error',
       });
@@ -74,18 +77,19 @@ export function useLogout() {
 }
 
 export function useForgotPassword() {
+  const { t } = useTranslation('auth');
   return useMutation({
     mutationFn: (input: ForgotPasswordInput) => authApi.forgotPassword(input),
     onSuccess: () => {
       toast.add({
-        title: 'Email enviado',
-        description: 'Verifica a tua caixa de entrada.',
+        title: t('toasts.emailSent'),
+        description: t('toasts.checkInbox'),
         type: 'success',
       });
     },
     onError: (error: Error) => {
       toast.add({
-        title: 'Erro',
+        title: t('toasts.error'),
         description: error.message,
         type: 'error',
       });

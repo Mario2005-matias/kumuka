@@ -1,0 +1,86 @@
+{
+  "language": {
+    "change": "Change language",
+    "label": "Language",
+    "pt": "Portuguese",
+    "en": "English",
+    "fr": "French"
+  },
+  "theme": {
+    "change": "Change theme",
+    "title": "Theme",
+    "light": "Light",
+    "dark": "Dark",
+    "system": "System"
+  },
+  "navigation": {
+    "space": "Workspace",
+    "discover": "Discover",
+    "account": "Account",
+    "home": "Home",
+    "learn": "Learn",
+    "journey": "My Journey",
+    "journeyShort": "Journey",
+    "profile": "Profile",
+    "experiences": "Experiences",
+    "opportunities": "Opportunities",
+    "primary": "Main navigation",
+    "bottom": "Bottom navigation",
+    "close": "Close navigation",
+    "open": "Open navigation",
+    "collapse": "Collapse menu",
+    "expand": "Expand menu",
+    "logout": "Sign out",
+    "brandTagline": "Build your future."
+  },
+  "actions": {
+    "login": "Sign in",
+    "start": "Get started",
+    "continue": "Continue",
+    "back": "Back",
+    "explore": "Explore content",
+    "retry": "Try again",
+    "viewAll": "View all",
+    "details": "View details",
+    "save": "Save",
+    "cancel": "Cancel",
+    "search": "Search"
+  },
+  "search": {
+    "open": "Search (Ctrl+K)",
+    "dialog": "Global search",
+    "pages": "Search pages",
+    "placeholder": "Search KUMUKA...",
+    "empty": "No results found.",
+    "keyboardHelp": "Use ↑↓ to navigate · Enter to open · Esc to close",
+    "description": {
+      "home": "Your KUMUKA space",
+      "learn": "Courses and learning paths",
+      "journey": "Your progress",
+      "experiences": "Programmes and events",
+      "opportunities": "Internships, scholarships and programmes",
+      "profile": "Your account"
+    }
+  },
+  "notifications": {
+    "soon": "Notifications (coming soon)"
+  },
+  "account": {
+    "open": "Open account menu",
+    "yourAccount": "Your account"
+  },
+  "breadcrumb": {
+    "home": "KUMUKA"
+  },
+  "states": {
+    "loading": "Loading…",
+    "errorTitle": "Something went wrong",
+    "error": "We couldn't load this information. Please try again.",
+    "empty": "There is no information to show yet."
+  },
+  "status": {
+    "completed": "Completed",
+    "inProgress": "In progress",
+    "notStarted": "Not started"
+  }
+}

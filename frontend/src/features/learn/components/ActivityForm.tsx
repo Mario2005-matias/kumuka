@@ -3,6 +3,7 @@ import { CheckCircle2, FileUp, Save } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { FieldError, FieldLabel } from '@/components/ui/field';
 import type { Activity } from '@/types/trail';
+import { useTranslation } from 'react-i18next';
 
 interface ActivityFormProps {
   activity: Activity;
@@ -15,7 +16,7 @@ interface ActivityFormProps {
   onMarkComplete: () => Promise<void>;
 }
 
-function readQuizDraft(value: string | undefined) {
+function readQuizDraft(value: string | undefined, invalidMessage: string) {
   if (!value) return { answers: {}, error: null as string | null };
   try {
     const parsed: unknown = JSON.parse(value);
@@ -24,7 +25,7 @@ function readQuizDraft(value: string | undefined) {
       parsed === null ||
       Object.values(parsed).some((item: unknown) => typeof item !== 'string')
     ) {
-      throw new Error('O rascunho do questionário tem um formato inválido.');
+      throw new Error(invalidMessage);
     }
     return {
       answers: Object.fromEntries(
@@ -37,15 +38,15 @@ function readQuizDraft(value: string | undefined) {
   } catch (caught: unknown) {
     return {
       answers: {},
-      error: errorMessage(caught),
+      error: errorMessage(caught, invalidMessage),
     };
   }
 }
 
-function errorMessage(error: unknown) {
+function errorMessage(error: unknown, fallback: string) {
   return error instanceof Error
     ? error.message
-    : 'Não foi possível guardar a actividade. Tenta novamente.';
+    : fallback;
 }
 
 export function ActivityForm({
@@ -58,11 +59,12 @@ export function ActivityForm({
   onSubmit,
   onMarkComplete,
 }: ActivityFormProps) {
+  const { t } = useTranslation('learning');
   const [answer, setAnswer] = useState(draft ?? '');
   const [quizDraft, setQuizDraft] = useState<{
     answers: Record<string, string>;
     error: string | null;
-  }>(() => readQuizDraft(draft));
+  }>(() => readQuizDraft(draft, t('activityForm.invalidQuiz')));
   const [error, setError] = useState<string | null>(quizDraft.error);
   const [feedback, setFeedback] = useState<string | null>(null);
   const quizAnswers = quizDraft.answers;
@@ -74,9 +76,9 @@ export function ActivityForm({
       await onSaveDraft(
         activity.tipo === 'quiz' ? JSON.stringify(quizAnswers) : answer,
       );
-      setFeedback('Rascunho guardado. Podes continuar mais tarde.');
+      setFeedback(t('activityForm.draftSaved'));
     } catch (caught: unknown) {
-      setError(errorMessage(caught));
+      setError(errorMessage(caught, t('activityForm.saveError')));
     }
   }
 
@@ -89,7 +91,7 @@ export function ActivityForm({
         activity.tipo === 'quiz' ? JSON.stringify(quizAnswers) : answer,
       );
     } catch (caught: unknown) {
-      setError(errorMessage(caught));
+      setError(errorMessage(caught, t('activityForm.submitError')));
     }
   }
 
@@ -98,7 +100,7 @@ export function ActivityForm({
     try {
       await onMarkComplete();
     } catch (caught: unknown) {
-      setError(errorMessage(caught));
+      setError(errorMessage(caught, t('activityForm.completeError')));
     }
   }
 
@@ -107,10 +109,10 @@ export function ActivityForm({
       <div className="space-y-4 rounded-xl border border-success/30 bg-success/5 p-5 sm:p-7">
         <p className="flex items-center gap-2 font-semibold text-success">
           <CheckCircle2 aria-hidden="true" className="size-5" />
-          Actividade submetida
+          {t('activityForm.submitted')}
         </p>
         <p className="text-sm leading-6 text-muted-foreground">
-          Bom trabalho! A tua resposta ficou registada neste módulo.
+          {t('activityForm.submittedDescription')}
         </p>
       </div>
     );
@@ -123,7 +125,7 @@ export function ActivityForm({
     >
       <div>
         <p className="text-xs font-semibold uppercase tracking-wide text-primary">
-          Actividade · {activity.pontos} pontos
+          {t('activityForm.points', { count: activity.pontos })}
         </p>
         <h2 className="mt-2 text-xl font-bold">{activity.enunciado}</h2>
         <p className="mt-2 text-sm leading-6 text-muted-foreground">
@@ -132,19 +134,19 @@ export function ActivityForm({
       </div>
       {activity.tipo === 'escrita' && (
         <div className="space-y-2">
-          <FieldLabel htmlFor={activity.id}>A tua resposta</FieldLabel>
+          <FieldLabel htmlFor={activity.id}>{t('activityForm.yourAnswer')}</FieldLabel>
           <textarea
             className="min-h-36 w-full rounded-lg border border-input bg-background p-3 text-base leading-6 outline-none focus-visible:ring-2 focus-visible:ring-ring"
             id={activity.id}
             onChange={(event) => setAnswer(event.currentTarget.value)}
-            placeholder="Escreve aqui a tua resposta…"
+            placeholder={t('activityForm.answerPlaceholder')}
             value={answer}
           />
         </div>
       )}
       {activity.tipo === 'link' && (
         <div className="space-y-2">
-          <FieldLabel htmlFor={activity.id}>Ligação para o teu trabalho</FieldLabel>
+          <FieldLabel htmlFor={activity.id}>{t('activityForm.workLink')}</FieldLabel>
           <input
             autoComplete="url"
             className="min-h-11 w-full rounded-lg border border-input bg-background px-3 text-base outline-none focus-visible:ring-2 focus-visible:ring-ring"
@@ -158,11 +160,11 @@ export function ActivityForm({
       )}
       {activity.tipo === 'upload' && (
         <div className="space-y-2">
-          <FieldLabel htmlFor={activity.id}>Imagem do teu trabalho</FieldLabel>
+          <FieldLabel htmlFor={activity.id}>{t('activityForm.workImage')}</FieldLabel>
           <label className="flex min-h-28 cursor-pointer flex-col items-center justify-center gap-2 rounded-xl border border-dashed border-border bg-surface-1 p-5 text-center hover:border-primary/50 focus-within:ring-2 focus-within:ring-ring">
             <FileUp aria-hidden="true" className="size-6 text-primary" />
             <span className="text-sm text-muted-foreground">
-              {answer || 'Escolhe um ficheiro PNG, JPG ou WebP'}
+              {answer || t('activityForm.chooseFile')}
             </span>
             <input
               accept="image/png,image/jpeg,image/webp"
@@ -175,13 +177,13 @@ export function ActivityForm({
             />
           </label>
           <p className="text-xs text-muted-foreground">
-            Demonstração: guardamos o nome do ficheiro, não o seu conteúdo.
+            {t('activityForm.fileDemo')}
           </p>
         </div>
       )}
       {activity.tipo === 'quiz' && (
         <fieldset className="space-y-4">
-          <legend className="sr-only">Responde ao questionário</legend>
+          <legend className="sr-only">{t('activityForm.answerQuiz')}</legend>
           {activity.perguntas?.map((question, index) => (
             <fieldset className="space-y-3" key={question.id}>
               <legend className="font-medium">
@@ -230,7 +232,7 @@ export function ActivityForm({
           variant="ghost"
         >
           <Save aria-hidden="true" />
-          {isSaving ? 'A guardar…' : 'Guardar rascunho'}
+          {isSaving ? t('activityForm.saving') : t('activityForm.saveDraft')}
         </Button>
         <Button
           className="min-h-11 w-full sm:w-auto"
@@ -238,10 +240,10 @@ export function ActivityForm({
           type="submit"
         >
           {isSubmitting
-            ? 'A submeter…'
+            ? t('activityForm.submitting')
             : activity.obrigatoria
-              ? 'Submeter actividade'
-              : 'Submeter actividade (opcional)'}
+              ? t('activityForm.submit')
+              : t('activityForm.submitOptional')}
         </Button>
         {!activity.obrigatoria && (
           <Button
@@ -250,12 +252,12 @@ export function ActivityForm({
             onClick={() => void markComplete()}
             type="button"
           >
-            Avançar sem submeter
+            {t('activityForm.skipSubmit')}
           </Button>
         )}
       </div>
       <p className="text-xs text-muted-foreground">
-        Podes guardar o rascunho e continuar mais tarde.
+        {t('activityForm.draftHint')}
       </p>
     </form>
   );

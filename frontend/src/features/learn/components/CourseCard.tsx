@@ -3,7 +3,14 @@ import { Link } from 'react-router-dom';
 import { StatusBadge } from '@/components/shared/StatusBadge';
 import { Card, CardContent } from '@/components/ui/card';
 import { ROUTES } from '@/lib/constants/routes';
-import type { Course, CourseProgress } from '@/types/course';
+import type { Course, CourseLevel, CourseProgress } from '@/types/course';
+import { useTranslation } from 'react-i18next';
+
+const levelTranslationKeys: Record<CourseLevel, 'courseFilters.beginner' | 'courseFilters.intermediate' | 'courseFilters.advanced'> = {
+  iniciante: 'courseFilters.beginner',
+  intermedio: 'courseFilters.intermediate',
+  avancado: 'courseFilters.advanced',
+};
 import { CourseProgressBar } from './CourseProgressBar';
 
 interface CourseCardProps {
@@ -12,8 +19,9 @@ interface CourseCardProps {
 }
 
 export function CourseCard({ course, progress }: CourseCardProps) {
+  const { t } = useTranslation('learning');
   const complete = progress?.estado === 'concluido';
-  const action = complete ? 'Rever' : progress?.estado === 'em_progresso' ? 'Continuar' : 'Começar';
+  const action = complete ? t('common.review') : progress?.estado === 'em_progresso' ? t('common.continue') : t('common.start');
 
   return (
     <Link
@@ -22,8 +30,8 @@ export function CourseCard({ course, progress }: CourseCardProps) {
     >
       <Card className="h-full overflow-hidden border-border/80 transition-[border-color,box-shadow,transform] duration-200 group-hover:-translate-y-0.5 group-hover:border-primary/50 group-hover:shadow-xl group-hover:shadow-primary/5">
         <div className="relative flex h-28 items-start justify-between bg-[image:var(--gradient-surface)] p-4">
-          <StatusBadge className="bg-surface-2 text-foreground" status="info">Curso</StatusBadge>
-          <StatusBadge status="neutral">{course.nivel}</StatusBadge>
+          <StatusBadge className="bg-surface-2 text-foreground" status="info">{t('common.course')}</StatusBadge>
+          <StatusBadge status="neutral">{t(levelTranslationKeys[course.nivel])}</StatusBadge>
           <span className="absolute bottom-4 left-4 flex size-10 items-center justify-center rounded-xl border border-border bg-card/80 text-primary">
             <GraduationCap aria-hidden="true" className="size-5" />
           </span>
@@ -33,7 +41,7 @@ export function CourseCard({ course, progress }: CourseCardProps) {
             <h2 className="line-clamp-2 min-h-14 text-lg font-semibold tracking-tight">
               {course.titulo}
             </h2>
-            {complete && <StatusBadge status="success">Concluído</StatusBadge>}
+            {complete && <StatusBadge status="success">{t('common.completed')}</StatusBadge>}
           </div>
           <p className="mt-2 line-clamp-3 min-h-[4.5rem] text-sm leading-6 text-muted-foreground">
             {course.descricao}
@@ -48,16 +56,16 @@ export function CourseCard({ course, progress }: CourseCardProps) {
             </span>
             <span className="inline-flex items-center gap-2">
               <Layers3 aria-hidden="true" className="size-4 text-primary" />
-              {course.totalModulos} módulos
+              {t('catalog.modules', { count: course.totalModulos })}
             </span>
           </div>
           {progress && progress.estado !== 'nao_iniciado' && (
             <div className="mt-4 space-y-2">
               <div className="flex justify-between gap-3 text-sm">
                 <span className="font-medium">
-                  {complete ? 'Concluído' : 'Em progresso'}
+                  {complete ? t('common.completed') : t('common.inProgress')}
                 </span>
-                <span className="text-muted-foreground">{progress.progresso}% concluído</span>
+                <span className="text-muted-foreground">{t('hub.completed', { percent: progress.progresso })}</span>
               </div>
               <CourseProgressBar courseTitle={course.titulo} value={progress.progresso} />
             </div>

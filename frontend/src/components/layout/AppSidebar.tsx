@@ -18,6 +18,7 @@ import { useAuthStore } from '@/stores/authStore';
 import { ROUTES } from '@/lib/constants/routes';
 import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
+import { useTranslation } from 'react-i18next';
 
 interface AppSidebarProps {
   collapsed: boolean;
@@ -25,31 +26,6 @@ interface AppSidebarProps {
   onCollapse: () => void;
   onCloseMobile: () => void;
 }
-
-const groups: {
-  label: string;
-  links: { label: string; to: string; icon: LucideIcon; end?: boolean }[];
-}[] = [
-  {
-    label: 'Espaço',
-    links: [
-      { label: 'Início', to: ROUTES.dashboard, icon: Home, end: true },
-      { label: 'Aprender', to: ROUTES.learn.root, icon: BookOpen },
-      { label: 'Minha Jornada', to: ROUTES.journey, icon: Map },
-    ],
-  },
-  {
-    label: 'Descobrir',
-    links: [
-      { label: 'Experiências', to: ROUTES.experiences.root, icon: Compass },
-      { label: 'Oportunidades', to: ROUTES.opportunities.root, icon: BriefcaseBusiness },
-    ],
-  },
-  {
-    label: 'Conta',
-    links: [{ label: 'Perfil', to: ROUTES.profile, icon: UserRound }],
-  },
-];
 
 export function AppSidebar({
   collapsed,
@@ -60,6 +36,31 @@ export function AppSidebar({
   const sidebarRef = useRef<HTMLElement>(null);
   const clearAuth = useAuthStore((state) => state.clearAuth);
   const navigate = useNavigate();
+  const { t } = useTranslation('common');
+  const groups: {
+    label: string;
+    links: { label: string; to: string; icon: LucideIcon; end?: boolean }[];
+  }[] = [
+    {
+      label: t('navigation.space'),
+      links: [
+        { label: t('navigation.home'), to: ROUTES.dashboard, icon: Home, end: true },
+        { label: t('navigation.learn'), to: ROUTES.learn.root, icon: BookOpen },
+        { label: t('navigation.journey'), to: ROUTES.journey, icon: Map },
+      ],
+    },
+    {
+      label: t('navigation.discover'),
+      links: [
+        { label: t('navigation.experiences'), to: ROUTES.experiences.root, icon: Compass },
+        { label: t('navigation.opportunities'), to: ROUTES.opportunities.root, icon: BriefcaseBusiness },
+      ],
+    },
+    {
+      label: t('navigation.account'),
+      links: [{ label: t('navigation.profile'), to: ROUTES.profile, icon: UserRound }],
+    },
+  ];
 
   useEffect(() => {
     if (!mobileOpen) return;
@@ -102,7 +103,7 @@ export function AppSidebar({
     <>
       {mobileOpen && (
         <button
-          aria-label="Fechar navegação"
+          aria-label={t('navigation.close')}
           className="fixed inset-0 z-40 bg-background/70 backdrop-blur-sm md:hidden"
           onClick={onCloseMobile}
           type="button"
@@ -110,7 +111,7 @@ export function AppSidebar({
       )}
       <aside
         aria-modal={mobileOpen ? true : undefined}
-        aria-label="Navegação principal"
+        aria-label={t('navigation.primary')}
         data-app-sidebar
         ref={sidebarRef}
         role={mobileOpen ? 'dialog' : undefined}
@@ -124,7 +125,7 @@ export function AppSidebar({
       >
         <div className="flex h-16 items-center justify-between border-b px-4">
           <Link
-            aria-label="KUMUKA — início"
+            aria-label={`${t('breadcrumb.home')} — ${t('navigation.home').toLocaleLowerCase()}`}
             className="flex min-w-0 items-center gap-3 rounded-md font-bold tracking-tight focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
             to={ROUTES.dashboard}
           >
@@ -136,7 +137,7 @@ export function AppSidebar({
             </span>
           </Link>
           <Button
-            aria-label="Fechar navegação"
+            aria-label={t('navigation.close')}
             className="md:hidden"
             onClick={onCloseMobile}
             size="icon"
@@ -146,7 +147,7 @@ export function AppSidebar({
             <X aria-hidden="true" />
           </Button>
           <Button
-            aria-label={collapsed ? 'Expandir menu' : 'Recolher menu'}
+            aria-label={collapsed ? t('navigation.expand') : t('navigation.collapse')}
             className="hidden md:inline-flex"
             onClick={onCollapse}
             size="icon"
@@ -206,7 +207,7 @@ export function AppSidebar({
             <div className="flex items-center gap-2 text-primary">
               <GraduationCap aria-hidden="true" className="size-4 shrink-0" />
               <span className={cn('text-xs font-medium', collapsed && 'md:hidden')}>
-                Constrói o teu futuro.
+                {t('navigation.brandTagline')}
               </span>
             </div>
           </div>
@@ -220,7 +221,7 @@ export function AppSidebar({
             variant="ghost"
           >
             <LogOut aria-hidden="true" className="size-[18px] shrink-0" />
-            <span className={cn(collapsed && 'md:hidden')}>Sair</span>
+            <span className={cn(collapsed && 'md:hidden')}>{t('navigation.logout')}</span>
           </Button>
         </div>
       </aside>

@@ -12,6 +12,7 @@ import type { Course } from '@/types/course';
 import type { Guide } from '@/types/guide';
 import type { QuickLearning } from '@/types/quick-learning';
 import type { Trail } from '@/types/trail';
+import { useTranslation } from 'react-i18next';
 
 type LearningItem = Trail | Course | QuickLearning | Guide;
 type Category = 'trilhas' | 'cursos' | 'aprendizados' | 'guias';
@@ -44,23 +45,23 @@ function detailPath(category: Category, slug: string): string {
   }
 }
 
-function durationLabel(item: LearningItem): string | null {
+function durationLabel(item: LearningItem, t: ReturnType<typeof useTranslation<'learning'>>['t']): string | null {
   if (!('duracao' in item)) return null;
-  return `${item.duracao} ${'modulos' in item ? 'h' : 'min'}`;
+  return 'modulos' in item ? t('courseDetails.hours', { count: item.duracao }) : t('catalog.duration', { count: item.duracao });
 }
 
 function statusFor(
   category: Category,
   item: LearningItem,
   progress: LearningProgress[],
-): { label: string; status: 'success' | 'info' | 'neutral' } {
+): { key: 'common.completed' | 'common.inProgress' | 'common.available'; status: 'success' | 'info' | 'neutral' } {
   const type = resourceType[category];
   const record = type
     ? progress.find((entry) => entry.recursoTipo === type && entry.recursoId === item.id)
     : undefined;
-  if (record?.estado === 'concluido') return { label: 'Concluído', status: 'success' };
-  if (record?.estado === 'em_progresso') return { label: 'Em progresso', status: 'info' };
-  return { label: 'Disponível', status: 'neutral' };
+  if (record?.estado === 'concluido') return { key: 'common.completed', status: 'success' };
+  if (record?.estado === 'em_progresso') return { key: 'common.inProgress', status: 'info' };
+  return { key: 'common.available', status: 'neutral' };
 }
 
 export function LearningCatalog({
@@ -70,14 +71,15 @@ export function LearningCatalog({
   isLoading,
   isError,
 }: LearningCatalogProps) {
+  const { t } = useTranslation('learning');
   if (isLoading) return <LoadingState />;
   if (isError) return <ErrorState />;
   if (!items?.length) {
     return (
       <EmptyState
-        description="Não há conteúdos disponíveis nesta área."
+        description={t('catalog.emptyDescription')}
         icon={BookOpen}
-        title="Ainda não há conteúdos para mostrar"
+        title={t('catalog.emptyTitle')}
       />
     );
   }
@@ -86,12 +88,12 @@ export function LearningCatalog({
     <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
       {items.map((item) => {
         const state = statusFor(category, item, progress);
-        const duration = durationLabel(item);
+        const duration = durationLabel(item, t);
         return (
           <Card className="flex flex-col border-border transition-colors hover:border-primary/50" key={item.id}>
             <CardHeader className="gap-3">
               <div className="flex flex-wrap items-center justify-between gap-2">
-                <StatusBadge status={state.status}>{state.label}</StatusBadge>
+                <StatusBadge status={state.status}>{t(state.key)}</StatusBadge>
                 {'nivel' in item && (
                   <span className="text-xs capitalize text-muted-foreground">{item.nivel}</span>
                 )}
@@ -112,7 +114,7 @@ export function LearningCatalog({
                 render={<Link to={detailPath(category, item.slug)} />}
                 variant="outline"
               >
-                Ver conteúdo
+                {t('catalog.details')}
                 <ArrowRight aria-hidden="true" />
               </Button>
             </CardContent>

@@ -1,0 +1,105 @@
+{
+  "steps": {
+    "welcome": "Welcome",
+    "credentials": "Account",
+    "name": "Name",
+    "age": "Age",
+    "situation": "Situation",
+    "interests": "Interests",
+    "goal": "Goal",
+    "reward": "Your journey"
+  },
+  "welcome": {
+    "eyebrow": "Your next chapter starts here",
+    "title": "Welcome to KUMUKA",
+    "description": "Let's get to know you so we can help you discover opportunities, develop skills and move forward at your own pace.",
+    "start": "Let's get started"
+  },
+  "credentials": {
+    "continue": "Continue",
+    "alreadyReady": "Your account is ready",
+    "alreadyReadyDescription": "Keep personalising your KUMUKA experience.",
+    "title": "Create your account",
+    "description": "Use an email address you can access and choose a secure password.",
+    "email": "Email",
+    "emailPlaceholder": "you@example.com",
+    "password": "Password",
+    "confirmPassword": "Confirm password",
+    "requiredEmail": "Email is required.",
+    "invalidEmail": "Enter a valid email address.",
+    "shortPassword": "Password must be at least {{count}} characters.",
+    "requiredConfirmation": "Please confirm your password.",
+    "passwordMismatch": "Passwords do not match.",
+    "creating": "Creating account…",
+    "createAndContinue": "Create account and continue"
+  },
+  "name": {
+    "title": "What should we call you?",
+    "description": "Share the name you like to use.",
+    "label": "Your name",
+    "placeholder": "For example, Ana",
+    "minLength": "Enter at least two characters."
+  },
+  "age": {
+    "title": "How old are you?",
+    "description": "We'll suggest opportunities that suit your stage of life.",
+    "label": "Age",
+    "invalid": "Enter a valid age."
+  },
+  "situation": {
+    "title": "What are you doing at the moment?",
+    "description": "There are no right or wrong answers."
+  },
+  "interests": {
+    "title": "What would you like to explore?",
+    "description": "Choose one or more topics that interest you.",
+    "label": "Your interests"
+  },
+  "goal": {
+    "title": "What is your main goal?",
+    "description": "Your answer helps us prioritise what's important to you."
+  },
+  "options": {
+    "situations": {
+      "studying": "I'm studying",
+      "jobSearch": "I'm looking for work",
+      "working": "I'm already working",
+      "business": "I have a business or project",
+      "other": "Another situation"
+    },
+    "interests": {
+      "technology": "Technology",
+      "entrepreneurship": "Entrepreneurship",
+      "creativity": "Creativity",
+      "leadership": "Leadership",
+      "finance": "Finance",
+      "communication": "Communication",
+      "science": "Science",
+      "employability": "Employability"
+    },
+    "goals": {
+      "skill": "Learn a new skill",
+      "firstJob": "Prepare for my first job",
+      "business": "Start my own business",
+      "career": "Grow in my current job",
+      "explore": "Discover what I want to do"
+    }
+  },
+  "reward": {
+    "almost": "You're almost there!",
+    "almostNamed": "You're almost there, {{name}}!",
+    "description": "Your profile is ready to unlock new possibilities.",
+    "journeyTitle": "Your KUMUKA journey",
+    "journeyDescription": "Your journey starts with recommendations matched to your interests and goals.",
+    "goal": "Goal:",
+    "interests": "Interests:",
+    "complete": "Complete my profile"
+  },
+  "complete": {
+    "congratulations": "Congratulations!",
+    "congratulationsNamed": "Congratulations, {{name}}!",
+    "description": "Your KUMUKA profile is ready. Your next opportunity starts now.",
+    "explore": "Explore KUMUKA"
+  },
+  "progress": "Step {{current}} of {{total}}"
+}

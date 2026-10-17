@@ -1,5 +1,6 @@
 import { cn } from '@/lib/utils';
 import { Skeleton } from './Skeleton';
+import { useTranslation } from 'react-i18next';
 
 interface LoadingStateProps {
   message?: string;
@@ -7,9 +8,11 @@ interface LoadingStateProps {
 }
 
 export function LoadingState({
-  message = 'A carregar...',
+  message,
   className,
 }: LoadingStateProps) {
+  const { t } = useTranslation('common');
+
   return (
     <div
       aria-busy="true"
@@ -19,7 +22,7 @@ export function LoadingState({
         className,
       )}
     >
-      <span className="sr-only">{message}</span>
+      <span className="sr-only">{message ?? t('states.loading')}</span>
       <Skeleton className="h-8 w-52" />
       <Skeleton className="h-4 w-72 max-w-full" />
       <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">

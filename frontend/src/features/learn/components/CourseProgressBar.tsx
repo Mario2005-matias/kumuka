@@ -1,4 +1,5 @@
 import { ProgressBar } from './ProgressBar';
+import { useTranslation } from 'react-i18next';
 
 interface CourseProgressBarProps {
   value: number;
@@ -6,10 +7,11 @@ interface CourseProgressBarProps {
 }
 
 export function CourseProgressBar({ value, courseTitle }: CourseProgressBarProps) {
+  const { t } = useTranslation('learning');
   return (
     <ProgressBar
       className="w-full"
-      label={`Progresso no curso ${courseTitle}`}
+      label={t('courseDetails.progressLabel', { title: courseTitle })}
       value={value}
     />
   );

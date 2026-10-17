@@ -1,6 +1,7 @@
 import { Link, Outlet } from 'react-router-dom';
 import { ROUTES } from '@/lib/constants/routes';
 import { ModeToggle } from '@/components/shared/mode-toggle';
+import { LanguageSwitcher } from '@/components/shared/LanguageSwitcher';
 
 export function AuthLayout() {
   return (
@@ -10,7 +11,10 @@ export function AuthLayout() {
           <Link to={ROUTES.home} className="text-xl font-bold tracking-tight">
             KUMUKA
           </Link>
-          <ModeToggle />
+          <div className="ml-auto flex items-center gap-2">
+            <LanguageSwitcher />
+            <ModeToggle />
+          </div>
         </div>
       </header>
       <main className="flex flex-1 items-center justify-center px-4 py-8">

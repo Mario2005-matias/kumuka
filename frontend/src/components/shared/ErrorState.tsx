@@ -1,6 +1,7 @@
 import { AlertTriangle } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
+import { useTranslation } from 'react-i18next';
 
 interface ErrorStateProps {
   title?: string;
@@ -10,11 +11,13 @@ interface ErrorStateProps {
 }
 
 export function ErrorState({
-  title = 'Algo correu mal',
-  message = 'Não foi possível carregar esta informação. Tenta novamente.',
+  title,
+  message,
   onRetry,
   className,
 }: ErrorStateProps) {
+  const { t } = useTranslation('common');
+
   return (
     <div
       className={cn(
@@ -26,12 +29,16 @@ export function ErrorState({
         <AlertTriangle aria-hidden="true" className="size-7 text-destructive" />
       </div>
       <div className="max-w-md space-y-2">
-        <h3 className="text-lg font-semibold tracking-tight">{title}</h3>
-        <p className="text-sm leading-6 text-muted-foreground">{message}</p>
+        <h3 className="text-lg font-semibold tracking-tight">
+          {title ?? t('states.errorTitle')}
+        </h3>
+        <p className="text-sm leading-6 text-muted-foreground">
+          {message ?? t('states.error')}
+        </p>
       </div>
       {onRetry && (
         <Button variant="outline" size="sm" onClick={onRetry}>
-          Tentar novamente
+          {t('actions.retry')}
         </Button>
       )}
     </div>

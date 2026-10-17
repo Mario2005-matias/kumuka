@@ -19,48 +19,45 @@ import type { LearningProgress } from '@/types/progress';
 import { useCourses } from '../hooks/useCourses';
 import { useQuickLearnings } from '../hooks/useQuickLearnings';
 import { useTrails } from '../hooks/useTrails';
+import { useTranslation } from 'react-i18next';
 
 const categories: {
-  title: string;
-  description: string;
+  key: 'trails' | 'courses' | 'quickLearnings' | 'guides';
   icon: LucideIcon;
   to: string;
 }[] = [
   {
-    title: 'Trilhas',
-    description: 'Jornadas completas para desenvolver competências.',
+    key: 'trails',
     icon: BookOpen,
     to: ROUTES.learn.trails,
   },
   {
-    title: 'Cursos',
-    description: 'Aprendizagem estruturada e organizada por temas.',
+    key: 'courses',
     icon: GraduationCap,
     to: ROUTES.learn.courses,
   },
   {
-    title: 'Aprendizados',
-    description: 'Conteúdos curtos para aprender algo novo.',
+    key: 'quickLearnings',
     icon: Zap,
     to: ROUTES.learn.quickLearnings,
   },
   {
-    title: 'Guias',
-    description: 'Materiais práticos para consultar quando precisares.',
+    key: 'guides',
     icon: FileText,
     to: ROUTES.learn.guides,
   },
 ];
 
 const categoryTabs = [
-  { label: 'Tudo', to: ROUTES.learn.root },
-  { label: 'Trilhas', to: ROUTES.learn.trails },
-  { label: 'Cursos', to: ROUTES.learn.courses },
-  { label: 'Aprendizados', to: ROUTES.learn.quickLearnings },
-  { label: 'Guias', to: ROUTES.learn.guides },
-];
+  { key: 'all', to: ROUTES.learn.root },
+  { key: 'trails', to: ROUTES.learn.trails },
+  { key: 'courses', to: ROUTES.learn.courses },
+  { key: 'quickLearnings', to: ROUTES.learn.quickLearnings },
+  { key: 'guides', to: ROUTES.learn.guides },
+] as const;
 
 export default function LearnHubPage() {
+  const { t } = useTranslation('learning');
   const userId = useAuthStore((state) => state.user?.id ?? '');
   const progress = useProgress(userId);
   const trails = useTrails();
@@ -89,13 +86,13 @@ export default function LearnHubPage() {
   return (
     <div className="space-y-8">
       <PageHeader
-        description="Aprende ao teu ritmo e leva cada ideia para a prática."
-        title="Aprender"
+        description={t('hub.description')}
+        title={t('hub.title')}
       />
 
-      <nav aria-label="Categorias de aprendizagem" className="overflow-x-auto">
+      <nav aria-label={t('hub.categoriesLabel')} className="overflow-x-auto">
         <ul className="flex min-w-max gap-2 border-b border-border">
-          {categoryTabs.map(({ label, to }, index) => (
+          {categoryTabs.map(({ key, to }, index) => (
             <li key={to}>
               <Link
                 aria-current={index === 0 ? 'page' : undefined}
@@ -106,7 +103,7 @@ export default function LearnHubPage() {
                 }`}
                 to={to}
               >
-                {label}
+                {t(`hub.tabs.${key}`)}
               </Link>
             </li>
           ))}
@@ -116,39 +113,40 @@ export default function LearnHubPage() {
       <SectionCard
         className="overflow-hidden bg-[image:var(--gradient-surface)]"
         contentClassName="pb-6"
-        description="Escolhe um formato e começa por um tema que te interessa."
-        title="Aprendizagem com propósito"
+        description={t('hub.purposeDescription')}
+        title={t('hub.purposeTitle')}
       >
         <p className="max-w-2xl text-sm leading-6 text-muted-foreground">
-          Na KUMUKA, aprender é o primeiro passo para desenvolver competências,
-          criar evidências e descobrir novas oportunidades.
+          {t('hub.purposeBody')}
         </p>
       </SectionCard>
 
       <section aria-labelledby="learning-formats-title" className="space-y-4">
         <div>
           <p className="text-xs font-semibold uppercase tracking-[0.14em] text-primary">
-            Encontra o teu formato
+            {t('hub.formatsEyebrow')}
           </p>
           <h2 className="mt-2 text-2xl font-bold tracking-tight" id="learning-formats-title">
-            Explora conteúdos
+            {t('hub.exploreTitle')}
           </h2>
         </div>
         <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
-          {categories.map(({ title, description, icon: Icon, to }) => (
+          {categories.map(({ key, icon: Icon, to }) => (
             <Card
               className="group border-border transition-all duration-200 hover:-translate-y-0.5 hover:border-primary/50 hover:bg-surface-1"
-              key={title}
+              key={key}
             >
               <CardHeader>
                 <div className="mb-3 flex size-11 items-center justify-center rounded-xl bg-primary/10 text-primary transition-colors group-hover:bg-primary group-hover:text-primary-foreground">
                   <Icon aria-hidden="true" className="size-5" />
                 </div>
-                <CardTitle className="text-lg">{title}</CardTitle>
+                <CardTitle className="text-lg">
+                  {t(`hub.categories.${key}.title`)}
+                </CardTitle>
               </CardHeader>
               <CardContent>
                 <p className="min-h-12 text-sm leading-6 text-muted-foreground">
-                  {description}
+                  {t(`hub.categories.${key}.description`)}
                 </p>
                 <Button
                   className="mt-4 px-0 text-primary"
@@ -156,7 +154,7 @@ export default function LearnHubPage() {
                   render={<Link to={to} />}
                   variant="ghost"
                 >
-                  Explorar
+                  {t('hub.explore')}
                   <ArrowRight aria-hidden="true" />
                 </Button>
               </CardContent>
@@ -166,22 +164,22 @@ export default function LearnHubPage() {
       </section>
 
       <SectionCard
-        description="Os conteúdos vão aparecer aqui quando estiverem disponíveis."
-        title="Continua a aprender"
+        description={t('hub.continueDescription')}
+        title={t('hub.continueTitle')}
       >
         {progress.isLoading || trails.isLoading || courses.isLoading || quickLearnings.isLoading ? (
-          <p aria-live="polite" className="text-sm text-muted-foreground">A carregar o teu progresso…</p>
+          <p aria-live="polite" className="text-sm text-muted-foreground">{t('hub.loadingProgress')}</p>
         ) : progress.isError || trails.isError || courses.isError || quickLearnings.isError ? (
-          <p className="text-sm text-destructive" role="alert">Não foi possível carregar o teu progresso.</p>
+          <p className="text-sm text-destructive" role="alert">{t('hub.progressError')}</p>
         ) : inProgress.length ? (
           <div className="grid gap-3 sm:grid-cols-2">
             {inProgress.map((item) => (
               <Card className="border-border" key={item.id}>
                 <CardContent className="p-4">
                   <h3 className="font-semibold">{item.title}</h3>
-                  <p className="mt-1 text-sm text-muted-foreground">{item.percent}% concluído</p>
+                  <p className="mt-1 text-sm text-muted-foreground">{t('hub.completed', { percent: item.percent })}</p>
                   <div
-                    aria-label={`${item.percent}% concluído`}
+                    aria-label={t('hub.completed', { percent: item.percent })}
                     aria-valuemax={100}
                     aria-valuemin={0}
                     aria-valuenow={item.percent}
@@ -196,7 +194,7 @@ export default function LearnHubPage() {
                     render={<Link to={item.to} />}
                     variant="ghost"
                   >
-                    Continuar
+                    {t('hub.continueAction')}
                     <ArrowRight aria-hidden="true" />
                   </Button>
                 </CardContent>
@@ -206,9 +204,9 @@ export default function LearnHubPage() {
         ) : (
           <EmptyState
             className="border-0 bg-transparent py-5"
-            description="Escolhe uma trilha, curso ou aprendizado para começar."
+            description={t('hub.emptyDescription')}
             icon={BookOpen}
-            title="Ainda não começaste uma actividade"
+            title={t('hub.emptyTitle')}
           />
         )}
       </SectionCard>

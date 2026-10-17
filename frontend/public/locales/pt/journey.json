@@ -1,0 +1,42 @@
+{
+  "title": "Minha Jornada",
+  "description": "Uma jornada que liga aprendizagem, prática e oportunidades.",
+  "error": "Não foi possível carregar os dados da tua jornada.",
+  "overview": "O teu percurso",
+  "overviewTitle": "Cada passo conta",
+  "overviewDescription": "O progresso abaixo é calculado a partir das actividades de aprendizagem registadas.",
+  "averageProgress": "{{percent}}% de progresso médio em {{count}} actividades iniciadas.",
+  "loading": "A carregar a tua jornada…",
+  "loadingActivities": "A carregar actividades…",
+  "stepsTitle": "O caminho à tua frente",
+  "steps": {
+    "learn": { "title": "Aprender", "description": "Explora temas e constrói uma base de conhecimento." },
+    "develop": { "title": "Desenvolver", "description": "Pratica competências que podes usar no dia a dia." },
+    "do": { "title": "Fazer", "description": "Aplica o que sabes em projectos e desafios." },
+    "prove": { "title": "Provar", "description": "Reúne evidências e apresenta o teu trabalho." },
+    "experience": { "title": "Experimentar", "description": "Participa em experiências e conhece novas áreas." },
+    "advance": { "title": "Avançar", "description": "Encontra oportunidades para o teu próximo passo." }
+  },
+  "milestones": {
+    "completed": "Concluído",
+    "inProgress": "Em curso",
+    "notStarted": "Por começar",
+    "next": "A seguir",
+    "projects_one": "{{count}} projecto",
+    "projects_other": "{{count}} projectos",
+    "withEvidence": "Com evidências",
+    "enrolled": "Inscrita",
+    "loading": "A carregar"
+  },
+  "activitiesTitle": "Aprendizagens no teu percurso",
+  "activitiesDescription": "Actividades iniciadas e o progresso registado em cada uma.",
+  "activityStatus": {
+    "completed": "Concluída",
+    "inProgress": "Em progresso"
+  },
+  "activityProgress": "{{percent}}% concluído",
+  "emptyTitle": "Ainda não há aprendizagens iniciadas",
+  "emptyDescription": "Explora conteúdos para começares uma actividade.",
+  "findLearning": "Encontrar algo para aprender",
+  "enrolledTitle": "Experiências em que estás inscrita"
+}

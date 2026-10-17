@@ -2,6 +2,7 @@ import { Search, X } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import type { TrailLevel } from '@/types/trail';
+import { useTranslation } from 'react-i18next';
 
 export interface TrailFilterValues {
   pesquisa: string;
@@ -38,6 +39,7 @@ export function TrailFilters({
   onChange,
   onClear,
 }: TrailFiltersProps) {
+  const { t } = useTranslation('learning');
   return (
     <div className="grid gap-3 rounded-xl border border-border bg-card p-4 sm:grid-cols-2 lg:grid-cols-[minmax(15rem,2fr)_repeat(3,minmax(9rem,1fr))_auto] lg:items-end">
       <div className="relative sm:col-span-2 lg:col-span-1">
@@ -45,7 +47,7 @@ export function TrailFilters({
           className="mb-2 block text-sm font-medium"
           htmlFor="trail-search"
         >
-          Pesquisar trilhas
+          {t('trailFilters.search')}
         </label>
         <Search
           aria-hidden="true"
@@ -57,14 +59,14 @@ export function TrailFilters({
           onChange={(event) =>
             onChange({ ...value, pesquisa: event.currentTarget.value })
           }
-          placeholder="Ex.: marketing"
+          placeholder={t('trailFilters.searchPlaceholder')}
           type="search"
           value={value.pesquisa}
         />
       </div>
       <div>
         <label className="mb-2 block text-sm font-medium" htmlFor="trail-level">
-          Nível
+          {t('courseFilters.level')}
         </label>
         <select
           className={selectClass}
@@ -77,15 +79,15 @@ export function TrailFilters({
           }
           value={value.nivel}
         >
-          <option value="">Todos</option>
-          <option value="iniciante">Iniciante</option>
-          <option value="intermedio">Intermédio</option>
-          <option value="avancado">Avançado</option>
+          <option value="">{t('common.all')}</option>
+          <option value="iniciante">{t('courseFilters.beginner')}</option>
+          <option value="intermedio">{t('courseFilters.intermediate')}</option>
+          <option value="avancado">{t('courseFilters.advanced')}</option>
         </select>
       </div>
       <div>
         <label className="mb-2 block text-sm font-medium" htmlFor="trail-duration">
-          Duração
+          {t('courseFilters.duration')}
         </label>
         <select
           className={selectClass}
@@ -98,15 +100,15 @@ export function TrailFilters({
           }
           value={value.duracao}
         >
-          <option value="">Todas</option>
-          <option value="menos-5">Menos de 5 horas</option>
-          <option value="5-10">5 a 10 horas</option>
-          <option value="mais-10">Mais de 10 horas</option>
+          <option value="">{t('common.all')}</option>
+          <option value="menos-5">{t('courseFilters.lessThanFiveHours')}</option>
+          <option value="5-10">{t('courseFilters.fiveToTenHours')}</option>
+          <option value="mais-10">{t('courseFilters.moreThanTenHours')}</option>
         </select>
       </div>
       <div>
         <label className="mb-2 block text-sm font-medium" htmlFor="trail-category">
-          Categoria
+          {t('courseFilters.category')}
         </label>
         <select
           className={selectClass}
@@ -116,7 +118,7 @@ export function TrailFilters({
           }
           value={value.categoria}
         >
-          <option value="">Todas</option>
+          <option value="">{t('common.all')}</option>
           {categories.map((category) => (
             <option key={category} value={category}>
               {category}
@@ -131,7 +133,7 @@ export function TrailFilters({
         variant="outline"
       >
         <X aria-hidden="true" />
-        Limpar filtros
+        {t('courseFilters.clear')}
       </Button>
     </div>
   );

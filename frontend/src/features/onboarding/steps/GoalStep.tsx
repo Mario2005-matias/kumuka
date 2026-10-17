@@ -1,6 +1,15 @@
 import { Button } from '@/components/ui/button';
 import { SelectableCard } from '../components/SelectableCard';
 import { GOAL_OPTIONS } from '../types';
+import { useTranslation } from 'react-i18next';
+
+const goalKeys = {
+  'Aprender uma nova competência': 'skill',
+  'Preparar-me para o primeiro emprego': 'firstJob',
+  'Criar o meu próprio negócio': 'business',
+  'Crescer no meu trabalho atual': 'career',
+  'Descobrir o que quero fazer': 'explore',
+} as const;
 
 interface GoalStepProps {
   value: string;
@@ -9,12 +18,14 @@ interface GoalStepProps {
 }
 
 export function GoalStep({ value, onChange, onNext }: GoalStepProps) {
+  const { t } = useTranslation('onboarding');
+
   return (
     <section className="space-y-6">
       <div className="space-y-2">
-        <h1 className="text-2xl font-bold">Qual é o teu principal objetivo?</h1>
+        <h1 className="text-2xl font-bold">{t('goal.title')}</h1>
         <p className="text-muted-foreground">
-          A tua resposta ajuda-nos a dar prioridade ao que é importante para ti.
+          {t('goal.description')}
         </p>
       </div>
       <div className="grid gap-3">
@@ -23,12 +34,12 @@ export function GoalStep({ value, onChange, onNext }: GoalStepProps) {
             key={option}
             onSelect={() => onChange(option)}
             selected={value === option}
-            title={option}
+            title={t(`options.goals.${goalKeys[option]}`)}
           />
         ))}
       </div>
       <Button className="w-full" disabled={!value} onClick={onNext} type="button">
-        Continuar
+        {t('credentials.continue')}
       </Button>
     </section>
   );

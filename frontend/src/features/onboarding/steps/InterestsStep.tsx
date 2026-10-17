@@ -1,6 +1,18 @@
 import { Button } from '@/components/ui/button';
 import { ChipMultiSelect } from '../components/ChipMultiSelect';
 import { INTEREST_OPTIONS } from '../types';
+import { useTranslation } from 'react-i18next';
+
+const interestKeys = {
+  Tecnologia: 'technology',
+  Empreendedorismo: 'entrepreneurship',
+  Criatividade: 'creativity',
+  Liderança: 'leadership',
+  Finanças: 'finance',
+  Comunicação: 'communication',
+  Ciência: 'science',
+  Empregabilidade: 'employability',
+} as const;
 
 interface InterestsStepProps {
   value: string[];
@@ -9,22 +21,27 @@ interface InterestsStepProps {
 }
 
 export function InterestsStep({ value, onChange, onNext }: InterestsStepProps) {
+  const { t } = useTranslation('onboarding');
+
   return (
     <section className="space-y-6">
       <div className="space-y-2">
-        <h1 className="text-2xl font-bold">O que gostavas de explorar?</h1>
+        <h1 className="text-2xl font-bold">{t('interests.title')}</h1>
         <p className="text-muted-foreground">
-          Escolhe um ou mais temas que te interessam.
+          {t('interests.description')}
         </p>
       </div>
       <ChipMultiSelect
-        label="Os teus interesses"
+        label={t('interests.label')}
         onToggle={(interest) =>
           onChange(
             value.includes(interest)
               ? value.filter((selected) => selected !== interest)
               : [...value, interest],
           )
+        }
+        getLabel={(option) =>
+          t(`options.interests.${interestKeys[option as keyof typeof interestKeys]}`)
         }
         options={INTEREST_OPTIONS}
         selected={value}
@@ -35,7 +52,7 @@ export function InterestsStep({ value, onChange, onNext }: InterestsStepProps) {
         onClick={onNext}
         type="button"
       >
-        Continuar
+        {t('credentials.continue')}
       </Button>
     </section>
   );

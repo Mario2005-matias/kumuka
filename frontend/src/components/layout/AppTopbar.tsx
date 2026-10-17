@@ -24,30 +24,52 @@ import {
 import { ROUTES } from '@/lib/constants/routes';
 import { useAuthStore } from '@/stores/authStore';
 import { ModeToggle } from '../shared/mode-toggle';
+import { LanguageSwitcher } from '@/components/shared/LanguageSwitcher';
+import { useTranslation } from 'react-i18next';
 
 interface AppTopbarProps {
   onOpenMobileMenu: () => void;
 }
 
-const pageLabels: Record<string, string> = {
-  [ROUTES.dashboard]: 'Início',
-  [ROUTES.learn.root]: 'Aprender',
-  [ROUTES.journey]: 'Minha Jornada',
-  [ROUTES.profile]: 'Perfil',
-  [ROUTES.experiences.root]: 'Experiências',
-  [ROUTES.opportunities.root]: 'Oportunidades',
+type NavigationTranslationKey =
+  | 'navigation.home'
+  | 'navigation.learn'
+  | 'navigation.journey'
+  | 'navigation.profile'
+  | 'navigation.experiences'
+  | 'navigation.opportunities';
+type SearchDescriptionKey =
+  | 'search.description.home'
+  | 'search.description.learn'
+  | 'search.description.journey'
+  | 'search.description.experiences'
+  | 'search.description.opportunities'
+  | 'search.description.profile';
+
+const pageLabelKeys: Record<string, NavigationTranslationKey> = {
+  [ROUTES.dashboard]: 'navigation.home',
+  [ROUTES.learn.root]: 'navigation.learn',
+  [ROUTES.journey]: 'navigation.journey',
+  [ROUTES.profile]: 'navigation.profile',
+  [ROUTES.experiences.root]: 'navigation.experiences',
+  [ROUTES.opportunities.root]: 'navigation.opportunities',
 };
 
-const searchLinks = [
-  { label: 'Início', description: 'O teu espaço KUMUKA', to: ROUTES.dashboard },
-  { label: 'Aprender', description: 'Conteúdos e trilhas', to: ROUTES.learn.root },
-  { label: 'Minha Jornada', description: 'O teu percurso', to: ROUTES.journey },
-  { label: 'Experiências', description: 'Programas e eventos', to: ROUTES.experiences.root },
-  { label: 'Oportunidades', description: 'Estágios, bolsas e programas', to: ROUTES.opportunities.root },
-  { label: 'Perfil', description: 'A tua conta', to: ROUTES.profile },
+const searchLinks: {
+  label: NavigationTranslationKey;
+  description: SearchDescriptionKey;
+  to: string;
+}[] = [
+  { label: 'navigation.home', description: 'search.description.home', to: ROUTES.dashboard },
+  { label: 'navigation.learn', description: 'search.description.learn', to: ROUTES.learn.root },
+  { label: 'navigation.journey', description: 'search.description.journey', to: ROUTES.journey },
+  { label: 'navigation.experiences', description: 'search.description.experiences', to: ROUTES.experiences.root },
+  { label: 'navigation.opportunities', description: 'search.description.opportunities', to: ROUTES.opportunities.root },
+  { label: 'navigation.profile', description: 'search.description.profile', to: ROUTES.profile },
 ];
 
 export function AppTopbar({ onOpenMobileMenu }: AppTopbarProps) {
+  const { t } = useTranslation('common');
   const location = useLocation();
   const navigate = useNavigate();
   const user = useAuthStore((state) => state.user);
@@ -56,25 +78,26 @@ export function AppTopbar({ onOpenMobileMenu }: AppTopbarProps) {
   const [query, setQuery] = useState('');
   const [activeResult, setActiveResult] = useState(0);
 
-  const currentPage =
-    pageLabels[location.pathname] ??
+  const currentPageKey: NavigationTranslationKey | undefined =
+    pageLabelKeys[location.pathname] ??
     (location.pathname.startsWith(ROUTES.learn.root)
-      ? 'Aprender'
+      ? 'navigation.learn'
       : location.pathname.startsWith(ROUTES.experiences.root)
-        ? 'Experiências'
+        ? 'navigation.experiences'
         : location.pathname.startsWith(ROUTES.opportunities.root)
-          ? 'Oportunidades'
-        : 'KUMUKA');
+          ? 'navigation.opportunities'
+          : undefined);
+  const currentPage = currentPageKey ? t(currentPageKey) : 'KUMUKA';
   const results = useMemo(() => {
     const normalized = query.trim().toLocaleLowerCase();
     return normalized
       ? searchLinks.filter((item) =>
-          `${item.label} ${item.description}`
+          `${t(item.label)} ${t(item.description)}`
             .toLocaleLowerCase()
             .includes(normalized),
         )
       : searchLinks;
-  }, [query]);
+  }, [query, t]);
 
   useEffect(() => {
     function handleWindowKeyDown(event: globalThis.KeyboardEvent) {
@@ -125,7 +148,7 @@ export function AppTopbar({ onOpenMobileMenu }: AppTopbarProps) {
     <>
       <header className="sticky top-0 z-30 flex h-16 items-center gap-3 border-b bg-background/80 px-4 backdrop-blur-xl sm:px-6">
         <Button
-          aria-label="Abrir navegação"
+          aria-label={t('navigation.open')}
           className="md:hidden"
           onClick={onOpenMobileMenu}
           size="icon"
@@ -140,7 +163,7 @@ export function AppTopbar({ onOpenMobileMenu }: AppTopbarProps) {
             className="hidden text-muted-foreground transition-colors hover:text-foreground sm:inline"
             to={ROUTES.dashboard}
           >
-            KUMUKA
+            {t('breadcrumb.home')}
           </Link>
           <ChevronRight aria-hidden="true" className="hidden size-4 text-subtle-foreground sm:inline" />
           <span aria-current="page" className="truncate font-medium">
@@ -150,7 +173,7 @@ export function AppTopbar({ onOpenMobileMenu }: AppTopbarProps) {
 
         <div className="flex-1" />
         <Button
-          aria-label="Pesquisar (Ctrl+K)"
+          aria-label={t('search.open')}
           className="h-9 w-9 sm:w-auto sm:justify-start sm:gap-3 sm:border sm:border-border sm:bg-surface-1 sm:px-3"
           onClick={() => setSearchOpen(true)}
           type="button"
@@ -158,14 +181,14 @@ export function AppTopbar({ onOpenMobileMenu }: AppTopbarProps) {
         >
           <Search aria-hidden="true" className="size-4" />
           <span className="hidden text-sm text-muted-foreground sm:inline">
-            Pesquisar
+            {t('actions.search')}
           </span>
           <kbd className="hidden items-center gap-1 rounded border bg-surface-2 px-1.5 py-0.5 text-[10px] text-muted-foreground lg:inline-flex">
             <Command aria-hidden="true" className="size-3" /> K
           </kbd>
         </Button>
         <Button
-          aria-label="Notificações (em breve)"
+          aria-label={t('notifications.soon')}
           className="hidden sm:inline-flex"
           disabled
           size="icon"
@@ -174,10 +197,11 @@ export function AppTopbar({ onOpenMobileMenu }: AppTopbarProps) {
         >
           <Bell aria-hidden="true" className="size-[18px]" />
         </Button>
-        <ModeToggle/>
+        <LanguageSwitcher />
+        <ModeToggle />
         <DropdownMenu>
           <DropdownMenuTrigger
-            aria-label="Abrir menu da conta"
+            aria-label={t('account.open')}
             className="flex size-9 items-center justify-center rounded-full transition-colors hover:bg-surface-3 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
           >
             <Avatar>
@@ -189,17 +213,17 @@ export function AppTopbar({ onOpenMobileMenu }: AppTopbarProps) {
           <DropdownMenuContent align="end" className="min-w-56">
             <DropdownMenuGroup>
               <DropdownMenuLabel className="truncate">
-                {user?.email ?? 'A tua conta'}
+                {user?.email ?? t('account.yourAccount')}
               </DropdownMenuLabel>
             </DropdownMenuGroup>
             <DropdownMenuSeparator />
             <DropdownMenuItem onClick={() => navigate(ROUTES.profile)}>
               <UserRound aria-hidden="true" />
-              Perfil
+              {t('navigation.profile')}
             </DropdownMenuItem>
             <DropdownMenuItem onClick={logout}>
               <LogOut aria-hidden="true" />
-              Sair
+              {t('navigation.logout')}
             </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
@@ -213,7 +237,7 @@ export function AppTopbar({ onOpenMobileMenu }: AppTopbarProps) {
           }}
         >
           <section
-            aria-label="Pesquisa global"
+            aria-label={t('search.dialog')}
             aria-modal="true"
             className="w-full max-w-xl overflow-hidden rounded-2xl border bg-popover shadow-2xl shadow-primary/10"
             role="dialog"
@@ -224,7 +248,7 @@ export function AppTopbar({ onOpenMobileMenu }: AppTopbarProps) {
             >
               <Search aria-hidden="true" className="size-5 shrink-0 text-muted-foreground" />
               <input
-                aria-label="Pesquisar páginas"
+                aria-label={t('search.pages')}
                 aria-activedescendant={
                   results[activeResult] ? `global-search-${activeResult}` : undefined
                 }
@@ -238,12 +262,12 @@ export function AppTopbar({ onOpenMobileMenu }: AppTopbarProps) {
                   setActiveResult(0);
                   setQuery(event.target.value);
                 }}
-                placeholder="Pesquisar áreas da KUMUKA..."
+                placeholder={t('search.placeholder')}
                 role="combobox"
                 value={query}
               />
               <Button
-                aria-label="Fechar pesquisa"
+                aria-label={t('actions.cancel')}
                 onClick={() => setSearchOpen(false)}
                 size="icon"
                 type="button"
@@ -275,9 +299,9 @@ export function AppTopbar({ onOpenMobileMenu }: AppTopbarProps) {
                       type="button"
                     >
                       <span>
-                        <span className="block text-sm font-medium">{item.label}</span>
+                        <span className="block text-sm font-medium">{t(item.label)}</span>
                         <span className="mt-0.5 block text-xs text-muted-foreground">
-                          {item.description}
+                          {t(item.description)}
                         </span>
                       </span>
                       <ChevronRight aria-hidden="true" className="size-4 text-muted-foreground" />
@@ -286,12 +310,12 @@ export function AppTopbar({ onOpenMobileMenu }: AppTopbarProps) {
                 ))
               ) : (
                 <li className="px-4 py-8 text-center text-sm text-muted-foreground">
-                  Não encontrámos resultados.
+                  {t('search.empty')}
                 </li>
               )}
             </ul>
             <p className="border-t px-4 py-3 text-xs text-muted-foreground">
-              Usa ↑↓ para navegar · Enter para abrir · Esc para fechar
+              {t('search.keyboardHelp')}
             </p>
           </section>
         </div>

@@ -15,6 +15,7 @@ import { useCourses } from '@/features/learn/hooks/useCourses';
 import { ROUTES } from '@/lib/constants/routes';
 import { useAuthStore } from '@/stores/authStore';
 import type { Course, CourseLevel } from '@/types/course';
+import { useTranslation } from 'react-i18next';
 
 const storageKey = 'kumuka-courses-filters';
 const emptyFilters: CourseFilterValues = {
@@ -111,6 +112,7 @@ function CourseCardSkeleton() {
 }
 
 export default function CoursesPage() {
+  const { t } = useTranslation('learning');
   const [searchParams, setSearchParams] = useSearchParams();
   const userId = useAuthStore((state) => state.user?.id ?? '');
   const lastSearch = useRef(searchParams.toString());
@@ -183,9 +185,9 @@ export default function CoursesPage() {
   return (
     <div className="space-y-8">
       <PageHeader
-        breadcrumb={<Link className="hover:text-foreground" to={ROUTES.learn.root}>Aprender</Link>}
-        description="Aprendizagem estruturada sobre uma competência específica."
-        title="Cursos"
+        breadcrumb={<Link className="hover:text-foreground" to={ROUTES.learn.root}>{t('hub.title')}</Link>}
+        description={t('courseList.description')}
+        title={t('courseList.title')}
       />
       <CourseFilters
         categories={categories}
@@ -199,27 +201,27 @@ export default function CoursesPage() {
       {storageError && <p className="text-sm text-destructive" role="alert">{storageError}</p>}
       {courseProgress.isError && (
         <ErrorState
-          message="O catálogo está disponível, mas não conseguimos ler o teu progresso."
+          message={t('courseList.progressError')}
           onRetry={() => void courseProgress.refetch()}
         />
       )}
       {courses.isLoading ? (
-        <section aria-label="A carregar cursos" className="grid gap-5 sm:grid-cols-2 xl:grid-cols-3">
+        <section aria-label={t('courseList.loading')} className="grid gap-5 sm:grid-cols-2 xl:grid-cols-3">
           {Array.from({ length: 6 }, (_, index) => <CourseCardSkeleton key={index} />)}
         </section>
       ) : courses.isError ? (
         <ErrorState onRetry={() => void courses.refetch()} />
       ) : courses.data?.length === 0 ? (
         <EmptyState
-          action={<Button className="min-h-11" onClick={clearFilters} type="button" variant="outline">Limpar filtros</Button>}
-          description="Tenta ajustar os filtros ou limpar a pesquisa."
+          action={<Button className="min-h-11" onClick={clearFilters} type="button" variant="outline">{t('courseList.clearFilters')}</Button>}
+          description={t('courseList.emptyDescription')}
           icon={GraduationCap}
-          title="Sem cursos para mostrar"
+          title={t('courseList.emptyTitle')}
         />
       ) : (
-        <section aria-label="Resultados dos cursos" className="space-y-4">
+        <section aria-label={t('courseList.results')} className="space-y-4">
           <p aria-live="polite" className="text-sm text-muted-foreground">
-            {courses.data?.length ?? 0} {(courses.data?.length ?? 0) === 1 ? 'curso encontrado' : 'cursos encontrados'}
+            {t('courseList.resultsCount', { count: courses.data?.length ?? 0 })}
           </p>
           <div className="grid gap-5 sm:grid-cols-2 xl:grid-cols-3">
             {courses.data?.map((course: Course) => {

@@ -1,6 +1,7 @@
 import { useState, type FormEvent } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
+import { useTranslation } from 'react-i18next';
 
 interface AgeStepProps {
   value: number | null;
@@ -9,30 +10,31 @@ interface AgeStepProps {
 }
 
 export function AgeStep({ value, onChange, onNext }: AgeStepProps) {
-  const [error, setError] = useState('');
+  const { t } = useTranslation('onboarding');
+  const [error, setError] = useState(false);
 
   function submit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     if (value === null || !Number.isInteger(value) || value < 1 || value > 120) {
-      setError('Insere uma idade válida.');
+      setError(true);
       return;
     }
-    setError('');
+    setError(false);
     onNext();
   }
 
   return (
     <section className="space-y-6">
       <div className="space-y-2">
-        <h1 className="text-2xl font-bold">Quantos anos tens?</h1>
+        <h1 className="text-2xl font-bold">{t('age.title')}</h1>
         <p className="text-muted-foreground">
-          Vamos sugerir oportunidades adequadas à tua fase de vida.
+          {t('age.description')}
         </p>
       </div>
       <form className="space-y-4" onSubmit={submit}>
         <div className="space-y-2">
           <label className="text-sm font-medium" htmlFor="onboarding-age">
-            Idade
+            {t('age.label')}
           </label>
           <Input
             id="onboarding-age"
@@ -40,7 +42,7 @@ export function AgeStep({ value, onChange, onNext }: AgeStepProps) {
             max="120"
             min="1"
             onChange={(event) => {
-              setError('');
+              setError(false);
               onChange(event.target.value === '' ? null : Number(event.target.value));
             }}
             type="number"
@@ -48,12 +50,12 @@ export function AgeStep({ value, onChange, onNext }: AgeStepProps) {
           />
           {error && (
             <p className="text-sm text-destructive" role="alert">
-              {error}
+              {t('age.invalid')}
             </p>
           )}
         </div>
         <Button className="w-full" type="submit">
-          Continuar
+          {t('credentials.continue')}
         </Button>
       </form>
     </section>

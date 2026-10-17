@@ -1,0 +1,79 @@
+{
+  "hero": {
+    "eyebrow": "Ton avenir commence ici",
+    "title": "Construis ton avenir,",
+    "titleHighlight": "à ton rythme.",
+    "description": "Apprends, développe tes compétences, construis ton portfolio et trouve des opportunités avec KUMUKA.",
+    "badge": "Leaders de demain · Angola · 2026",
+    "titleAccessible": "Construis ton avenir.",
+    "primaryAction": "Commencer",
+    "secondaryAction": "J’ai déjà un compte",
+    "scroll": "Découvrir comment ça marche",
+    "journeyAccessible": "Le parcours KUMUKA : apprendre, faire, prouver et trouver des opportunités",
+    "journeyTitle": "Ton chemin, étape par étape",
+    "journey": {
+      "learn": "Apprendre",
+      "do": "Agir",
+      "prove": "Prouver",
+      "opportunities": "Opportunités"
+    },
+    "cardTitle": "Apprendre n’est qu’un début",
+    "cardDescription": "Mets tes connaissances au service de nouvelles opportunités."
+  },
+  "sections": {
+    "whatIsTitle": "Qu’est-ce que KUMUKA ?",
+    "whatIsDescription": "KUMUKA relie apprentissage et opportunités. Transforme ce que tu apprends en compétences, montre ce que tu sais faire et prépare ta prochaine étape.",
+    "pillars": {
+      "learn": { "title": "Apprendre en faisant", "description": "Explore des contenus et mets tes idées en pratique grâce à des défis réels." },
+      "prove": { "title": "Montrer tes compétences", "description": "Constitue des preuves de ton travail et rassemble-les dans ton portfolio." },
+      "opportunities": { "title": "Trouver des opportunités", "description": "Découvre des expériences et des opportunités pour avancer." }
+    },
+    "featuresTitle": "Tout pour franchir la prochaine étape",
+    "featuresDescription": "Des outils pour apprendre, pratiquer et montrer tes progrès.",
+    "features": {
+      "trails": { "title": "Parcours", "description": "Des parcours d’apprentissage complets." },
+      "courses": { "title": "Cours", "description": "Un apprentissage structuré à ton rythme." },
+      "quickLearnings": { "title": "Apprentissages rapides", "description": "Des contenus courts et pratiques." },
+      "guides": { "title": "Guides", "description": "Des ressources pratiques à consulter." },
+      "experiences": { "title": "Expériences", "description": "Programmes, ateliers et événements." },
+      "portfolio": { "title": "Portfolio", "description": "Montre ce que tu sais faire." }
+    },
+    "journeyTitle": "Un parcours fait pour toi",
+    "journeyDescription": "Un parcours clair, du premier clic jusqu’à l’opportunité.",
+    "journeySteps": {
+      "learn": { "title": "Apprendre", "description": "Découvre des idées et des connaissances à ton rythme." },
+      "develop": { "title": "Développer", "description": "Pratique et renforce des compétences utiles au quotidien." },
+      "do": { "title": "Agir", "description": "Applique tes acquis à des projets et des défis." },
+      "prove": { "title": "Prouver", "description": "Conserve tes résultats et montre ce que tu sais faire." },
+      "experience": { "title": "Expérimenter", "description": "Participe à des programmes, ateliers et événements." },
+      "advance": { "title": "Avancer", "description": "Trouve des opportunités et franchis la prochaine étape." }
+    },
+    "audienceTitle": "Un espace pour ton avenir",
+    "audienceDescription": "Pour les jeunes qui souhaitent apprendre, créer et avancer.",
+    "audiences": {
+      "students": "Élèves",
+      "university": "Étudiants",
+      "graduates": "Jeunes diplômés",
+      "opportunity": "En recherche d’opportunités",
+      "entrepreneurs": "Entrepreneurs"
+    },
+    "statsTitle": "Ton avenir commence par une opportunité",
+    "statsHeading": "Un point de départ concret",
+    "statsDescription": "Explore les contenus du catalogue de démonstration KUMUKA et choisis ta prochaine étape à ton rythme.",
+    "stats": {
+      "trails": "parcours d’apprentissage",
+      "courses": "cours pratiques",
+      "quickLearnings": "apprentissages rapides",
+      "guides": "guides de référence"
+    },
+    "statsNote": "Chiffres du catalogue de démonstration, susceptibles d’évoluer pendant la validation du produit.",
+    "finalTitle": "La prochaine étape commence avec toi",
+    "finalHeading": "Prêt à construire ton avenir ?",
+    "finalDescription": "Crée ton profil et choisis par où commencer."
+  },
+  "audiencesHeading": "À qui s’adresse KUMUKA ?",
+  "footer": {
+    "tagline": "Construis ton avenir.",
+    "copyright": "Tous droits réservés."
+  }
+}

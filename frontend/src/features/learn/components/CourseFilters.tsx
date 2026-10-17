@@ -2,6 +2,7 @@ import { Search, X } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import type { Course, CourseLevel } from '@/types/course';
+import { useTranslation } from 'react-i18next';
 
 export interface CourseFilterValues {
   pesquisa: string;
@@ -39,78 +40,79 @@ export function CourseFilters({
   onChange,
   onClear,
 }: CourseFiltersProps) {
+  const { t } = useTranslation('learning');
   return (
     <div className="grid gap-3 rounded-xl border border-border bg-card p-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-[minmax(14rem,2fr)_repeat(4,minmax(8rem,1fr))_auto] xl:items-end">
       <div className="relative sm:col-span-2 xl:col-span-1">
         <label className="mb-2 block text-sm font-medium" htmlFor="course-search">
-          Pesquisar cursos
+          {t('courseFilters.search')}
         </label>
         <Search aria-hidden="true" className="absolute left-3 top-[2.65rem] size-4 text-muted-foreground" />
         <Input
           className="min-h-11 pl-9"
           id="course-search"
           onChange={(event) => onChange({ ...value, pesquisa: event.currentTarget.value })}
-          placeholder="Ex.: Excel"
+          placeholder={t('courseFilters.searchPlaceholder')}
           type="search"
           value={value.pesquisa}
         />
       </div>
       <div>
-        <label className="mb-2 block text-sm font-medium" htmlFor="course-level">Nível</label>
+        <label className="mb-2 block text-sm font-medium" htmlFor="course-level">{t('courseFilters.level')}</label>
         <select
           className={selectClass}
           id="course-level"
           onChange={(event) => onChange({ ...value, nivel: parseLevel(event.currentTarget.value) })}
           value={value.nivel}
         >
-          <option value="">Todos</option>
-          <option value="iniciante">Iniciante</option>
-          <option value="intermedio">Intermédio</option>
-          <option value="avancado">Avançado</option>
+          <option value="">{t('common.all')}</option>
+          <option value="iniciante">{t('courseFilters.beginner')}</option>
+          <option value="intermedio">{t('courseFilters.intermediate')}</option>
+          <option value="avancado">{t('courseFilters.advanced')}</option>
         </select>
       </div>
       <div>
-        <label className="mb-2 block text-sm font-medium" htmlFor="course-duration">Duração</label>
+        <label className="mb-2 block text-sm font-medium" htmlFor="course-duration">{t('courseFilters.duration')}</label>
         <select
           className={selectClass}
           id="course-duration"
           onChange={(event) => onChange({ ...value, duracao: parseDuration(event.currentTarget.value) })}
           value={value.duracao}
         >
-          <option value="">Todas</option>
-          <option value="menos-5">Menos de 5 horas</option>
-          <option value="5-10">5 a 10 horas</option>
-          <option value="mais-10">Mais de 10 horas</option>
+          <option value="">{t('common.all')}</option>
+          <option value="menos-5">{t('courseFilters.lessThanFiveHours')}</option>
+          <option value="5-10">{t('courseFilters.fiveToTenHours')}</option>
+          <option value="mais-10">{t('courseFilters.moreThanTenHours')}</option>
         </select>
       </div>
       <div>
-        <label className="mb-2 block text-sm font-medium" htmlFor="course-category">Categoria</label>
+        <label className="mb-2 block text-sm font-medium" htmlFor="course-category">{t('courseFilters.category')}</label>
         <select
           className={selectClass}
           id="course-category"
           onChange={(event) => onChange({ ...value, categoria: event.currentTarget.value })}
           value={value.categoria}
         >
-          <option value="">Todas</option>
+          <option value="">{t('common.all')}</option>
           {categories.map((category) => <option key={category} value={category}>{category}</option>)}
         </select>
       </div>
       <div>
-        <label className="mb-2 block text-sm font-medium" htmlFor="course-access">Acesso</label>
+        <label className="mb-2 block text-sm font-medium" htmlFor="course-access">{t('courseFilters.access')}</label>
         <select
           className={selectClass}
           id="course-access"
           onChange={(event) => onChange({ ...value, acesso: parseAccess(event.currentTarget.value) })}
           value={value.acesso}
         >
-          <option value="">Todos</option>
-          <option value="free">Grátis</option>
-          <option value="premium">Premium</option>
+          <option value="">{t('common.all')}</option>
+          <option value="free">{t('courseFilters.free')}</option>
+          <option value="premium">{t('courseFilters.premium')}</option>
         </select>
       </div>
       <Button className="min-h-11 w-full sm:col-span-2 xl:col-span-1" onClick={onClear} type="button" variant="outline">
         <X aria-hidden="true" />
-        Limpar filtros
+        {t('courseFilters.clear')}
       </Button>
     </div>
   );

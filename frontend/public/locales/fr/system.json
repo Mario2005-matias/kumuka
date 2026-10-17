@@ -1,0 +1,16 @@
+{
+  "notFound": {
+    "title": "Page introuvable",
+    "description": "Cette page n’existe pas.",
+    "backHome": "Retour à l’accueil"
+  },
+  "forbidden": {
+    "title": "Accès refusé",
+    "description": "Tu n’as pas l’autorisation d’accéder à cette page."
+  },
+  "serverError": {
+    "title": "Erreur du serveur",
+    "description": "Un problème est survenu de notre côté."
+  },
+  "notAvailable": "Non disponible"
+}

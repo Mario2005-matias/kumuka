@@ -23,6 +23,7 @@ import { useTrail } from '@/features/learn/hooks/useTrails';
 import { ROUTES } from '@/lib/constants/routes';
 import { useAuthStore } from '@/stores/authStore';
 import type { Trail } from '@/types/trail';
+import { useTranslation } from 'react-i18next';
 
 function TrailModuleContent({
   trail,
@@ -33,6 +34,7 @@ function TrailModuleContent({
   slug: string;
   moduleId: string;
 }) {
+  const { t } = useTranslation('learning');
   const navigate = useNavigate();
   const userId = useAuthStore((state) => state.user?.id ?? '');
   const moduleQuery = useModule(slug, moduleId);
@@ -70,9 +72,9 @@ function TrailModuleContent({
   const isLastModule = module?.ordem === trail.modulos.length;
   const primaryLabel = moduleCompleted
     ? isLastModule
-      ? 'Ver conclusão'
-      : 'Próximo módulo'
-    : 'Concluir módulo';
+      ? t('trailModule.viewCompletion')
+      : t('module.next')
+    : t('module.markComplete');
 
   async function startTrail() {
     setActionError(null);
@@ -80,7 +82,7 @@ function TrailModuleContent({
       await start.mutateAsync();
     } catch (error: unknown) {
       setActionError(
-        error instanceof Error ? error.message : 'Não foi possível iniciar esta trilha.',
+        error instanceof Error ? error.message : t('trailModule.startError'),
       );
     }
   }
@@ -89,11 +91,11 @@ function TrailModuleContent({
     if (!module) return;
     setActionError(null);
     if (!allContentRead) {
-      setActionError('Marca todos os conteúdos como lidos antes de avançar.');
+      setActionError(t('trailModule.readAllBeforeAdvance'));
       return;
     }
     if (module.atividade?.obrigatoria && !activitySubmitted) {
-      setActionError('Submete a actividade obrigatória antes de avançar.');
+      setActionError(t('trailModule.submitRequiredActivity'));
       return;
     }
     try {
@@ -110,31 +112,31 @@ function TrailModuleContent({
       } else if (nextModule) {
         navigate(ROUTES.learn.trailModule(trail.slug, nextModule.id));
       } else {
-        setActionError('O módulo foi concluído, mas não foi possível determinar o próximo passo.');
+        setActionError(t('trailModule.nextStepError'));
       }
     } catch (error: unknown) {
       setActionError(
-        error instanceof Error ? error.message : 'Não foi possível concluir o módulo.',
+        error instanceof Error ? error.message : t('trailModule.completeError'),
       );
     }
   }
 
   if (moduleQuery.isLoading || progress.isLoading) {
-    return <p aria-live="polite">A carregar módulo e progresso…</p>;
+    return <p aria-live="polite">{t('trailModule.loading')}</p>;
   }
   if (moduleQuery.isError || progress.isError) {
     return (
       <p className="text-sm text-destructive" role="alert">
-        Não foi possível carregar o módulo ou o teu progresso. Tenta novamente.
+        {t('trailModule.loadError')}
       </p>
     );
   }
   if (!module) {
     return (
       <EmptyState
-        description="Volta à trilha para escolher um módulo disponível."
+        description={t('trailModule.notFoundDescription')}
         icon={BookOpenCheck}
-        title="Módulo não encontrado"
+        title={t('trailModule.notFoundTitle')}
       />
     );
   }
@@ -142,13 +144,13 @@ function TrailModuleContent({
     return (
       <div className="mx-auto max-w-xl space-y-5 rounded-xl border border-border bg-card p-6 text-center sm:p-8">
         <BookOpenCheck aria-hidden="true" className="mx-auto size-9 text-primary" />
-        <h1 className="text-2xl font-bold">Começa esta trilha</h1>
+        <h1 className="text-2xl font-bold">{t('trailModule.startTitle')}</h1>
         <p className="text-sm leading-6 text-muted-foreground">
-          Inicia a trilha para guardar o teu progresso e desbloquear os módulos pela ordem.
+          {t('trailModule.startDescription')}
         </p>
         {actionError && <p className="text-sm text-destructive" role="alert">{actionError}</p>}
         <Button className="min-h-11" disabled={start.isPending} onClick={() => void startTrail()}>
-          {start.isPending ? 'A iniciar…' : 'Começar trilha'}
+          {start.isPending ? t('trailModule.starting') : t('trailModule.startAction')}
         </Button>
       </div>
     );
@@ -157,9 +159,9 @@ function TrailModuleContent({
     return (
       <div className="mx-auto max-w-xl space-y-4 rounded-xl border border-border bg-card p-6 text-center sm:p-8">
         <LockKeyhole aria-hidden="true" className="mx-auto size-9 text-muted-foreground" />
-        <h1 className="text-2xl font-bold">Módulo bloqueado</h1>
+        <h1 className="text-2xl font-bold">{t('trailModule.lockedTitle')}</h1>
         <p className="text-sm leading-6 text-muted-foreground">
-          Conclui o módulo anterior para desbloquear este conteúdo.
+          {t('common.unlockPrevious')}
         </p>
         <Button
           className="min-h-11"
@@ -167,7 +169,7 @@ function TrailModuleContent({
           render={<Link to={ROUTES.learn.trail(trail.slug)} />}
           variant="outline"
         >
-          Ver módulos
+          {t('trailDetails.modules')}
         </Button>
       </div>
     );
@@ -184,7 +186,7 @@ function TrailModuleContent({
             variant="outline"
           >
             <ArrowLeft aria-hidden="true" />
-            Voltar à trilha
+            {t('trailModule.back')}
           </Button>
         }
         breadcrumb={
@@ -198,7 +200,7 @@ function TrailModuleContent({
       <div className="grid items-start gap-6 lg:grid-cols-[minmax(0,1fr)_17rem]">
         <main className="min-w-0 space-y-5">
           <p className="text-sm font-medium text-muted-foreground">
-            Fase {currentPhase?.ordem ?? 1} de {trail.totalFases} · Módulo {module.ordem} de {trail.totalModulos}
+            {t('trailModule.phaseAndModule', { phase: currentPhase?.ordem ?? 1, phases: trail.totalFases, module: module.ordem, modules: trail.totalModulos })}
           </p>
           {module.contentItems.map((item) => {
             const isRead = progress.data?.conteudosLidos.includes(item.id) ?? false;
@@ -217,7 +219,7 @@ function TrailModuleContent({
                         setActionError(
                           error instanceof Error
                             ? error.message
-                            : 'Não foi possível guardar a leitura.',
+                            : t('trailModule.readError'),
                         ),
                       );
                   }}
@@ -225,7 +227,7 @@ function TrailModuleContent({
                   variant={isRead ? 'secondary' : 'outline'}
                 >
                   {isRead ? <Check aria-hidden="true" /> : <Circle aria-hidden="true" />}
-                  {isRead ? 'Leitura concluída' : 'Marcar como lido'}
+                  {isRead ? t('trailModule.readCompleted') : t('trailModule.markRead')}
                 </Button>
               </section>
             );
@@ -251,7 +253,7 @@ function TrailModuleContent({
           {moduleCompleted && (
             <p className="flex items-center gap-2 text-sm font-medium text-success">
               <BookOpenCheck aria-hidden="true" className="size-4" />
-              Módulo concluído
+              {t('trailModule.moduleCompleted')}
             </p>
           )}
         </main>
@@ -273,8 +275,8 @@ function TrailModuleContent({
         primaryLabel={primaryLabel}
         progressLabel={
           allContentRead
-            ? 'Conteúdos lidos'
-            : `Lê os conteúdos para avançar (${progress.data.conteudosLidos.filter((id) => module.contentItems.some((item) => item.id === id)).length}/${module.contentItems.length})`
+            ? t('trailModule.allContentRead')
+            : t('trailModule.readToAdvance', { current: progress.data.conteudosLidos.filter((id) => module.contentItems.some((item) => item.id === id)).length, total: module.contentItems.length })
         }
       />
     </div>
@@ -282,19 +284,20 @@ function TrailModuleContent({
 }
 
 export default function TrailModulePage() {
+  const { t } = useTranslation('learning');
   const { slug = '', moduleId = '' } = useParams();
   const trailQuery = useTrail(slug);
 
-  if (trailQuery.isLoading) return <p aria-live="polite">A carregar trilha…</p>;
+  if (trailQuery.isLoading) return <p aria-live="polite">{t('trailModule.loadingTrail')}</p>;
   if (trailQuery.isError) {
-    return <p className="text-sm text-destructive" role="alert">Não foi possível carregar a trilha.</p>;
+    return <p className="text-sm text-destructive" role="alert">{t('trailModule.loadTrailError')}</p>;
   }
   if (!trailQuery.data) {
     return (
       <EmptyState
-        description="Volta ao catálogo e escolhe uma trilha disponível."
+        description={t('trailModule.notFoundTrailDescription')}
         icon={BookOpenCheck}
-        title="Trilha não encontrada"
+        title={t('trailModule.notFoundTrailTitle')}
       />
     );
   }

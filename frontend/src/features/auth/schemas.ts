@@ -1,51 +1,60 @@
 import { z } from 'zod';
+import type { TFunction } from 'i18next';
 
-export const loginSchema = z.object({
-  email: z
-    .string()
-    .min(1, 'O email é obrigatório')
-    .email('Email inválido'),
-  password: z
-    .string()
-    .min(6, 'A password deve ter pelo menos 6 caracteres'),
-});
-
-export const registerSchema = z
-  .object({
+export const createLoginSchema = (t: TFunction<'auth'>) =>
+  z.object({
     email: z
       .string()
-      .min(1, 'O email é obrigatório')
-      .email('Email inválido'),
+      .min(1, t('login.requiredEmail'))
+      .email(t('login.invalidEmail')),
     password: z
       .string()
-      .min(6, 'A password deve ter pelo menos 6 caracteres'),
-    confirmPassword: z.string().min(1, 'Confirma a password'),
-  })
-  .refine((data) => data.password === data.confirmPassword, {
-    message: 'As passwords não coincidem',
-    path: ['confirmPassword'],
+      .min(6, t('login.shortPassword', { count: 6 })),
   });
 
-export const forgotPasswordSchema = z.object({
-  email: z
-    .string()
-    .min(1, 'O email é obrigatório')
-    .email('Email inválido'),
-});
+export const createRegisterSchema = (t: TFunction<'auth'>) =>
+  z
+    .object({
+      email: z
+        .string()
+        .min(1, t('register.requiredEmail'))
+        .email(t('register.invalidEmail')),
+      password: z
+        .string()
+        .min(6, t('register.shortPassword', { count: 6 })),
+      confirmPassword: z.string().min(1, t('register.confirmPassword')),
+    })
+    .refine((data) => data.password === data.confirmPassword, {
+      message: t('register.passwordMismatch'),
+      path: ['confirmPassword'],
+    });
 
-export const resetPasswordSchema = z
-  .object({
-    password: z
+export const createForgotPasswordSchema = (t: TFunction<'auth'>) =>
+  z.object({
+    email: z
       .string()
-      .min(6, 'A password deve ter pelo menos 6 caracteres'),
-    confirmPassword: z.string().min(1, 'Confirma a password'),
-  })
-  .refine((data) => data.password === data.confirmPassword, {
-    message: 'As passwords não coincidem',
-    path: ['confirmPassword'],
+      .min(1, t('login.requiredEmail'))
+      .email(t('login.invalidEmail')),
   });
 
-export type LoginFormValues = z.infer<typeof loginSchema>;
-export type RegisterFormValues = z.infer<typeof registerSchema>;
-export type ForgotPasswordFormValues = z.infer<typeof forgotPasswordSchema>;
-export type ResetPasswordFormValues = z.infer<typeof resetPasswordSchema>;
+export const createResetPasswordSchema = (t: TFunction<'auth'>) =>
+  z
+    .object({
+      password: z
+        .string()
+        .min(6, t('register.shortPassword', { count: 6 })),
+      confirmPassword: z.string().min(1, t('register.confirmPassword')),
+    })
+    .refine((data) => data.password === data.confirmPassword, {
+      message: t('register.passwordMismatch'),
+      path: ['confirmPassword'],
+    });
+
+export type LoginFormValues = z.infer<ReturnType<typeof createLoginSchema>>;
+export type RegisterFormValues = z.infer<ReturnType<typeof createRegisterSchema>>;
+export type ForgotPasswordFormValues = z.infer<
+  ReturnType<typeof createForgotPasswordSchema>
+>;
+export type ResetPasswordFormValues = z.infer<
+  ReturnType<typeof createResetPasswordSchema>
+>;

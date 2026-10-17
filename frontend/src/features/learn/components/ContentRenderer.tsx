@@ -1,5 +1,6 @@
 import type { TrailContentItem } from '@/types/trail';
 import type { CourseContentItem } from '@/types/course';
+import { useTranslation } from 'react-i18next';
 
 interface ContentRendererProps {
   item: TrailContentItem | CourseContentItem;
@@ -58,13 +59,14 @@ function renderMarkdown(content: string) {
 }
 
 export function ContentRenderer({ item }: ContentRendererProps) {
+  const { t } = useTranslation('learning');
   return (
     <article
       aria-labelledby={`content-${item.id}`}
       className="rounded-xl border border-border bg-card p-5 sm:p-8"
     >
       <p className="text-xs font-semibold uppercase tracking-[0.14em] text-primary">
-        Conteúdo {item.ordem}
+        {t('module.contentNumber', { number: item.ordem })}
       </p>
       <h2 className="mt-2 text-xl font-bold tracking-tight sm:text-2xl" id={`content-${item.id}`}>
         {item.titulo}

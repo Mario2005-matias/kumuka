@@ -8,33 +8,16 @@ import {
   CardHeader,
   CardTitle,
 } from '@/components/ui/card';
+import { useTranslation } from 'react-i18next';
 
-const pillars: {
-  title: string;
-  description: string;
-  icon: LucideIcon;
-}[] = [
-  {
-    title: 'Aprender fazendo',
-    description:
-      'Explora conteúdos e põe as ideias em prática com desafios reais.',
-    icon: BookOpen,
-  },
-  {
-    title: 'Provar o que sabes',
-    description:
-      'Constrói evidências do teu trabalho e reúne tudo no teu portefólio.',
-    icon: Target,
-  },
-  {
-    title: 'Encontrar oportunidades',
-    description:
-      'Descobre experiências e oportunidades para dar o próximo passo.',
-    icon: BriefcaseBusiness,
-  },
+const pillars: { key: 'learn' | 'prove' | 'opportunities'; icon: LucideIcon }[] = [
+  { key: 'learn', icon: BookOpen },
+  { key: 'prove', icon: Target },
+  { key: 'opportunities', icon: BriefcaseBusiness },
 ];
 
 export function WhatIsSection() {
+  const { t } = useTranslation('home');
   const sectionRef = useScrollAnimation(revealSection);
 
   return (
@@ -50,29 +33,29 @@ export function WhatIsSection() {
           data-reveal
           id="what-is-title"
         >
-          O que é a KUMUKA
+          {t('sections.whatIsTitle')}
         </h2>
         <p className="mt-4 text-pretty leading-7 text-muted-foreground" data-reveal>
-          A KUMUKA liga aprendizagem a oportunidades. Aqui, transformas o que
-          aprendes em competências, mostras o que sabes fazer e preparas o teu
-          próximo passo.
+          {t('sections.whatIsDescription')}
         </p>
       </div>
       <div className="mt-10 grid gap-4 sm:mt-14 md:grid-cols-3">
-        {pillars.map(({ title, description, icon: Icon }) => (
+        {pillars.map(({ key, icon: Icon }) => (
           <Card
             className="h-full border border-border/70 bg-card/80 transition-[border-color,box-shadow,transform] duration-300 hover:-translate-y-1 hover:border-primary/40 hover:shadow-xl hover:shadow-primary/5"
             data-reveal
-            key={title}
+            key={key}
           >
             <CardHeader>
               <div className="mb-3 flex size-12 items-center justify-center rounded-xl bg-primary/10 text-primary">
                 <Icon aria-hidden="true" className="size-6" />
               </div>
-              <CardTitle className="text-lg">{title}</CardTitle>
+              <CardTitle className="text-lg">
+                {t(`sections.pillars.${key}.title`)}
+              </CardTitle>
             </CardHeader>
             <CardContent className="leading-6 text-muted-foreground">
-              {description}
+              {t(`sections.pillars.${key}.description`)}
             </CardContent>
           </Card>
         ))}

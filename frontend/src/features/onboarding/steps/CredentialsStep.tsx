@@ -1,20 +1,12 @@
 import { zodResolver } from '@hookform/resolvers/zod';
+import type { TFunction } from 'i18next';
+import { useEffect, useMemo, useRef } from 'react';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
+import { useTranslation } from 'react-i18next';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import type { RegisterInput } from '@/features/auth/types';
-
-const credentialsSchema = z
-  .object({
-    email: z.string().email('Insere um endereço de email válido.'),
-    password: z.string().min(8, 'A password deve ter pelo menos 8 caracteres.'),
-    confirmPassword: z.string().min(1, 'Confirma a tua password.'),
-  })
-  .refine((values) => values.password === values.confirmPassword, {
-    message: 'As passwords não coincidem.',
-    path: ['confirmPassword'],
-  });
 
 interface CredentialsStepProps {
   isAuthenticated: boolean;
@@ -24,6 +16,23 @@ interface CredentialsStepProps {
   onContinue: () => void;
 }
 
+function createCredentialsSchema(t: TFunction<'onboarding'>) {
+  return z
+    .object({
+      email: z.string().email(t('credentials.invalidEmail')),
+      password: z
+        .string()
+        .min(8, t('credentials.shortPassword', { count: 8 })),
+      confirmPassword: z
+        .string()
+        .min(1, t('credentials.requiredConfirmation')),
+    })
+    .refine((values) => values.password === values.confirmPassword, {
+      message: t('credentials.passwordMismatch'),
+      path: ['confirmPassword'],
+    });
+}
+
 export function CredentialsStep({
   isAuthenticated,
   isSubmitting,
@@ -31,22 +40,34 @@ export function CredentialsStep({
   onRegister,
   onContinue,
 }: CredentialsStepProps) {
+  const { t, i18n } = useTranslation('onboarding');
+  const schema = useMemo(() => createCredentialsSchema(t), [t]);
   const form = useForm<RegisterInput>({
-    resolver: zodResolver(credentialsSchema),
+    resolver: zodResolver(schema),
     defaultValues: { email: '', password: '', confirmPassword: '' },
   });
+  const currentLanguage = useRef(i18n.resolvedLanguage);
+
+  useEffect(() => {
+    if (currentLanguage.current === i18n.resolvedLanguage) return;
+    currentLanguage.current = i18n.resolvedLanguage;
+    const invalidFields = (
+      ['email', 'password', 'confirmPassword'] as const
+    ).filter((field) => form.formState.errors[field]);
+    if (invalidFields.length) void form.trigger(invalidFields);
+  }, [form, i18n.resolvedLanguage]);
 
   if (isAuthenticated) {
     return (
       <section className="space-y-6">
         <div className="space-y-2">
-          <h1 className="text-2xl font-bold">A tua conta já está pronta</h1>
+          <h1 className="text-2xl font-bold">{t('credentials.alreadyReady')}</h1>
           <p className="text-muted-foreground">
-            Continua a personalizar a tua experiência na KUMUKA.
+            {t('credentials.alreadyReadyDescription')}
           </p>
         </div>
         <Button className="w-full" onClick={onContinue} type="button">
-          Continuar
+          {t('credentials.continue')}
         </Button>
       </section>
     );
@@ -55,9 +76,9 @@ export function CredentialsStep({
   return (
     <section className="space-y-6">
       <div className="space-y-2">
-        <h1 className="text-2xl font-bold">Cria a tua conta</h1>
+        <h1 className="text-2xl font-bold">{t('credentials.title')}</h1>
         <p className="text-muted-foreground">
-          Usa um email a que tenhas acesso e escolhe uma password segura.
+          {t('credentials.description')}
         </p>
       </div>
 
@@ -68,12 +89,12 @@ export function CredentialsStep({
       >
         <div className="space-y-2">
           <label className="text-sm font-medium" htmlFor="onboarding-email">
-            Email
+            {t('credentials.email')}
           </label>
           <Input
             autoComplete="email"
             id="onboarding-email"
-            placeholder="tu@exemplo.com"
+            placeholder={t('credentials.emailPlaceholder')}
             type="email"
             {...form.register('email')}
           />
@@ -86,7 +107,7 @@ export function CredentialsStep({
 
         <div className="space-y-2">
           <label className="text-sm font-medium" htmlFor="onboarding-password">
-            Password
+            {t('credentials.password')}
           </label>
           <Input
             autoComplete="new-password"
@@ -103,7 +124,7 @@ export function CredentialsStep({
 
         <div className="space-y-2">
           <label className="text-sm font-medium" htmlFor="onboarding-confirm-password">
-            Confirmar password
+            {t('credentials.confirmPassword')}
           </label>
           <Input
             autoComplete="new-password"
@@ -125,7 +146,9 @@ export function CredentialsStep({
         )}
 
         <Button className="w-full" disabled={isSubmitting} type="submit">
-          {isSubmitting ? 'A criar conta…' : 'Criar conta e continuar'}
+          {isSubmitting
+            ? t('credentials.creating')
+            : t('credentials.createAndContinue')}
         </Button>
       </form>
     </section>

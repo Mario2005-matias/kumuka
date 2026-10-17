@@ -17,45 +17,22 @@ import {
   CardHeader,
   CardTitle,
 } from '@/components/ui/card';
+import { useTranslation } from 'react-i18next';
 
 const features: {
-  title: string;
-  description: string;
+  key: 'trails' | 'courses' | 'quickLearnings' | 'guides' | 'experiences' | 'portfolio';
   icon: LucideIcon;
 }[] = [
-  {
-    title: 'Trilhas',
-    description: 'Jornadas completas de aprendizagem.',
-    icon: BookOpen,
-  },
-  {
-    title: 'Cursos',
-    description: 'Aprendizagem estruturada e ao teu ritmo.',
-    icon: GraduationCap,
-  },
-  {
-    title: 'Aprendizados',
-    description: 'Conteúdos curtos e práticos.',
-    icon: Zap,
-  },
-  {
-    title: 'Guias',
-    description: 'Materiais práticos para consulta.',
-    icon: FileText,
-  },
-  {
-    title: 'Experiências',
-    description: 'Programas, workshops e eventos.',
-    icon: Compass,
-  },
-  {
-    title: 'Portefólio',
-    description: 'Mostra o que sabes fazer.',
-    icon: Folder,
-  },
+  { key: 'trails', icon: BookOpen },
+  { key: 'courses', icon: GraduationCap },
+  { key: 'quickLearnings', icon: Zap },
+  { key: 'guides', icon: FileText },
+  { key: 'experiences', icon: Compass },
+  { key: 'portfolio', icon: Folder },
 ];
 
 export function FeaturesSection() {
+  const { t } = useTranslation('home');
   const sectionRef = useScrollAnimation(revealSection);
   const prefersReducedMotion = usePrefersReducedMotion();
 
@@ -72,17 +49,17 @@ export function FeaturesSection() {
           data-reveal
           id="features-title"
         >
-          O que vais encontrar
+          {t('sections.featuresTitle')}
         </h2>
         <p className="mt-4 leading-7 text-muted-foreground" data-reveal>
-          Ferramentas para aprender, praticar e mostrar o teu progresso.
+          {t('sections.featuresDescription')}
         </p>
       </div>
       <div className="mt-10 grid gap-4 sm:mt-14 sm:grid-cols-2 lg:grid-cols-3">
-        {features.map(({ title, description, icon: Icon }) => (
+        {features.map(({ key, icon: Icon }) => (
           <motion.div
             className="h-full"
-            key={title}
+            key={key}
             transition={{ duration: 0.25, ease: 'easeOut' }}
             whileHover={prefersReducedMotion ? undefined : { scale: 1.02 }}
           >
@@ -98,10 +75,12 @@ export function FeaturesSection() {
                 >
                   <Icon aria-hidden="true" className="size-7" />
                 </motion.div>
-                <CardTitle className="text-lg">{title}</CardTitle>
+                <CardTitle className="text-lg">
+                  {t(`sections.features.${key}.title`)}
+                </CardTitle>
               </CardHeader>
               <CardContent className="leading-6 text-muted-foreground">
-                {description}
+                {t(`sections.features.${key}.description`)}
               </CardContent>
             </Card>
           </motion.div>

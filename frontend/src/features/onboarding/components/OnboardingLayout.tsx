@@ -3,7 +3,9 @@ import { Link } from 'react-router-dom';
 import { ROUTES } from '@/lib/constants/routes';
 import { Button } from '@/components/ui/button';
 import { ModeToggle } from '@/components/shared/mode-toggle';
+import { LanguageSwitcher } from '@/components/shared/LanguageSwitcher';
 import { ProgressStepper } from './ProgressStepper';
+import { useTranslation } from 'react-i18next';
 
 interface OnboardingLayoutProps {
   children: ReactNode;
@@ -16,6 +18,8 @@ export function OnboardingLayout({
   currentStep,
   onBack,
 }: OnboardingLayoutProps) {
+  const { t } = useTranslation('common');
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-primary/5 via-background to-background px-4 py-6 sm:py-10">
       <div className="mx-auto flex w-full max-w-2xl flex-col gap-8">
@@ -30,7 +34,10 @@ export function OnboardingLayout({
           <div className="w-full max-w-xs">
             <ProgressStepper currentStep={currentStep} />
           </div>
-          <ModeToggle />
+          <div className="flex items-center gap-2">
+            <LanguageSwitcher />
+            <ModeToggle />
+          </div>
         </header>
 
         <main className="rounded-2xl border border-border bg-[image:var(--gradient-surface)] p-5 shadow-lg shadow-primary/5 sm:p-9">
@@ -44,7 +51,7 @@ export function OnboardingLayout({
             type="button"
             variant="ghost"
           >
-            Voltar
+            {t('actions.back')}
           </Button>
         )}
       </div>

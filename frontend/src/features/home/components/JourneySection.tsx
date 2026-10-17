@@ -15,45 +15,22 @@ import {
   CardHeader,
   CardTitle,
 } from '@/components/ui/card';
+import { useTranslation } from 'react-i18next';
 
 const steps: {
-  title: string;
-  description: string;
+  key: 'learn' | 'develop' | 'do' | 'prove' | 'experience' | 'advance';
   icon: LucideIcon;
 }[] = [
-  {
-    title: 'Aprender',
-    description: 'Descobre ideias e conhecimentos ao teu ritmo.',
-    icon: BookOpen,
-  },
-  {
-    title: 'Desenvolver',
-    description: 'Pratica e fortalece competências para a vida.',
-    icon: TrendingUp,
-  },
-  {
-    title: 'Fazer',
-    description: 'Aplica o que aprendeste em projetos e desafios.',
-    icon: Hammer,
-  },
-  {
-    title: 'Provar',
-    description: 'Guarda resultados e mostra o que sabes fazer.',
-    icon: Award,
-  },
-  {
-    title: 'Experimentar',
-    description: 'Participa em programas, workshops e eventos.',
-    icon: Compass,
-  },
-  {
-    title: 'Avançar',
-    description: 'Encontra oportunidades e dá o próximo passo.',
-    icon: BriefcaseBusiness,
-  },
+  { key: 'learn', icon: BookOpen },
+  { key: 'develop', icon: TrendingUp },
+  { key: 'do', icon: Hammer },
+  { key: 'prove', icon: Award },
+  { key: 'experience', icon: Compass },
+  { key: 'advance', icon: BriefcaseBusiness },
 ];
 
 export function JourneySection() {
+  const { t } = useTranslation('home');
   const sectionRef = useScrollAnimation(animateJourney, defaultJourneyOptions);
 
   return (
@@ -74,10 +51,10 @@ export function JourneySection() {
             data-reveal
             id="journey-title"
           >
-            Como funciona
+            {t('sections.journeyTitle')}
           </h2>
           <p className="mt-4 leading-7 text-muted-foreground" data-reveal>
-            Uma jornada clara: do primeiro clique até à oportunidade.
+            {t('sections.journeyDescription')}
           </p>
         </div>
         <ol
@@ -93,10 +70,10 @@ export function JourneySection() {
               data-journey-progress
             />
           </li>
-          {steps.map(({ title, description, icon: Icon }, index) => (
+          {steps.map(({ key, icon: Icon }, index) => (
             <li
               className="relative grid grid-cols-[2.75rem_minmax(0,1fr)] items-start gap-x-3 lg:grid-cols-[minmax(0,1fr)_3rem_minmax(0,1fr)] lg:gap-x-6"
-              key={title}
+              key={key}
             >
               <div
                 aria-hidden="true"
@@ -124,9 +101,11 @@ export function JourneySection() {
                   </span>
                 </CardHeader>
                 <CardContent className={index % 2 === 0 ? 'lg:text-right' : ''}>
-                  <CardTitle className="text-lg">{title}</CardTitle>
+                  <CardTitle className="text-lg">
+                    {t(`sections.journeySteps.${key}.title`)}
+                  </CardTitle>
                   <p className="mt-2 leading-6 text-muted-foreground">
-                    {description}
+                    {t(`sections.journeySteps.${key}.description`)}
                   </p>
                 </CardContent>
               </Card>

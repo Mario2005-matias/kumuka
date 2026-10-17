@@ -13,6 +13,7 @@ import { useTrails } from '@/features/learn/hooks/useTrails';
 import { ROUTES } from '@/lib/constants/routes';
 import { useAuthStore } from '@/stores/authStore';
 import type { TrailLevel } from '@/types/trail';
+import { useTranslation } from 'react-i18next';
 
 const storageKey = 'kumuka-trails-filters';
 const emptyFilters: TrailFilterValues = {
@@ -89,6 +90,7 @@ function initialFilterState(searchParams: URLSearchParams) {
 }
 
 export default function TrailsPage() {
+  const { t } = useTranslation('learning');
   const [searchParams, setSearchParams] = useSearchParams();
   const userId = useAuthStore((state) => state.user?.id ?? '');
   const lastSearch = useRef(searchParams.toString());
@@ -160,12 +162,10 @@ export default function TrailsPage() {
     <div className="space-y-8">
       <PageHeader
         breadcrumb={
-          <Link className="hover:text-foreground" to={ROUTES.learn.root}>
-            Aprender
-          </Link>
+          <Link className="hover:text-foreground" to={ROUTES.learn.root}>{t('hub.title')}</Link>
         }
-        description="Escolhe uma trilha, aprende ao teu ritmo e transforma conhecimento em prática."
-        title="Explorar trilhas"
+        description={t('trailList.description')}
+        title={t('trailList.title')}
       />
       <TrailFilters
         categories={categories}
@@ -186,35 +186,35 @@ export default function TrailsPage() {
       )}
       {progress.isError && (
         <p className="text-sm text-destructive" role="alert">
-          Não foi possível carregar o teu progresso. Tenta actualizar a página.
+          {t('trailList.progressError')}
         </p>
       )}
       {trails.isLoading && (
         <p aria-live="polite" className="text-sm text-muted-foreground">
-          A carregar trilhas…
+          {t('trailList.loading')}
         </p>
       )}
       {trails.isError && (
         <p className="text-sm text-destructive" role="alert">
-          Não foi possível carregar as trilhas. Tenta novamente mais tarde.
+          {t('trailList.error')}
         </p>
       )}
       {allTrails.isError && (
         <p className="text-sm text-destructive" role="alert">
-          Não foi possível carregar todas as categorias de trilhas.
+          {t('trailList.categoryError')}
         </p>
       )}
       {!trails.isLoading && !trails.isError && trails.data?.length === 0 && (
         <EmptyState
-          description="Experimenta alterar ou limpar os filtros para encontrar outras trilhas."
+          description={t('trailList.emptyDescription')}
           icon={BookOpen}
-          title="Nenhuma trilha encontrada"
+          title={t('trailList.emptyTitle')}
         />
       )}
       {!!trails.data?.length && (
-        <section aria-label="Resultados das trilhas" className="space-y-4">
+        <section aria-label={t('trailList.results')} className="space-y-4">
           <p aria-live="polite" className="text-sm text-muted-foreground">
-            {trails.data.length} {trails.data.length === 1 ? 'trilha encontrada' : 'trilhas encontradas'}
+            {t('trailList.resultsCount', { count: trails.data.length })}
           </p>
           <div className="grid gap-5 sm:grid-cols-2 xl:grid-cols-3">
             {trails.data.map((trail) => {

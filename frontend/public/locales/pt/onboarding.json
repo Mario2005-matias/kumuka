@@ -1,0 +1,105 @@
+{
+  "steps": {
+    "welcome": "Boas-vindas",
+    "credentials": "Conta",
+    "name": "Nome",
+    "age": "Idade",
+    "situation": "Situação",
+    "interests": "Interesses",
+    "goal": "Objetivo",
+    "reward": "A tua jornada"
+  },
+  "welcome": {
+    "eyebrow": "O teu próximo capítulo começa aqui",
+    "title": "Bem-vindo à KUMUKA",
+    "description": "Vamos conhecer-te melhor para te ajudar a descobrir oportunidades, desenvolver competências e avançar ao teu ritmo.",
+    "start": "Vamos começar"
+  },
+  "credentials": {
+    "continue": "Continuar",
+    "alreadyReady": "A tua conta já está pronta",
+    "alreadyReadyDescription": "Continua a personalizar a tua experiência na KUMUKA.",
+    "title": "Cria a tua conta",
+    "description": "Usa um email a que tenhas acesso e escolhe uma password segura.",
+    "email": "Email",
+    "emailPlaceholder": "tu@exemplo.com",
+    "password": "Password",
+    "confirmPassword": "Confirmar password",
+    "requiredEmail": "O email é obrigatório.",
+    "invalidEmail": "Insere um endereço de email válido.",
+    "shortPassword": "A password deve ter pelo menos {{count}} caracteres.",
+    "requiredConfirmation": "Confirma a tua password.",
+    "passwordMismatch": "As passwords não coincidem.",
+    "creating": "A criar conta…",
+    "createAndContinue": "Criar conta e continuar"
+  },
+  "name": {
+    "title": "Como te podemos chamar?",
+    "description": "Partilha o nome que gostas de usar.",
+    "label": "O teu nome",
+    "placeholder": "Por exemplo, Ana",
+    "minLength": "Escreve pelo menos dois caracteres."
+  },
+  "age": {
+    "title": "Quantos anos tens?",
+    "description": "Vamos sugerir oportunidades adequadas à tua fase de vida.",
+    "label": "Idade",
+    "invalid": "Insere uma idade válida."
+  },
+  "situation": {
+    "title": "O que estás a fazer neste momento?",
+    "description": "Não há respostas certas ou erradas."
+  },
+  "options": {
+    "situations": {
+      "studying": "Estou a estudar",
+      "jobSearch": "Estou à procura de trabalho",
+      "working": "Já estou a trabalhar",
+      "business": "Tenho um negócio ou projecto",
+      "other": "Outra situação"
+    },
+    "interests": {
+      "technology": "Tecnologia",
+      "entrepreneurship": "Empreendedorismo",
+      "creativity": "Criatividade",
+      "leadership": "Liderança",
+      "finance": "Finanças",
+      "communication": "Comunicação",
+      "science": "Ciência",
+      "employability": "Empregabilidade"
+    },
+    "goals": {
+      "skill": "Aprender uma nova competência",
+      "firstJob": "Preparar-me para o primeiro emprego",
+      "business": "Criar o meu próprio negócio",
+      "career": "Crescer no meu trabalho actual",
+      "explore": "Descobrir o que quero fazer"
+    }
+  },
+  "interests": {
+    "title": "O que gostavas de explorar?",
+    "description": "Escolhe um ou mais temas que te interessam.",
+    "label": "Os teus interesses"
+  },
+  "goal": {
+    "title": "Qual é o teu principal objetivo?",
+    "description": "A tua resposta ajuda-nos a dar prioridade ao que é importante para ti."
+  },
+  "reward": {
+    "almost": "Estás quase!",
+    "almostNamed": "Estás quase, {{name}}!",
+    "description": "O teu perfil está pronto para desbloquear novas possibilidades.",
+    "journeyTitle": "A tua jornada KUMUKA",
+    "journeyDescription": "A tua jornada começa com recomendações alinhadas com os teus interesses e objetivos.",
+    "goal": "Objetivo:",
+    "interests": "Interesses:",
+    "complete": "Concluir o meu perfil"
+  },
+  "complete": {
+    "congratulations": "Parabéns!",
+    "congratulationsNamed": "Parabéns, {{name}}!",
+    "description": "O teu perfil KUMUKA está pronto. A tua próxima oportunidade começa agora.",
+    "explore": "Explorar a KUMUKA"
+  },
+  "progress": "Passo {{current}} de {{total}}"
+}

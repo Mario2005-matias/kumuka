@@ -4,8 +4,10 @@ import { useScrollAnimation } from "../hooks/useScrollAnimation";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { ROUTES } from "@/lib/constants/routes";
+import { useTranslation } from "react-i18next";
 
 export function FinalCTASection() {
+  const { t } = useTranslation('home');
   const sectionRef = useScrollAnimation(revealSection);
 
   return (
@@ -29,13 +31,13 @@ export function FinalCTASection() {
           data-reveal
           id="final-cta-title"
         >
-          Estás pronto para construir o teu futuro?
+          {t('sections.finalHeading')}
         </h2>
         <p
           className="mx-auto mt-4 max-w-xl text-pretty leading-7 text-primary-foreground/85"
           data-reveal
         >
-          Cria o teu perfil e escolhe por onde queres começar.
+          {t('sections.finalDescription')}
         </p>
         <div
           className="mt-8 flex flex-col justify-center gap-3 sm:flex-row"
@@ -48,7 +50,7 @@ export function FinalCTASection() {
             size="lg"
             variant="secondary"
           >
-            Começar agora
+            {t('hero.primaryAction')}
             <ArrowRight aria-hidden="true" />
           </Button>
           <Button
@@ -58,7 +60,7 @@ export function FinalCTASection() {
             size="lg"
             variant="outline"
           >
-            Já tenho conta
+            {t('hero.secondaryAction')}
           </Button>
         </div>
       </div>

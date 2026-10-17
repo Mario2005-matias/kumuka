@@ -1,0 +1,42 @@
+{
+  "title": "Mon parcours",
+  "description": "Un parcours qui relie apprentissage, pratique et opportunités.",
+  "error": "Impossible de charger ton parcours.",
+  "overview": "Ton parcours",
+  "overviewTitle": "Chaque étape compte",
+  "overviewDescription": "La progression ci-dessous est calculée à partir des activités d’apprentissage enregistrées.",
+  "averageProgress": "{{percent}} % de progression moyenne sur {{count}} activités commencées.",
+  "loading": "Chargement de ton parcours…",
+  "loadingActivities": "Chargement des activités…",
+  "stepsTitle": "Le chemin devant toi",
+  "steps": {
+    "learn": { "title": "Apprendre", "description": "Explore des sujets et construis tes connaissances." },
+    "develop": { "title": "Développer", "description": "Pratique des compétences utiles au quotidien." },
+    "do": { "title": "Agir", "description": "Applique tes connaissances à des projets et défis." },
+    "prove": { "title": "Prouver", "description": "Rassemble des preuves et présente ton travail." },
+    "experience": { "title": "Expérimenter", "description": "Participe à des expériences et découvre de nouveaux domaines." },
+    "advance": { "title": "Avancer", "description": "Trouve des opportunités pour ta prochaine étape." }
+  },
+  "milestones": {
+    "completed": "Terminé",
+    "inProgress": "En cours",
+    "notStarted": "À commencer",
+    "next": "À suivre",
+    "projects_one": "{{count}} projet",
+    "projects_other": "{{count}} projets",
+    "withEvidence": "Avec des preuves",
+    "enrolled": "Inscrite",
+    "loading": "Chargement"
+  },
+  "activitiesTitle": "Apprentissages de ton parcours",
+  "activitiesDescription": "Activités commencées et progression enregistrée.",
+  "activityStatus": {
+    "completed": "Terminé",
+    "inProgress": "En cours"
+  },
+  "activityProgress": "{{percent}} % terminé",
+  "emptyTitle": "Tu n’as pas encore commencé d’apprentissage",
+  "emptyDescription": "Explore les contenus pour commencer une activité.",
+  "findLearning": "Trouver un sujet à apprendre",
+  "enrolledTitle": "Expériences auxquelles tu es inscrite"
+}

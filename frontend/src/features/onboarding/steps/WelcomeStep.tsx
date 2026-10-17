@@ -1,10 +1,13 @@
 import { Button } from '@/components/ui/button';
+import { useTranslation } from 'react-i18next';
 
 interface WelcomeStepProps {
   onNext: () => void;
 }
 
 export function WelcomeStep({ onNext }: WelcomeStepProps) {
+  const { t } = useTranslation('onboarding');
+
   return (
     <section className="space-y-6 text-center">
       <div
@@ -15,18 +18,17 @@ export function WelcomeStep({ onNext }: WelcomeStepProps) {
       </div>
       <div className="space-y-3">
         <p className="text-sm font-semibold uppercase tracking-[0.18em] text-primary">
-          O teu próximo capítulo começa aqui
+          {t('welcome.eyebrow')}
         </p>
         <h1 className="text-3xl font-bold tracking-tight sm:text-4xl">
-          Bem-vindo à KUMUKA
+          {t('welcome.title')}
         </h1>
         <p className="mx-auto max-w-lg leading-7 text-muted-foreground">
-          Vamos conhecer-te melhor para te ajudar a descobrir oportunidades,
-          desenvolver competências e avançar ao teu ritmo.
+          {t('welcome.description')}
         </p>
       </div>
       <Button className="w-full sm:w-auto" onClick={onNext} size="lg" type="button">
-        Vamos começar
+        {t('welcome.start')}
       </Button>
     </section>
   );

@@ -1,0 +1,79 @@
+{
+  "hero": {
+    "eyebrow": "Your future starts here",
+    "title": "Build your future,",
+    "titleHighlight": "at your own pace.",
+    "description": "Learn, develop skills, build your portfolio and find opportunities with KUMUKA.",
+    "badge": "Leaders of the Future · Angola · 2026",
+    "titleAccessible": "Build your future.",
+    "primaryAction": "Get started",
+    "secondaryAction": "I already have an account",
+    "scroll": "Discover how it works",
+    "journeyAccessible": "The KUMUKA journey: learn, do, prove and find opportunities",
+    "journeyTitle": "Your path, step by step",
+    "journey": {
+      "learn": "Learn",
+      "do": "Do",
+      "prove": "Prove",
+      "opportunities": "Opportunities"
+    },
+    "cardTitle": "Learning is just the beginning",
+    "cardDescription": "Take what you know and find new opportunities."
+  },
+  "sections": {
+    "whatIsTitle": "What is KUMUKA?",
+    "whatIsDescription": "KUMUKA connects learning with opportunity. Turn what you learn into skills, show what you can do and prepare for your next step.",
+    "pillars": {
+      "learn": { "title": "Learn by doing", "description": "Explore content and put your ideas into practice with real challenges." },
+      "prove": { "title": "Show what you know", "description": "Build evidence of your work and bring it all together in your portfolio." },
+      "opportunities": { "title": "Find opportunities", "description": "Discover experiences and opportunities for your next step." }
+    },
+    "featuresTitle": "Everything you need for your next step",
+    "featuresDescription": "Tools to learn, practise and show your progress.",
+    "features": {
+      "trails": { "title": "Learning paths", "description": "Complete learning journeys." },
+      "courses": { "title": "Courses", "description": "Structured learning at your own pace." },
+      "quickLearnings": { "title": "Quick learning", "description": "Short, practical content." },
+      "guides": { "title": "Guides", "description": "Practical reference materials." },
+      "experiences": { "title": "Experiences", "description": "Programmes, workshops and events." },
+      "portfolio": { "title": "Portfolio", "description": "Show what you can do." }
+    },
+    "journeyTitle": "A journey made for you",
+    "journeyDescription": "A clear journey from your first click to your next opportunity.",
+    "journeySteps": {
+      "learn": { "title": "Learn", "description": "Discover new ideas and knowledge at your own pace." },
+      "develop": { "title": "Develop", "description": "Practise and strengthen skills for life." },
+      "do": { "title": "Do", "description": "Apply what you've learned to projects and challenges." },
+      "prove": { "title": "Prove", "description": "Save your results and show what you can do." },
+      "experience": { "title": "Experience", "description": "Take part in programmes, workshops and events." },
+      "advance": { "title": "Move forward", "description": "Find opportunities and take your next step." }
+    },
+    "audienceTitle": "A space for your future",
+    "audienceDescription": "For young people ready to learn, create and move forward.",
+    "audiences": {
+      "students": "Students",
+      "university": "University students",
+      "graduates": "Recent graduates",
+      "opportunity": "Job seekers",
+      "entrepreneurs": "Entrepreneurs"
+    },
+    "statsTitle": "Your future starts with an opportunity",
+    "statsHeading": "A practical place to start",
+    "statsDescription": "Explore the content in KUMUKA's demo catalogue and choose your next step at your own pace.",
+    "stats": {
+      "trails": "learning paths",
+      "courses": "practical courses",
+      "quickLearnings": "quick lessons",
+      "guides": "reference guides"
+    },
+    "statsNote": "Demo catalogue figures; these may change as the product is validated.",
+    "finalTitle": "Your next step starts with you",
+    "finalHeading": "Ready to build your future?",
+    "finalDescription": "Create your profile and choose where you want to start."
+  },
+  "audiencesHeading": "Who is KUMUKA for?",
+  "footer": {
+    "tagline": "Build your future.",
+    "copyright": "All rights reserved."
+  }
+}

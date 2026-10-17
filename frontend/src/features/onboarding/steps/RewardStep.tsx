@@ -2,6 +2,7 @@ import { Button } from '@/components/ui/button';
 import { Confetti } from '../components/Confetti';
 import { UnlockReveal } from '../components/UnlockReveal';
 import type { OnboardingDraft } from '../types';
+import { useTranslation } from 'react-i18next';
 
 interface RewardStepProps {
   draft: OnboardingDraft;
@@ -9,32 +10,36 @@ interface RewardStepProps {
 }
 
 export function RewardStep({ draft, onComplete }: RewardStepProps) {
+  const { t } = useTranslation('onboarding');
+
   return (
     <section className="space-y-6 text-center">
       <Confetti />
       <div className="space-y-2">
         <h1 className="text-2xl font-bold">
-          {draft.name ? `Estás quase, ${draft.name}!` : 'Estás quase!'}
+          {draft.name
+            ? t('reward.almostNamed', { name: draft.name })
+            : t('reward.almost')}
         </h1>
         <p className="text-muted-foreground">
-          O teu perfil está pronto para desbloquear novas possibilidades.
+          {t('reward.description')}
         </p>
       </div>
       <UnlockReveal
-        description="A tua jornada começa com recomendações alinhadas com os teus interesses e objetivos."
-        title="A tua jornada KUMUKA"
+        description={t('reward.journeyDescription')}
+        title={t('reward.journeyTitle')}
       />
       <div className="rounded-xl bg-muted/60 p-4 text-left text-sm">
         <p>
-          <span className="font-medium">Objetivo:</span> {draft.goal}
+          <span className="font-medium">{t('reward.goal')}</span> {draft.goal}
         </p>
         <p className="mt-2">
-          <span className="font-medium">Interesses:</span>{' '}
+          <span className="font-medium">{t('reward.interests')}</span>{' '}
           {draft.interests.join(', ')}
         </p>
       </div>
       <Button className="w-full" onClick={onComplete} size="lg" type="button">
-        Concluir o meu perfil
+        {t('reward.complete')}
       </Button>
     </section>
   );

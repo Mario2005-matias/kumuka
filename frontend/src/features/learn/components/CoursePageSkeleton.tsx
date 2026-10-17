@@ -1,6 +1,9 @@
+import { useTranslation } from 'react-i18next';
+
 export function CoursePageSkeleton() {
+  const { t } = useTranslation('learning');
   return (
-    <div aria-label="A carregar curso" className="animate-pulse space-y-7">
+    <div aria-label={t('courseModule.loadingCourse')} className="animate-pulse space-y-7">
       <div className="space-y-3">
         <div className="h-4 w-40 rounded bg-surface-2" />
         <div className="h-10 w-2/3 rounded bg-surface-2" />

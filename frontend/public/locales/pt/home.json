@@ -1,0 +1,79 @@
+{
+  "hero": {
+    "eyebrow": "O teu futuro começa aqui",
+    "title": "Constrói o teu futuro,",
+    "titleHighlight": "ao teu ritmo.",
+    "description": "Aprende, desenvolve competências, constrói o teu portefólio e encontra oportunidades na KUMUKA.",
+    "badge": "Líderes do Futuro · Angola · 2026",
+    "titleAccessible": "Constrói o teu futuro.",
+    "primaryAction": "Começar agora",
+    "secondaryAction": "Já tenho conta",
+    "scroll": "Descobrir como funciona",
+    "journeyAccessible": "A jornada KUMUKA: aprender, fazer, provar e encontrar oportunidades",
+    "journeyTitle": "O teu caminho, passo a passo",
+    "journey": {
+      "learn": "Aprender",
+      "do": "Fazer",
+      "prove": "Provar",
+      "opportunities": "Oportunidades"
+    },
+    "cardTitle": "Aprender é só o começo",
+    "cardDescription": "Leva o que sabes para novas oportunidades."
+  },
+  "sections": {
+    "whatIsTitle": "O que é a KUMUKA?",
+    "whatIsDescription": "A KUMUKA liga aprendizagem a oportunidades. Aqui, transformas o que aprendes em competências, mostras o que sabes fazer e preparas o teu próximo passo.",
+    "pillars": {
+      "learn": { "title": "Aprender fazendo", "description": "Explora conteúdos e põe as ideias em prática com desafios reais." },
+      "prove": { "title": "Provar o que sabes", "description": "Constrói evidências do teu trabalho e reúne tudo no teu portefólio." },
+      "opportunities": { "title": "Encontrar oportunidades", "description": "Descobre experiências e oportunidades para dar o próximo passo." }
+    },
+    "featuresTitle": "Tudo para dares o próximo passo",
+    "featuresDescription": "Ferramentas para aprender, praticar e mostrar o teu progresso.",
+    "features": {
+      "trails": { "title": "Trilhas", "description": "Jornadas completas de aprendizagem." },
+      "courses": { "title": "Cursos", "description": "Aprendizagem estruturada e ao teu ritmo." },
+      "quickLearnings": { "title": "Aprendizados", "description": "Conteúdos curtos e práticos." },
+      "guides": { "title": "Guias", "description": "Materiais práticos para consulta." },
+      "experiences": { "title": "Experiências", "description": "Programas, workshops e eventos." },
+      "portfolio": { "title": "Portefólio", "description": "Mostra o que sabes fazer." }
+    },
+    "journeyTitle": "Uma jornada feita à tua medida",
+    "journeyDescription": "Uma jornada clara: do primeiro clique até à oportunidade.",
+    "journeySteps": {
+      "learn": { "title": "Aprender", "description": "Descobre ideias e conhecimentos ao teu ritmo." },
+      "develop": { "title": "Desenvolver", "description": "Pratica e fortalece competências para a vida." },
+      "do": { "title": "Fazer", "description": "Aplica o que aprendeste em projectos e desafios." },
+      "prove": { "title": "Provar", "description": "Guarda resultados e mostra o que sabes fazer." },
+      "experience": { "title": "Experimentar", "description": "Participa em programas, workshops e eventos." },
+      "advance": { "title": "Avançar", "description": "Encontra oportunidades e dá o próximo passo." }
+    },
+    "audienceTitle": "Um espaço para o teu futuro",
+    "audienceDescription": "Para jovens com vontade de aprender, fazer e avançar.",
+    "audiences": {
+      "students": "Estudantes",
+      "university": "Universitários",
+      "graduates": "Recém-formados",
+      "opportunity": "À procura de oportunidade",
+      "entrepreneurs": "Empreendedores"
+    },
+    "statsTitle": "O teu futuro começa com uma oportunidade",
+    "statsHeading": "Um ponto de partida concreto",
+    "statsDescription": "Explora os conteúdos disponíveis no catálogo de demonstração da KUMUKA e escolhe o próximo passo ao teu ritmo.",
+    "stats": {
+      "trails": "trilhas de aprendizagem",
+      "courses": "cursos práticos",
+      "quickLearnings": "aprendizados curtos",
+      "guides": "guias para consulta"
+    },
+    "statsNote": "Quantidades do catálogo de demonstração; podem mudar durante a validação do produto.",
+    "finalTitle": "O próximo passo começa contigo",
+    "finalHeading": "Estás pronto para construir o teu futuro?",
+    "finalDescription": "Cria o teu perfil e escolhe por onde queres começar."
+  },
+  "audiencesHeading": "Para quem é a KUMUKA",
+  "footer": {
+    "tagline": "Constrói o teu futuro.",
+    "copyright": "Todos os direitos reservados."
+  }
+}
