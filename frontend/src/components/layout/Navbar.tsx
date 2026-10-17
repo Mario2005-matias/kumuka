@@ -15,6 +15,7 @@ import { useAuthStore } from "@/stores/authStore";
 import { ROUTES } from "@/lib/constants/routes";
 import { DESKTOP_NAV } from "@/lib/constants/navigation";
 import { cn } from "@/lib/utils";
+import { ModeToggle } from "@/components/shared/mode-toggle";
 
 export function Navbar() {
   const { user, isAuthenticated, clearAuth } = useAuthStore();
@@ -62,6 +63,7 @@ export function Navbar() {
         </div>
 
         <div className="flex items-center gap-2">
+          <ModeToggle />
           {!isAuthenticated ? (
             <>
               <Button

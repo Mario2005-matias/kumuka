@@ -1,5 +1,7 @@
 @import "tailwindcss";
 
+@custom-variant dark (&:where(.dark, .dark *));
+
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
@@ -97,57 +99,59 @@
   );
 }
 
-@media (prefers-color-scheme: light) {
-  :root {
-    color-scheme: light;
-    --background: hsl(210 20% 98%);
-    --surface-1: hsl(0 0% 99%);
-    --surface-2: hsl(210 40% 96%);
-    --surface-3: hsl(214 32% 93%);
-    --foreground: hsl(222 47% 11%);
-    --subtle-foreground: hsl(215 16% 47%);
-    --card: hsl(0 0% 99%);
-    --card-foreground: hsl(222 47% 11%);
-    --popover: hsl(0 0% 99%);
-    --popover-foreground: hsl(222 47% 11%);
-    --primary: hsl(217 91% 50%);
-    --primary-foreground: hsl(210 40% 98%);
-    --primary-soft: hsl(217 91% 95%);
-    --primary-glow: hsl(217 91% 55%);
-    --secondary: hsl(214 95% 96%);
-    --secondary-foreground: hsl(217 91% 30%);
-    --muted: hsl(210 40% 96%);
-    --muted-foreground: hsl(215 16% 40%);
-    --accent: hsl(214 95% 93%);
-    --accent-foreground: hsl(217 91% 30%);
-    --destructive: hsl(0 72% 48%);
-    --destructive-foreground: hsl(210 40% 98%);
-    --success: hsl(142 71% 32%);
-    --success-foreground: hsl(210 40% 98%);
-    --warning: hsl(38 92% 42%);
-    --warning-foreground: hsl(222 47% 9%);
-    --info: hsl(199 89% 38%);
-    --info-foreground: hsl(210 40% 98%);
-    --border: hsl(214 32% 88%);
-    --border-strong: hsl(214 28% 78%);
-    --input: hsl(214 32% 88%);
-    --ring: hsl(217 91% 50%);
-    --gradient-brand-soft: linear-gradient(
-      135deg,
-      hsl(217 91% 96%) 0%,
-      hsl(199 78% 95%) 100%
-    );
-    --gradient-surface: linear-gradient(
-      180deg,
-      hsl(0 0% 100%) 0%,
-      hsl(210 40% 98%) 100%
-    );
-    --gradient-glow: radial-gradient(
-      circle at 50% 0%,
-      hsl(217 91% 60% / 0.08) 0%,
-      transparent 70%
-    );
-  }
+.dark {
+  color-scheme: dark;
+}
+
+.light {
+  color-scheme: light;
+  --background: hsl(210 20% 98%);
+  --surface-1: hsl(0 0% 99%);
+  --surface-2: hsl(210 40% 96%);
+  --surface-3: hsl(214 32% 93%);
+  --foreground: hsl(222 47% 11%);
+  --subtle-foreground: hsl(215 16% 47%);
+  --card: hsl(0 0% 99%);
+  --card-foreground: hsl(222 47% 11%);
+  --popover: hsl(0 0% 99%);
+  --popover-foreground: hsl(222 47% 11%);
+  --primary: hsl(217 91% 50%);
+  --primary-foreground: hsl(210 40% 98%);
+  --primary-soft: hsl(217 91% 95%);
+  --primary-glow: hsl(217 91% 55%);
+  --secondary: hsl(214 95% 96%);
+  --secondary-foreground: hsl(217 91% 30%);
+  --muted: hsl(210 40% 96%);
+  --muted-foreground: hsl(215 16% 40%);
+  --accent: hsl(214 95% 93%);
+  --accent-foreground: hsl(217 91% 30%);
+  --destructive: hsl(0 72% 48%);
+  --destructive-foreground: hsl(210 40% 98%);
+  --success: hsl(142 71% 32%);
+  --success-foreground: hsl(210 40% 98%);
+  --warning: hsl(38 92% 42%);
+  --warning-foreground: hsl(222 47% 9%);
+  --info: hsl(199 89% 38%);
+  --info-foreground: hsl(210 40% 98%);
+  --border: hsl(214 32% 88%);
+  --border-strong: hsl(214 28% 78%);
+  --input: hsl(214 32% 88%);
+  --ring: hsl(217 91% 50%);
+  --gradient-brand-soft: linear-gradient(
+    135deg,
+    hsl(217 91% 96%) 0%,
+    hsl(199 78% 95%) 100%
+  );
+  --gradient-surface: linear-gradient(
+    180deg,
+    hsl(0 0% 100%) 0%,
+    hsl(210 40% 98%) 100%
+  );
+  --gradient-glow: radial-gradient(
+    circle at 50% 0%,
+    hsl(217 91% 60% / 0.08) 0%,
+    transparent 70%
+  );
 }
 
 @layer base {
