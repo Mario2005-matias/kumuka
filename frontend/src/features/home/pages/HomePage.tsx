@@ -19,6 +19,11 @@ export default function HomePage() {
         <StatsSection />
         <FinalCTASection />
       </main>
+      <div className="bg-background/50 border-t border-border/50 py-4 text-center text-muted-foreground">
+        <h1 className="text-[clamp(3rem,22vw,30rem)] font-black leading-none tracking-tighter">
+          KUMUKA
+        </h1>
+      </div>
       <HomeFooter />
     </>
   );

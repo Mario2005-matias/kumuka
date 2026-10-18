@@ -40,7 +40,7 @@ export function TrailCard({ trail, progress }: TrailCardProps) {
           <div className="absolute right-4 top-4 flex size-11 items-center justify-center rounded-xl border border-border/70 bg-card/80 text-primary">
             <BookOpen aria-hidden="true" className="size-5" />
           </div>
-          <StatusBadge status="neutral">{t(levelTranslationKeys[trail.nivel])}</StatusBadge>
+          <StatusBadge status="neutral" className='text-amber-500 bg-amber-100/50'>{t(levelTranslationKeys[trail.nivel])}</StatusBadge>
         </div>
         <CardContent className="flex h-[calc(100%-7rem)] flex-col p-5 sm:p-6">
           <h2 className="line-clamp-2 min-h-14 text-lg font-semibold tracking-tight">

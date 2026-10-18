@@ -27,22 +27,26 @@ import { useAchievements } from '../hooks/useAchievements';
 import { useProgress } from '../hooks/useProgress';
 import { useRecommendations } from '../hooks/useRecommendations';
 import { useTranslation } from 'react-i18next';
+import Painel from "../../../assets/painel.png"
 
 const exploreCards = [
   {
     key: 'learn',
     icon: BookOpen,
     to: ROUTES.learn.root,
+    color: 'bg-red-500'
   },
   {
     key: 'journey',
     icon: Map,
     to: ROUTES.journey,
+     color: 'bg-green-500'
   },
   {
     key: 'experiences',
     icon: Compass,
     to: ROUTES.experiences.root,
+     color: 'bg-blue-500'
   },
 ] as const;
 
@@ -124,23 +128,27 @@ export default function DashboardPage() {
           <StatCard
             description={t('averageDescription')}
             icon={Target}
+            color='bg-green-500'
             label={t('progress')}
             value={`${averageProgress}%`}
           />
           <StatCard
             description={t('trailsCount', { count: trailCount })}
             icon={BookOpen}
+            color='bg-blue-500'
             label={t('trails')}
             value={trailCount}
           />
           <StatCard
             description={t('catalogue')}
+            color='bg-yellow-500'
             icon={BriefcaseBusiness}
             label={t('experiences')}
             value={experienceCount}
           />
           <StatCard
             description={t('unlocked')}
+            color='bg-red-500'
             icon={Award}
             label={t('achievements')}
             value={unlockedCount}
@@ -225,6 +233,7 @@ export default function DashboardPage() {
                       : ROUTES.learn.guide(item.slug);
               return (
                 <Card className="border-border" key={`${recommendation.tipo}-${item.id}`}>
+                  <img src={Painel} alt="" className='hover:scale-105 duration-300' />
                   <CardContent className="flex h-full flex-col p-4">
                     <p className="text-xs font-medium capitalize text-primary">
                       {recommendation.tipo === 'quick-learning'
@@ -238,10 +247,10 @@ export default function DashboardPage() {
                     <h3 className="mt-2 font-semibold">{item.titulo}</h3>
                     <p className="mt-2 flex-1 text-sm leading-6 text-muted-foreground">{item.descricao}</p>
                     <Button
-                      className="mt-3 px-0 text-primary"
+                      className=""
                       nativeButton={false}
                       render={<Link to={to} />}
-                      variant="ghost"
+                      variant="link"
                     >
                       {t('explore')}
                       <ArrowRight aria-hidden="true" />
@@ -272,7 +281,8 @@ export default function DashboardPage() {
         </div>
         <div className="grid gap-4 md:grid-cols-3">
           {exploreCards.map(({ key, icon: Icon, to }) => (
-            <Card className="group border-border transition-colors hover:border-primary/50" key={key}>
+            <Card className="relative group border-border duration-300 transition-colors hover:border-primary/50" key={key}>
+              <div className='h-20 w-20 bg-blue-500 rounded-full absolute blur-2xl -top-5 -right-5'></div>              
               <CardHeader>
                 <span className="mb-3 flex size-11 items-center justify-center rounded-xl bg-primary/10 text-primary group-hover:bg-primary group-hover:text-primary-foreground">
                   <Icon aria-hidden="true" className="size-5" />
@@ -280,12 +290,12 @@ export default function DashboardPage() {
                 <CardTitle className="text-lg">{t(`exploreCards.${key}.title`)}</CardTitle>
               </CardHeader>
               <CardContent>
-                <p className="min-h-12 text-sm leading-6 text-muted-foreground">{t(`exploreCards.${key}.description`)}</p>
+                <p className=" text-sm leading-6 text-muted-foreground">{t(`exploreCards.${key}.description`)}</p>
                 <Button
                   className="mt-4 px-0 text-primary"
                   nativeButton={false}
                   render={<Link to={to} />}
-                  variant="ghost"
+                  variant="link"
                 >
                   {t(`exploreCards.${key}.action`)}
                   <ArrowRight aria-hidden="true" />

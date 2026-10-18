@@ -19,6 +19,7 @@ import { ROUTES } from '@/lib/constants/routes';
 import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
 import { useTranslation } from 'react-i18next';
+import Painel from "../../assets/hero.png"
 
 interface AppSidebarProps {
   collapsed: boolean;
@@ -203,6 +204,7 @@ export function AppSidebar({
         </nav>
 
         <div className="border-t p-3">
+
           <div className="mb-3 rounded-xl bg-gradient-to-br from-primary/10 to-transparent p-3">
             <div className="flex items-center gap-2 text-primary">
               <GraduationCap aria-hidden="true" className="size-4 shrink-0" />
@@ -210,15 +212,16 @@ export function AppSidebar({
                 {t('navigation.brandTagline')}
               </span>
             </div>
+            <img src={Painel} alt="" />
           </div>
+
           <Button
-            className={cn(
-              'w-full justify-start gap-3 text-muted-foreground hover:text-foreground',
+            className={cn('w-full justify-start gap-3 ',
               collapsed && 'md:justify-center md:px-0',
             )}
             onClick={logout}
             type="button"
-            variant="ghost"
+            variant="destructive"
           >
             <LogOut aria-hidden="true" className="size-[18px] shrink-0" />
             <span className={cn(collapsed && 'md:hidden')}>{t('navigation.logout')}</span>

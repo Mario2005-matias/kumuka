@@ -277,7 +277,7 @@ export function AppTopbar({ onOpenMobileMenu }: AppTopbarProps) {
               </Button>
             </form>
             <ul
-              className="max-h-[55vh] overflow-y-auto p-2"
+              className="max-h-[55vh] overflow-y-auto p-2  "
               id="global-search-results"
               role="listbox"
             >
@@ -287,7 +287,7 @@ export function AppTopbar({ onOpenMobileMenu }: AppTopbarProps) {
                     <button
                       aria-selected={index === activeResult}
                       id={`global-search-${index}`}
-                      className={`flex items-center justify-between rounded-xl px-3 py-3 transition-colors hover:bg-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring ${
+                      className={`w-full text-start flex items-center justify-between rounded px-3 py-3 transition-colors hover:bg-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring ${
                         index === activeResult ? 'bg-accent' : ''
                       }`}
                       onClick={() => {

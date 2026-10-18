@@ -83,22 +83,24 @@ export function JourneySection() {
                 {String(index + 1).padStart(2, '0')}
               </div>
               <Card
-                className={`journey-step relative z-10 col-start-2 row-start-1 h-full border border-border/80 bg-card/90 transition-[border-color,box-shadow] duration-300 ${index % 2 === 0 ? 'lg:col-start-1' : 'lg:col-start-3'}`}
+                className={`relative journey-step relative z-10 col-start-2 row-start-1 h-full border border-border/80 bg-card/90 transition-[border-color,box-shadow] duration-300 ${index % 2 === 0 ? 'lg:col-start-1' : 'lg:col-start-3'}`}
                 data-journey-card
               >
-                <CardHeader className={`flex-row items-start justify-between gap-4 ${index % 2 === 0 ? 'lg:flex-row-reverse' : ''}`}>
+                <CardHeader className={` flex-row items-start justify-between gap-4 ${index % 2 === 0 ? 'lg:flex-row-reverse' : ''}`}>
+                  <div className='absolute -top-5 -left-5 w-30 h-30 bg-cyan-400/40 blur-2xl z-0 rounded-full animate-pulse'></div>
                   <div
-                    className="flex size-12 shrink-0 items-center justify-center rounded-xl bg-primary/10 text-primary"
+                    className="z-10 flex size-12 shrink-0 items-center justify-center rounded-xl bg-primary/10 text-primary"
                     data-step-icon
                   >
-                    <Icon aria-hidden="true" className="size-6" />
+                    <Icon aria-hidden="true" className="size-6 text-cyan-600" />
                   </div>
+                  
                   <span
                     aria-hidden="true"
-                    className="text-3xl font-bold tabular-nums text-muted-foreground/30"
+                    className="absolute top-0 right-0 text-7xl font-bold tabular-nums text-muted-foreground/30"
                   >
                     {String(index + 1).padStart(2, '0')}
-                  </span>
+                  </span>                  
                 </CardHeader>
                 <CardContent className={index % 2 === 0 ? 'lg:text-right' : ''}>
                   <CardTitle className="text-lg">
