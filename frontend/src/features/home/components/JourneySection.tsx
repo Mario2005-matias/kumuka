@@ -87,7 +87,7 @@ export function JourneySection() {
                 data-journey-card
               >
                 <CardHeader className={` flex-row items-start justify-between gap-4 ${index % 2 === 0 ? 'lg:flex-row-reverse' : ''}`}>
-                  <div className='absolute -top-5 -left-5 w-30 h-30 bg-cyan-400/40 blur-2xl z-0 rounded-full animate-pulse'></div>
+                  <div className='absolute -top-5 -left-5 w-30 h-30 bg-blue-400/40 blur-2xl z-0 rounded-full animate-pulse'></div>
                   <div
                     className="z-10 flex size-12 shrink-0 items-center justify-center rounded-xl bg-primary/10 text-primary"
                     data-step-icon
