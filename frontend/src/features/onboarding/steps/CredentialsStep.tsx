@@ -94,6 +94,7 @@ export function CredentialsStep({
           <Input
             autoComplete="email"
             id="onboarding-email"
+            className='py-5 px-4'
             placeholder={t('credentials.emailPlaceholder')}
             type="email"
             {...form.register('email')}
@@ -112,6 +113,8 @@ export function CredentialsStep({
           <Input
             autoComplete="new-password"
             id="onboarding-password"
+            className='py-5 px-4'
+            placeholder='********'
             type="password"
             {...form.register('password')}
           />
@@ -129,6 +132,8 @@ export function CredentialsStep({
           <Input
             autoComplete="new-password"
             id="onboarding-confirm-password"
+            className='py-5 px-4'
+            placeholder='********'
             type="password"
             {...form.register('confirmPassword')}
           />
@@ -145,7 +150,7 @@ export function CredentialsStep({
           </p>
         )}
 
-        <Button className="w-full" disabled={isSubmitting} type="submit">
+        <Button className="w-full py-6" disabled={isSubmitting} type="submit">
           {isSubmitting
             ? t('credentials.creating')
             : t('credentials.createAndContinue')}
