@@ -32,7 +32,8 @@
     "expand": "Expand menu",
     "logout": "Sign out",
     "brandTagline": "Build your future.",
-    "faq": "FAQ"
+    "faq": "FAQ",
+    "main": "Main navigation"
   },
   "actions": {
     "login": "Sign in",
@@ -45,7 +46,8 @@
     "details": "View details",
     "save": "Save",
     "cancel": "Cancel",
-    "search": "Search"
+    "search": "Search",
+    "close": "Close"
   },
   "search": {
     "open": "Search (Ctrl+K)",

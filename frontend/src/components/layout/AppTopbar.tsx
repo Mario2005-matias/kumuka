@@ -10,7 +10,8 @@ import {
 } from 'lucide-react';
 import { useEffect, useMemo, useState, type FormEvent, type KeyboardEvent as ReactKeyboardEvent } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
-import { Avatar, AvatarFallback } from '@/components/ui/avatar';
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+import { useProfile } from '@/features/profile/hooks/useProfile';
 import { Button } from '@/components/ui/button';
 import {
   DropdownMenu,
@@ -74,6 +75,7 @@ export function AppTopbar({ onOpenMobileMenu }: AppTopbarProps) {
   const location = useLocation();
   const navigate = useNavigate();
   const user = useAuthStore((state) => state.user);
+  const photo = useProfile(user?.id ?? '').data?.foto;
   const signOut = useLogout();
   const [searchOpen, setSearchOpen] = useState(false);
   const [query, setQuery] = useState('');
@@ -205,6 +207,7 @@ export function AppTopbar({ onOpenMobileMenu }: AppTopbarProps) {
             className="flex size-9 items-center justify-center rounded-full transition-colors hover:bg-surface-3 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
           >
             <Avatar>
+              {photo && <AvatarImage alt="" className="object-cover" src={photo} />}
               <AvatarFallback className="bg-primary/15 font-semibold text-primary">
                 {initials}
               </AvatarFallback>

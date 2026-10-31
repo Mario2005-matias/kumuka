@@ -15,6 +15,7 @@ import {
 import type { LucideIcon } from 'lucide-react';
 import { useEffect, useRef } from 'react';
 import { Link, NavLink } from 'react-router-dom';
+import { motion } from 'motion/react';
 import { useLogout } from '@/features/auth/hooks';
 import { ROUTES } from '@/lib/constants/routes';
 import { cn } from '@/lib/utils';
@@ -187,16 +188,28 @@ export function AppSidebar({
                       to={to}
                       className={({ isActive }) =>
                         cn(
-                          'group relative flex min-h-10 items-center gap-3 rounded-lg px-3 text-sm font-medium transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring',
+                          'group relative isolate flex min-h-10 items-center gap-3 rounded-lg px-3 text-sm font-medium transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring',
                           collapsed && 'md:justify-center md:px-0',
                           isActive
-                            ? 'bg-primary/10 text-primary before:absolute before:inset-y-2 before:left-0 before:w-0.5 before:rounded-full before:bg-primary'
+                            ? 'text-primary'
                             : 'text-muted-foreground hover:bg-surface-3 hover:text-foreground',
                         )
                       }
                     >
-                      <Icon aria-hidden="true" className="size-[18px] shrink-0" />
-                      <span className={cn(collapsed && 'md:hidden')}>{label}</span>
+                      {({ isActive }) => (
+                        <>
+                          {isActive && (
+                            <motion.span
+                              aria-hidden="true"
+                              className="absolute inset-0 -z-10 rounded-lg bg-primary/10 before:absolute before:inset-y-2 before:left-0 before:w-0.5 before:rounded-full before:bg-primary"
+                              layoutId="sidebar-active"
+                              transition={{ type: 'spring', stiffness: 420, damping: 34 }}
+                            />
+                          )}
+                          <Icon aria-hidden="true" className="size-[18px] shrink-0 transition-transform duration-200 group-hover:scale-110" />
+                          <span className={cn(collapsed && 'md:hidden')}>{label}</span>
+                        </>
+                      )}
                     </NavLink>
                   </li>
                 ))}

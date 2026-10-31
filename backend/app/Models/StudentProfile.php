@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-#[Fillable(['name', 'age', 'situation', 'interests', 'goal', 'bio', 'photo', 'competences', 'onboarding_step', 'onboarding_completed_at'])]
+#[Fillable(['name', 'age', 'situation', 'location', 'interests', 'goal', 'bio', 'linkedin_url', 'portfolio_url', 'photo', 'banner', 'competences', 'onboarding_step', 'onboarding_completed_at'])]
 class StudentProfile extends Model
 {
     use HasFactory;

@@ -58,8 +58,8 @@ export function MediaCard({
 }: MediaCardProps) {
   const visualIcon = icon ?? (category ? categoryIcon(category) : undefined);
   const classes = cn(
-    'group flex h-full flex-col gap-4 rounded-[1.75rem] border border-border/70 bg-card p-2.5 elevated transition-[transform,border-color,box-shadow] duration-300',
-    to && 'hover:-translate-y-1 hover:border-primary/40 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2',
+    'reveal group flex h-full flex-col gap-4 rounded-[1.75rem] border border-border/70 bg-card p-2.5 elevated transition-[transform,border-color,box-shadow] duration-300',
+    to && 'hover:-translate-y-1 hover:border-primary/40 hover:shadow-xl active:translate-y-0 active:scale-[0.99] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2',
     visual === 'none' && 'pt-4',
     className,
   );

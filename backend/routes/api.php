@@ -43,10 +43,12 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::prefix('me')->name('me.')->group(function () {
         Route::get('profile', [Me\ProfileController::class, 'show'])->name('profile.show');
         Route::patch('profile', [Me\ProfileController::class, 'update'])->name('profile.update');
+        Route::post('profile/{media}', [Me\ProfileMediaController::class, 'store'])->whereIn('media', ['foto', 'banner'])->name('profile.media.store');
+        Route::delete('profile/{media}', [Me\ProfileMediaController::class, 'destroy'])->whereIn('media', ['foto', 'banner'])->name('profile.media.destroy');
         Route::get('competences', [Me\CompetenceController::class, 'index'])->name('competences.index');
         Route::get('achievements', [Me\AchievementController::class, 'index'])->name('achievements.index');
         Route::get('recommendations', [Me\RecommendationController::class, 'index'])->name('recommendations.index');
-        Route::apiResource('projects', Me\ProjectController::class)->only(['index', 'store']);
+        Route::apiResource('projects', Me\ProjectController::class)->except('show');
 
         Route::get('trails', [Me\TrailProgressController::class, 'index'])->name('trails.index');
         Route::get('trails/{trail}/progress', [Me\TrailProgressController::class, 'show'])->name('trails.progress.show');

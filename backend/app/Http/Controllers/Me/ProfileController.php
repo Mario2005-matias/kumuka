@@ -12,6 +12,23 @@ use Illuminate\Http\Request;
 class ProfileController extends Controller
 {
     /**
+     * Request keys the student can edit, mapped to profile columns.
+     *
+     * @var array<string, string>
+     */
+    private const EDITABLE_FIELDS = [
+        'nome' => 'name',
+        'idade' => 'age',
+        'situacao' => 'situation',
+        'localizacao' => 'location',
+        'interesses' => 'interests',
+        'objetivo' => 'goal',
+        'bio' => 'bio',
+        'linkedin' => 'linkedin_url',
+        'portfolio' => 'portfolio_url',
+    ];
+
+    /**
      * The student's profile.
      */
     public function show(Request $request): ProfileResource
@@ -30,27 +47,30 @@ class ProfileController extends Controller
             'nome' => ['sometimes', 'nullable', 'string', 'max:120'],
             'idade' => ['sometimes', 'nullable', 'integer', 'between:10,99'],
             'situacao' => ['sometimes', 'nullable', 'string', 'max:120'],
+            'localizacao' => ['sometimes', 'nullable', 'string', 'max:120'],
             'interesses' => ['sometimes', 'array', 'max:12'],
             'interesses.*' => ['string', 'max:60'],
             'objetivo' => ['sometimes', 'nullable', 'string', 'max:160'],
             'bio' => ['sometimes', 'nullable', 'string', 'max:1000'],
+            'linkedin' => ['sometimes', 'nullable', 'url:http,https', 'max:2048'],
+            'portfolio' => ['sometimes', 'nullable', 'url:http,https', 'max:2048'],
             'onboardingStep' => ['sometimes', 'integer', 'between:0,20'],
             'onboardingCompleted' => ['sometimes', 'accepted'],
         ]);
 
         $profile = $request->user()->profile()->firstOrCreate();
 
-        $profile->fill(array_filter([
-            'name' => $validated['nome'] ?? null,
-            'age' => $validated['idade'] ?? null,
-            'situation' => $validated['situacao'] ?? null,
-            'interests' => $validated['interesses'] ?? null,
-            'goal' => $validated['objetivo'] ?? null,
-            'bio' => $validated['bio'] ?? null,
-            'onboarding_step' => isset($validated['onboardingStep']) ? max($profile->onboarding_step, $validated['onboardingStep']) : null,
-        ], fn (mixed $value): bool => $value !== null));
+        foreach (self::EDITABLE_FIELDS as $key => $column) {
+            if (array_key_exists($key, $validated)) {
+                $profile->{$column} = $validated[$key];
+            }
+        }
 
-        if (isset($validated['nome'])) {
+        if (isset($validated['onboardingStep'])) {
+            $profile->onboarding_step = max($profile->onboarding_step, $validated['onboardingStep']);
+        }
+
+        if (array_key_exists('nome', $validated)) {
             $request->user()->update(['name' => $validated['nome']]);
         }
 

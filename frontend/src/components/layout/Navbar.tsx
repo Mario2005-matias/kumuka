@@ -1,4 +1,5 @@
 import { Link, NavLink, useNavigate } from "react-router-dom";
+import { motion } from "motion/react";
 import { LogOut, User as UserIcon } from "lucide-react";
 import { useLogout } from "@/features/auth/hooks";
 import { Button } from "@/components/ui/button";
@@ -10,7 +11,8 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { Avatar, AvatarFallback } from "@/components/ui/avatar";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { useProfile } from "@/features/profile/hooks/useProfile";
 import { useAuthStore } from "@/stores/authStore";
 import { ROUTES } from "@/lib/constants/routes";
 import { DESKTOP_NAV } from "@/lib/constants/navigation";
@@ -21,6 +23,7 @@ import { useTranslation } from "react-i18next";
 
 export function Navbar() {
   const user = useAuthStore((state) => state.user);
+  const photo = useProfile(user?.id ?? "").data?.foto;
   const isAuthenticated = useAuthStore((state) => state.isAuthenticated);
   const navigate = useNavigate();
   const logout = useLogout();
@@ -29,39 +32,47 @@ export function Navbar() {
   const initials = user?.email?.slice(0, 2).toUpperCase() ?? "U";
 
   return (
-    <header className="sticky top-0 z-40 w-full glass-surface border-b">
-      <div className="container flex h-16 items-center justify-between">
-        <div className="flex items-center gap-8">
-          <Link
-            className="inline-flex min-h-11 items-center text-xl font-bold tracking-tight"
-            to={ROUTES.home}
-          >
-            KUMUKA
-          </Link>
+    <header className="header-enter sticky top-0 z-40 w-full glass-surface border-b">
+      <div className="mx-auto grid h-16 w-full max-w-7xl grid-cols-[1fr_auto] items-center gap-4 px-4 sm:px-6 lg:grid-cols-[1fr_auto_1fr] lg:px-8">
+        <Link
+          className="inline-flex min-h-11 w-fit items-center whitespace-nowrap text-xl font-bold tracking-tight transition-opacity hover:opacity-80"
+          to={ROUTES.home}
+        >
+          KUMUKA
+        </Link>
 
-          {isAuthenticated && (
-            <nav className="hidden items-center gap-1 md:flex">
+        {isAuthenticated && (
+            <nav aria-label={t("navigation.main")} className="hidden items-center gap-1 rounded-full border border-border/60 bg-card/50 p-1 lg:flex">
               {DESKTOP_NAV.map((item) => (
                 <NavLink
-                  key={item.href}
-                  to={item.href}
                   className={({ isActive }) =>
                     cn(
-                      "rounded-md px-3 py-2 text-sm font-medium transition-colors",
-                      isActive
-                        ? "bg-secondary text-secondary-foreground"
-                        : "text-muted-foreground hover:bg-secondary/50 hover:text-foreground",
+                      "relative whitespace-nowrap rounded-full px-4 py-2 text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",
+                      isActive ? "text-primary-foreground" : "text-muted-foreground hover:text-foreground",
                     )
                   }
+                  key={item.href}
+                  to={item.href}
                 >
-                  {t(`navigation.${item.translationKey}`)}
+                  {({ isActive }) => (
+                    <>
+                      {isActive && (
+                        <motion.span
+                          aria-hidden="true"
+                          className="absolute inset-0 -z-10 rounded-full bg-primary shadow-sm"
+                          layoutId="public-nav-pill"
+                          transition={{ type: "spring", stiffness: 380, damping: 32 }}
+                        />
+                      )}
+                      {t(`navigation.${item.translationKey}`)}
+                    </>
+                  )}
                 </NavLink>
               ))}
             </nav>
-          )}
-        </div>
+        )}
 
-        <div className="flex items-center gap-2">
+        <div className="flex items-center justify-end gap-2 lg:col-start-3">
           <LanguageSwitcher />
           <ModeToggle />
           {!isAuthenticated ? (
@@ -89,6 +100,7 @@ export function Navbar() {
               <DropdownMenuTrigger>
                 <Button variant="ghost" size="icon" className="rounded-full">
                   <Avatar className="h-8 w-8">
+                    {photo && <AvatarImage alt="" className="object-cover" src={photo} />}
                     <AvatarFallback>{initials}</AvatarFallback>
                   </Avatar>
                 </Button>

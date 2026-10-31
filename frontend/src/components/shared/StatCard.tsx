@@ -26,7 +26,7 @@ export function StatCard({
   }[deltaTone];
 
   return (
-    <article className="flex h-full items-center gap-4 rounded-[1.75rem] border border-border/70 bg-card p-2.5 elevated">
+    <article className="reveal flex h-full items-center gap-4 rounded-[1.75rem] border border-border/70 bg-card p-2.5 elevated">
       <span
         aria-hidden="true"
         className="flex size-16 shrink-0 items-center justify-center rounded-[1.25rem] bg-[image:var(--gradient-brand)] text-[color:var(--on-brand)]"
