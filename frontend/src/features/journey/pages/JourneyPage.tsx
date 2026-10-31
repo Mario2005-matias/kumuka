@@ -167,7 +167,7 @@ export default function JourneyPage() {
                 {activities.map((item) => (
                   <li key={item.id}>
                     <Link
-                      className="block rounded-xl border border-border bg-card p-4 hover:border-primary/50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+                      className="block elevated rounded-2xl border border-border/70 bg-card p-4 hover:border-primary/50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
                       to={item.to}
                     >
                       <div className="flex items-center justify-between gap-3">
@@ -202,7 +202,7 @@ export default function JourneyPage() {
               </h2>
               {enrolledExperiences.map((experience) => (
                 <Link
-                  className="flex min-h-14 items-center gap-3 rounded-xl border border-border bg-card p-4 hover:border-primary/50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+                  className="flex min-h-14 items-center gap-3 elevated rounded-2xl border border-border/70 bg-card p-4 hover:border-primary/50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
                   key={experience.id}
                   to={ROUTES.experiences.detail(experience.slug)}
                 >

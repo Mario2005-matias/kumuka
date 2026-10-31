@@ -1,6 +1,7 @@
 import type { ReactNode } from 'react';
+import { CodeBlock } from '../components/CodeBlock';
 
-const INLINE = /(\*\*[^*]+\*\*|\*[^*\s][^*]*\*|\[[^\]]+\]\((?:https?:\/\/|\/)[^)\s]+\))/g;
+const INLINE = /(`[^`]+`|\*\*[^*]+\*\*|\*[^*\s][^*]*\*|\[[^\]]+\]\((?:https?:\/\/|\/)[^)\s]+\))/g;
 
 /**
  * Renders inline emphasis and links as React nodes (never as raw HTML).
@@ -8,6 +9,9 @@ const INLINE = /(\*\*[^*]+\*\*|\*[^*\s][^*]*\*|\[[^\]]+\]\((?:https?:\/\/|\/)[^)
 function renderInline(text: string, keyPrefix: string): ReactNode[] {
   return text.split(INLINE).map((part, index) => {
     const key = `${keyPrefix}-${index}`;
+    if (part.startsWith('`') && part.endsWith('`') && part.length > 2) {
+      return <code className="rounded-md bg-surface-2 px-1.5 py-0.5 font-mono text-[0.9em] text-foreground" key={key}>{part.slice(1, -1)}</code>;
+    }
     if (part.startsWith('**') && part.endsWith('**') && part.length > 4) {
       return <strong className="font-semibold text-foreground" key={key}>{part.slice(2, -2)}</strong>;
     }
@@ -28,12 +32,13 @@ function renderInline(text: string, keyPrefix: string): ReactNode[] {
 
 /**
  * Renders the Markdown subset used by lesson content: headings, paragraphs, bullet and numbered
- * lists, blockquotes, bold, italic and links.
+ * lists, blockquotes, fenced code blocks, bold, italic, inline code and links.
  */
 export function renderMarkdown(content: string) {
   const lines = content.split(/\r?\n/);
   const elements: ReactNode[] = [];
   let list: { ordered: boolean; items: string[] } | null = null;
+  let code: { language: string; lines: string[] } | null = null;
 
   function flushList() {
     if (!list) return;
@@ -51,6 +56,23 @@ export function renderMarkdown(content: string) {
 
   lines.forEach((line, index) => {
     const trimmed = line.trim();
+
+    if (code) {
+      if (trimmed.startsWith('```')) {
+        elements.push(<CodeBlock code={code.lines.join('\n')} key={`code-${index}`} language={code.language} />);
+        code = null;
+      } else {
+        code.lines.push(line);
+      }
+      return;
+    }
+
+    if (trimmed.startsWith('```')) {
+      flushList();
+      code = { language: trimmed.slice(3).trim().toLowerCase(), lines: [] };
+      return;
+    }
+
     const bullet = trimmed.match(/^[-*] (.+)$/);
     const numbered = trimmed.match(/^\d+[.)] (.+)$/);
 
@@ -81,5 +103,9 @@ export function renderMarkdown(content: string) {
     }
   });
   flushList();
+  if (code) {
+    const unclosed = code as { language: string; lines: string[] };
+    elements.push(<CodeBlock code={unclosed.lines.join('\n')} key="code-end" language={unclosed.language} />);
+  }
   return elements;
 }

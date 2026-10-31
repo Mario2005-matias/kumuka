@@ -14,6 +14,7 @@ class EditExperience extends EditRecord
     {
         return [
             DeleteAction::make(),
+            ...ExperienceResource::archiveHeaderActions(),
         ];
     }
 }

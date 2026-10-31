@@ -6,6 +6,9 @@ use App\Filament\Concerns\AdminOnly;
 use App\Filament\Resources\OpportunityApplications\Pages\ListOpportunityApplications;
 use App\Models\OpportunityApplication;
 use BackedEnum;
+use Filament\Actions\BulkActionGroup;
+use Filament\Actions\DeleteAction;
+use Filament\Actions\DeleteBulkAction;
 use Filament\Resources\Resource;
 use Filament\Support\Icons\Heroicon;
 use Filament\Tables\Columns\SelectColumn;
@@ -33,6 +36,8 @@ class OpportunityApplicationResource extends Resource
 
     protected static ?string $pluralModelLabel = 'candidaturas';
 
+    protected static ?string $navigationLabel = 'Candidaturas';
+
     /**
      * @return array<string, string>
      */
@@ -57,7 +62,9 @@ class OpportunityApplicationResource extends Resource
             ->filters([
                 SelectFilter::make('status')->label('Estado')->options(self::statuses()),
                 SelectFilter::make('opportunity')->label('Oportunidade')->relationship('opportunity', 'title'),
-            ]);
+            ])
+            ->recordActions([DeleteAction::make()])
+            ->toolbarActions([BulkActionGroup::make([DeleteBulkAction::make()])]);
     }
 
     public static function getPages(): array

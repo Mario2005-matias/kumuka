@@ -3,6 +3,7 @@
 namespace App\Http\Resources;
 
 use App\Models\Opportunity;
+use App\Support\PublicFile;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -26,7 +27,7 @@ class OpportunityResource extends JsonResource
             'tipo' => $this->type,
             'empresaId' => (string) $this->company_id,
             'empresaNome' => $this->company->name,
-            'empresaLogo' => $this->company->logo,
+            'empresaLogo' => PublicFile::url($this->company->logo),
             'area' => $this->area,
             'localizacao' => $this->location,
             'modalidade' => $this->modality,
@@ -41,7 +42,7 @@ class OpportunityResource extends JsonResource
                 $this->deadline_at->isPast() => 'prazo_encerrado',
                 default => 'aberta',
             },
-            'banner' => $this->banner,
+            'banner' => PublicFile::url($this->banner),
             'criadoEm' => $this->created_at?->toIso8601ZuluString(),
             'atualizadoEm' => $this->updated_at?->toIso8601ZuluString(),
         ];

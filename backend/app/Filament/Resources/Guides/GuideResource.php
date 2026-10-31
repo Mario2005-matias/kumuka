@@ -2,12 +2,13 @@
 
 namespace App\Filament\Resources\Guides;
 
+use App\Filament\Concerns\ArchivesRecords;
 use App\Filament\Resources\Guides\Pages\CreateGuide;
 use App\Filament\Resources\Guides\Pages\EditGuide;
 use App\Filament\Resources\Guides\Pages\ListGuides;
+use App\Filament\Support\TableActions;
 use App\Models\Guide;
 use BackedEnum;
-use Filament\Actions\EditAction;
 use Filament\Forms\Components\MarkdownEditor;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Textarea;
@@ -23,6 +24,8 @@ use UnitEnum;
 
 class GuideResource extends Resource
 {
+    use ArchivesRecords;
+
     protected static ?string $model = Guide::class;
 
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedDocumentText;
@@ -34,6 +37,8 @@ class GuideResource extends Resource
     protected static ?string $modelLabel = 'guia';
 
     protected static ?string $pluralModelLabel = 'guias';
+
+    protected static ?string $navigationLabel = 'Guias';
 
     protected static ?string $recordTitleAttribute = 'title';
 
@@ -65,9 +70,9 @@ class GuideResource extends Resource
                 TextColumn::make('updated_at')->label('Actualizado')->since()->sortable(),
             ])
             ->defaultSort('updated_at', 'desc')
-            ->recordActions([
-                EditAction::make(),
-            ]);
+            ->filters([TableActions::trashedFilter()])
+            ->recordActions(TableActions::row())
+            ->toolbarActions(TableActions::bulk());
     }
 
     public static function getPages(): array

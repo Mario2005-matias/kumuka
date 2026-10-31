@@ -26,6 +26,7 @@ class TrailProgressController extends Controller
     public function index(Request $request): AnonymousResourceCollection
     {
         $enrollments = $request->user()->enrollments()
+            ->whereHas('trail', fn ($query) => $query->whereNull('trails.deleted_at'))
             ->with(['trail' => fn ($query) => $query->withCount(['phases', 'modules'])])
             ->latest('last_activity_at')
             ->get();

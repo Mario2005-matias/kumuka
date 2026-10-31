@@ -108,7 +108,7 @@ export default function LearnContentPage() {
       )}
 
       {slug && item && (
-        <article className="rounded-xl border border-border bg-card p-5 sm:p-7">
+        <article className="elevated rounded-2xl border border-border/70 bg-card p-5 sm:p-7">
           <p className="whitespace-pre-line text-sm leading-7 text-muted-foreground">{item.conteudo}</p>
         </article>
       )}

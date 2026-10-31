@@ -18,6 +18,7 @@
   --color-primary-soft: var(--primary-soft);
   --color-primary-glow: var(--primary-glow);
   --color-highlight: var(--highlight);
+  --color-on-brand: var(--on-brand);
   --color-highlight-foreground: var(--highlight-foreground);
   --color-secondary: var(--secondary);
   --color-secondary-foreground: var(--secondary-foreground);
@@ -89,8 +90,11 @@
   --border-strong: hsl(212 30% 78%);
   --input: hsl(212 36% 86%);
   --ring: #123b72;
-  --radius: 0.75rem;
-  --gradient-brand: linear-gradient(135deg, #123b72 0%, #0a1a2f 100%);
+  --radius: 1rem;
+  /* The brand gradient is always deep blue, so text on it is always white. */
+  --gradient-brand: linear-gradient(135deg, #1a4c8f 0%, #123b72 55%, #0a1a2f 100%);
+  --on-brand: #ffffff;
+  --gradient-brand-text: linear-gradient(135deg, #123b72 0%, #2f6fbf 100%);
   --gradient-brand-soft: linear-gradient(135deg, hsl(214 60% 94%) 0%, hsl(43 90% 93%) 100%);
   --gradient-surface: linear-gradient(180deg, #ffffff 0%, #f2f6fa 100%);
   --gradient-glow: radial-gradient(circle at 50% 0%, hsl(214 73% 26% / 0.06) 0%, transparent 70%);
@@ -133,7 +137,9 @@
   --border-strong: hsl(214 40% 29%);
   --input: hsl(214 50% 18%);
   --ring: hsl(214 70% 66%);
-  --gradient-brand: linear-gradient(135deg, #123b72 0%, hsl(214 60% 18%) 100%);
+  --gradient-brand: linear-gradient(135deg, #2a63ad 0%, #1a4c8f 50%, #123b72 100%);
+  --on-brand: #ffffff;
+  --gradient-brand-text: linear-gradient(135deg, hsl(214 80% 75%) 0%, #f5be35 100%);
   --gradient-brand-soft: linear-gradient(135deg, hsl(214 60% 18%) 0%, hsl(214 55% 13%) 100%);
   --gradient-surface: linear-gradient(180deg, hsl(214 62% 12%) 0%, #0a1a2f 100%);
   --gradient-glow: radial-gradient(circle at 50% 0%, hsl(214 70% 66% / 0.1) 0%, transparent 70%);
@@ -193,6 +199,32 @@
 }
 
 @layer components {
+  /* Frosted glass over imagery (covers, banners): white text stays readable. */
+  .glass {
+    background-color: rgb(255 255 255 / 0.16);
+    border: 1px solid rgb(255 255 255 / 0.28);
+    box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.25), 0 8px 24px rgb(10 26 47 / 0.18);
+    -webkit-backdrop-filter: blur(16px) saturate(170%);
+    backdrop-filter: blur(16px) saturate(170%);
+  }
+
+  /* Frosted app surfaces (headers, sidebars, floating panels) that follow the theme. */
+  .glass-surface {
+    background-color: color-mix(in srgb, var(--card) 72%, transparent);
+    border-color: color-mix(in srgb, var(--border) 80%, transparent);
+    -webkit-backdrop-filter: blur(24px) saturate(180%);
+    backdrop-filter: blur(24px) saturate(180%);
+  }
+
+  /* Soft, layered elevation used by cards. */
+  .elevated {
+    box-shadow: 0 1px 2px rgb(10 26 47 / 0.04), 0 10px 30px -12px rgb(10 26 47 / 0.12);
+  }
+
+  .dark .elevated {
+    box-shadow: 0 1px 0 rgb(255 255 255 / 0.04) inset, 0 12px 32px -14px rgb(0 0 0 / 0.6);
+  }
+
   .journey-step.is-active {
     border-color: color-mix(in srgb, var(--primary) 58%, var(--border));
     box-shadow: 0 0 28px color-mix(in srgb, var(--primary) 12%, transparent);

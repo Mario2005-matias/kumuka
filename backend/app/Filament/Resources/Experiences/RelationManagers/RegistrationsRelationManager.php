@@ -5,7 +5,13 @@ namespace App\Filament\Resources\Experiences\RelationManagers;
 use App\Models\Achievement;
 use App\Models\ExperienceRegistration;
 use App\Services\AchievementService;
+use Filament\Actions\BulkActionGroup;
+use Filament\Actions\CreateAction;
+use Filament\Actions\DeleteAction;
+use Filament\Actions\DeleteBulkAction;
+use Filament\Forms\Components\Select;
 use Filament\Resources\RelationManagers\RelationManager;
+use Filament\Schemas\Schema;
 use Filament\Tables\Columns\SelectColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
@@ -36,6 +42,29 @@ class RegistrationsRelationManager extends RelationManager
                     }),
                 TextColumn::make('created_at')->label('Inscrito em')->date('d/m/Y')->sortable(),
             ])
-            ->defaultSort('created_at', 'desc');
+            ->defaultSort('created_at', 'desc')
+            ->headerActions([
+                CreateAction::make()->label('Inscrever estudante')->modalHeading('Inscrever estudante'),
+            ])
+            ->recordActions([DeleteAction::make()])
+            ->toolbarActions([BulkActionGroup::make([DeleteBulkAction::make()])]);
+    }
+
+    public function form(Schema $schema): Schema
+    {
+        return $schema
+            ->components([
+                Select::make('user_id')
+                    ->label('Estudante')
+                    ->relationship('user', 'email')
+                    ->searchable()
+                    ->required()
+                    ->unique(ignoreRecord: true, modifyRuleUsing: fn ($rule) => $rule->where('experience_id', $this->getOwnerRecord()->getKey())),
+                Select::make('status')
+                    ->label('Estado')
+                    ->options(['inscrito' => 'Inscrito', 'confirmado' => 'Confirmado', 'participou' => 'Participou', 'cancelado' => 'Cancelado'])
+                    ->default('inscrito')
+                    ->required(),
+            ]);
     }
 }

@@ -268,7 +268,7 @@ export function LessonView({
   const videosWatched = lesson.blocos.filter((block) => block.acompanhado).every((block) => blockProgress[block.id]?.concluido);
 
   return (
-    <article aria-labelledby={`lesson-${lesson.id}`} className="space-y-6 rounded-xl border border-border bg-card p-5 sm:p-8">
+    <article aria-labelledby={`lesson-${lesson.id}`} className="space-y-6 elevated rounded-2xl border border-border/70 bg-card p-5 sm:p-8">
       <header>
         <p className="text-xs font-semibold uppercase tracking-[0.14em] text-primary">
           {t('lesson.number', { number: lesson.ordem })} · {t('catalog.duration', { count: lesson.duracao })}

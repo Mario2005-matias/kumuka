@@ -41,7 +41,7 @@ export function TrailFilters({
 }: TrailFiltersProps) {
   const { t } = useTranslation('learning');
   return (
-    <div className="grid gap-3 rounded-xl border border-border bg-card p-4 sm:grid-cols-2 lg:grid-cols-[minmax(15rem,2fr)_repeat(3,minmax(9rem,1fr))_auto] lg:items-end">
+    <div className="grid gap-3 elevated rounded-2xl border border-border/70 bg-card p-4 sm:grid-cols-2 lg:grid-cols-[minmax(15rem,2fr)_repeat(3,minmax(9rem,1fr))_auto] lg:items-end">
       <div className="relative sm:col-span-2 lg:col-span-1">
         <label
           className="mb-2 block text-sm font-medium"

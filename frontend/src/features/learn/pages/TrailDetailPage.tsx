@@ -1,3 +1,4 @@
+import { CoverImage } from '@/components/shared/CoverImage';
 import { useState } from 'react';
 import { ArrowLeft, ArrowRight, Award, Clock3, Sparkles, Target, Users } from 'lucide-react';
 import { Link, useNavigate, useParams } from 'react-router-dom';
@@ -55,6 +56,9 @@ function TrailDetails({ trail }: { trail: Trail }) {
 
   return (
     <div className="space-y-8">
+      <CoverImage className="aspect-[16/6] min-h-40 rounded-3xl" priority src={trail.imagem}>
+        <span className="glass rounded-full px-3 py-1 text-xs font-medium text-white">{trail.categoria}</span>
+      </CoverImage>
       <PageHeader
         action={
           <Button
@@ -77,7 +81,7 @@ function TrailDetails({ trail }: { trail: Trail }) {
       />
       <section className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_18rem]">
         <div className="space-y-6">
-          <article className="rounded-xl border border-border bg-card p-5 sm:p-7">
+          <article className="elevated rounded-2xl border border-border/70 bg-card p-5 sm:p-7">
             <h2 className="text-lg font-semibold">{t('trailDetails.about')}</h2>
             <p className="mt-3 whitespace-pre-line text-sm leading-7 text-muted-foreground">
               {trail.descricaoLonga}
@@ -105,18 +109,18 @@ function TrailDetails({ trail }: { trail: Trail }) {
           </section>
           <section className="grid gap-4 md:grid-cols-3">
             {trail.objetivosAprendizagem.length > 0 && (
-              <article className="rounded-xl border border-border bg-card p-5">
+              <article className="elevated rounded-2xl border border-border/70 bg-card p-5">
                 <h2 className="flex items-center gap-2 font-semibold"><Target aria-hidden="true" className="size-5 text-primary" />{t('trailDetails.learningObjectives')}</h2>
                 <ul className="mt-3 list-disc space-y-2 pl-5 text-sm leading-6 text-muted-foreground">
                   {trail.objetivosAprendizagem.map((objective) => <li key={objective}>{objective}</li>)}
                 </ul>
               </article>
             )}
-            <article className="rounded-xl border border-border bg-card p-5">
+            <article className="elevated rounded-2xl border border-border/70 bg-card p-5">
               <h2 className="flex items-center gap-2 font-semibold"><Users aria-hidden="true" className="size-5 text-primary" />{t('trailDetails.audience')}</h2>
               <p className="mt-3 text-sm leading-6 text-muted-foreground">{trail.publicoAlvo}</p>
             </article>
-            <article className="rounded-xl border border-border bg-card p-5">
+            <article className="elevated rounded-2xl border border-border/70 bg-card p-5">
               <h2 className="flex items-center gap-2 font-semibold"><Award aria-hidden="true" className="size-5 text-primary" />{t('trailDetails.prerequisitesAndCertificate')}</h2>
               {trail.preRequisitos.length ? (
                 <ul className="mt-3 list-disc space-y-2 pl-5 text-sm leading-6 text-muted-foreground">
@@ -127,7 +131,7 @@ function TrailDetails({ trail }: { trail: Trail }) {
             </article>
           </section>
         </div>
-        <aside className="h-fit space-y-4 rounded-xl border border-border bg-card p-5">
+        <aside className="h-fit space-y-4 elevated rounded-2xl border border-border/70 bg-card p-5">
           <p className="text-sm font-semibold">{t('trailDetails.yourProgress')}</p>
           {progress.isLoading ? (
             <p aria-live="polite" className="text-sm text-muted-foreground">
@@ -202,7 +206,7 @@ function TrailDetails({ trail }: { trail: Trail }) {
           </div>
           <div className="grid gap-4 md:grid-cols-3">
             {relatedTrails.data.data.filter((item) => item.id !== trail.id).slice(0, 3).map((item) => (
-              <Link className="rounded-xl border border-border bg-card p-5 transition-colors hover:border-primary/50" key={item.id} to={ROUTES.learn.trail(item.slug)}>
+              <Link className="elevated rounded-2xl border border-border/70 bg-card p-5 transition-colors hover:border-primary/50" key={item.id} to={ROUTES.learn.trail(item.slug)}>
                 <p className="text-sm text-primary">{item.categoria} · {item.duracao} h</p>
                 <h3 className="mt-2 font-semibold">{item.titulo}</h3>
                 <p className="mt-2 line-clamp-3 text-sm leading-6 text-muted-foreground">{item.descricao}</p>

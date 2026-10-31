@@ -5,8 +5,10 @@ namespace App\Filament\Resources\Trails\RelationManagers;
 use App\Filament\Resources\TrailModules\TrailModuleResource;
 use App\Models\TrailModule;
 use Filament\Actions\Action;
+use Filament\Actions\BulkActionGroup;
 use Filament\Actions\CreateAction;
 use Filament\Actions\DeleteAction;
+use Filament\Actions\DeleteBulkAction;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
@@ -66,6 +68,7 @@ class ModulesRelationManager extends RelationManager
                     ->icon(Heroicon::OutlinedPencilSquare)
                     ->url(fn (TrailModule $record): string => TrailModuleResource::getUrl('edit', ['record' => $record])),
                 DeleteAction::make(),
-            ]);
+            ])
+            ->toolbarActions([BulkActionGroup::make([DeleteBulkAction::make()])]);
     }
 }

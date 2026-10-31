@@ -27,7 +27,7 @@ function StartTrailCard({ trail }: { trail: Trail }) {
   const { t } = useTranslation('learning');
   const start = useStartTrail(trail);
   return (
-    <div className="mx-auto max-w-xl space-y-5 rounded-xl border border-border bg-card p-6 text-center sm:p-8">
+    <div className="mx-auto max-w-xl space-y-5 elevated rounded-2xl border border-border/70 bg-card p-6 text-center sm:p-8">
       <BookOpenCheck aria-hidden="true" className="mx-auto size-9 text-primary" />
       <h1 className="text-2xl font-bold">{t('trailModule.startTitle')}</h1>
       <p className="text-sm leading-6 text-muted-foreground">{t('trailModule.startDescription')}</p>
@@ -46,7 +46,7 @@ function StartTrailCard({ trail }: { trail: Trail }) {
 function LockedModuleCard({ trail }: { trail: Trail }) {
   const { t } = useTranslation('learning');
   return (
-    <div className="mx-auto max-w-xl space-y-4 rounded-xl border border-border bg-card p-6 text-center sm:p-8">
+    <div className="mx-auto max-w-xl space-y-4 elevated rounded-2xl border border-border/70 bg-card p-6 text-center sm:p-8">
       <LockKeyhole aria-hidden="true" className="mx-auto size-9 text-muted-foreground" />
       <h1 className="text-2xl font-bold">{t('trailModule.lockedTitle')}</h1>
       <p className="text-sm leading-6 text-muted-foreground">{t('common.unlockPrevious')}</p>

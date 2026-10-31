@@ -14,6 +14,7 @@ class EditQuickLearning extends EditRecord
     {
         return [
             DeleteAction::make(),
+            ...QuickLearningResource::archiveHeaderActions(),
         ];
     }
 }

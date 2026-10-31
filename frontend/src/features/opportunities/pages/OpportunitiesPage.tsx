@@ -1,3 +1,4 @@
+import { CompanyLogo, CoverImage } from '@/components/shared/CoverImage';
 import { BriefcaseBusiness, CalendarDays, MapPin, Search, X } from 'lucide-react';
 import { Link, useSearchParams } from 'react-router-dom';
 import { EmptyState } from '@/components/shared/EmptyState';
@@ -100,7 +101,7 @@ export default function OpportunitiesPage() {
   return (
     <div className="space-y-8">
       <PageHeader description={t('description')} title={t('title')} />
-      <div className="grid gap-3 rounded-xl border border-border bg-card p-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+      <div className="grid gap-3 elevated rounded-2xl border border-border/70 bg-card p-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
         <div className="relative sm:col-span-2">
           <label className="mb-2 block text-sm font-medium" htmlFor="opportunity-search">{t('filters.search')}</label>
           <Search aria-hidden="true" className="absolute left-3 top-[2.65rem] size-4 text-muted-foreground" />
@@ -123,11 +124,11 @@ export default function OpportunitiesPage() {
           <p aria-live="polite" className="text-sm text-muted-foreground">{t('results', { count: opportunities.data.meta.total })}</p>
           <section aria-label={t('resultList')} className="grid gap-5 sm:grid-cols-2 xl:grid-cols-3">
             {opportunities.data.data.map((item) => (
-              <article className="flex flex-col overflow-hidden rounded-xl border border-border bg-card" key={item.id}>
-                <div className="flex min-h-28 items-center justify-between bg-surface-1 p-5">
-                  <div className="flex size-14 items-center justify-center rounded-xl border border-border bg-card text-lg font-bold text-primary">{item.empresaNome.slice(0, 2).toLocaleUpperCase()}</div>
+              <article className="flex flex-col overflow-hidden elevated rounded-2xl border border-border/70 bg-card" key={item.id}>
+                <CoverImage className="aspect-[16/8]" src={item.banner}>
+                  <CompanyLogo name={item.empresaNome} src={item.empresaLogo} />
                   <StatusBadge status="info">{t(typeTranslationKeys[item.tipo])}</StatusBadge>
-                </div>
+                </CoverImage>
                 <div className="flex flex-1 flex-col p-5">
                   <h2 className="font-semibold">{item.titulo}</h2>
                   <p className="mt-2 text-sm leading-6 text-muted-foreground">{item.subtitulo}</p>

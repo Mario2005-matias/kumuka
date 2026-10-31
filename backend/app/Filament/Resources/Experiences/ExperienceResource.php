@@ -3,13 +3,14 @@
 namespace App\Filament\Resources\Experiences;
 
 use App\Filament\Concerns\AdminOnly;
+use App\Filament\Concerns\ArchivesRecords;
 use App\Filament\Resources\Experiences\Pages\CreateExperience;
 use App\Filament\Resources\Experiences\Pages\EditExperience;
 use App\Filament\Resources\Experiences\Pages\ListExperiences;
 use App\Filament\Resources\Experiences\RelationManagers\RegistrationsRelationManager;
+use App\Filament\Support\TableActions;
 use App\Models\Experience;
 use BackedEnum;
-use Filament\Actions\EditAction;
 use Filament\Forms\Components\DateTimePicker;
 use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\Repeater;
@@ -30,7 +31,7 @@ use UnitEnum;
 
 class ExperienceResource extends Resource
 {
-    use AdminOnly;
+    use AdminOnly, ArchivesRecords;
 
     protected static ?string $model = Experience::class;
 
@@ -41,6 +42,8 @@ class ExperienceResource extends Resource
     protected static ?string $modelLabel = 'experiência';
 
     protected static ?string $pluralModelLabel = 'experiências';
+
+    protected static ?string $navigationLabel = 'Experiências';
 
     protected static ?string $recordTitleAttribute = 'title';
 
@@ -114,9 +117,9 @@ class ExperienceResource extends Resource
                 TextColumn::make('location')->label('Local'),
             ])
             ->defaultSort('starts_at', 'desc')
-            ->recordActions([
-                EditAction::make(),
-            ]);
+            ->filters([TableActions::trashedFilter()])
+            ->recordActions(TableActions::row())
+            ->toolbarActions(TableActions::bulk());
     }
 
     public static function getRelations(): array

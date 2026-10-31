@@ -29,7 +29,7 @@ export function Navbar() {
   const initials = user?.email?.slice(0, 2).toUpperCase() ?? "U";
 
   return (
-    <header className="sticky top-0 z-40 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+    <header className="sticky top-0 z-40 w-full glass-surface border-b">
       <div className="container flex h-16 items-center justify-between">
         <div className="flex items-center gap-8">
           <Link

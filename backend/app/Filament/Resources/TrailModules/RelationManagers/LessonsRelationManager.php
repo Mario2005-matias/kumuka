@@ -5,8 +5,10 @@ namespace App\Filament\Resources\TrailModules\RelationManagers;
 use App\Filament\Resources\Lessons\LessonResource;
 use App\Models\Lesson;
 use Filament\Actions\Action;
+use Filament\Actions\BulkActionGroup;
 use Filament\Actions\CreateAction;
 use Filament\Actions\DeleteAction;
+use Filament\Actions\DeleteBulkAction;
 use Filament\Forms\Components\TextInput;
 use Filament\Resources\RelationManagers\RelationManager;
 use Filament\Schemas\Schema;
@@ -62,6 +64,7 @@ class LessonsRelationManager extends RelationManager
                     ->icon(Heroicon::OutlinedPencilSquare)
                     ->url(fn (Lesson $record): string => LessonResource::getUrl('edit', ['record' => $record])),
                 DeleteAction::make(),
-            ]);
+            ])
+            ->toolbarActions([BulkActionGroup::make([DeleteBulkAction::make()])]);
     }
 }

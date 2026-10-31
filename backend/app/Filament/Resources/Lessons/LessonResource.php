@@ -7,9 +7,9 @@ use App\Filament\Resources\Lessons\Pages\CreateLesson;
 use App\Filament\Resources\Lessons\Pages\EditLesson;
 use App\Filament\Resources\Lessons\Pages\ListLessons;
 use App\Filament\Resources\TrailModules\TrailModuleResource;
+use App\Filament\Support\TableActions;
 use App\Models\Lesson;
 use BackedEnum;
-use Filament\Actions\EditAction;
 use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\MarkdownEditor;
 use Filament\Forms\Components\Repeater;
@@ -43,6 +43,8 @@ class LessonResource extends Resource
     protected static ?string $modelLabel = 'lição';
 
     protected static ?string $pluralModelLabel = 'lições';
+
+    protected static ?string $navigationLabel = 'Lições';
 
     protected static ?string $recordTitleAttribute = 'title';
 
@@ -124,9 +126,8 @@ class LessonResource extends Resource
                 TextColumn::make('checkpoint_questions_count')->label('Verificação')->counts('checkpointQuestions')
                     ->color(fn (int $state): string => $state === 0 ? 'warning' : 'success'),
             ])
-            ->recordActions([
-                EditAction::make(),
-            ]);
+            ->recordActions(TableActions::row())
+            ->toolbarActions(TableActions::bulk());
     }
 
     /**

@@ -3,13 +3,14 @@
 namespace App\Filament\Resources\Opportunities;
 
 use App\Filament\Concerns\AdminOnly;
+use App\Filament\Concerns\ArchivesRecords;
 use App\Filament\Resources\Companies\CompanyResource;
 use App\Filament\Resources\Opportunities\Pages\CreateOpportunity;
 use App\Filament\Resources\Opportunities\Pages\EditOpportunity;
 use App\Filament\Resources\Opportunities\Pages\ListOpportunities;
+use App\Filament\Support\TableActions;
 use App\Models\Opportunity;
 use BackedEnum;
-use Filament\Actions\EditAction;
 use Filament\Forms\Components\DateTimePicker;
 use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\Select;
@@ -29,7 +30,7 @@ use UnitEnum;
 
 class OpportunityResource extends Resource
 {
-    use AdminOnly;
+    use AdminOnly, ArchivesRecords;
 
     protected static ?string $model = Opportunity::class;
 
@@ -42,6 +43,8 @@ class OpportunityResource extends Resource
     protected static ?string $modelLabel = 'oportunidade';
 
     protected static ?string $pluralModelLabel = 'oportunidades';
+
+    protected static ?string $navigationLabel = 'Oportunidades';
 
     protected static ?string $recordTitleAttribute = 'title';
 
@@ -115,12 +118,12 @@ class OpportunityResource extends Resource
             ])
             ->defaultSort('deadline_at', 'desc')
             ->filters([
+                TableActions::trashedFilter(),
                 SelectFilter::make('type')->label('Tipo')->options(self::types()),
                 SelectFilter::make('company')->label('Empresa')->relationship('company', 'name'),
             ])
-            ->recordActions([
-                EditAction::make(),
-            ]);
+            ->recordActions(TableActions::row())
+            ->toolbarActions(TableActions::bulk());
     }
 
     public static function getPages(): array

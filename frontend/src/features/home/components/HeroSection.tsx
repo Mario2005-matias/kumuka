@@ -44,7 +44,7 @@ export function HeroSection() {
                 {t("hero.title")}
               </span>{" "}
               <span
-                className="inline-block bg-[image:var(--gradient-brand)] bg-clip-text text-transparent"
+                className="inline-block bg-[image:var(--gradient-brand-text)] bg-clip-text text-transparent"
                 data-hero-word
               >
                 {t("hero.titleHighlight")}

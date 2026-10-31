@@ -420,5 +420,11 @@
     "moveDown": "Descendre",
     "choose": "Choisis…",
     "typeAnswer": "Écris ta réponse"
+  },
+  "code": {
+    "example": "Exemple",
+    "copy": "Copier",
+    "copied": "Copié",
+    "result": "Résultat dans le navigateur"
   }
 }

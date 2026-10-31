@@ -8,9 +8,9 @@ use App\Filament\Resources\TrailModules\Pages\EditTrailModule;
 use App\Filament\Resources\TrailModules\Pages\ListTrailModules;
 use App\Filament\Resources\TrailModules\RelationManagers\LessonsRelationManager;
 use App\Filament\Resources\TrailModules\RelationManagers\QuestionsRelationManager;
+use App\Filament\Support\TableActions;
 use App\Models\TrailModule;
 use BackedEnum;
-use Filament\Actions\EditAction;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
@@ -40,6 +40,8 @@ class TrailModuleResource extends Resource
     protected static ?string $modelLabel = 'módulo';
 
     protected static ?string $pluralModelLabel = 'módulos';
+
+    protected static ?string $navigationLabel = 'Módulos';
 
     protected static ?string $recordTitleAttribute = 'title';
 
@@ -91,9 +93,8 @@ class TrailModuleResource extends Resource
                     ->color(fn (int $state): string => $state < 8 ? 'warning' : 'success'),
             ])
             ->defaultSort('trail_id')
-            ->recordActions([
-                EditAction::make(),
-            ]);
+            ->recordActions(TableActions::row())
+            ->toolbarActions(TableActions::bulk());
     }
 
     public static function getRelations(): array

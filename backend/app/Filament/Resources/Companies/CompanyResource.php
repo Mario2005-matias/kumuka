@@ -3,12 +3,13 @@
 namespace App\Filament\Resources\Companies;
 
 use App\Filament\Concerns\AdminOnly;
+use App\Filament\Concerns\ArchivesRecords;
 use App\Filament\Resources\Companies\Pages\CreateCompany;
 use App\Filament\Resources\Companies\Pages\EditCompany;
 use App\Filament\Resources\Companies\Pages\ListCompanies;
+use App\Filament\Support\TableActions;
 use App\Models\Company;
 use BackedEnum;
-use Filament\Actions\EditAction;
 use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Textarea;
@@ -26,7 +27,7 @@ use UnitEnum;
 
 class CompanyResource extends Resource
 {
-    use AdminOnly;
+    use AdminOnly, ArchivesRecords;
 
     protected static ?string $model = Company::class;
 
@@ -39,6 +40,8 @@ class CompanyResource extends Resource
     protected static ?string $modelLabel = 'empresa';
 
     protected static ?string $pluralModelLabel = 'empresas';
+
+    protected static ?string $navigationLabel = 'Empresas';
 
     protected static ?string $recordTitleAttribute = 'name';
 
@@ -78,9 +81,9 @@ class CompanyResource extends Resource
                 TextColumn::make('opportunities_count')->label('Oportunidades')->counts('opportunities'),
                 TextColumn::make('status')->label('Estado')->badge(),
             ])
-            ->recordActions([
-                EditAction::make(),
-            ]);
+            ->filters([TableActions::trashedFilter()])
+            ->recordActions(TableActions::row())
+            ->toolbarActions(TableActions::bulk());
     }
 
     public static function getPages(): array

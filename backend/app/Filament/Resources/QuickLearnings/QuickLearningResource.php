@@ -2,12 +2,13 @@
 
 namespace App\Filament\Resources\QuickLearnings;
 
+use App\Filament\Concerns\ArchivesRecords;
 use App\Filament\Resources\QuickLearnings\Pages\CreateQuickLearning;
 use App\Filament\Resources\QuickLearnings\Pages\EditQuickLearning;
 use App\Filament\Resources\QuickLearnings\Pages\ListQuickLearnings;
+use App\Filament\Support\TableActions;
 use App\Models\QuickLearning;
 use BackedEnum;
-use Filament\Actions\EditAction;
 use Filament\Forms\Components\MarkdownEditor;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Textarea;
@@ -23,6 +24,8 @@ use UnitEnum;
 
 class QuickLearningResource extends Resource
 {
+    use ArchivesRecords;
+
     protected static ?string $model = QuickLearning::class;
 
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedBolt;
@@ -34,6 +37,8 @@ class QuickLearningResource extends Resource
     protected static ?string $modelLabel = 'aprendizado rápido';
 
     protected static ?string $pluralModelLabel = 'aprendizados rápidos';
+
+    protected static ?string $navigationLabel = 'Aprendizados rápidos';
 
     protected static ?string $recordTitleAttribute = 'title';
 
@@ -65,9 +70,9 @@ class QuickLearningResource extends Resource
                 TextColumn::make('updated_at')->label('Actualizado')->since()->sortable(),
             ])
             ->defaultSort('updated_at', 'desc')
-            ->recordActions([
-                EditAction::make(),
-            ]);
+            ->filters([TableActions::trashedFilter()])
+            ->recordActions(TableActions::row())
+            ->toolbarActions(TableActions::bulk());
     }
 
     public static function getPages(): array

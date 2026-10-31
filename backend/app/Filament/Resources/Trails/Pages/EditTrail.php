@@ -14,6 +14,7 @@ class EditTrail extends EditRecord
     {
         return [
             DeleteAction::make(),
+            ...TrailResource::archiveHeaderActions(),
         ];
     }
 }

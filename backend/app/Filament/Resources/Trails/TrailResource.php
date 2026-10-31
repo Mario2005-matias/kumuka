@@ -2,14 +2,15 @@
 
 namespace App\Filament\Resources\Trails;
 
+use App\Filament\Concerns\ArchivesRecords;
 use App\Filament\Resources\Trails\Pages\CreateTrail;
 use App\Filament\Resources\Trails\Pages\EditTrail;
 use App\Filament\Resources\Trails\Pages\ListTrails;
 use App\Filament\Resources\Trails\RelationManagers\ModulesRelationManager;
 use App\Filament\Resources\Trails\RelationManagers\PhasesRelationManager;
+use App\Filament\Support\TableActions;
 use App\Models\Trail;
 use BackedEnum;
-use Filament\Actions\EditAction;
 use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TagsInput;
@@ -30,6 +31,8 @@ use UnitEnum;
 
 class TrailResource extends Resource
 {
+    use ArchivesRecords;
+
     protected static ?string $model = Trail::class;
 
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedRectangleStack;
@@ -41,6 +44,8 @@ class TrailResource extends Resource
     protected static ?string $modelLabel = 'trilha';
 
     protected static ?string $pluralModelLabel = 'trilhas';
+
+    protected static ?string $navigationLabel = 'Trilhas';
 
     protected static ?string $recordTitleAttribute = 'title';
 
@@ -125,12 +130,12 @@ class TrailResource extends Resource
             ])
             ->defaultSort('updated_at', 'desc')
             ->filters([
+                TableActions::trashedFilter(),
                 SelectFilter::make('status')->label('Estado')->options(self::statuses()),
                 SelectFilter::make('level')->label('Nível')->options(self::levels()),
             ])
-            ->recordActions([
-                EditAction::make(),
-            ]);
+            ->recordActions(TableActions::row())
+            ->toolbarActions(TableActions::bulk());
     }
 
     public static function getRelations(): array

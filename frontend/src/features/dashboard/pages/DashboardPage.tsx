@@ -1,3 +1,4 @@
+import { CoverImage } from '@/components/shared/CoverImage';
 import {
   Award,
   ArrowRight,
@@ -220,7 +221,7 @@ export default function DashboardPage() {
                     : ROUTES.learn.guide(item.slug);
               return (
                 <Card className="border-border" key={`${recommendation.tipo}-${item.id}`}>
-                  <img src={Painel} alt="" className='hover:scale-105 duration-300' />
+                  <CoverImage className="aspect-[16/9]" src={recommendation.tipo === 'trail' ? recommendation.item.imagem ?? Painel : Painel} />
                   <CardContent className="flex h-full flex-col p-4">
                     <p className="text-xs font-medium capitalize text-primary">
                       {recommendation.tipo === 'quick-learning'

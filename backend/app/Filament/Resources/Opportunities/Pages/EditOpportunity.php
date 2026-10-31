@@ -14,6 +14,7 @@ class EditOpportunity extends EditRecord
     {
         return [
             DeleteAction::make(),
+            ...OpportunityResource::archiveHeaderActions(),
         ];
     }
 }

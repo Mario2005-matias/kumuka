@@ -14,6 +14,7 @@ class EditCompany extends EditRecord
     {
         return [
             DeleteAction::make(),
+            ...CompanyResource::archiveHeaderActions(),
         ];
     }
 }

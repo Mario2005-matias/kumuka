@@ -1,10 +1,10 @@
+import { CoverImage } from '@/components/shared/CoverImage';
 import { useState } from 'react';
 import { ArrowLeft, CalendarDays, CheckCircle2, MapPin, UsersRound } from 'lucide-react';
 import { Link, useParams } from 'react-router-dom';
 import { EmptyState } from '@/components/shared/EmptyState';
 import { ErrorState } from '@/components/shared/ErrorState';
 import { PageHeader } from '@/components/shared/PageHeader';
-import { StatusBadge } from '@/components/shared/StatusBadge';
 import { Button } from '@/components/ui/button';
 import {
   useExperience,
@@ -75,9 +75,9 @@ export default function ExperienceDetailPage() {
 
   return (
     <div className="space-y-8">
-      <div aria-hidden="true" className="flex aspect-[16/6] min-h-40 items-end rounded-2xl bg-[image:var(--gradient-surface)] p-5 sm:p-8">
-        <StatusBadge status="info">{t(typeTranslationKeys[item.tipo])}</StatusBadge>
-      </div>
+      <CoverImage className="aspect-[16/6] min-h-40 rounded-3xl" priority src={item.banner}>
+        <span className="glass rounded-full px-3 py-1 text-xs font-medium text-white">{t(typeTranslationKeys[item.tipo])}</span>
+      </CoverImage>
       <PageHeader
         action={<Button className="min-h-11" nativeButton={false} render={<Link to={ROUTES.experiences.root} />} variant="outline"><ArrowLeft aria-hidden="true" />{t('detail.back')}</Button>}
         breadcrumb={<Link className="hover:text-foreground" to={ROUTES.experiences.root}>{t('title')}</Link>}
@@ -86,22 +86,22 @@ export default function ExperienceDetailPage() {
       />
       <div className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_20rem]">
         <div className="space-y-6">
-          <section className="rounded-xl border border-border bg-card p-5 sm:p-7">
+          <section className="elevated rounded-2xl border border-border/70 bg-card p-5 sm:p-7">
             <h2 className="font-semibold">{t('detail.about')}</h2>
             <p className="mt-3 text-sm leading-7 text-muted-foreground">{item.descricaoLonga}</p>
             <p className="mt-4 text-sm text-muted-foreground">{t('detail.organizedBy')} <span className="font-medium text-foreground">{item.organizador}</span></p>
           </section>
           <section className="grid gap-4 md:grid-cols-2">
-            <div className="rounded-xl border border-border bg-card p-5">
+            <div className="elevated rounded-2xl border border-border/70 bg-card p-5">
               <h2 className="font-semibold">{t('detail.benefits')}</h2>
               <ul className="mt-3 list-disc space-y-2 pl-5 text-sm leading-6 text-muted-foreground">{item.beneficios.map((benefit) => <li key={benefit}>{benefit}</li>)}</ul>
             </div>
-            <div className="rounded-xl border border-border bg-card p-5">
+            <div className="elevated rounded-2xl border border-border/70 bg-card p-5">
               <h2 className="font-semibold">{t('detail.requirements')}</h2>
               <ul className="mt-3 list-disc space-y-2 pl-5 text-sm leading-6 text-muted-foreground">{item.requisitos.map((requirement) => <li key={requirement}>{requirement}</li>)}</ul>
             </div>
           </section>
-          <section className="rounded-xl border border-border bg-card p-5 sm:p-7">
+          <section className="elevated rounded-2xl border border-border/70 bg-card p-5 sm:p-7">
             <h2 className="font-semibold">{t('detail.schedule')}</h2>
             <ol className="mt-4 space-y-4">
               {item.programa.map((entry) => (
@@ -112,7 +112,7 @@ export default function ExperienceDetailPage() {
               ))}
             </ol>
           </section>
-          <section className="rounded-xl border border-border bg-card p-5 sm:p-7">
+          <section className="elevated rounded-2xl border border-border/70 bg-card p-5 sm:p-7">
             <h2 className="font-semibold">{t('detail.speakers')}</h2>
             <div className="mt-4 grid gap-4 sm:grid-cols-2">
               {item.oradores.map((speaker) => (
@@ -125,7 +125,7 @@ export default function ExperienceDetailPage() {
             </div>
           </section>
         </div>
-        <aside className="h-fit space-y-4 rounded-xl border border-border bg-card p-5">
+        <aside className="h-fit space-y-4 elevated rounded-2xl border border-border/70 bg-card p-5">
           <dl className="space-y-4 text-sm">
             <div className="flex gap-3"><CalendarDays aria-hidden="true" className="mt-0.5 size-4 text-primary" /><div><dt className="font-medium">{t('detail.dateTime')}</dt><dd className="mt-1 text-muted-foreground">{dateLabel(item.dataInicio, dateLocale)} · {item.hora}</dd></div></div>
             <div className="flex gap-3"><MapPin aria-hidden="true" className="mt-0.5 size-4 text-primary" /><div><dt className="font-medium">{t('detail.locationAndModality')}</dt><dd className="mt-1 text-muted-foreground">{item.local}{item.localDetalhado ? ` · ${item.localDetalhado}` : ''} · {t(modalityTranslationKeys[item.modalidade])}</dd></div></div>
@@ -143,7 +143,7 @@ export default function ExperienceDetailPage() {
           <h2 className="text-xl font-semibold" id="related-experiences-title">{t('detail.related')}</h2>
           <div className="grid gap-4 md:grid-cols-3">
             {related.map((entry) => (
-              <Link className="rounded-xl border border-border bg-card p-5 transition-colors hover:border-primary/50" key={entry.id} to={ROUTES.experiences.detail(entry.slug)}>
+              <Link className="elevated rounded-2xl border border-border/70 bg-card p-5 transition-colors hover:border-primary/50" key={entry.id} to={ROUTES.experiences.detail(entry.slug)}>
                 <p className="text-sm text-primary">{t(typeTranslationKeys[entry.tipo])} · {entry.local}</p>
                 <h3 className="mt-2 font-semibold">{entry.titulo}</h3>
                 <p className="mt-2 line-clamp-2 text-sm leading-6 text-muted-foreground">{entry.subtitulo}</p>

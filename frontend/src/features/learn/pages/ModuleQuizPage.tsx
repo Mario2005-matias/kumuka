@@ -123,7 +123,7 @@ export default function ModuleQuizPage() {
           {attempt.perguntas.map((question, index) => {
             const result = results.find((item) => item.questionId === question.id);
             return (
-              <div className="space-y-2 rounded-xl border border-border bg-card p-5" key={question.id}>
+              <div className="space-y-2 elevated rounded-2xl border border-border/70 bg-card p-5" key={question.id}>
                 <QuestionField number={index + 1} onChange={() => undefined} question={question} result={result} value={result?.resposta ?? undefined} />
                 {result && !result.correta && result.lessonId && (
                   <Link className="inline-flex min-h-11 items-center text-sm font-medium text-primary underline-offset-4 hover:underline" to={`${modulePath}?aula=${result.lessonId}`}>
@@ -148,7 +148,7 @@ export default function ModuleQuizPage() {
         </p>
         <div className="space-y-6">
           {attempt.perguntas.map((question, index) => (
-            <div className="rounded-xl border border-border bg-card p-5" key={question.id}>
+            <div className="elevated rounded-2xl border border-border/70 bg-card p-5" key={question.id}>
               <QuestionField
                 number={index + 1}
                 onChange={(value) => setAnswers((current) => ({ ...current, [question.id]: value }))}
@@ -169,7 +169,7 @@ export default function ModuleQuizPage() {
   return (
     <div className="mx-auto max-w-3xl space-y-6">
       {header}
-      <section className="space-y-4 rounded-xl border border-border bg-card p-6">
+      <section className="space-y-4 elevated rounded-2xl border border-border/70 bg-card p-6">
         <ul className="space-y-2 text-sm text-muted-foreground">
           <li>{t('quiz.ruleQuestions', { count: quiz.perguntas })}</li>
           <li>{t('quiz.ruleScore', { score: quiz.notaMinima })}</li>

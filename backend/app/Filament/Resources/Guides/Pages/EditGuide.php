@@ -14,6 +14,7 @@ class EditGuide extends EditRecord
     {
         return [
             DeleteAction::make(),
+            ...GuideResource::archiveHeaderActions(),
         ];
     }
 }

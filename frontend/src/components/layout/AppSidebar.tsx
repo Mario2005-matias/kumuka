@@ -115,7 +115,7 @@ export function AppSidebar({
         ref={sidebarRef}
         role={mobileOpen ? 'dialog' : undefined}
         className={cn(
-          'fixed inset-y-0 left-0 z-50 flex w-[260px] flex-col border-r bg-surface-1 transition-[transform,width] duration-200 md:sticky md:top-0 md:z-30 md:h-screen md:translate-x-0',
+          'fixed inset-y-0 left-0 z-50 flex w-[260px] flex-col border-r glass-surface transition-[transform,width] duration-200 md:sticky md:top-0 md:z-30 md:h-screen md:translate-x-0',
           collapsed && 'md:w-[76px]',
           mobileOpen
             ? 'visible translate-x-0'
@@ -128,7 +128,7 @@ export function AppSidebar({
             className="flex min-w-0 items-center gap-3 rounded-md font-bold tracking-tight focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
             to={ROUTES.dashboard}
           >
-            <span className="flex size-9 shrink-0 items-center justify-center rounded-xl bg-[image:var(--gradient-brand)] text-sm text-primary-foreground shadow-lg shadow-primary/20">
+            <span className="flex size-9 shrink-0 items-center justify-center rounded-xl bg-[image:var(--gradient-brand)] text-sm text-on-brand shadow-lg shadow-primary/20">
               K
             </span>
             <span className={cn('truncate', collapsed && 'md:hidden')}>

@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-#[Fillable(['experience_id', 'status'])]
+#[Fillable(['experience_id', 'user_id', 'status'])]
 class ExperienceRegistration extends Model
 {
     /**
@@ -14,7 +14,7 @@ class ExperienceRegistration extends Model
      */
     public function user(): BelongsTo
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class)->withTrashed();
     }
 
     /**

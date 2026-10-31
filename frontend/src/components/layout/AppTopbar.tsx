@@ -146,7 +146,7 @@ export function AppTopbar({ onOpenMobileMenu }: AppTopbarProps) {
 
   return (
     <>
-      <header className="sticky top-0 z-30 flex h-16 items-center gap-3 border-b bg-background/80 px-4 backdrop-blur-xl sm:px-6">
+      <header className="sticky top-0 z-30 flex h-16 items-center gap-3 glass-surface border-b px-4 sm:px-6">
         <Button
           aria-label={t('navigation.open')}
           className="md:hidden"

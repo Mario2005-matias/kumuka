@@ -18,8 +18,11 @@ class DatabaseSeeder extends Seeder
             AchievementSeeder::class,
             PilotTrailSeeder::class,
             LearningContentSeeder::class,
+            WebTrailContentSeeder::class,
             OpportunitySeeder::class,
         ]);
+
+        $this->command->call('kumuka:covers');
 
         if (app()->environment('local')) {
             $this->call([DemoStudentSeeder::class, AdminUserSeeder::class]);

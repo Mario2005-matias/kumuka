@@ -22,7 +22,7 @@ class TrailEnrollment extends Model
      */
     public function trail(): BelongsTo
     {
-        return $this->belongsTo(Trail::class);
+        return $this->belongsTo(Trail::class)->withTrashed();
     }
 
     /**
