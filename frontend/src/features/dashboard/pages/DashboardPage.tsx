@@ -19,12 +19,10 @@ import { StatCard } from '@/components/shared/StatCard';
 import { StatusBadge } from '@/components/shared/StatusBadge';
 import { ROUTES } from '@/lib/constants/routes';
 import { useExperiences } from '@/features/experiences/hooks/useExperiences';
-import { useCourses } from '@/features/learn/hooks/useCourses';
-import { useTrails } from '@/features/learn/hooks/useTrails';
+import { useEnrollments } from '@/features/learn/hooks/useTrailFlow';
 import { useProfile } from '@/features/profile/hooks/useProfile';
 import { useAuthStore } from '@/stores/authStore';
 import { useAchievements } from '../hooks/useAchievements';
-import { useProgress } from '../hooks/useProgress';
 import { useRecommendations } from '../hooks/useRecommendations';
 import { useTranslation } from 'react-i18next';
 import Painel from "../../../assets/painel.png"
@@ -34,19 +32,19 @@ const exploreCards = [
     key: 'learn',
     icon: BookOpen,
     to: ROUTES.learn.root,
-    color: 'bg-red-500'
+    color: 'bg-primary/10'
   },
   {
     key: 'journey',
     icon: Map,
     to: ROUTES.journey,
-     color: 'bg-green-500'
+     color: 'bg-highlight/25'
   },
   {
     key: 'experiences',
     icon: Compass,
     to: ROUTES.experiences.root,
-     color: 'bg-blue-500'
+     color: 'bg-primary/10'
   },
 ] as const;
 
@@ -54,45 +52,36 @@ export default function DashboardPage() {
   const { t } = useTranslation('dashboard');
   const user = useAuthStore((state) => state.user);
   const userId = user?.id ?? '';
-  const progress = useProgress(userId);
-  const trails = useTrails();
-  const courses = useCourses();
-  const experiences = useExperiences();
+  const progress = useEnrollments(Boolean(userId));
+  const experiences = useExperiences({ pageSize: 2 });
   const achievements = useAchievements(userId);
   const profile = useProfile(userId);
   const recommendations = useRecommendations(userId);
   const records = progress.data ?? [];
-  const trailCount = records.filter((item) => item.recursoTipo === 'trail').length;
-  const experienceCount = (experiences.data ?? []).length;
+  const trailCount = records.length;
+  const experienceCount = experiences.data?.meta.total ?? 0;
   const unlockedCount = (achievements.data ?? []).filter((item) => item.unlocked).length;
   const averageProgress = records.length
     ? Math.round(records.reduce((total, item) => total + item.percentual, 0) / records.length)
     : 0;
   const continuing = records
-    .filter((item) => item.estado === 'em_progresso')
-    .map((record) => {
-      const item =
-        record.recursoTipo === 'trail'
-          ? trails.data?.find((entry) => entry.id === record.recursoId)
-          : record.recursoTipo === 'course'
-            ? courses.data?.find((entry) => entry.id === record.recursoId)
-            : undefined;
-      if (!item) return null;
-      const href =
-        record.recursoTipo === 'trail'
-          ? ROUTES.learn.trail(item.slug)
-          : ROUTES.learn.course(item.slug);
-      return { id: record.id, title: item.titulo, percent: record.percentual, href };
-    })
-    .filter((item): item is NonNullable<typeof item> => item !== null);
-  const nextExperiences = experiences.data?.slice(0, 2) ?? [];
+    .filter((record) => record.estado === 'em_progresso' && record.trilha)
+    .map((record) => ({
+      id: record.id,
+      title: record.trilha?.titulo ?? '',
+      percent: record.percentual,
+      href: record.moduloAtualId && record.trilha
+        ? ROUTES.learn.trailModule(record.trilha.slug, record.moduloAtualId)
+        : ROUTES.learn.trail(record.trilha?.slug ?? ''),
+    }));
+  const nextExperiences = experiences.data?.data ?? [];
   const recentAchievements = achievements.data?.filter((item) => item.unlocked).slice(0, 3) ?? [];
   const isLoading =
-    progress.isLoading || trails.isLoading || courses.isLoading ||
+    progress.isLoading ||
     experiences.isLoading || achievements.isLoading || profile.isLoading ||
     recommendations.isLoading;
   const hasError =
-    progress.isError || trails.isError || courses.isError ||
+    progress.isError ||
     experiences.isError || achievements.isError || profile.isError ||
     recommendations.isError;
 
@@ -128,27 +117,27 @@ export default function DashboardPage() {
           <StatCard
             description={t('averageDescription')}
             icon={Target}
-            color='bg-green-500'
+            color='bg-highlight/25'
             label={t('progress')}
             value={`${averageProgress}%`}
           />
           <StatCard
             description={t('trailsCount', { count: trailCount })}
             icon={BookOpen}
-            color='bg-blue-500'
+            color='bg-primary/10'
             label={t('trails')}
             value={trailCount}
           />
           <StatCard
             description={t('catalogue')}
-            color='bg-yellow-500'
+            color='bg-highlight/25'
             icon={BriefcaseBusiness}
             label={t('experiences')}
             value={experienceCount}
           />
           <StatCard
             description={t('unlocked')}
-            color='bg-red-500'
+            color='bg-primary/10'
             icon={Award}
             label={t('achievements')}
             value={unlockedCount}
@@ -160,7 +149,7 @@ export default function DashboardPage() {
         description={t('continueDescription')}
         title={t('continueTitle')}
       >
-        {progress.isLoading || trails.isLoading || courses.isLoading ? (
+        {progress.isLoading ? (
           <p aria-live="polite" className="text-sm text-muted-foreground">{t('loadingActivities')}</p>
         ) : continuing.length ? (
           <div className="grid gap-3 sm:grid-cols-2">
@@ -226,11 +215,9 @@ export default function DashboardPage() {
               const to =
                 recommendation.tipo === 'trail'
                   ? ROUTES.learn.trail(item.slug)
-                  : recommendation.tipo === 'course'
-                    ? ROUTES.learn.course(item.slug)
-                    : recommendation.tipo === 'quick-learning'
-                      ? ROUTES.learn.quickLearning(item.slug)
-                      : ROUTES.learn.guide(item.slug);
+                  : recommendation.tipo === 'quick-learning'
+                    ? ROUTES.learn.quickLearning(item.slug)
+                    : ROUTES.learn.guide(item.slug);
               return (
                 <Card className="border-border" key={`${recommendation.tipo}-${item.id}`}>
                   <img src={Painel} alt="" className='hover:scale-105 duration-300' />
@@ -240,9 +227,7 @@ export default function DashboardPage() {
                         ? t('recommendationTypes.quickLearning')
                         : recommendation.tipo === 'trail'
                           ? t('recommendationTypes.trail')
-                          : recommendation.tipo === 'course'
-                            ? t('recommendationTypes.course')
-                            : t('recommendationTypes.guide')}
+                          : t('recommendationTypes.guide')}
                     </p>
                     <h3 className="mt-2 font-semibold">{item.titulo}</h3>
                     <p className="mt-2 flex-1 text-sm leading-6 text-muted-foreground">{item.descricao}</p>
@@ -282,7 +267,7 @@ export default function DashboardPage() {
         <div className="grid gap-4 md:grid-cols-3">
           {exploreCards.map(({ key, icon: Icon, to }) => (
             <Card className="relative group border-border duration-300 transition-colors hover:border-primary/50" key={key}>
-              <div className='h-20 w-20 bg-blue-500 rounded-full absolute blur-2xl -top-5 -right-5'></div>              
+              <div className='h-20 w-20 bg-highlight/40 rounded-full absolute blur-2xl -top-5 -right-5'></div>              
               <CardHeader>
                 <span className="mb-3 flex size-11 items-center justify-center rounded-xl bg-primary/10 text-primary group-hover:bg-primary group-hover:text-primary-foreground">
                   <Icon aria-hidden="true" className="size-5" />
@@ -337,7 +322,7 @@ export default function DashboardPage() {
                         {experience.estado === 'inscrita' ? t('experienceStatus.enrolled') : experience.estado === 'futura' ? t('experienceStatus.future') : experience.estado === 'sem-vagas' ? t('experienceStatus.noVacancies') : t('experienceStatus.available')}
                       </StatusBadge>
                     </div>
-                    <p className="mt-1 text-sm text-muted-foreground">{experience.data} · {experience.local}</p>
+                    <p className="mt-1 text-sm text-muted-foreground">{experience.dataInicio} · {experience.local}</p>
                   </Link>
                 </li>
               ))}

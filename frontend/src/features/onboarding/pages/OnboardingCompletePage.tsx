@@ -9,7 +9,6 @@ import { useTranslation } from 'react-i18next';
 export default function OnboardingCompletePage() {
   const { t } = useTranslation('onboarding');
   const name = useOnboardingStore((state) => state.draft.name);
-  const complete = useOnboardingStore((state) => state.complete);
 
   return (
     <>
@@ -38,7 +37,6 @@ export default function OnboardingCompletePage() {
           <Button
             className="w-full"
             nativeButton={false}
-            onClick={complete}
             render={<Link to={ROUTES.dashboard} />}
           >
             {t('complete.explore')}

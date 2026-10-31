@@ -1,13 +1,14 @@
 import { CalendarDays, MapPin, Search, UsersRound, X } from 'lucide-react';
 import { Link, useSearchParams } from 'react-router-dom';
 import { EmptyState } from '@/components/shared/EmptyState';
+import { Pagination } from '@/components/shared/Pagination';
+import { pageFromSearch } from '@/lib/pagination';
 import { ErrorState } from '@/components/shared/ErrorState';
 import { PageHeader } from '@/components/shared/PageHeader';
 import { StatusBadge } from '@/components/shared/StatusBadge';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { useExperiences } from '@/features/experiences/hooks/useExperiences';
-import { useAuthStore } from '@/stores/authStore';
 import { ROUTES } from '@/lib/constants/routes';
 import type { Experience, ExperienceModality, TipoExperiencia } from '@/types/experience';
 import { useTranslation } from 'react-i18next';
@@ -60,7 +61,6 @@ function dateLabel(date: string, locale: string) {
 export default function ExperiencesPage() {
   const { t, i18n } = useTranslation('experiences');
   const [searchParams, setSearchParams] = useSearchParams();
-  const userId = useAuthStore((state) => state.user?.id ?? '');
   const search = searchParams.get('q') ?? '';
   const tipo = searchParams.get('tipo') ?? '';
   const modalidade = searchParams.get('modalidade') ?? '';
@@ -77,12 +77,14 @@ export default function ExperiencesPage() {
       ? periodo as 'semana' | 'mes' | 'tres-meses'
       : undefined,
     localizacao: localizacao || undefined,
-  }, userId);
+    page: pageFromSearch(searchParams),
+  });
 
   function update(key: string, value: string) {
     const next = new URLSearchParams(searchParams);
     if (value) next.set(key, value);
     else next.delete(key);
+    if (key !== 'pagina') next.delete('pagina');
     setSearchParams(next, { replace: true });
   }
 
@@ -134,9 +136,10 @@ export default function ExperiencesPage() {
         </section>
       ) : experiences.isError ? (
         <ErrorState message={t('error')} onRetry={() => void experiences.refetch()} />
-      ) : experiences.data?.length ? (
+      ) : experiences.data?.data.length ? (
+        <>
         <section aria-label={t('results')} className="grid gap-5 sm:grid-cols-2 xl:grid-cols-3">
-          {experiences.data.map((experience) => {
+          {experiences.data.data.map((experience) => {
             const state = readState(experience);
             return (
               <article className="flex flex-col overflow-hidden rounded-xl border border-border bg-card" key={experience.id}>
@@ -150,7 +153,7 @@ export default function ExperiencesPage() {
                   </div>
                   <p className="mt-2 text-sm leading-6 text-muted-foreground">{experience.subtitulo}</p>
                   <dl className="mt-4 space-y-2 text-sm text-muted-foreground">
-                    <div className="flex items-center gap-2"><CalendarDays aria-hidden="true" className="size-4 text-primary" /><dt className="sr-only">{t('dateLabel')}</dt><dd>{dateLabel(experience.data, dateLocale)} · {experience.hora}</dd></div>
+                    <div className="flex items-center gap-2"><CalendarDays aria-hidden="true" className="size-4 text-primary" /><dt className="sr-only">{t('dateLabel')}</dt><dd>{dateLabel(experience.dataInicio, dateLocale)} · {experience.hora}</dd></div>
                     <div className="flex items-center gap-2"><MapPin aria-hidden="true" className="size-4 text-primary" /><dt className="sr-only">{t('locationLabel')}</dt><dd>{experience.local} · {t(modalityTranslationKeys[experience.modalidade])}</dd></div>
                     <div className="flex items-center gap-2"><UsersRound aria-hidden="true" className="size-4 text-primary" /><dt className="sr-only">{t('vacanciesLabel')}</dt><dd>{experience.vagasOcupadas}/{experience.vagas} {t('filled')}</dd></div>
                   </dl>
@@ -162,6 +165,11 @@ export default function ExperiencesPage() {
             );
           })}
         </section>
+        <Pagination
+          meta={experiences.data.meta}
+          onPageChange={(next) => update('pagina', String(next))}
+        />
+        </>
       ) : (
         <EmptyState description={t('emptyDescription')} icon={CalendarDays} title={t('emptyTitle')} />
       )}

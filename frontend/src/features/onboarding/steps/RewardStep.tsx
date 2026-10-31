@@ -6,10 +6,11 @@ import { useTranslation } from 'react-i18next';
 
 interface RewardStepProps {
   draft: OnboardingDraft;
+  isSubmitting: boolean;
   onComplete: () => void;
 }
 
-export function RewardStep({ draft, onComplete }: RewardStepProps) {
+export function RewardStep({ draft, isSubmitting, onComplete }: RewardStepProps) {
   const { t } = useTranslation('onboarding');
 
   return (
@@ -38,8 +39,8 @@ export function RewardStep({ draft, onComplete }: RewardStepProps) {
           {draft.interests.join(', ')}
         </p>
       </div>
-      <Button className="w-full" onClick={onComplete} size="lg" type="button">
-        {t('reward.complete')}
+      <Button className="w-full" disabled={isSubmitting} onClick={onComplete} size="lg" type="button">
+        {isSubmitting ? t('reward.completing') : t('reward.complete')}
       </Button>
     </section>
   );

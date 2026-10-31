@@ -1,18 +1,17 @@
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
-
-export interface AuthUser {
-  id: string;
-  email: string;
-  role: 'student';
-}
+import type { User } from '@/types/user';
 
 interface AuthState {
-  user: AuthUser | null;
+  user: User | null;
   token: string | null;
   isAuthenticated: boolean;
-  setAuth: (user: AuthUser, token: string) => void;
+  /** Set when the API rejected the stored token, so the login page can explain why. */
+  sessionExpired: boolean;
+  setAuth: (user: User, token: string) => void;
+  setUser: (user: User) => void;
   clearAuth: () => void;
+  expireSession: () => void;
 }
 
 export const useAuthStore = create<AuthState>()(
@@ -21,9 +20,20 @@ export const useAuthStore = create<AuthState>()(
       user: null,
       token: null,
       isAuthenticated: false,
-      setAuth: (user, token) => set({ user, token, isAuthenticated: true }),
-      clearAuth: () => set({ user: null, token: null, isAuthenticated: false }),
+      sessionExpired: false,
+      setAuth: (user, token) =>
+        set({ user, token, isAuthenticated: true, sessionExpired: false }),
+      setUser: (user) => set({ user }),
+      clearAuth: () =>
+        set({ user: null, token: null, isAuthenticated: false, sessionExpired: false }),
+      expireSession: () =>
+        set({ user: null, token: null, isAuthenticated: false, sessionExpired: true }),
     }),
-    { name: 'kumuka-auth' },
+    {
+      name: 'kumuka-auth',
+      version: 2,
+      partialize: ({ user, token, isAuthenticated }) => ({ user, token, isAuthenticated }),
+      migrate: () => ({ user: null, token: null, isAuthenticated: false }),
+    },
   ),
 );

@@ -16,10 +16,22 @@
     "formatsEyebrow": "Encontra o teu formato",
     "exploreTitle": "Explora conteúdos",
     "categories": {
-      "trails": { "title": "Trilhas", "description": "Jornadas completas para desenvolver competências." },
-      "courses": { "title": "Cursos", "description": "Aprendizagem estruturada e organizada por temas." },
-      "quickLearnings": { "title": "Aprendizados", "description": "Conteúdos curtos para aprender algo novo." },
-      "guides": { "title": "Guias", "description": "Materiais práticos para consultar quando precisares." }
+      "trails": {
+        "title": "Trilhas",
+        "description": "Jornadas completas para desenvolver competências."
+      },
+      "courses": {
+        "title": "Cursos",
+        "description": "Aprendizagem estruturada e organizada por temas."
+      },
+      "quickLearnings": {
+        "title": "Aprendizados",
+        "description": "Conteúdos curtos para aprender algo novo."
+      },
+      "guides": {
+        "title": "Guias",
+        "description": "Materiais práticos para consultar quando precisares."
+      }
     },
     "explore": "Explorar",
     "continueTitle": "Continua a aprender",
@@ -158,7 +170,13 @@
     "loading": "A carregar trilha…",
     "error": "Não foi possível carregar esta trilha.",
     "notFoundDescription": "Volta ao catálogo e escolhe uma trilha disponível.",
-    "notFoundTitle": "Trilha não encontrada"
+    "notFoundTitle": "Trilha não encontrada",
+    "lessonCount_one": "{{count}} aula",
+    "lessonCount_other": "{{count}} aulas",
+    "hasActivity": "Com actividade",
+    "trackingRules": "Cada aula conta quando a acompanhas a sério: ler até ao fim, assistir ao vídeo ou abrir o recurso. Actividades obrigatórias têm de ser aprovadas.",
+    "trackingRulesSequential": "Os módulos desbloqueiam por ordem. Cada aula conta quando a acompanhas a sério: ler até ao fim, assistir ao vídeo ou abrir o recurso. Actividades obrigatórias têm de ser aprovadas.",
+    "durationAndModules": "{{hours}} horas · {{modules}} módulos"
   },
   "completion": {
     "mastered": "Competência dominada",
@@ -231,11 +249,9 @@
     "exploreAll": "Explorar todos"
   },
   "activityForm": {
-    "invalidQuiz": "O rascunho do questionário tem um formato inválido.",
     "draftSaved": "Rascunho guardado. Podes continuar mais tarde.",
     "saveError": "Não foi possível guardar a actividade. Tenta novamente.",
     "submitError": "Não foi possível submeter a actividade.",
-    "completeError": "Não foi possível concluir a actividade.",
     "submitted": "Actividade submetida",
     "submittedDescription": "Bom trabalho! A tua resposta ficou registada neste módulo.",
     "points_one": "Actividade · {{count}} ponto",
@@ -243,17 +259,26 @@
     "yourAnswer": "A tua resposta",
     "answerPlaceholder": "Escreve aqui a tua resposta…",
     "workLink": "Ligação para o teu trabalho",
-    "workImage": "Imagem do teu trabalho",
     "chooseFile": "Escolhe um ficheiro PNG, JPG ou WebP",
-    "fileDemo": "Demonstração: guardamos o nome do ficheiro, não o seu conteúdo.",
     "answerQuiz": "Responde ao questionário",
     "saving": "A guardar…",
     "saveDraft": "Guardar rascunho",
     "submitting": "A submeter…",
     "submit": "Submeter actividade",
     "submitOptional": "Submeter actividade (opcional)",
-    "skipSubmit": "Avançar sem submeter",
-    "draftHint": "Podes guardar o rascunho e continuar mais tarde."
+    "draftHint": "Podes guardar o rascunho e continuar mais tarde.",
+    "fileRequired": "Escolhe um ficheiro para submeter.",
+    "answerAllQuestions": "Responde a todas as perguntas antes de submeter.",
+    "quizPassed": "Aprovado com {{score}}%.",
+    "required": "Obrigatória",
+    "passingScore": "Precisas de {{score}}% para avançar.",
+    "quizFailed_one": "Obtiveste {{score}}% ({{required}}% necessários). Revê as aulas e tenta de novo.",
+    "quizFailed_other": "Obtiveste {{score}}% ({{required}}% necessários) após {{count}} tentativas. Revê as aulas e tenta de novo.",
+    "minLength": "Mínimo de {{count}} caracteres.",
+    "workFile": "Ficheiro do teu trabalho",
+    "fileTooLarge": "O ficheiro tem mais de 5 MB.",
+    "fileHint": "PDF, Word ou imagem até 5 MB.",
+    "retry": "Tentar de novo"
   },
   "courseModule": {
     "completeCourse": "Concluir curso",
@@ -315,7 +340,10 @@
     "loadTrailError": "Não foi possível carregar a trilha.",
     "notFoundTrailDescription": "Volta ao catálogo e escolhe uma trilha disponível.",
     "notFoundTrailTitle": "Trilha não encontrada",
-    "moduleProgressLabel": "Progresso do módulo {{title}}"
+    "moduleProgressLabel": "Progresso do módulo {{title}}",
+    "moduleOf": "Módulo {{module}} de {{modules}}",
+    "lessonsToAdvance": "{{current}} de {{total}} aulas concluídas",
+    "checking": "A confirmar o teu progresso…"
   },
   "content": {
     "backToCategory": "Voltar a {{category}}",
@@ -326,5 +354,16 @@
     "loading": "A carregar conteúdo…",
     "error": "Não foi possível carregar este conteúdo.",
     "modules": "Módulos do conteúdo"
+  },
+  "lesson": {
+    "completed": "Aula concluída",
+    "videoHint": "Assiste a pelo menos {{percent}}% do vídeo. Saltar partes não conta.",
+    "linkHint": "Abre o recurso para concluir esta aula.",
+    "imageHint": "Observa a imagem com atenção para concluir.",
+    "textHint": "Lê com atenção até ao fim. O progresso só avança enquanto estás nesta aula.",
+    "scrollToEnd": "Quase lá — desce até ao fim da aula.",
+    "progressLabel": "Progresso da aula",
+    "optional": "Opcional",
+    "openLink": "Abrir recurso"
   }
 }

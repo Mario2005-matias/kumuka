@@ -30,7 +30,10 @@
   "projectsDescription": "Des projets qui montrent ce que tu sais faire.",
   "loadingProjects": "Chargement des projets…",
   "projectsError": "Impossible de charger les projets.",
-  "projectType": { "technical": "Technique", "creative": "Créatif" },
+  "projectType": {
+    "technical": "Technique",
+    "creative": "Créatif"
+  },
   "viewProject": "Voir le projet",
   "projectsEmptyTitle": "Aucun projet à afficher",
   "projectsEmptyDescription": "Tes projets seront rassemblés ici.",
@@ -45,5 +48,7 @@
   "loadingEvidence": "Chargement des réalisations…",
   "evidenceError": "Impossible de charger les réalisations.",
   "evidenceEmptyTitle": "Aucune réalisation à afficher",
-  "evidenceEmptyDescription": "Les preuves de ton travail seront conservées ici."
+  "evidenceEmptyDescription": "Les preuves de ton travail seront conservées ici.",
+  "age_one": "{{count}} an",
+  "age_other": "{{count}} ans"
 }

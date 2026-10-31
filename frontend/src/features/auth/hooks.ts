@@ -1,15 +1,40 @@
-import { useMutation } from '@tanstack/react-query';
+import { useEffect } from 'react';
+import { useMutation, useQuery } from '@tanstack/react-query';
 import { useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import { useAuthStore } from '@/stores/authStore';
 import { toast } from '@/components/ui/toast';
-import { authApi } from './api';
-import { useTranslation } from 'react-i18next';
+import { apiErrorMessage } from '@/lib/api/client';
 import { ROUTES } from '@/lib/constants/routes';
+import { useOnboardingStore } from '@/features/onboarding/store';
+import { authApi } from './api';
+import { endSession } from './session';
 import type {
+  ForgotPasswordInput,
   LoginInput,
   RegisterInput,
-  ForgotPasswordInput,
+  ResetPasswordInput,
 } from './types';
+
+/**
+ * Revalidates the stored token and keeps the cached user (onboarding state) fresh.
+ */
+export function useCurrentUser() {
+  const isAuthenticated = useAuthStore((s) => s.isAuthenticated);
+  const setUser = useAuthStore((s) => s.setUser);
+  const query = useQuery({
+    queryKey: ['me'],
+    queryFn: authApi.me,
+    enabled: isAuthenticated,
+    staleTime: 60_000,
+  });
+
+  useEffect(() => {
+    if (query.data) setUser(query.data);
+  }, [query.data, setUser]);
+
+  return query;
+}
 
 export function useLogin() {
   const { t } = useTranslation('auth');
@@ -19,28 +44,31 @@ export function useLogin() {
   return useMutation({
     mutationFn: (input: LoginInput) => authApi.login(input),
     onSuccess: (data) => {
+      useOnboardingStore.getState().reset();
       setAuth(data.user, data.token);
       toast.add({
         title: t('toasts.welcome'),
         description: t('toasts.loginSuccess'),
         type: 'success',
       });
-      navigate(ROUTES.dashboard);
+      navigate(data.user.onboardingCompleted ? ROUTES.dashboard : ROUTES.onboarding.root);
     },
-    onError: (error: Error) => {
+    onError: (error) => {
       toast.add({
         title: t('toasts.loginError'),
-        description: error.message,
+        description: apiErrorMessage(error, t('toasts.networkError')),
         type: 'error',
       });
     },
   });
 }
 
+/**
+ * Creates the account during onboarding; the onboarding page decides where to go next.
+ */
 export function useRegister() {
   const { t } = useTranslation('auth');
   const setAuth = useAuthStore((s) => s.setAuth);
-  const navigate = useNavigate();
 
   return useMutation({
     mutationFn: (input: RegisterInput) => authApi.register(input),
@@ -51,26 +79,17 @@ export function useRegister() {
         description: t('toasts.gettingToKnowYou'),
         type: 'success',
       });
-      navigate(ROUTES.onboarding.root);
-    },
-    onError: (error: Error) => {
-      toast.add({
-        title: t('toasts.registerError'),
-        description: error.message,
-        type: 'error',
-      });
     },
   });
 }
 
 export function useLogout() {
-  const clearAuth = useAuthStore((s) => s.clearAuth);
   const navigate = useNavigate();
 
   return useMutation({
     mutationFn: () => authApi.logout(),
     onSettled: () => {
-      clearAuth();
+      endSession();
       navigate(ROUTES.home);
     },
   });
@@ -87,10 +106,33 @@ export function useForgotPassword() {
         type: 'success',
       });
     },
-    onError: (error: Error) => {
+    onError: (error) => {
       toast.add({
         title: t('toasts.error'),
-        description: error.message,
+        description: apiErrorMessage(error, t('toasts.networkError')),
+        type: 'error',
+      });
+    },
+  });
+}
+
+export function useResetPassword() {
+  const { t } = useTranslation('auth');
+  const navigate = useNavigate();
+  return useMutation({
+    mutationFn: (input: ResetPasswordInput) => authApi.resetPassword(input),
+    onSuccess: () => {
+      toast.add({
+        title: t('toasts.passwordReset'),
+        description: t('toasts.loginWithNewPassword'),
+        type: 'success',
+      });
+      navigate(ROUTES.auth.login);
+    },
+    onError: (error) => {
+      toast.add({
+        title: t('toasts.error'),
+        description: apiErrorMessage(error, t('toasts.networkError')),
         type: 'error',
       });
     },

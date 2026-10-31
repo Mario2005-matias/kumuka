@@ -1,33 +1,17 @@
 import { z } from 'zod';
 import type { TFunction } from 'i18next';
 
+/** Must match the backend rule (Password::min(8)). */
+export const PASSWORD_MIN_LENGTH = 8;
+
 export const createLoginSchema = (t: TFunction<'auth'>) =>
   z.object({
     email: z
       .string()
       .min(1, t('login.requiredEmail'))
       .email(t('login.invalidEmail')),
-    password: z
-      .string()
-      .min(6, t('login.shortPassword', { count: 6 })),
+    password: z.string().min(1, t('login.requiredPassword')),
   });
-
-export const createRegisterSchema = (t: TFunction<'auth'>) =>
-  z
-    .object({
-      email: z
-        .string()
-        .min(1, t('register.requiredEmail'))
-        .email(t('register.invalidEmail')),
-      password: z
-        .string()
-        .min(6, t('register.shortPassword', { count: 6 })),
-      confirmPassword: z.string().min(1, t('register.confirmPassword')),
-    })
-    .refine((data) => data.password === data.confirmPassword, {
-      message: t('register.passwordMismatch'),
-      path: ['confirmPassword'],
-    });
 
 export const createForgotPasswordSchema = (t: TFunction<'auth'>) =>
   z.object({
@@ -42,7 +26,7 @@ export const createResetPasswordSchema = (t: TFunction<'auth'>) =>
     .object({
       password: z
         .string()
-        .min(6, t('register.shortPassword', { count: 6 })),
+        .min(PASSWORD_MIN_LENGTH, t('register.shortPassword', { count: PASSWORD_MIN_LENGTH })),
       confirmPassword: z.string().min(1, t('register.confirmPassword')),
     })
     .refine((data) => data.password === data.confirmPassword, {
@@ -51,7 +35,6 @@ export const createResetPasswordSchema = (t: TFunction<'auth'>) =>
     });
 
 export type LoginFormValues = z.infer<ReturnType<typeof createLoginSchema>>;
-export type RegisterFormValues = z.infer<ReturnType<typeof createRegisterSchema>>;
 export type ForgotPasswordFormValues = z.infer<
   ReturnType<typeof createForgotPasswordSchema>
 >;

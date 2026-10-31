@@ -1,6 +1,8 @@
 import { BriefcaseBusiness, CalendarDays, MapPin, Search, X } from 'lucide-react';
 import { Link, useSearchParams } from 'react-router-dom';
 import { EmptyState } from '@/components/shared/EmptyState';
+import { Pagination } from '@/components/shared/Pagination';
+import { pageFromSearch } from '@/lib/pagination';
 import { ErrorState } from '@/components/shared/ErrorState';
 import { PageHeader } from '@/components/shared/PageHeader';
 import { StatusBadge } from '@/components/shared/StatusBadge';
@@ -81,15 +83,17 @@ export default function OpportunitiesPage() {
     prazo: ['semana', 'mes', 'tres-meses'].includes(deadline)
       ? deadline as 'semana' | 'mes' | 'tres-meses'
       : undefined,
+    page: pageFromSearch(searchParams),
   });
-  const all = useOpportunities();
-  const areas = [...new Set((all.data ?? []).map((item) => item.area))].sort();
-  const companies = [...new Set((all.data ?? []).map((item) => item.empresaNome))].sort();
+  const all = useOpportunities({ pageSize: 50 });
+  const areas = [...new Set((all.data?.data ?? []).map((item) => item.area))].sort();
+  const companies = [...new Set((all.data?.data ?? []).map((item) => item.empresaNome))].sort();
 
   function update(key: string, value: string) {
     const next = new URLSearchParams(searchParams);
     if (value) next.set(key, value);
     else next.delete(key);
+    next.delete('pagina');
     setSearchParams(next, { replace: true });
   }
 
@@ -113,12 +117,12 @@ export default function OpportunitiesPage() {
       {opportunities.isLoading ? (
         <section aria-label={t('loading')} className="grid gap-5 sm:grid-cols-2 xl:grid-cols-3">{Array.from({ length: 6 }, (_, index) => <div aria-hidden="true" className="h-72 animate-pulse rounded-xl bg-surface-2" key={index} />)}</section>
       ) : opportunities.isError ? (
-        <ErrorState message="Não foi possível carregar as oportunidades." onRetry={() => void opportunities.refetch()} />
-      ) : opportunities.data?.length ? (
+        <ErrorState message={t('error')} onRetry={() => void opportunities.refetch()} />
+      ) : opportunities.data?.data.length ? (
         <>
-          <p aria-live="polite" className="text-sm text-muted-foreground">{t('results', { count: opportunities.data.length })}</p>
+          <p aria-live="polite" className="text-sm text-muted-foreground">{t('results', { count: opportunities.data.meta.total })}</p>
           <section aria-label={t('resultList')} className="grid gap-5 sm:grid-cols-2 xl:grid-cols-3">
-            {opportunities.data.map((item) => (
+            {opportunities.data.data.map((item) => (
               <article className="flex flex-col overflow-hidden rounded-xl border border-border bg-card" key={item.id}>
                 <div className="flex min-h-28 items-center justify-between bg-surface-1 p-5">
                   <div className="flex size-14 items-center justify-center rounded-xl border border-border bg-card text-lg font-bold text-primary">{item.empresaNome.slice(0, 2).toLocaleUpperCase()}</div>
@@ -138,6 +142,14 @@ export default function OpportunitiesPage() {
               </article>
             ))}
           </section>
+          <Pagination
+            meta={opportunities.data.meta}
+            onPageChange={(next) => {
+              const params = new URLSearchParams(searchParams);
+              params.set('pagina', String(next));
+              setSearchParams(params);
+            }}
+          />
         </>
       ) : (
         <EmptyState description={t('emptyDescription')} icon={BriefcaseBusiness} title={t('emptyTitle')} />

@@ -20,15 +20,11 @@ import { LanguageSwitcher } from "@/components/shared/LanguageSwitcher";
 import { useTranslation } from "react-i18next";
 
 export function Navbar() {
-  const { user, isAuthenticated, clearAuth } = useAuthStore();
+  const user = useAuthStore((state) => state.user);
+  const isAuthenticated = useAuthStore((state) => state.isAuthenticated);
   const navigate = useNavigate();
   const logout = useLogout();
   const { t } = useTranslation("common");
-
-  const handleLogout = () => {
-    clearAuth();
-    navigate(ROUTES.home);
-  };
 
   const initials = user?.email?.slice(0, 2).toUpperCase() ?? "U";
 
@@ -107,10 +103,6 @@ export function Navbar() {
                   {t("navigation.profile")}
                 </DropdownMenuItem>
                 <DropdownMenuSeparator />
-                <DropdownMenuItem onSelect={handleLogout}>
-                  <LogOut className="mr-2 h-4 w-4" />
-                  {t("navigation.logout")}
-                </DropdownMenuItem>
                 <DropdownMenuItem onSelect={() => logout.mutate()}>
                   <LogOut className="mr-2 h-4 w-4" />
                   {t("navigation.logout")}

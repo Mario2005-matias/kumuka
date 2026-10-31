@@ -30,7 +30,10 @@
   "projectsDescription": "Projects that show what you can do.",
   "loadingProjects": "Loading projects…",
   "projectsError": "We couldn't load your projects.",
-  "projectType": { "technical": "Technical", "creative": "Creative" },
+  "projectType": {
+    "technical": "Technical",
+    "creative": "Creative"
+  },
   "viewProject": "View project",
   "projectsEmptyTitle": "No projects to show yet",
   "projectsEmptyDescription": "Your projects will be collected here.",
@@ -45,5 +48,7 @@
   "loadingEvidence": "Loading evidence…",
   "evidenceError": "We couldn't load the evidence.",
   "evidenceEmptyTitle": "No evidence to show yet",
-  "evidenceEmptyDescription": "Evidence of your work will be kept here."
+  "evidenceEmptyDescription": "Evidence of your work will be kept here.",
+  "age_one": "{{count}} year old",
+  "age_other": "{{count}} years old"
 }

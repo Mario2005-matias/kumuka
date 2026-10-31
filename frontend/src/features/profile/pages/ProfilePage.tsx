@@ -28,7 +28,7 @@ export default function ProfilePage() {
   const profile = useProfile(userId);
   const competences = useProfileCompetences(userId);
   const projects = useProjects(userId);
-  const experiences = useExperiences();
+  const experiences = useExperiences({ pageSize: 50 });
   const achievements = useAchievements(userId);
   const initials = profile.data?.nome
     .split(/\s+/)
@@ -36,7 +36,7 @@ export default function ProfilePage() {
     .slice(0, 2)
     .join('')
     .toUpperCase() ?? 'K';
-  const enrolled = experiences.data?.filter((item) => item.estado === 'inscrita') ?? [];
+  const enrolled = experiences.data?.data.filter((item) => item.estado === 'inscrita') ?? [];
 
   if (profile.isLoading) {
     return (
@@ -132,7 +132,7 @@ export default function ProfilePage() {
               <UserRound aria-hidden="true" className="mt-0.5 size-4 text-primary" />
               <div>
                 <dt className="text-xs font-medium uppercase tracking-wide text-muted-foreground">{t('situation')}</dt>
-                <dd className="mt-1 text-sm">{profile.data.situacao} · {profile.data.faixaEtaria} anos</dd>
+                <dd className="mt-1 text-sm">{profile.data.situacao}{profile.data.idade ? ` · ${t('age', { count: profile.data.idade })}` : ''}</dd>
               </div>
             </div>
             <div>
@@ -210,7 +210,7 @@ export default function ProfilePage() {
               {enrolled.map((experience) => (
                 <li className="rounded-lg border border-border p-4" key={experience.id}>
                   <h3 className="font-semibold">{experience.titulo}</h3>
-                  <p className="mt-1 text-sm text-muted-foreground">{experience.data} · {experience.local}</p>
+                  <p className="mt-1 text-sm text-muted-foreground">{experience.dataInicio} · {experience.local}</p>
                   <StatusBadge className="mt-3" status="success">{t('enrolled')}</StatusBadge>
                 </li>
               ))}

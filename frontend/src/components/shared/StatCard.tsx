@@ -28,7 +28,7 @@ export function StatCard({
 
   return (
     <Card className="relative border-border bg-gradient-to-br from-surface-1 to-card hover:scale-105 duration-300">
-      <div className='absolute top-0 right-0 h-20 w-20 blur-3xl bg-blue-500 z-0'></div>
+      <div className='absolute top-0 right-0 h-20 w-20 blur-3xl bg-highlight/40 z-0'></div>
       <CardContent className="flex items-start justify-between gap-4 px-4 z-10">
         <div className="min-w-0">
           <p className="text-xs font-semibold uppercase tracking-[0.12em] text-muted-foreground">

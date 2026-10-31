@@ -18,5 +18,15 @@ export default defineConfig([
     languageOptions: {
       globals: globals.browser,
     },
+    rules: {
+      // shadcn/ui files export their variant helpers and toast manager next to the components.
+      'react-refresh/only-export-components': [
+        'error',
+        {
+          allowConstantExport: true,
+          allowExportNames: ['buttonVariants', 'createToastManager', 'toast', 'useToastManager'],
+        },
+      ],
+    },
   },
 ])

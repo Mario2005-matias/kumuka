@@ -1,7 +1,7 @@
 export interface Profile {
   userId: string;
   nome: string;
-  faixaEtaria: string;
+  idade: number | null;
   situacao: string;
   interesses: string[];
   objetivo: string;

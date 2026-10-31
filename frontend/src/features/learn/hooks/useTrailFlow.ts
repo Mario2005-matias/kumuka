@@ -1,264 +1,162 @@
-import {
-  useMutation,
-  useQuery,
-  useQueryClient,
-} from '@tanstack/react-query';
-import { env } from '@/config/env';
-import { api } from '@/lib/api/client';
-import type { LearningProgress } from '@/types/progress';
-import type { Trail, TrailModule, TrailProgress } from '@/types/trail';
-import { useTrailModule } from './useTrails';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import { api, getData, type ApiEnvelope } from '@/lib/api/client';
+import type {
+  ActivitySubmission,
+  LessonProgress,
+  Trail,
+  TrailEnrollment,
+  TrailProgress,
+} from '@/types/trail';
 
-type ContentReadInput = { moduleId: string; contentId: string };
-type ActivityInput = { moduleId: string; answer: string };
-type ModuleInput = { moduleId: string };
-type DraftInput = ActivityInput;
+export type HeartbeatEvent = 'progress' | 'opened' | 'ended';
 
-function progressPath(userId: string, trailId: string) {
-  return `/users/${encodeURIComponent(userId)}/trails/${encodeURIComponent(trailId)}/progress`;
+export interface HeartbeatInput {
+  lessonId: string;
+  event: HeartbeatEvent;
+  /** Current video position in seconds. */
+  position?: number;
+  /** Whether the student scrolled to the end of a text lesson. */
+  reachedEnd?: boolean;
 }
 
-function useInvalidateTrailProgress(userId: string, trailId: string) {
-  const queryClient = useQueryClient();
+export interface SubmitActivityInput {
+  activityId: string;
+  answer?: string;
+  answers?: Record<string, string>;
+  file?: File;
+}
 
-  return async () => {
+const progressKey = (slug: string) => ['trail-progress', slug] as const;
+
+function progressPath(slug: string) {
+  return `/me/trails/${encodeURIComponent(slug)}/progress`;
+}
+
+/**
+ * Detailed, server-computed progress of the student in a trail.
+ */
+export function useTrailProgress(slug: string) {
+  return useQuery({
+    queryKey: progressKey(slug),
+    enabled: Boolean(slug),
+    queryFn: () => getData<TrailProgress>(progressPath(slug)),
+  });
+}
+
+/**
+ * Every trail the student has started.
+ */
+export function useEnrollments(enabled = true) {
+  return useQuery({
+    queryKey: ['enrollments'],
+    enabled,
+    queryFn: () => getData<TrailEnrollment[]>('/me/trails'),
+  });
+}
+
+function useRefreshProgress(slug: string) {
+  const queryClient = useQueryClient();
+  return async (progress?: TrailProgress) => {
+    if (progress) queryClient.setQueryData(progressKey(slug), progress);
     await Promise.all([
-      queryClient.invalidateQueries({
-        queryKey: ['trail-progress', userId, trailId],
-      }),
-      queryClient.invalidateQueries({ queryKey: ['progress', userId] }),
-      queryClient.invalidateQueries({ queryKey: ['trails'] }),
+      queryClient.invalidateQueries({ queryKey: progressKey(slug) }),
+      queryClient.invalidateQueries({ queryKey: ['enrollments'] }),
+      queryClient.invalidateQueries({ queryKey: ['recommendations'] }),
     ]);
   };
 }
 
-/**
- * Lê o progresso detalhado do utilizador numa trilha.
- */
-export function useTrailProgress(userId: string, trailId: string) {
-  return useQuery({
-    queryKey: ['trail-progress', userId, trailId],
-    enabled: Boolean(userId && trailId),
-    queryFn: async (): Promise<TrailProgress | null> => {
-      if (env.useMocks && import.meta.env.DEV) {
-        const { progressHandler } = await import(
-          '@/lib/mocks/handlers/progress.handler'
-        );
-        return progressHandler.get(userId, trailId);
-      }
-      const { data } = await api.get<TrailProgress | null>(
-        progressPath(userId, trailId),
-      );
-      return data;
-    },
-  });
-}
-
-/**
- * Acede ao detalhe de um módulo de trilha.
- */
-export function useModule(slug: string, moduleId: string) {
-  return useTrailModule(slug, moduleId);
-}
-
-/**
- * Inicia uma trilha e encaminha o progresso inicial.
- */
-export function useStartTrail(userId: string, trail: Trail) {
-  const invalidate = useInvalidateTrailProgress(userId, trail.id);
-
+export function useStartTrail(trail: Trail) {
+  const refresh = useRefreshProgress(trail.slug);
   return useMutation({
-    mutationFn: async (): Promise<TrailProgress> => {
-      if (env.useMocks && import.meta.env.DEV) {
-        const { trailsHandler } = await import(
-          '@/lib/mocks/handlers/trails.handler'
-        );
-        return trailsHandler.start(userId, trail.id);
-      }
-      const { data } = await api.post<TrailProgress>(
-        progressPath(userId, trail.id),
+    mutationFn: async () => {
+      const { data } = await api.post<ApiEnvelope<TrailProgress>>(
+        `/me/trails/${encodeURIComponent(trail.slug)}/enrollment`,
       );
-      return data;
+      return data.data;
     },
-    onSuccess: invalidate,
+    onSuccess: (progress) => refresh(progress),
   });
 }
 
 /**
- * Guarda que um conteúdo foi lido.
+ * Sends lesson heartbeats and merges the server's verdict into the cached progress.
+ * When a lesson completes, the whole trail progress is refetched because the module
+ * (and the next one's lock) may have changed.
  */
-export function useMarkContentRead(userId: string, trail: Trail) {
-  const invalidate = useInvalidateTrailProgress(userId, trail.id);
-
-  return useMutation({
-    mutationFn: async (input: ContentReadInput): Promise<TrailProgress> => {
-      if (env.useMocks && import.meta.env.DEV) {
-        const { trailsHandler } = await import(
-          '@/lib/mocks/handlers/trails.handler'
-        );
-        return trailsHandler.markContentRead(
-          userId,
-          trail.id,
-          input.moduleId,
-          input.contentId,
-        );
-      }
-      const { data } = await api.post<TrailProgress>(
-        `${progressPath(userId, trail.id)}/modules/${encodeURIComponent(input.moduleId)}/read`,
-        { contentId: input.contentId },
-      );
-      return data;
-    },
-    onSuccess: invalidate,
-  });
-}
-
-/**
- * Guarda o rascunho de uma actividade no progresso local ou na API.
- */
-export function useSaveTrailDraft(userId: string, trail: Trail) {
-  const invalidate = useInvalidateTrailProgress(userId, trail.id);
-
-  return useMutation({
-    mutationFn: async (input: DraftInput): Promise<TrailProgress> => {
-      if (env.useMocks && import.meta.env.DEV) {
-        const { trailsHandler } = await import(
-          '@/lib/mocks/handlers/trails.handler'
-        );
-        return trailsHandler.saveDraft(
-          userId,
-          trail.id,
-          input.moduleId,
-          input.answer,
-        );
-      }
-      const { data } = await api.put<TrailProgress>(
-        `${progressPath(userId, trail.id)}/modules/${encodeURIComponent(input.moduleId)}/draft`,
-        { answer: input.answer },
-      );
-      return data;
-    },
-    onSuccess: invalidate,
-  });
-}
-
-/**
- * Submete a actividade do módulo actual.
- */
-export function useSubmitTrailActivity(userId: string, trail: Trail) {
-  const invalidate = useInvalidateTrailProgress(userId, trail.id);
-
-  return useMutation({
-    mutationFn: async (input: ActivityInput): Promise<TrailProgress> => {
-      if (env.useMocks && import.meta.env.DEV) {
-        const { trailsHandler } = await import(
-          '@/lib/mocks/handlers/trails.handler'
-        );
-        return trailsHandler.submitActivity(
-          userId,
-          trail.id,
-          input.moduleId,
-          input.answer,
-        );
-      }
-      const { data } = await api.post<TrailProgress>(
-        `${progressPath(userId, trail.id)}/modules/${encodeURIComponent(input.moduleId)}/activities`,
-        { answer: input.answer },
-      );
-      return data;
-    },
-    onSuccess: invalidate,
-  });
-}
-
-/**
- * Conclui o módulo actual depois de validar conteúdos e actividade.
- */
-export function useCompleteModule(userId: string, trail: Trail) {
-  const invalidate = useInvalidateTrailProgress(userId, trail.id);
-
-  return useMutation({
-    mutationFn: async (input: ModuleInput): Promise<TrailProgress> => {
-      if (env.useMocks && import.meta.env.DEV) {
-        const { trailsHandler } = await import(
-          '@/lib/mocks/handlers/trails.handler'
-        );
-        return trailsHandler.completeModule(
-          userId,
-          trail.id,
-          input.moduleId,
-        );
-      }
-      const { data } = await api.post<TrailProgress>(
-        `${progressPath(userId, trail.id)}/modules/${encodeURIComponent(input.moduleId)}/complete`,
-      );
-      return data;
-    },
-    onSuccess: invalidate,
-  });
-}
-
-/**
- * Finaliza a trilha e desbloqueia a conquista correspondente.
- */
-export function useCompleteTrail(userId: string, trail: Trail) {
-  const invalidate = useInvalidateTrailProgress(userId, trail.id);
+export function useLessonHeartbeat(slug: string) {
   const queryClient = useQueryClient();
+  const refresh = useRefreshProgress(slug);
 
   return useMutation({
-    mutationFn: async (): Promise<TrailProgress> => {
-      if (env.useMocks && import.meta.env.DEV) {
-        const { progressHandler } = await import(
-          '@/lib/mocks/handlers/progress.handler'
-        );
-        return progressHandler.completeTrail(userId, trail.id);
-      }
-      const { data } = await api.post<TrailProgress>(
-        `${progressPath(userId, trail.id)}/complete`,
+    mutationFn: async ({ lessonId, ...body }: HeartbeatInput) => {
+      const { data } = await api.post<ApiEnvelope<LessonProgress>>(
+        `/me/lessons/${encodeURIComponent(lessonId)}/heartbeats`,
+        body,
       );
-      return data;
+      return data.data;
+    },
+    onSuccess: async (lesson) => {
+      const previous = queryClient.getQueryData<TrailProgress>(progressKey(slug));
+      const wasComplete = previous?.aulas[lesson.lessonId]?.concluida ?? false;
+      if (previous) {
+        queryClient.setQueryData<TrailProgress>(progressKey(slug), {
+          ...previous,
+          aulas: { ...previous.aulas, [lesson.lessonId]: lesson },
+        });
+      }
+      if (lesson.concluida && !wasComplete) await refresh();
+    },
+  });
+}
+
+export function useSaveActivityDraft(slug: string) {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: async ({ activityId, answer }: { activityId: string; answer: string }) => {
+      const { data } = await api.put<ApiEnvelope<ActivitySubmission>>(
+        `/me/activities/${encodeURIComponent(activityId)}/draft`,
+        { answer },
+      );
+      return data.data;
+    },
+    onSuccess: (submission) => {
+      queryClient.setQueryData<TrailProgress>(progressKey(slug), (previous) =>
+        previous
+          ? {
+              ...previous,
+              atividades: { ...previous.atividades, [submission.activityId]: submission },
+            }
+          : previous,
+      );
+    },
+  });
+}
+
+export function useSubmitActivity(slug: string) {
+  const queryClient = useQueryClient();
+  const refresh = useRefreshProgress(slug);
+
+  return useMutation({
+    mutationFn: async ({ activityId, answer, answers, file }: SubmitActivityInput) => {
+      const url = `/me/activities/${encodeURIComponent(activityId)}/submission`;
+      let body: FormData | object;
+      if (file) {
+        const form = new FormData();
+        form.append('file', file);
+        if (answer) form.append('answer', answer);
+        body = form;
+      } else {
+        body = answers ? { answers } : { answer };
+      }
+      const { data } = await api.post<ApiEnvelope<ActivitySubmission>>(url, body);
+      return data.data;
     },
     onSuccess: async () => {
       await Promise.all([
-        invalidate(),
-        queryClient.invalidateQueries({ queryKey: ['achievements', userId] }),
+        refresh(),
+        queryClient.invalidateQueries({ queryKey: ['achievements'] }),
       ]);
     },
   });
-}
-
-export function useTrailProgressList(userId: string) {
-  return useQuery({
-    queryKey: ['progress', userId],
-    enabled: Boolean(userId),
-    queryFn: async (): Promise<LearningProgress[]> => {
-      if (env.useMocks && import.meta.env.DEV) {
-        const { progressHandler } = await import(
-          '@/lib/mocks/handlers/progress.handler'
-        );
-        return progressHandler.list(userId);
-      }
-      const { data } = await api.get<LearningProgress[]>(
-        `/users/${encodeURIComponent(userId)}/progress`,
-      );
-      return data;
-    },
-  });
-}
-
-export function isAccessibleModule(
-  trail: Trail,
-  progress: TrailProgress | null | undefined,
-  moduleId: string,
-): boolean {
-  const module = trail.modulos.find((item: TrailModule) => item.id === moduleId);
-  if (!module) return false;
-  if (!progress) return module.ordem === 1;
-  if (progress.estado === 'concluido') return true;
-  return (
-    module.ordem === 1 ||
-    progress.modulosConcluidos.includes(
-      trail.modulos[module.ordem - 2]?.id ?? '',
-    )
-  );
 }

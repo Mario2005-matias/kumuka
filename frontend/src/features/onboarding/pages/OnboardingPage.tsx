@@ -1,6 +1,11 @@
+import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import { useAuthStore } from '@/stores/authStore';
 import { useRegister } from '@/features/auth/hooks';
+import { useProfile, useUpdateProfile, type ProfileUpdate } from '@/features/profile/hooks/useProfile';
+import { toast } from '@/components/ui/toast';
+import { apiErrorMessage } from '@/lib/api/client';
 import { ROUTES } from '@/lib/constants/routes';
 import { OnboardingLayout } from '../components/OnboardingLayout';
 import { AgeStep } from '../steps/AgeStep';
@@ -14,26 +19,86 @@ import { WelcomeStep } from '../steps/WelcomeStep';
 import { useOnboardingStore } from '../store';
 import type { RegisterInput } from '@/features/auth/types';
 
+const CREDENTIALS_STEP = 1;
+
 export default function OnboardingPage() {
+  const { t } = useTranslation('onboarding');
   const navigate = useNavigate();
   const isAuthenticated = useAuthStore((state) => state.isAuthenticated);
+  const user = useAuthStore((state) => state.user);
+  const userId = user?.id ?? '';
   const step = useOnboardingStore((state) => state.step);
   const draft = useOnboardingStore((state) => state.draft);
   const nextStep = useOnboardingStore((state) => state.nextStep);
   const prevStep = useOnboardingStore((state) => state.prevStep);
+  const setStep = useOnboardingStore((state) => state.setStep);
   const updateDraft = useOnboardingStore((state) => state.updateDraft);
-  const setCredentials = useOnboardingStore((state) => state.setCredentials);
   const register = useRegister();
+  const profile = useProfile(userId);
+  const updateProfile = useUpdateProfile(userId);
+
+  // Resume where the student stopped, even on another device.
+  useEffect(() => {
+    if (!isAuthenticated && step > CREDENTIALS_STEP) setStep(CREDENTIALS_STEP);
+    if (user && user.onboardingStep > step) setStep(user.onboardingStep);
+  }, [isAuthenticated, setStep, step, user]);
+
+  useEffect(() => {
+    const saved = profile.data;
+    if (!saved) return;
+    const current = useOnboardingStore.getState().draft;
+    updateDraft({
+      name: current.name || saved.nome,
+      age: current.age ?? saved.idade,
+      situation: current.situation || saved.situacao,
+      interests: current.interests.length ? current.interests : saved.interesses,
+      goal: current.goal || saved.objetivo,
+    });
+  }, [profile.data, updateDraft]);
 
   async function createAccount(credentials: RegisterInput) {
-    setCredentials(credentials);
     try {
       await register.mutateAsync(credentials);
       nextStep();
     } catch {
-      // useRegister reports API failures through its error state and toast.
-    } finally {
-      setCredentials(null);
+      // The error is shown inside the credentials step.
+    }
+  }
+
+  /** Save one answer to the profile and move on without waiting for the network. */
+  function saveAndContinue(changes: ProfileUpdate) {
+    updateProfile.mutate(
+      { ...changes, onboardingStep: step + 1 },
+      {
+        onError: (error) =>
+          toast.add({
+            title: t('saveError'),
+            description: apiErrorMessage(error, t('saveErrorDescription')),
+            type: 'error',
+          }),
+      },
+    );
+    nextStep();
+  }
+
+  async function complete() {
+    try {
+      await updateProfile.mutateAsync({
+        nome: draft.name,
+        idade: draft.age,
+        situacao: draft.situation,
+        interesses: draft.interests,
+        objetivo: draft.goal,
+        onboardingStep: step,
+        onboardingCompleted: true,
+      });
+      navigate(ROUTES.onboarding.complete);
+    } catch (error) {
+      toast.add({
+        title: t('saveError'),
+        description: apiErrorMessage(error, t('saveErrorDescription')),
+        type: 'error',
+      });
     }
   }
 
@@ -44,7 +109,9 @@ export default function OnboardingPage() {
       case 1:
         return (
           <CredentialsStep
-            errorMessage={register.error?.message}
+            errorMessage={
+              register.error ? apiErrorMessage(register.error, t('credentials.error')) : undefined
+            }
             isAuthenticated={isAuthenticated}
             isSubmitting={register.isPending}
             onContinue={nextStep}
@@ -55,7 +122,7 @@ export default function OnboardingPage() {
         return (
           <NameStep
             onChange={(name) => updateDraft({ name })}
-            onNext={nextStep}
+            onNext={() => saveAndContinue({ nome: draft.name })}
             value={draft.name}
           />
         );
@@ -63,7 +130,7 @@ export default function OnboardingPage() {
         return (
           <AgeStep
             onChange={(age) => updateDraft({ age })}
-            onNext={nextStep}
+            onNext={() => saveAndContinue({ idade: draft.age })}
             value={draft.age}
           />
         );
@@ -71,7 +138,7 @@ export default function OnboardingPage() {
         return (
           <SituationStep
             onChange={(situation) => updateDraft({ situation })}
-            onNext={nextStep}
+            onNext={() => saveAndContinue({ situacao: draft.situation })}
             value={draft.situation}
           />
         );
@@ -79,7 +146,7 @@ export default function OnboardingPage() {
         return (
           <InterestsStep
             onChange={(interests) => updateDraft({ interests })}
-            onNext={nextStep}
+            onNext={() => saveAndContinue({ interesses: draft.interests })}
             value={draft.interests}
           />
         );
@@ -87,7 +154,7 @@ export default function OnboardingPage() {
         return (
           <GoalStep
             onChange={(goal) => updateDraft({ goal })}
-            onNext={nextStep}
+            onNext={() => saveAndContinue({ objetivo: draft.goal })}
             value={draft.goal}
           />
         );
@@ -95,7 +162,8 @@ export default function OnboardingPage() {
         return (
           <RewardStep
             draft={draft}
-            onComplete={() => navigate(ROUTES.onboarding.complete)}
+            isSubmitting={updateProfile.isPending}
+            onComplete={() => void complete()}
           />
         );
       default:

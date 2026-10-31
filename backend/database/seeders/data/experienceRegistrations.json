@@ -1,0 +1,9 @@
+[
+  {
+    "id": "registration-user-mock-01-exp-001",
+    "userId": "user-mock-01",
+    "experienceId": "exp-001",
+    "estado": "inscrito",
+    "inscritoEm": "2026-09-01T10:00:00Z"
+  }
+]

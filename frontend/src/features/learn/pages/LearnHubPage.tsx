@@ -1,10 +1,4 @@
-import {
-  ArrowRight,
-  BookOpen,
-  FileText,
-  GraduationCap,
-  Zap,
-} from 'lucide-react';
+import { ArrowRight, BookOpen, FileText, Zap } from 'lucide-react';
 import type { LucideIcon } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
@@ -13,75 +7,39 @@ import { EmptyState } from '@/components/shared/EmptyState';
 import { PageHeader } from '@/components/shared/PageHeader';
 import { SectionCard } from '@/components/shared/SectionCard';
 import { ROUTES } from '@/lib/constants/routes';
-import { useProgress } from '@/features/dashboard/hooks/useProgress';
-import { useAuthStore } from '@/stores/authStore';
-import type { LearningProgress } from '@/types/progress';
-import { useCourses } from '../hooks/useCourses';
-import { useQuickLearnings } from '../hooks/useQuickLearnings';
-import { useTrails } from '../hooks/useTrails';
+import { useEnrollments } from '../hooks/useTrailFlow';
 import { useTranslation } from 'react-i18next';
 
 const categories: {
-  key: 'trails' | 'courses' | 'quickLearnings' | 'guides';
+  key: 'trails' | 'quickLearnings' | 'guides';
   icon: LucideIcon;
   to: string;
 }[] = [
-  {
-    key: 'trails',
-    icon: BookOpen,
-    to: ROUTES.learn.trails,
-  },
-  {
-    key: 'courses',
-    icon: GraduationCap,
-    to: ROUTES.learn.courses,
-  },
-  {
-    key: 'quickLearnings',
-    icon: Zap,
-    to: ROUTES.learn.quickLearnings,
-  },
-  {
-    key: 'guides',
-    icon: FileText,
-    to: ROUTES.learn.guides,
-  },
+  { key: 'trails', icon: BookOpen, to: ROUTES.learn.trails },
+  { key: 'quickLearnings', icon: Zap, to: ROUTES.learn.quickLearnings },
+  { key: 'guides', icon: FileText, to: ROUTES.learn.guides },
 ];
 
 const categoryTabs = [
   { key: 'all', to: ROUTES.learn.root },
   { key: 'trails', to: ROUTES.learn.trails },
-  { key: 'courses', to: ROUTES.learn.courses },
   { key: 'quickLearnings', to: ROUTES.learn.quickLearnings },
   { key: 'guides', to: ROUTES.learn.guides },
 ] as const;
 
 export default function LearnHubPage() {
   const { t } = useTranslation('learning');
-  const userId = useAuthStore((state) => state.user?.id ?? '');
-  const progress = useProgress(userId);
-  const trails = useTrails();
-  const courses = useCourses();
-  const quickLearnings = useQuickLearnings();
+  const progress = useEnrollments();
   const inProgress = (progress.data ?? [])
-    .filter((item) => item.estado === 'em_progresso')
-    .map((record: LearningProgress) => {
-      const item =
-        record.recursoTipo === 'trail'
-          ? trails.data?.find((entry) => entry.id === record.recursoId)
-          : record.recursoTipo === 'course'
-            ? courses.data?.find((entry) => entry.id === record.recursoId)
-            : quickLearnings.data?.find((entry) => entry.id === record.recursoId);
-      if (!item) return null;
-      const to =
-        record.recursoTipo === 'trail'
-          ? ROUTES.learn.trail(item.slug)
-          : record.recursoTipo === 'course'
-            ? ROUTES.learn.course(item.slug)
-            : ROUTES.learn.quickLearning(item.slug);
-      return { id: record.id, title: item.titulo, to, percent: record.percentual };
-    })
-    .filter((item): item is NonNullable<typeof item> => item !== null);
+    .filter((record) => record.estado === 'em_progresso' && record.trilha)
+    .map((record) => ({
+      id: record.id,
+      title: record.trilha?.titulo ?? '',
+      to: record.moduloAtualId && record.trilha
+        ? ROUTES.learn.trailModule(record.trilha.slug, record.moduloAtualId)
+        : ROUTES.learn.trail(record.trilha?.slug ?? ''),
+      percent: record.percentual,
+    }));
 
   return (
     <div className="space-y-8">
@@ -130,7 +88,7 @@ export default function LearnHubPage() {
             {t('hub.exploreTitle')}
           </h2>
         </div>
-        <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
+        <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
           {categories.map(({ key, icon: Icon, to }) => (
             <Card
               className="group border-border transition-all duration-200 hover:-translate-y-0.5 hover:border-primary/50 hover:bg-surface-1"
@@ -167,9 +125,9 @@ export default function LearnHubPage() {
         description={t('hub.continueDescription')}
         title={t('hub.continueTitle')}
       >
-        {progress.isLoading || trails.isLoading || courses.isLoading || quickLearnings.isLoading ? (
+        {progress.isLoading ? (
           <p aria-live="polite" className="text-sm text-muted-foreground">{t('hub.loadingProgress')}</p>
-        ) : progress.isError || trails.isError || courses.isError || quickLearnings.isError ? (
+        ) : progress.isError ? (
           <p className="text-sm text-destructive" role="alert">{t('hub.progressError')}</p>
         ) : inProgress.length ? (
           <div className="grid gap-3 sm:grid-cols-2">

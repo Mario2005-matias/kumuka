@@ -4,8 +4,6 @@ import { ROUTES } from "@/lib/constants/routes";
 import { AuthGuard } from "./guards/AuthGuard";
 import { GuestGuard } from "./guards/GuestGuard";
 import { PublicLayout } from "@/components/layout/PublicLayout";
-import { AppShell } from "@/components/layout/AppShell";
-import { AuthLayout } from "@/components/layout/AuthLayout";
 import { LoadingState } from "@/components/shared/LoadingState";
 import { OnboardingGuard } from "@/features/onboarding/guards/OnboardingGuard";
 
@@ -13,8 +11,21 @@ import NotFoundPage from "@/features/system/pages/NotFoundPage";
 import ServerErrorPage from "@/features/system/pages/ServerErrorPage";
 import ForbiddenPage from "@/features/system/pages/ForbiddenPage";
 
+// Layouts used only after sign-in or on auth pages are split out of the initial bundle.
+const AppShell = lazy(() =>
+  import("@/components/layout/AppShell").then((module) => ({ default: module.AppShell })),
+);
+const AuthLayout = lazy(() =>
+  import("@/components/layout/AuthLayout").then((module) => ({ default: module.AuthLayout })),
+);
 const HomePage = lazy(() => import("@/features/home/pages/HomePage"));
 const LoginPage = lazy(() => import("@/features/auth/pages/LoginPage"));
+const ForgotPasswordPage = lazy(
+  () => import("@/features/auth/pages/ForgotPasswordPage"),
+);
+const ResetPasswordPage = lazy(
+  () => import("@/features/auth/pages/ResetPasswordPage"),
+);
 const OnboardingPage = lazy(
   () => import("@/features/onboarding/pages/OnboardingPage"),
 );
@@ -25,6 +36,9 @@ const DashboardPage = lazy(
   () => import("@/features/dashboard/pages/DashboardPage"),
 );
 const LearnHubPage = lazy(() => import("@/features/learn/pages/LearnHubPage"));
+const LearnContentPage = lazy(
+  () => import("@/features/learn/pages/LearnContentPage"),
+);
 const TrailsPage = lazy(() => import("@/features/learn/pages/TrailsPage"));
 const TrailDetailPage = lazy(
   () => import("@/features/learn/pages/TrailDetailPage"),
@@ -35,20 +49,10 @@ const TrailModulePage = lazy(
 const TrailCompletionPage = lazy(
   () => import("@/features/learn/pages/TrailCompletionPage"),
 );
-const CoursesPage = lazy(() => import("@/features/learn/pages/CoursesPage"));
-const CourseDetailPage = lazy(
-  () => import("@/features/learn/pages/CourseDetailPage"),
-);
-const CourseModulePage = lazy(
-  () => import("@/features/learn/pages/CourseModulePage"),
-);
-const CourseCompletePage = lazy(
-  () => import("@/features/learn/pages/CourseCompletePage"),
-);
 const JourneyPage = lazy(() => import("@/features/journey/pages/JourneyPage"));
 const ProfilePage = lazy(() => import("@/features/profile/pages/ProfilePage"));
 const ExperiencesPage = lazy(
-  () => import("@/features/experiences/pages/ExperiencesPage"), 
+  () => import("@/features/experiences/pages/ExperiencesPage"),
 );
 const ExperienceDetailPage = lazy(
   () => import("@/features/experiences/pages/ExperienceDetailPage"),
@@ -63,6 +67,25 @@ const OpportunityDetailPage = lazy(
 function Lazy({ children }: { children: ReactNode }) {
   return <Suspense fallback={<LoadingState />}>{children}</Suspense>;
 }
+
+const appRoutes: { path: string; page: ReactNode }[] = [
+  { path: ROUTES.dashboard, page: <DashboardPage /> },
+  { path: ROUTES.learn.root, page: <LearnHubPage /> },
+  { path: ROUTES.learn.trails, page: <TrailsPage /> },
+  { path: ROUTES.learn.trail(":slug"), page: <TrailDetailPage /> },
+  { path: ROUTES.learn.trailModule(":slug", ":moduleId"), page: <TrailModulePage /> },
+  { path: ROUTES.learn.trailComplete(":slug"), page: <TrailCompletionPage /> },
+  { path: ROUTES.learn.quickLearnings, page: <LearnContentPage /> },
+  { path: ROUTES.learn.quickLearning(":slug"), page: <LearnContentPage /> },
+  { path: ROUTES.learn.guides, page: <LearnContentPage /> },
+  { path: ROUTES.learn.guide(":slug"), page: <LearnContentPage /> },
+  { path: ROUTES.journey, page: <JourneyPage /> },
+  { path: ROUTES.profile, page: <ProfilePage /> },
+  { path: ROUTES.experiences.root, page: <ExperiencesPage /> },
+  { path: ROUTES.experiences.detail(":slug"), page: <ExperienceDetailPage /> },
+  { path: ROUTES.opportunities.root, page: <OpportunitiesPage /> },
+  { path: ROUTES.opportunities.detail(":slug"), page: <OpportunityDetailPage /> },
+];
 
 export function AppRouter() {
   return (
@@ -79,6 +102,7 @@ export function AppRouter() {
         />
       </Route>
 
+      {/* Onboarding — cria a conta no passo 2 e guarda cada resposta no perfil */}
       <Route element={<OnboardingGuard />}>
         <Route
           path={ROUTES.onboarding.root}
@@ -89,22 +113,6 @@ export function AppRouter() {
           }
         />
       </Route>
-
-      {/* Auth (só visitantes) */}
-      <Route element={<GuestGuard />}>
-        <Route element={<AuthLayout />}>
-          <Route
-            path={ROUTES.auth.login}
-            element={
-              <Lazy>
-                <LoginPage />
-              </Lazy>
-            }
-          />
-        </Route>
-      </Route>
-
-      {/* Onboarding — público, mas com fluxo próprio */}
       <Route
         path={ROUTES.onboarding.complete}
         element={
@@ -114,143 +122,29 @@ export function AppRouter() {
         }
       />
 
-      {/* /auth/registar → redireciona para onboarding */}
+      {/* Auth (só visitantes) */}
+      <Route element={<GuestGuard />}>
+        <Route element={<Lazy><AuthLayout /></Lazy>}>
+          <Route path={ROUTES.auth.login} element={<Lazy><LoginPage /></Lazy>} />
+          <Route path={ROUTES.auth.forgot} element={<Lazy><ForgotPasswordPage /></Lazy>} />
+          <Route path={ROUTES.auth.reset(":token")} element={<Lazy><ResetPasswordPage /></Lazy>} />
+        </Route>
+      </Route>
+
       <Route
         path={ROUTES.auth.register}
         element={<Navigate to={ROUTES.onboarding.root} replace />}
       />
 
+      {/* Os cursos foram unidos às trilhas */}
+      <Route path="/aprender/cursos/*" element={<Navigate to={ROUTES.learn.trails} replace />} />
+
       {/* Autenticadas */}
       <Route element={<AuthGuard />}>
-        <Route element={<AppShell />}>
-          <Route
-            path={ROUTES.dashboard}
-            element={
-              <Lazy>
-                <DashboardPage />
-              </Lazy>
-            }
-          />
-          <Route
-            path={ROUTES.learn.root}
-            element={
-              <Lazy>
-                <LearnHubPage />
-              </Lazy>
-            }
-          />
-          <Route
-            path={ROUTES.learn.trails}
-            element={
-              <Lazy>
-                <TrailsPage />
-              </Lazy>
-            }
-          />
-          <Route
-            path="/aprender/trilhas/:slug"
-            element={
-              <Lazy>
-                <TrailDetailPage />
-              </Lazy>
-            }
-          />
-          <Route
-            path="/aprender/trilhas/:slug/modulo/:moduleId"
-            element={
-              <Lazy>
-                <TrailModulePage />
-              </Lazy>
-            }
-          />
-          <Route
-            path="/aprender/trilhas/:slug/concluida"
-            element={
-              <Lazy>
-                <TrailCompletionPage />
-              </Lazy>
-            }
-          />
-          <Route
-            path={ROUTES.learn.courses}
-            element={
-              <Lazy>
-                <CoursesPage />
-              </Lazy>
-            }
-          />
-          <Route
-            path="/aprender/cursos/:slug"
-            element={
-              <Lazy>
-                <CourseDetailPage />
-              </Lazy>
-            }
-          />
-          <Route
-            path="/aprender/cursos/:slug/modulo/:moduleId"
-            element={
-              <Lazy>
-                <CourseModulePage />
-              </Lazy>
-            }
-          />
-          <Route
-            path="/aprender/cursos/:slug/concluido"
-            element={
-              <Lazy>
-                <CourseCompletePage />
-              </Lazy>
-            }
-          />
-          <Route
-            path={ROUTES.journey}
-            element={
-              <Lazy>
-                <JourneyPage />
-              </Lazy>
-            }
-          />
-          <Route
-            path={ROUTES.profile}
-            element={
-              <Lazy>
-                <ProfilePage />
-              </Lazy>
-            }
-          />
-          <Route
-            path={ROUTES.experiences.root}
-            element={
-              <Lazy>
-                <ExperiencesPage />
-              </Lazy>
-            }
-          />
-          <Route
-            path="/experiencias/:slug"
-            element={
-              <Lazy>
-                <ExperienceDetailPage />
-              </Lazy>
-            }
-          />
-          <Route
-            path={ROUTES.opportunities.root}
-            element={
-              <Lazy>
-                <OpportunitiesPage />
-              </Lazy>
-            }
-          />
-          <Route
-            path="/oportunidades/:slug"
-            element={
-              <Lazy>
-                <OpportunityDetailPage />
-              </Lazy>
-            }
-          />
+        <Route element={<Lazy><AppShell /></Lazy>}>
+          {appRoutes.map(({ path, page }) => (
+            <Route element={<Lazy>{page}</Lazy>} key={path} path={path} />
+          ))}
         </Route>
       </Route>
 
@@ -259,7 +153,6 @@ export function AppRouter() {
       <Route path={ROUTES.system.serverError} element={<ServerErrorPage />} />
       <Route path={ROUTES.system.forbidden} element={<ForbiddenPage />} />
 
-      {/* Fallback */}
       <Route path="*" element={<NotFoundPage />} />
     </Routes>
   );
