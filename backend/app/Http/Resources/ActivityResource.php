@@ -12,8 +12,6 @@ use Illuminate\Http\Resources\Json\JsonResource;
 class ActivityResource extends JsonResource
 {
     /**
-     * Quiz answers are never sent to the client; grading happens on the server.
-     *
      * @return array<string, mixed>
      */
     public function toArray(Request $request): array
@@ -26,12 +24,6 @@ class ActivityResource extends JsonResource
             'instrucoes' => $this->instructions ?? '',
             'obrigatoria' => $this->is_required,
             'pontos' => $this->points,
-            'notaMinima' => $this->passing_score,
-            'perguntas' => $this->questions === null ? null : collect($this->questions)->map(fn (array $question): array => [
-                'id' => $question['id'],
-                'enunciado' => $question['enunciado'],
-                'opcoes' => $question['opcoes'],
-            ])->values(),
         ];
     }
 }

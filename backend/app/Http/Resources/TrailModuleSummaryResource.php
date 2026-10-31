@@ -25,6 +25,10 @@ class TrailModuleSummaryResource extends JsonResource
             'duracao' => $this->duration_minutes,
             'totalAulas' => $this->whenCounted('lessons'),
             'temAtividade' => $this->whenLoaded('activity', fn (): bool => $this->activity !== null),
+            'quiz' => $this->whenCounted('quizQuestions', fn (): ?array => $this->quiz_questions_count === 0 ? null : [
+                'perguntas' => min($this->quiz_questions_count, $this->quiz_question_count),
+                'notaMinima' => $this->quiz_passing_score,
+            ]),
         ];
     }
 }

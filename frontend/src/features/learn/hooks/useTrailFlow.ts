@@ -2,29 +2,28 @@ import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { api, getData, type ApiEnvelope } from '@/lib/api/client';
 import type {
   ActivitySubmission,
-  LessonProgress,
+  Answer,
+  BlockProgress,
+  ModuleQuizStatus,
+  QuizAttempt,
   Trail,
   TrailEnrollment,
   TrailProgress,
 } from '@/types/trail';
 
-export type HeartbeatEvent = 'progress' | 'opened' | 'ended';
-
-export interface HeartbeatInput {
-  lessonId: string;
-  event: HeartbeatEvent;
-  /** Current video position in seconds. */
-  position?: number;
-  /** Whether the student scrolled to the end of a text lesson. */
-  reachedEnd?: boolean;
+export interface VideoHeartbeatInput {
+  blockId: string;
+  /** Current playback position in seconds. */
+  position: number;
 }
 
 export interface SubmitActivityInput {
   activityId: string;
   answer?: string;
-  answers?: Record<string, string>;
   file?: File;
 }
+
+export type Answers = Record<string, Answer>;
 
 const progressKey = (slug: string) => ['trail-progress', slug] as const;
 
@@ -80,32 +79,102 @@ export function useStartTrail(trail: Trail) {
 }
 
 /**
- * Sends lesson heartbeats and merges the server's verdict into the cached progress.
- * When a lesson completes, the whole trail progress is refetched because the module
- * (and the next one's lock) may have changed.
+ * Reports video playback. The server only credits segments that were actually played and
+ * completes the lesson on its own, so the trail progress is refetched when a video is done.
  */
-export function useLessonHeartbeat(slug: string) {
+export function useVideoHeartbeat(slug: string) {
   const queryClient = useQueryClient();
   const refresh = useRefreshProgress(slug);
 
   return useMutation({
-    mutationFn: async ({ lessonId, ...body }: HeartbeatInput) => {
-      const { data } = await api.post<ApiEnvelope<LessonProgress>>(
-        `/me/lessons/${encodeURIComponent(lessonId)}/heartbeats`,
-        body,
+    mutationFn: async ({ blockId, position }: VideoHeartbeatInput) => {
+      const { data } = await api.post<ApiEnvelope<BlockProgress & { blockId: string }>>(
+        `/me/blocks/${encodeURIComponent(blockId)}/heartbeats`,
+        { position },
       );
       return data.data;
     },
-    onSuccess: async (lesson) => {
+    onSuccess: async ({ blockId, ...block }) => {
       const previous = queryClient.getQueryData<TrailProgress>(progressKey(slug));
-      const wasComplete = previous?.aulas[lesson.lessonId]?.concluida ?? false;
+      const wasComplete = previous?.blocos[blockId]?.concluido ?? false;
       if (previous) {
         queryClient.setQueryData<TrailProgress>(progressKey(slug), {
           ...previous,
-          aulas: { ...previous.aulas, [lesson.lessonId]: lesson },
+          blocos: { ...previous.blocos, [blockId]: block },
         });
       }
-      if (lesson.concluida && !wasComplete) await refresh();
+      if (block.concluido && !wasComplete) await refresh();
+    },
+  });
+}
+
+/** Completes a lesson that has nothing to watch and no checkpoint. */
+export function useMarkLessonRead(slug: string) {
+  const refresh = useRefreshProgress(slug);
+  return useMutation({
+    mutationFn: async (lessonId: string) => {
+      await api.post(`/me/lessons/${encodeURIComponent(lessonId)}/read`);
+    },
+    onSuccess: () => refresh(),
+  });
+}
+
+/** Grades the end-of-lesson checkpoint; every answer must be right to complete the lesson. */
+export function useSubmitCheckpoint(slug: string) {
+  const refresh = useRefreshProgress(slug);
+  return useMutation({
+    mutationFn: async ({ lessonId, answers }: { lessonId: string; answers: Answers }) => {
+      const { data } = await api.post<ApiEnvelope<QuizAttempt>>(
+        `/me/lessons/${encodeURIComponent(lessonId)}/checkpoint`,
+        { answers },
+      );
+      return data.data;
+    },
+    onSuccess: async (attempt) => {
+      if (attempt.aprovada) await refresh();
+    },
+  });
+}
+
+const quizStatusKey = (moduleId: string) => ['module-quiz', moduleId] as const;
+
+export function useModuleQuizStatus(moduleId: string, enabled = true) {
+  return useQuery({
+    queryKey: quizStatusKey(moduleId),
+    enabled: Boolean(moduleId) && enabled,
+    queryFn: () => getData<ModuleQuizStatus>(`/me/modules/${encodeURIComponent(moduleId)}/quiz`),
+  });
+}
+
+/** Starts a quiz attempt, or resumes the open one, with questions drawn from the bank. */
+export function useStartQuiz(moduleId: string) {
+  return useMutation({
+    mutationFn: async () => {
+      const { data } = await api.post<ApiEnvelope<QuizAttempt>>(
+        `/me/modules/${encodeURIComponent(moduleId)}/quiz-attempts`,
+      );
+      return data.data;
+    },
+  });
+}
+
+export function useSubmitQuiz(slug: string, moduleId: string) {
+  const queryClient = useQueryClient();
+  const refresh = useRefreshProgress(slug);
+  return useMutation({
+    mutationFn: async ({ attemptId, answers }: { attemptId: string; answers: Answers }) => {
+      const { data } = await api.post<ApiEnvelope<QuizAttempt>>(
+        `/me/quiz-attempts/${encodeURIComponent(attemptId)}/submission`,
+        { answers },
+      );
+      return data.data;
+    },
+    onSuccess: async () => {
+      await Promise.all([
+        refresh(),
+        queryClient.invalidateQueries({ queryKey: quizStatusKey(moduleId) }),
+        queryClient.invalidateQueries({ queryKey: ['achievements'] }),
+      ]);
     },
   });
 }
@@ -138,7 +207,7 @@ export function useSubmitActivity(slug: string) {
   const refresh = useRefreshProgress(slug);
 
   return useMutation({
-    mutationFn: async ({ activityId, answer, answers, file }: SubmitActivityInput) => {
+    mutationFn: async ({ activityId, answer, file }: SubmitActivityInput) => {
       const url = `/me/activities/${encodeURIComponent(activityId)}/submission`;
       let body: FormData | object;
       if (file) {
@@ -147,7 +216,7 @@ export function useSubmitActivity(slug: string) {
         if (answer) form.append('answer', answer);
         body = form;
       } else {
-        body = answers ? { answers } : { answer };
+        body = { answer };
       }
       const { data } = await api.post<ApiEnvelope<ActivitySubmission>>(url, body);
       return data.data;

@@ -18,6 +18,8 @@ class TrailModuleController extends Controller
         abort_unless($trail->status === 'published', 404);
         abort_unless($progress->canAccessModule($request->user(), $module), 403, __('Este módulo ainda está bloqueado.'));
 
-        return new TrailModuleResource($module->load(['lessons', 'activity'])->loadCount('lessons'));
+        return new TrailModuleResource($module
+            ->load(['lessons.blocks', 'lessons.checkpointQuestions', 'activity'])
+            ->loadCount(['lessons', 'quizQuestions']));
     }
 }

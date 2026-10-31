@@ -1,13 +1,65 @@
 export type TrailLevel = 'iniciante' | 'intermedio' | 'avancado';
 export type TrailStatus = 'draft' | 'published' | 'unpublished';
 export type TrailAccess = 'free' | 'premium' | 'paid';
-export type LessonType = 'texto' | 'video' | 'imagem' | 'link';
-export type ActivityType = 'escrita' | 'upload' | 'link' | 'quiz';
+export type BlockType = 'texto' | 'video' | 'pdf' | 'imagem' | 'link';
+export type ActivityType = 'escrita' | 'upload' | 'link';
+export type QuestionType =
+  | 'single'
+  | 'multiple'
+  | 'true_false'
+  | 'ordering'
+  | 'matching'
+  | 'fill_blank';
 
-export interface QuizQuestion {
+/** A question as sent to students: never includes the correct answer. */
+export interface Question {
   id: string;
+  tipo: QuestionType;
+  /** Optional scenario shown before the question. */
+  contexto: string | null;
   enunciado: string;
-  opcoes: { id: string; texto: string }[];
+  opcoes: { id: string; texto: string }[] | null;
+  esquerda: { id: string; texto: string }[] | null;
+  direita: { id: string; texto: string }[] | null;
+  multipla: boolean;
+}
+
+export type Answer = string | string[] | boolean | Record<string, string>;
+
+export interface QuestionResult {
+  questionId: string;
+  correta: boolean;
+  resposta: Answer | null;
+  respostaCorreta: Answer | null;
+  explicacao: string | null;
+  /** Lesson to review when the answer was wrong. */
+  lessonId: string | null;
+}
+
+export interface QuizAttempt {
+  id: string;
+  moduleId: string;
+  lessonId: string | null;
+  perguntas: Question[];
+  submetida: boolean;
+  nota: number | null;
+  aprovada: boolean;
+  resultados: QuestionResult[] | null;
+  submetidaEm: string | null;
+}
+
+export interface ModuleQuizStatus {
+  moduleId: string;
+  perguntas: number;
+  notaMinima: number;
+  /** All required lessons are done. */
+  desbloqueado: boolean;
+  aprovado: boolean;
+  melhorNota: number | null;
+  tentativas: number;
+  tentativaAbertaId: string | null;
+  /** Set while the cooldown after a failed attempt is running. */
+  disponivelEm: string | null;
 }
 
 export interface Activity {
@@ -18,26 +70,35 @@ export interface Activity {
   instrucoes: string;
   obrigatoria: boolean;
   pontos: number;
-  /** Minimum quiz score (0-100) needed to pass. */
-  notaMinima: number;
-  perguntas: QuizQuestion[] | null;
+}
+
+export interface LessonBlock {
+  id: string;
+  tipo: BlockType;
+  titulo: string | null;
+  conteudo: string;
+  /** Video, PDF, image or link address. */
+  url: string | null;
+  /** Video length in seconds. */
+  duracao: number | null;
+  /** Whether watching this block counts towards completing the lesson. */
+  acompanhado: boolean;
+  ordem: number;
 }
 
 export interface Lesson {
   id: string;
   moduleId: string;
-  tipo: LessonType;
   titulo: string;
-  conteudo: string;
-  mediaUrl: string | null;
-  /** Video length in seconds. */
-  duracaoMedia: number | null;
-  /** Active seconds required before a text or image lesson can count as done. */
-  segundosNecessarios: number;
-  /** Share of a video (0-100) that must be watched. */
+  resumo: string;
+  /** Estimated minutes. */
+  duracao: number;
+  /** Share of each video (0-100) that must be watched. */
   percentagemMinima: number;
   obrigatoria: boolean;
   ordem: number;
+  blocos: LessonBlock[];
+  verificacao: Question[];
 }
 
 export interface TrailModuleSummary {
@@ -49,6 +110,7 @@ export interface TrailModuleSummary {
   duracao: number;
   totalAulas?: number;
   temAtividade?: boolean;
+  quiz?: { perguntas: number; notaMinima: number } | null;
 }
 
 export interface TrailModule extends TrailModuleSummary {
@@ -98,15 +160,22 @@ export interface Trail {
 export type TrailProgressStatus = 'nao_iniciado' | 'em_progresso' | 'concluido';
 
 export interface LessonProgress {
-  lessonId: string;
   concluida: boolean;
-  /** Share (0-100) of the completion requirement already met. */
+  verificacaoAprovada: boolean;
+  concluidaEm: string | null;
+}
+
+export interface BlockProgress {
   percentual: number;
-  segundosEnvolvidos: number;
-  chegouAoFim: boolean;
   /** Last video position, used to resume playback. */
   posicao: number | null;
-  concluidaEm: string | null;
+  concluido: boolean;
+}
+
+export interface QuizProgress {
+  aprovado: boolean;
+  melhorNota: number | null;
+  disponivelEm: string | null;
 }
 
 export interface ActivitySubmission {
@@ -126,6 +195,8 @@ export interface TrailEnrollment {
   trailId: string;
   estado: Exclude<TrailProgressStatus, 'nao_iniciado'>;
   percentual: number;
+  /** Average of the best quiz scores across the trail (0-100). */
+  dominio: number;
   moduloAtualId: string | null;
   iniciadoEm: string;
   atualizadoEm: string;
@@ -137,10 +208,13 @@ export interface TrailProgress {
   trailId: string;
   estado: TrailProgressStatus;
   percentual: number;
+  dominio: number;
   moduloAtualId: string | null;
   modulosConcluidos: string[];
   modulosAcessiveis: string[];
   aulas: Record<string, LessonProgress>;
+  blocos: Record<string, BlockProgress>;
+  quizzes: Record<string, QuizProgress>;
   atividades: Record<string, ActivitySubmission>;
   iniciadoEm: string | null;
   atualizadoEm: string | null;

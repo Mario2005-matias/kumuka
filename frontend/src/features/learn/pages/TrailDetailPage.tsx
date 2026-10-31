@@ -146,6 +146,9 @@ function TrailDetails({ trail }: { trail: Trail }) {
               <p className="text-sm text-muted-foreground">
                 {t('hub.completed', { percent: progress.data.percentual })}
               </p>
+              <p className="text-sm font-medium" title={t('trailDetails.masteryHint')}>
+                {t('trailDetails.mastery', { percent: progress.data.dominio })}
+              </p>
             </>
           ) : (
             <p className="text-sm text-muted-foreground">

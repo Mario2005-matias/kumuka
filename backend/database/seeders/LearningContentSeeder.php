@@ -98,24 +98,36 @@ class LearningContentSeeder extends Seeder
             ]);
 
             foreach ($moduleData['contentItems'] as $item) {
-                $module->lessons()->create([
-                    'type' => $item['tipo'],
+                $lesson = $module->lessons()->create([
                     'title' => $item['titulo'],
-                    'body' => $item['conteudo'],
+                    'duration_minutes' => 5,
                     'position' => $item['ordem'],
                 ]);
+                $lesson->blocks()->create(['type' => $item['tipo'], 'body' => $item['conteudo'], 'position' => 1]);
             }
 
             $activity = $moduleData['atividade'] ?? $moduleData['activity'] ?? null;
 
-            if ($activity !== null) {
+            if ($activity !== null && $activity['tipo'] === 'quiz') {
+                foreach ($activity['perguntas'] ?? [] as $index => $question) {
+                    $module->questions()->create([
+                        'type' => 'single',
+                        'prompt' => $question['enunciado'],
+                        'options' => array_map(fn (array $option): array => [
+                            'id' => $option['id'],
+                            'text' => $option['texto'],
+                            'correct' => $option['id'] === $question['respostaCorretaId'],
+                        ], $question['opcoes']),
+                        'position' => $index + 1,
+                    ]);
+                }
+            } elseif ($activity !== null) {
                 $module->activity()->create([
                     'type' => $activity['tipo'],
                     'prompt' => $activity['enunciado'],
                     'instructions' => $activity['instrucoes'],
                     'is_required' => $activity['obrigatoria'],
                     'points' => $activity['pontos'],
-                    'questions' => $activity['perguntas'] ?? null,
                 ]);
             }
         }

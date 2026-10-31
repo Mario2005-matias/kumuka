@@ -28,7 +28,7 @@ export function TrailCompletionCard({
           </div>
           <StatusBadge status="success">{t('trailCompletion.completed')}</StatusBadge>
         </div>
-        <dl className="grid gap-4 sm:grid-cols-3">
+        <dl className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
           <div className="flex items-start gap-3">
             <Clock3 aria-hidden="true" className="mt-0.5 size-5 text-primary" />
             <div>
@@ -50,6 +50,13 @@ export function TrailCompletionCard({
             <div>
               <dt className="text-xs text-muted-foreground">{t('completion.activitiesSubmitted')}</dt>
               <dd className="mt-1 text-sm font-medium">{submittedCount}</dd>
+            </div>
+          </div>
+          <div className="flex items-start gap-3">
+            <Award aria-hidden="true" className="mt-0.5 size-5 text-highlight" />
+            <div>
+              <dt className="text-xs text-muted-foreground">{t('trailDetails.masteryHint')}</dt>
+              <dd className="mt-1 text-sm font-medium">{progress.dominio}%</dd>
             </div>
           </div>
         </dl>

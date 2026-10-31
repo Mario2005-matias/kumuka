@@ -1,5 +1,5 @@
 import { useState, type FormEvent } from 'react';
-import { CheckCircle2, FileUp, RotateCcw, Save, XCircle } from 'lucide-react';
+import { CheckCircle2, FileUp, Save } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { FieldError, FieldLabel } from '@/components/ui/field';
 import { apiErrorMessage } from '@/lib/api/client';
@@ -18,21 +18,9 @@ interface ActivityFormProps {
 
 const MAX_FILE_BYTES = 5 * 1024 * 1024;
 
-function readQuizAnswers(value: string | null | undefined): Record<string, string> {
-  if (!value) return {};
-  try {
-    const parsed: unknown = JSON.parse(value);
-    if (typeof parsed !== 'object' || parsed === null) return {};
-    return Object.fromEntries(
-      Object.entries(parsed).filter(
-        (entry): entry is [string, string] => typeof entry[1] === 'string',
-      ),
-    );
-  } catch {
-    return {};
-  }
-}
-
+/**
+ * Practical task at the end of a module: a written answer, a link to the work or an uploaded file.
+ */
 export function ActivityForm({
   activity,
   submission,
@@ -42,23 +30,16 @@ export function ActivityForm({
   onSubmit,
 }: ActivityFormProps) {
   const { t } = useTranslation('learning');
-  const isQuiz = activity.tipo === 'quiz';
-  const [answer, setAnswer] = useState(isQuiz ? '' : submission?.resposta ?? '');
-  const [quizAnswers, setQuizAnswers] = useState(() =>
-    isQuiz ? readQuizAnswers(submission?.resposta) : {},
-  );
+  const [answer, setAnswer] = useState(submission?.resposta ?? '');
   const [file, setFile] = useState<File | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [feedback, setFeedback] = useState<string | null>(null);
-
-  const questions = activity.perguntas ?? [];
-  const allQuestionsAnswered = questions.every((question) => quizAnswers[question.id]);
 
   async function saveDraft() {
     setError(null);
     setFeedback(null);
     try {
-      await onSaveDraft(isQuiz ? JSON.stringify(quizAnswers) : answer);
+      await onSaveDraft(answer);
       setFeedback(t('activityForm.draftSaved'));
     } catch (caught: unknown) {
       setError(apiErrorMessage(caught, t('activityForm.saveError')));
@@ -73,16 +54,11 @@ export function ActivityForm({
       setError(t('activityForm.fileRequired'));
       return;
     }
-    if (isQuiz && !allQuestionsAnswered) {
-      setError(t('activityForm.answerAllQuestions'));
-      return;
-    }
     try {
       await onSubmit({
         activityId: activity.id,
-        ...(isQuiz
-          ? { answers: quizAnswers }
-          : { answer: answer.trim() || undefined, file: file ?? undefined }),
+        answer: answer.trim() || undefined,
+        file: file ?? undefined,
       });
     } catch (caught: unknown) {
       setError(apiErrorMessage(caught, t('activityForm.submitError')));
@@ -96,48 +72,21 @@ export function ActivityForm({
           <CheckCircle2 aria-hidden="true" className="size-5" />
           {t('activityForm.submitted')}
         </p>
-        <p className="text-sm leading-6 text-muted-foreground">
-          {isQuiz
-            ? t('activityForm.quizPassed', { score: submission.nota ?? 0 })
-            : t('activityForm.submittedDescription')}
-        </p>
+        <p className="text-sm leading-6 text-muted-foreground">{t('activityForm.submittedDescription')}</p>
       </div>
     );
   }
 
-  const failedQuiz = isQuiz && submission?.submetida && !submission.aprovada;
-
   return (
-    <form
-      className="space-y-5 rounded-xl border border-border bg-card p-5 sm:p-7"
-      onSubmit={submit}
-    >
+    <form className="space-y-5 rounded-xl border border-border bg-card p-5 sm:p-7" onSubmit={submit}>
       <div>
         <p className="text-xs font-semibold uppercase tracking-wide text-primary">
-          {t('activityForm.points', { count: activity.pontos })}
+          {t('activityForm.practicalTask')} · {t('activityForm.points', { count: activity.pontos })}
           {activity.obrigatoria && ` · ${t('activityForm.required')}`}
         </p>
         <h2 className="mt-2 text-xl font-bold">{activity.enunciado}</h2>
-        <p className="mt-2 text-sm leading-6 text-muted-foreground">
-          {activity.instrucoes}
-        </p>
-        {isQuiz && (
-          <p className="mt-2 text-xs text-muted-foreground">
-            {t('activityForm.passingScore', { score: activity.notaMinima })}
-          </p>
-        )}
+        <p className="mt-2 text-sm leading-6 text-muted-foreground">{activity.instrucoes}</p>
       </div>
-
-      {failedQuiz && (
-        <p className="flex items-start gap-2 rounded-lg border border-destructive/30 bg-destructive/5 p-3 text-sm" role="status">
-          <XCircle aria-hidden="true" className="mt-0.5 size-4 shrink-0 text-destructive" />
-          {t('activityForm.quizFailed', {
-            score: submission.nota ?? 0,
-            required: activity.notaMinima,
-            count: submission.tentativas,
-          })}
-        </p>
-      )}
 
       {activity.tipo === 'escrita' && (
         <div className="space-y-2">
@@ -172,9 +121,7 @@ export function ActivityForm({
           <FieldLabel htmlFor={activity.id}>{t('activityForm.workFile')}</FieldLabel>
           <label className="flex min-h-28 cursor-pointer flex-col items-center justify-center gap-2 rounded-xl border border-dashed border-border bg-surface-1 p-5 text-center hover:border-primary/50 focus-within:ring-2 focus-within:ring-ring">
             <FileUp aria-hidden="true" className="size-6 text-primary" />
-            <span className="text-sm text-muted-foreground">
-              {file?.name ?? t('activityForm.chooseFile')}
-            </span>
+            <span className="text-sm text-muted-foreground">{file?.name ?? t('activityForm.chooseFile')}</span>
             <input
               accept=".pdf,.doc,.docx,image/png,image/jpeg,image/webp"
               className="sr-only"
@@ -195,72 +142,24 @@ export function ActivityForm({
           <p className="text-xs text-muted-foreground">{t('activityForm.fileHint')}</p>
         </div>
       )}
-      {isQuiz && (
-        <fieldset className="space-y-4">
-          <legend className="sr-only">{t('activityForm.answerQuiz')}</legend>
-          {questions.map((question, index) => (
-            <fieldset className="space-y-3" key={question.id}>
-              <legend className="font-medium">
-                {index + 1}. {question.enunciado}
-              </legend>
-              {question.opcoes.map((option) => (
-                <label
-                  className="flex min-h-11 cursor-pointer items-center gap-3 rounded-lg border border-border px-3 py-2 hover:bg-surface-1"
-                  key={option.id}
-                >
-                  <input
-                    checked={quizAnswers[question.id] === option.id}
-                    name={question.id}
-                    onChange={() =>
-                      setQuizAnswers((current) => ({ ...current, [question.id]: option.id }))
-                    }
-                    type="radio"
-                    value={option.id}
-                  />
-                  <span className="text-sm">{option.texto}</span>
-                </label>
-              ))}
-            </fieldset>
-          ))}
-        </fieldset>
-      )}
       {error && <FieldError role="alert">{error}</FieldError>}
-      {feedback && (
-        <p aria-live="polite" className="text-sm text-success">
-          {feedback}
-        </p>
-      )}
+      {feedback && <p aria-live="polite" className="text-sm text-success">{feedback}</p>}
       <div className="flex flex-col gap-3 sm:flex-row sm:justify-end">
         {activity.tipo !== 'upload' && (
-          <Button
-            className="min-h-11 w-full sm:w-auto"
-            disabled={isSaving || isSubmitting}
-            onClick={() => void saveDraft()}
-            type="button"
-            variant="ghost"
-          >
+          <Button className="min-h-11 w-full sm:w-auto" disabled={isSaving || isSubmitting} onClick={() => void saveDraft()} type="button" variant="ghost">
             <Save aria-hidden="true" />
             {isSaving ? t('activityForm.saving') : t('activityForm.saveDraft')}
           </Button>
         )}
-        <Button
-          className="min-h-11 w-full sm:w-auto"
-          disabled={isSaving || isSubmitting}
-          type="submit"
-        >
-          {failedQuiz && <RotateCcw aria-hidden="true" />}
+        <Button className="min-h-11 w-full sm:w-auto" disabled={isSaving || isSubmitting} type="submit">
           {isSubmitting
             ? t('activityForm.submitting')
-            : failedQuiz
-              ? t('activityForm.retry')
-              : activity.obrigatoria
-                ? t('activityForm.submit')
-                : t('activityForm.submitOptional')}
+            : activity.obrigatoria
+              ? t('activityForm.submit')
+              : t('activityForm.submitOptional')}
         </Button>
       </div>
-      {activity.tipo !== 'upload' && (
-        <p className="text-xs text-muted-foreground">{t('activityForm.draftHint')}</p>
-      )}
+      {activity.tipo !== 'upload' && <p className="text-xs text-muted-foreground">{t('activityForm.draftHint')}</p>}
     </form>
   );
 }

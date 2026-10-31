@@ -18,6 +18,8 @@ export const ROUTES = {
     trail: (slug: string) => `/aprender/trilhas/${slug}`,
     trailModule: (slug: string, id: string) =>
       `/aprender/trilhas/${slug}/modulo/${id}`,
+    moduleQuiz: (slug: string, id: string) =>
+      `/aprender/trilhas/${slug}/modulo/${id}/quiz`,
     trailComplete: (slug: string) => `/aprender/trilhas/${slug}/concluida`,
     quickLearnings: '/aprender/aprendizados',
     quickLearning: (slug: string) => `/aprender/aprendizados/${slug}`,

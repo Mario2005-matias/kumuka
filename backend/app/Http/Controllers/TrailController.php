@@ -49,7 +49,7 @@ class TrailController extends Controller
 
         return new TrailResource($trail->load([
             'phases',
-            'modules' => fn ($query) => $query->withCount('lessons')->with('activity'),
+            'modules' => fn ($query) => $query->withCount(['lessons', 'quizQuestions'])->with('activity'),
         ]));
     }
 }
