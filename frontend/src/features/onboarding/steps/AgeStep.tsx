@@ -15,7 +15,7 @@ export function AgeStep({ value, onChange, onNext }: AgeStepProps) {
 
   function submit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    if (value === null || !Number.isInteger(value) || value < 1 || value > 120) {
+    if (value === null || !Number.isInteger(value) || value < 10 || value > 99) {
       setError(true);
       return;
     }
@@ -39,8 +39,8 @@ export function AgeStep({ value, onChange, onNext }: AgeStepProps) {
           <Input
             id="onboarding-age"
             inputMode="numeric"
-            max="120"
-            min="1"
+            max="99"
+            min="10"
             onChange={(event) => {
               setError(false);
               onChange(event.target.value === '' ? null : Number(event.target.value));

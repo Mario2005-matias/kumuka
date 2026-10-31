@@ -19,11 +19,6 @@ export const ROUTES = {
     trailModule: (slug: string, id: string) =>
       `/aprender/trilhas/${slug}/modulo/${id}`,
     trailComplete: (slug: string) => `/aprender/trilhas/${slug}/concluida`,
-    courses: '/aprender/cursos',
-    course: (slug: string) => `/aprender/cursos/${slug}`,
-    courseModule: (slug: string, id: string) =>
-      `/aprender/cursos/${slug}/modulo/${id}`,
-    courseComplete: (slug: string) => `/aprender/cursos/${slug}/concluido`,
     quickLearnings: '/aprender/aprendizados',
     quickLearning: (slug: string) => `/aprender/aprendizados/${slug}`,
     guides: '/aprender/guias',

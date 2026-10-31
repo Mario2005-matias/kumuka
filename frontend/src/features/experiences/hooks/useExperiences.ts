@@ -1,6 +1,5 @@
-import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
-import { env } from '@/config/env';
-import { api } from '@/lib/api/client';
+import { keepPreviousData, useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import { api, getData, getPage, type ApiEnvelope } from '@/lib/api/client';
 import type { Experience, ExperienceRegistration, TipoExperiencia } from '@/types/experience';
 
 export interface ExperienceCatalogParams {
@@ -13,54 +12,31 @@ export interface ExperienceCatalogParams {
   pageSize?: number;
 }
 
-function registrationsPath(userId: string) {
-  return `/users/${encodeURIComponent(userId)}/experience-registrations`;
-}
-
-export function useExperiences(params?: ExperienceCatalogParams, userId = '') {
+export function useExperiences(params?: ExperienceCatalogParams) {
   return useQuery({
-    queryKey: ['experiences', params, userId],
-    queryFn: async (): Promise<Experience[]> => {
-      if (env.useMocks && import.meta.env.DEV) {
-        const { experiencesHandler } = await import('@/lib/mocks/handlers/experiences.handler');
-        return experiencesHandler.list(params, userId);
-      }
-      const { data } = await api.get<Experience[]>('/experiences', { params });
-      return data;
-    },
+    queryKey: ['experiences', 'list', params],
+    queryFn: () => getPage<Experience>('/experiences', params),
+    placeholderData: keepPreviousData,
   });
 }
 
-export function useExperience(slug: string, userId = '') {
+export function useExperience(slug: string) {
   return useQuery({
-    queryKey: ['experiences', slug, userId],
+    queryKey: ['experiences', 'detail', slug],
     enabled: Boolean(slug),
-    queryFn: async (): Promise<Experience | null> => {
-      if (env.useMocks && import.meta.env.DEV) {
-        const { experiencesHandler } = await import('@/lib/mocks/handlers/experiences.handler');
-        return experiencesHandler.detail(slug, userId);
-      }
-      const { data } = await api.get<Experience | null>(
-        `/experiences/${encodeURIComponent(slug)}`,
-      );
-      return data;
-    },
+    queryFn: () => getData<Experience>(`/experiences/${encodeURIComponent(slug)}`),
   });
 }
 
 export function useRegisterExperience(userId: string) {
   const queryClient = useQueryClient();
   return useMutation({
-    mutationFn: async (experienceId: string): Promise<ExperienceRegistration> => {
-      if (env.useMocks && import.meta.env.DEV) {
-        const { experiencesHandler } = await import('@/lib/mocks/handlers/experiences.handler');
-        return experiencesHandler.register(userId, experienceId);
-      }
-      const { data } = await api.post<ExperienceRegistration>(
-        registrationsPath(userId),
-        { experienceId },
+    mutationFn: async (experienceId: string) => {
+      const { data } = await api.post<ApiEnvelope<ExperienceRegistration>>(
+        '/me/experience-registrations',
+        { experienceId: Number(experienceId) },
       );
-      return data;
+      return data.data;
     },
     onSuccess: async () => {
       await queryClient.invalidateQueries({ queryKey: ['experiences'] });

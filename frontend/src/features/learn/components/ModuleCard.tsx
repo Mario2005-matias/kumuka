@@ -7,38 +7,22 @@ import {
 } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { Card, CardContent } from '@/components/ui/card';
-import type { Trail, TrailModule, TrailProgress } from '@/types/trail';
-import { ProgressBar } from './ProgressBar';
+import { ROUTES } from '@/lib/constants/routes';
+import type { Trail, TrailModuleSummary } from '@/types/trail';
+import type { ModuleState } from '../lib/modules';
 import { useTranslation } from 'react-i18next';
-
-type ModuleState = 'completed' | 'active' | 'available' | 'locked';
 
 interface ModuleCardProps {
   trail: Trail;
-  module: TrailModule;
-  progress?: TrailProgress;
+  module: TrailModuleSummary;
   state: ModuleState;
 }
 
-export function ModuleCard({
-  trail,
-  module,
-  progress,
-  state,
-}: ModuleCardProps) {
+export function ModuleCard({ trail, module, state }: ModuleCardProps) {
   const { t } = useTranslation('learning');
   const isLocked = state === 'locked';
   const isComplete = state === 'completed';
-  const isCurrent = progress?.moduloAtualId === module.id;
-  const readCount =
-    progress?.conteudosLidos.filter((id) =>
-      module.contentItems.some((content) => content.id === id),
-    ).length ?? 0;
-  const modulePercent = isComplete
-    ? 100
-    : module.contentItems.length
-      ? Math.round((readCount / module.contentItems.length) * 100)
-      : 0;
+  const isCurrent = state === 'active';
   const action = isLocked
     ? t('common.locked')
     : isComplete
@@ -53,7 +37,7 @@ export function ModuleCard({
       : isCurrent
         ? PlayCircle
         : Circle;
-  const modulePath = `/aprender/trilhas/${trail.slug}/modulo/${module.id}`;
+  const modulePath = ROUTES.learn.trailModule(trail.slug, module.id);
 
   const content = (
     <Card
@@ -86,16 +70,16 @@ export function ModuleCard({
             </p>
           </div>
         </div>
-        <div className="flex items-center gap-2 text-sm text-muted-foreground">
-          <Clock3 aria-hidden="true" className="size-4 text-primary" />
-          {t('catalog.duration', { count: module.duracao })}
+        <div className="flex flex-wrap items-center gap-x-4 gap-y-1 text-sm text-muted-foreground">
+          <span className="flex items-center gap-2">
+            <Clock3 aria-hidden="true" className="size-4 text-primary" />
+            {t('catalog.duration', { count: module.duracao })}
+          </span>
+          {module.totalAulas !== undefined && (
+            <span>{t('trailDetails.lessonCount', { count: module.totalAulas })}</span>
+          )}
+          {module.temAtividade && <span>{t('trailDetails.hasActivity')}</span>}
         </div>
-        {progress && !isLocked && (
-          <ProgressBar
-            label={t('trailModule.moduleProgressLabel', { title: module.titulo })}
-            value={modulePercent}
-          />
-        )}
         <span
           className={`mt-auto inline-flex min-h-11 items-center justify-center rounded-lg px-4 text-sm font-medium ${
             isLocked

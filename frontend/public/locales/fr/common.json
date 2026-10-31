@@ -82,5 +82,11 @@
     "completed": "Terminé",
     "inProgress": "En cours",
     "notStarted": "À commencer"
+  },
+  "pagination": {
+    "label": "Pagination",
+    "previous": "Précédent",
+    "next": "Suivant",
+    "status": "Page {{page}} sur {{total}}"
   }
 }

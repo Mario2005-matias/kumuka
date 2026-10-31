@@ -13,8 +13,8 @@ import {
 } from 'lucide-react';
 import type { LucideIcon } from 'lucide-react';
 import { useEffect, useRef } from 'react';
-import { Link, NavLink, useNavigate } from 'react-router-dom';
-import { useAuthStore } from '@/stores/authStore';
+import { Link, NavLink } from 'react-router-dom';
+import { useLogout } from '@/features/auth/hooks';
 import { ROUTES } from '@/lib/constants/routes';
 import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
@@ -35,8 +35,7 @@ export function AppSidebar({
   onCloseMobile,
 }: AppSidebarProps) {
   const sidebarRef = useRef<HTMLElement>(null);
-  const clearAuth = useAuthStore((state) => state.clearAuth);
-  const navigate = useNavigate();
+  const signOut = useLogout();
   const { t } = useTranslation('common');
   const groups: {
     label: string;
@@ -96,8 +95,7 @@ export function AppSidebar({
   }, [mobileOpen, onCloseMobile]);
 
   function logout() {
-    clearAuth();
-    navigate(ROUTES.home);
+    signOut.mutate();
   }
 
   return (

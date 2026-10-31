@@ -1,19 +1,13 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import { Providers } from '../src/app/providers';
+import { Providers } from './app/providers';
 import App from './App';
-import { env } from './config/env';
 import i18n, { i18nReady } from './i18n';
 import '@fontsource/poppins';
 import './index.css';
 
 async function startApplication() {
   await i18nReady;
-
-  if (env.useMocks && import.meta.env.DEV) {
-    const { seedMocks } = await import('./lib/mocks/seed');
-    seedMocks();
-  }
 
   ReactDOM.createRoot(document.getElementById('root')!).render(
     <React.StrictMode>

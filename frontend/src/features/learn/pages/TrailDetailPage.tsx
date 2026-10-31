@@ -11,7 +11,7 @@ import { useStartTrail, useTrailProgress } from '@/features/learn/hooks/useTrail
 import { useTrail } from '@/features/learn/hooks/useTrails';
 import { useTrails } from '@/features/learn/hooks/useTrails';
 import { ROUTES } from '@/lib/constants/routes';
-import { useAuthStore } from '@/stores/authStore';
+import { apiErrorMessage } from '@/lib/api/client';
 import type { Trail, TrailLevel } from '@/types/trail';
 import { useTranslation } from 'react-i18next';
 
@@ -24,33 +24,32 @@ const levelTranslationKeys: Record<TrailLevel, 'courseFilters.beginner' | 'cours
 function TrailDetails({ trail }: { trail: Trail }) {
   const { t } = useTranslation('learning');
   const navigate = useNavigate();
-  const userId = useAuthStore((state) => state.user?.id ?? '');
-  const progress = useTrailProgress(userId, trail.id);
-  const start = useStartTrail(userId, trail);
-  const relatedTrails = useTrails();
+  const progress = useTrailProgress(trail.slug);
+  const start = useStartTrail(trail);
+  const relatedTrails = useTrails({ categoria: trail.categoria, pageSize: 4 });
   const [actionError, setActionError] = useState<string | null>(null);
-  const activeModule = trail.modulos.find(
+  const modules = trail.modulos ?? [];
+  const started = Boolean(progress.data && progress.data.estado !== 'nao_iniciado');
+  const activeModule = modules.find(
     (module) => module.id === progress.data?.moduloAtualId,
   );
-  const targetModule = activeModule ?? trail.modulos[0];
+  const targetModule = activeModule ?? modules[0];
 
   async function startOrContinue() {
     if (!targetModule) return;
     setActionError(null);
     try {
-      if (!progress.data) await start.mutateAsync();
+      if (!started) await start.mutateAsync();
       navigate(ROUTES.learn.trailModule(trail.slug, targetModule.id));
     } catch (error: unknown) {
-      setActionError(
-        error instanceof Error ? error.message : t('trailDetails.startError'),
-      );
+      setActionError(apiErrorMessage(error, t('trailDetails.startError')));
     }
   }
 
   const buttonLabel =
     progress.data?.estado === 'concluido'
       ? t('trailDetails.review')
-      : progress.data
+      : started
         ? t('trailDetails.continue')
         : t('trailDetails.start');
 
@@ -90,7 +89,9 @@ function TrailDetails({ trail }: { trail: Trail }) {
             </div>
             <div className="mt-5 flex items-center gap-2 text-sm text-muted-foreground">
               <Clock3 aria-hidden="true" className="size-4 text-primary" />
-              {t('trailDetails.durationAndStructure', { hours: trail.duracao, phases: trail.totalFases, modules: trail.totalModulos })}
+              {trail.totalFases > 0
+                ? t('trailDetails.durationAndStructure', { hours: trail.duracao, phases: trail.totalFases, modules: trail.totalModulos })
+                : t('trailDetails.durationAndModules', { hours: trail.duracao, modules: trail.totalModulos })}
             </div>
           </article>
           <section aria-labelledby="trail-result-title" className="rounded-xl border border-border bg-surface-1 p-5 sm:p-7">
@@ -103,12 +104,14 @@ function TrailDetails({ trail }: { trail: Trail }) {
             </p>
           </section>
           <section className="grid gap-4 md:grid-cols-3">
-            <article className="rounded-xl border border-border bg-card p-5">
-              <h2 className="flex items-center gap-2 font-semibold"><Target aria-hidden="true" className="size-5 text-primary" />{t('trailDetails.learningObjectives')}</h2>
-              <ul className="mt-3 list-disc space-y-2 pl-5 text-sm leading-6 text-muted-foreground">
-                {trail.objetivosAprendizagem.map((objective) => <li key={objective}>{objective}</li>)}
-              </ul>
-            </article>
+            {trail.objetivosAprendizagem.length > 0 && (
+              <article className="rounded-xl border border-border bg-card p-5">
+                <h2 className="flex items-center gap-2 font-semibold"><Target aria-hidden="true" className="size-5 text-primary" />{t('trailDetails.learningObjectives')}</h2>
+                <ul className="mt-3 list-disc space-y-2 pl-5 text-sm leading-6 text-muted-foreground">
+                  {trail.objetivosAprendizagem.map((objective) => <li key={objective}>{objective}</li>)}
+                </ul>
+              </article>
+            )}
             <article className="rounded-xl border border-border bg-card p-5">
               <h2 className="flex items-center gap-2 font-semibold"><Users aria-hidden="true" className="size-5 text-primary" />{t('trailDetails.audience')}</h2>
               <p className="mt-3 text-sm leading-6 text-muted-foreground">{trail.publicoAlvo}</p>
@@ -134,7 +137,7 @@ function TrailDetails({ trail }: { trail: Trail }) {
             <p className="text-sm text-destructive" role="alert">
               {t('trailDetails.progressError')}
             </p>
-          ) : progress.data ? (
+          ) : started && progress.data ? (
             <>
               <ProgressBar
                 label={t('trailDetails.progressLabel', { title: trail.titulo })}
@@ -149,6 +152,9 @@ function TrailDetails({ trail }: { trail: Trail }) {
               {t('trailDetails.notStarted')}
             </p>
           )}
+          <p className="rounded-lg bg-surface-1 p-3 text-xs leading-5 text-muted-foreground">
+            {trail.sequencial ? t('trailDetails.trackingRulesSequential') : t('trailDetails.trackingRules')}
+          </p>
           {actionError && (
             <p className="text-sm text-destructive" role="alert">
               {actionError}
@@ -185,14 +191,14 @@ function TrailDetails({ trail }: { trail: Trail }) {
         </div>
         <ModuleList trail={trail} progress={progress.data ?? undefined} />
       </section>
-      {!!relatedTrails.data?.length && (
+      {!!relatedTrails.data?.data.filter((item) => item.id !== trail.id).length && (
         <section aria-labelledby="related-trails-title" className="space-y-4">
           <div>
             <p className="text-xs font-semibold uppercase tracking-wide text-primary">{t('trailDetails.keepLearning')}</p>
             <h2 className="mt-1 text-2xl font-bold" id="related-trails-title">{t('trailDetails.related')}</h2>
           </div>
           <div className="grid gap-4 md:grid-cols-3">
-            {relatedTrails.data.filter((item) => item.id !== trail.id).slice(0, 3).map((item) => (
+            {relatedTrails.data.data.filter((item) => item.id !== trail.id).slice(0, 3).map((item) => (
               <Link className="rounded-xl border border-border bg-card p-5 transition-colors hover:border-primary/50" key={item.id} to={ROUTES.learn.trail(item.slug)}>
                 <p className="text-sm text-primary">{item.categoria} · {item.duracao} h</p>
                 <h3 className="mt-2 font-semibold">{item.titulo}</h3>

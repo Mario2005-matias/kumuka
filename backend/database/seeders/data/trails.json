@@ -1,0 +1,4376 @@
+[
+  {
+    "id": "trail-001",
+    "slug": "preparacao-primeira-oportunidade",
+    "titulo": "Preparação para a Primeira Oportunidade",
+    "descricao": "Prepara-te para procurar uma oportunidade com confiança. Organiza o teu perfil e pratica a apresentação das tuas competências.",
+    "descricaoLonga": "Uma primeira oportunidade começa com uma boa preparação. Nesta trilha, vais organizar a tua experiência, preparar um currículo claro e praticar a forma como apresentas o que sabes fazer. No fim, terás materiais concretos para adaptar a oportunidades de estágio ou emprego.",
+    "categoria": "Carreira",
+    "competenciaCentral": "Empregabilidade",
+    "nivel": "iniciante",
+    "duracao": 8,
+    "resultadoEsperado": "Um currículo revisto e respostas preparadas para apresentar as tuas competências numa oportunidade.",
+    "modulos": [
+      {
+        "id": "module-trail-001-01",
+        "trailId": "trail-001",
+        "faseId": "fase-trail-001-01",
+        "titulo": "Criar um currículo claro",
+        "descricao": "Organiza a tua formação e as tuas competências num currículo simples.",
+        "ordem": 1,
+        "duracao": 75,
+        "contentItems": [
+          {
+            "id": "content-module-trail-001-01-01",
+            "moduleId": "module-trail-001-01",
+            "tipo": "texto",
+            "titulo": "O que incluir",
+            "conteudo": "Um currículo reúne contactos, formação, competências e experiências relevantes. Mesmo sem emprego anterior, podes incluir projectos, voluntariado e actividades académicas.",
+            "ordem": 1
+          },
+          {
+            "id": "content-module-trail-001-01-02",
+            "moduleId": "module-trail-001-01",
+            "tipo": "texto",
+            "titulo": "Estruturar a informação",
+            "conteudo": "Usa títulos consistentes e organiza a informação da mais recente para a mais antiga. Mantém cada descrição curta e ligada à oportunidade que procuras.",
+            "ordem": 2
+          },
+          {
+            "id": "content-module-trail-001-01-03",
+            "moduleId": "module-trail-001-01",
+            "tipo": "texto",
+            "titulo": "Rever antes de enviar",
+            "conteudo": "Confirma contactos, datas e ortografia. Guarda uma versão em PDF e adapta o resumo às responsabilidades da vaga.",
+            "ordem": 3
+          }
+        ],
+        "atividade": {
+          "tipo": "escrita",
+          "enunciado": "Escreve um resumo profissional de três a cinco linhas.",
+          "instrucoes": "Apresenta a tua área de interesse, duas competências e o tipo de oportunidade que procuras.",
+          "obrigatoria": true,
+          "pontos": 20,
+          "id": "activity-module-trail-001-01",
+          "moduleId": "module-trail-001-01"
+        }
+      },
+      {
+        "id": "module-trail-001-02",
+        "trailId": "trail-001",
+        "faseId": "fase-trail-001-01",
+        "titulo": "Preparar uma entrevista",
+        "descricao": "Conhece perguntas frequentes e pratica respostas directas.",
+        "ordem": 2,
+        "duracao": 75,
+        "contentItems": [
+          {
+            "id": "content-module-trail-001-02-01",
+            "moduleId": "module-trail-001-02",
+            "tipo": "texto",
+            "titulo": "Antes da entrevista",
+            "conteudo": "Lê a descrição da oportunidade e pesquisa a organização. Escolhe exemplos que mostrem como aprendeste, colaboraste ou resolveste um problema.",
+            "ordem": 1
+          },
+          {
+            "id": "content-module-trail-001-02-02",
+            "moduleId": "module-trail-001-02",
+            "tipo": "texto",
+            "titulo": "Organizar respostas",
+            "conteudo": "Usa uma situação concreta, explica o que fizeste e termina com o resultado ou aprendizagem. Responde com clareza, sem decorar um discurso inteiro.",
+            "ordem": 2
+          },
+          {
+            "id": "content-module-trail-001-02-03",
+            "moduleId": "module-trail-001-02",
+            "tipo": "texto",
+            "titulo": "Fazer perguntas",
+            "conteudo": "Prepara perguntas sobre a equipa, as tarefas e os próximos passos do processo. Confirma também a hora e o formato da entrevista.",
+            "ordem": 3
+          }
+        ],
+        "atividade": {
+          "tipo": "quiz",
+          "enunciado": "Revê os princípios de preparação para uma entrevista.",
+          "instrucoes": "Escolhe a opção que melhor representa uma preparação útil.",
+          "obrigatoria": true,
+          "pontos": 20,
+          "id": "activity-module-trail-001-02",
+          "moduleId": "module-trail-001-02",
+          "perguntas": [
+            {
+              "id": "question-module-trail-001-02-01",
+              "enunciado": "Qual é o primeiro passo recomendado para preparar uma entrevista?",
+              "opcoes": [
+                {
+                  "id": "activity-module-trail-001-02-a",
+                  "texto": "Definir o objectivo e o público."
+                },
+                {
+                  "id": "activity-module-trail-001-02-b",
+                  "texto": "Publicar sem fazer um plano."
+                },
+                {
+                  "id": "activity-module-trail-001-02-c",
+                  "texto": "Ignorar os resultados."
+                }
+              ],
+              "respostaCorretaId": "activity-module-trail-001-02-a"
+            }
+          ]
+        }
+      },
+      {
+        "id": "module-trail-001-03",
+        "trailId": "trail-001",
+        "faseId": "fase-trail-001-02",
+        "titulo": "Comunicar as tuas competências",
+        "descricao": "Liga as tuas competências a exemplos concretos do dia a dia.",
+        "ordem": 3,
+        "duracao": 75,
+        "contentItems": [
+          {
+            "id": "content-module-trail-001-03-01",
+            "moduleId": "module-trail-001-03",
+            "tipo": "texto",
+            "titulo": "Competências com evidências",
+            "conteudo": "Uma competência torna-se mais clara quando a ligas a uma situação observável. Pensa em trabalhos de grupo, projectos pessoais, actividades comunitárias ou tarefas académicas.",
+            "ordem": 1
+          },
+          {
+            "id": "content-module-trail-001-03-02",
+            "moduleId": "module-trail-001-03",
+            "tipo": "texto",
+            "titulo": "Escolher exemplos",
+            "conteudo": "Selecciona exemplos relevantes para a oportunidade. Explica o desafio, a tua contribuição e aquilo que aprendeste com o resultado.",
+            "ordem": 2
+          },
+          {
+            "id": "content-module-trail-001-03-03",
+            "moduleId": "module-trail-001-03",
+            "tipo": "texto",
+            "titulo": "Preparar o próximo passo",
+            "conteudo": "Guarda o currículo e os exemplos num local acessível. Revê-os antes de cada candidatura e actualiza-os à medida que ganhas experiência.",
+            "ordem": 3
+          }
+        ],
+        "atividade": {
+          "tipo": "link",
+          "enunciado": "Partilha uma ligação para o teu currículo ou portefólio.",
+          "instrucoes": "Usa uma ligação acessível para quem vai avaliar o teu trabalho. Se ainda não tens uma, podes criar um documento partilhável.",
+          "obrigatoria": false,
+          "pontos": 20,
+          "id": "activity-module-trail-001-03",
+          "moduleId": "module-trail-001-03"
+        }
+      },
+      {
+        "id": "module-trail-001-04",
+        "trailId": "trail-001",
+        "faseId": "fase-trail-001-02",
+        "titulo": "Pesquisar oportunidades adequadas",
+        "descricao": "Aplica pesquisar oportunidades adequadas a uma situação concreta.",
+        "ordem": 4,
+        "duracao": 75,
+        "contentItems": [
+          {
+            "id": "content-module-trail-001-04-01",
+            "moduleId": "module-trail-001-04",
+            "tipo": "texto",
+            "titulo": "Compreender o contexto",
+            "conteudo": "Começa por identificar o objectivo e as pessoas envolvidas em pesquisar oportunidades adequadas.",
+            "ordem": 1
+          },
+          {
+            "id": "content-module-trail-001-04-02",
+            "moduleId": "module-trail-001-04",
+            "tipo": "texto",
+            "titulo": "Escolher uma abordagem",
+            "conteudo": "Compara opções e escolhe uma abordagem de pesquisar oportunidades adequadas adequada aos recursos disponíveis.",
+            "ordem": 2
+          },
+          {
+            "id": "content-module-trail-001-04-03",
+            "moduleId": "module-trail-001-04",
+            "tipo": "texto",
+            "titulo": "Rever o resultado",
+            "conteudo": "Regista o que aprendeste e define como vais melhorar a tua prática de pesquisar oportunidades adequadas.",
+            "ordem": 3
+          }
+        ],
+        "atividade": {
+          "tipo": "escrita",
+          "enunciado": "Prepara um pequeno plano para pesquisar oportunidades adequadas.",
+          "instrucoes": "Indica o objectivo, os passos principais e a forma como vais rever o resultado.",
+          "obrigatoria": true,
+          "pontos": 20,
+          "id": "activity-module-trail-001-04",
+          "moduleId": "module-trail-001-04"
+        }
+      },
+      {
+        "id": "module-trail-001-05",
+        "trailId": "trail-001",
+        "faseId": "fase-trail-001-03",
+        "titulo": "Escrever uma carta de apresentação",
+        "descricao": "Aplica escrever uma carta de apresentação a uma situação concreta.",
+        "ordem": 5,
+        "duracao": 75,
+        "contentItems": [
+          {
+            "id": "content-module-trail-001-05-01",
+            "moduleId": "module-trail-001-05",
+            "tipo": "texto",
+            "titulo": "Compreender o contexto",
+            "conteudo": "Começa por identificar o objectivo e as pessoas envolvidas em escrever uma carta de apresentação.",
+            "ordem": 1
+          },
+          {
+            "id": "content-module-trail-001-05-02",
+            "moduleId": "module-trail-001-05",
+            "tipo": "texto",
+            "titulo": "Escolher uma abordagem",
+            "conteudo": "Compara opções e escolhe uma abordagem de escrever uma carta de apresentação adequada aos recursos disponíveis.",
+            "ordem": 2
+          },
+          {
+            "id": "content-module-trail-001-05-03",
+            "moduleId": "module-trail-001-05",
+            "tipo": "texto",
+            "titulo": "Rever o resultado",
+            "conteudo": "Regista o que aprendeste e define como vais melhorar a tua prática de escrever uma carta de apresentação.",
+            "ordem": 3
+          }
+        ],
+        "atividade": {
+          "tipo": "escrita",
+          "enunciado": "Prepara um pequeno plano para escrever uma carta de apresentação.",
+          "instrucoes": "Indica o objectivo, os passos principais e a forma como vais rever o resultado.",
+          "obrigatoria": true,
+          "pontos": 20,
+          "id": "activity-module-trail-001-05",
+          "moduleId": "module-trail-001-05"
+        }
+      },
+      {
+        "id": "module-trail-001-06",
+        "trailId": "trail-001",
+        "faseId": "fase-trail-001-03",
+        "titulo": "Criar uma presença profissional online",
+        "descricao": "Aplica criar uma presença profissional online a uma situação concreta.",
+        "ordem": 6,
+        "duracao": 75,
+        "contentItems": [
+          {
+            "id": "content-module-trail-001-06-01",
+            "moduleId": "module-trail-001-06",
+            "tipo": "texto",
+            "titulo": "Compreender o contexto",
+            "conteudo": "Começa por identificar o objectivo e as pessoas envolvidas em criar uma presença profissional online.",
+            "ordem": 1
+          },
+          {
+            "id": "content-module-trail-001-06-02",
+            "moduleId": "module-trail-001-06",
+            "tipo": "texto",
+            "titulo": "Escolher uma abordagem",
+            "conteudo": "Compara opções e escolhe uma abordagem de criar uma presença profissional online adequada aos recursos disponíveis.",
+            "ordem": 2
+          },
+          {
+            "id": "content-module-trail-001-06-03",
+            "moduleId": "module-trail-001-06",
+            "tipo": "texto",
+            "titulo": "Rever o resultado",
+            "conteudo": "Regista o que aprendeste e define como vais melhorar a tua prática de criar uma presença profissional online.",
+            "ordem": 3
+          }
+        ],
+        "atividade": {
+          "tipo": "escrita",
+          "enunciado": "Prepara um pequeno plano para criar uma presença profissional online.",
+          "instrucoes": "Indica o objectivo, os passos principais e a forma como vais rever o resultado.",
+          "obrigatoria": true,
+          "pontos": 20,
+          "id": "activity-module-trail-001-06",
+          "moduleId": "module-trail-001-06"
+        }
+      },
+      {
+        "id": "module-trail-001-07",
+        "trailId": "trail-001",
+        "faseId": "fase-trail-001-04",
+        "titulo": "Avaliar propostas e preparar a candidatura",
+        "descricao": "Aplica avaliar propostas e preparar a candidatura a uma situação concreta.",
+        "ordem": 7,
+        "duracao": 75,
+        "contentItems": [
+          {
+            "id": "content-module-trail-001-07-01",
+            "moduleId": "module-trail-001-07",
+            "tipo": "texto",
+            "titulo": "Compreender o contexto",
+            "conteudo": "Começa por identificar o objectivo e as pessoas envolvidas em avaliar propostas e preparar a candidatura.",
+            "ordem": 1
+          },
+          {
+            "id": "content-module-trail-001-07-02",
+            "moduleId": "module-trail-001-07",
+            "tipo": "texto",
+            "titulo": "Escolher uma abordagem",
+            "conteudo": "Compara opções e escolhe uma abordagem de avaliar propostas e preparar a candidatura adequada aos recursos disponíveis.",
+            "ordem": 2
+          },
+          {
+            "id": "content-module-trail-001-07-03",
+            "moduleId": "module-trail-001-07",
+            "tipo": "texto",
+            "titulo": "Rever o resultado",
+            "conteudo": "Regista o que aprendeste e define como vais melhorar a tua prática de avaliar propostas e preparar a candidatura.",
+            "ordem": 3
+          }
+        ],
+        "atividade": {
+          "tipo": "escrita",
+          "enunciado": "Prepara um pequeno plano para avaliar propostas e preparar a candidatura.",
+          "instrucoes": "Indica o objectivo, os passos principais e a forma como vais rever o resultado.",
+          "obrigatoria": true,
+          "pontos": 20,
+          "id": "activity-module-trail-001-07",
+          "moduleId": "module-trail-001-07"
+        }
+      },
+      {
+        "id": "module-trail-001-08",
+        "trailId": "trail-001",
+        "faseId": "fase-trail-001-04",
+        "titulo": "Organizar o teu plano de procura",
+        "descricao": "Aplica organizar o teu plano de procura a uma situação concreta.",
+        "ordem": 8,
+        "duracao": 75,
+        "contentItems": [
+          {
+            "id": "content-module-trail-001-08-01",
+            "moduleId": "module-trail-001-08",
+            "tipo": "texto",
+            "titulo": "Compreender o contexto",
+            "conteudo": "Começa por identificar o objectivo e as pessoas envolvidas em organizar o teu plano de procura.",
+            "ordem": 1
+          },
+          {
+            "id": "content-module-trail-001-08-02",
+            "moduleId": "module-trail-001-08",
+            "tipo": "texto",
+            "titulo": "Escolher uma abordagem",
+            "conteudo": "Compara opções e escolhe uma abordagem de organizar o teu plano de procura adequada aos recursos disponíveis.",
+            "ordem": 2
+          },
+          {
+            "id": "content-module-trail-001-08-03",
+            "moduleId": "module-trail-001-08",
+            "tipo": "texto",
+            "titulo": "Rever o resultado",
+            "conteudo": "Regista o que aprendeste e define como vais melhorar a tua prática de organizar o teu plano de procura.",
+            "ordem": 3
+          }
+        ],
+        "atividade": {
+          "tipo": "escrita",
+          "enunciado": "Prepara um pequeno plano para organizar o teu plano de procura.",
+          "instrucoes": "Indica o objectivo, os passos principais e a forma como vais rever o resultado.",
+          "obrigatoria": true,
+          "pontos": 20,
+          "id": "activity-module-trail-001-08",
+          "moduleId": "module-trail-001-08"
+        }
+      }
+    ],
+    "fases": [
+      {
+        "id": "fase-trail-001-01",
+        "trailId": "trail-001",
+        "titulo": "Fundamentos",
+        "descricao": "Desenvolve competências de empregabilidade nesta fase.",
+        "ordem": 1,
+        "duracao": 150,
+        "modulos": [
+          {
+            "id": "module-trail-001-01",
+            "trailId": "trail-001",
+            "faseId": "fase-trail-001-01",
+            "titulo": "Criar um currículo claro",
+            "descricao": "Organiza a tua formação e as tuas competências num currículo simples.",
+            "ordem": 1,
+            "duracao": 75,
+            "contentItems": [
+              {
+                "id": "content-module-trail-001-01-01",
+                "moduleId": "module-trail-001-01",
+                "tipo": "texto",
+                "titulo": "O que incluir",
+                "conteudo": "Um currículo reúne contactos, formação, competências e experiências relevantes. Mesmo sem emprego anterior, podes incluir projectos, voluntariado e actividades académicas.",
+                "ordem": 1
+              },
+              {
+                "id": "content-module-trail-001-01-02",
+                "moduleId": "module-trail-001-01",
+                "tipo": "texto",
+                "titulo": "Estruturar a informação",
+                "conteudo": "Usa títulos consistentes e organiza a informação da mais recente para a mais antiga. Mantém cada descrição curta e ligada à oportunidade que procuras.",
+                "ordem": 2
+              },
+              {
+                "id": "content-module-trail-001-01-03",
+                "moduleId": "module-trail-001-01",
+                "tipo": "texto",
+                "titulo": "Rever antes de enviar",
+                "conteudo": "Confirma contactos, datas e ortografia. Guarda uma versão em PDF e adapta o resumo às responsabilidades da vaga.",
+                "ordem": 3
+              }
+            ],
+            "atividade": {
+              "tipo": "escrita",
+              "enunciado": "Escreve um resumo profissional de três a cinco linhas.",
+              "instrucoes": "Apresenta a tua área de interesse, duas competências e o tipo de oportunidade que procuras.",
+              "obrigatoria": true,
+              "pontos": 20,
+              "id": "activity-module-trail-001-01",
+              "moduleId": "module-trail-001-01"
+            }
+          },
+          {
+            "id": "module-trail-001-02",
+            "trailId": "trail-001",
+            "faseId": "fase-trail-001-01",
+            "titulo": "Preparar uma entrevista",
+            "descricao": "Conhece perguntas frequentes e pratica respostas directas.",
+            "ordem": 2,
+            "duracao": 75,
+            "contentItems": [
+              {
+                "id": "content-module-trail-001-02-01",
+                "moduleId": "module-trail-001-02",
+                "tipo": "texto",
+                "titulo": "Antes da entrevista",
+                "conteudo": "Lê a descrição da oportunidade e pesquisa a organização. Escolhe exemplos que mostrem como aprendeste, colaboraste ou resolveste um problema.",
+                "ordem": 1
+              },
+              {
+                "id": "content-module-trail-001-02-02",
+                "moduleId": "module-trail-001-02",
+                "tipo": "texto",
+                "titulo": "Organizar respostas",
+                "conteudo": "Usa uma situação concreta, explica o que fizeste e termina com o resultado ou aprendizagem. Responde com clareza, sem decorar um discurso inteiro.",
+                "ordem": 2
+              },
+              {
+                "id": "content-module-trail-001-02-03",
+                "moduleId": "module-trail-001-02",
+                "tipo": "texto",
+                "titulo": "Fazer perguntas",
+                "conteudo": "Prepara perguntas sobre a equipa, as tarefas e os próximos passos do processo. Confirma também a hora e o formato da entrevista.",
+                "ordem": 3
+              }
+            ],
+            "atividade": {
+              "tipo": "quiz",
+              "enunciado": "Revê os princípios de preparação para uma entrevista.",
+              "instrucoes": "Escolhe a opção que melhor representa uma preparação útil.",
+              "obrigatoria": true,
+              "pontos": 20,
+              "id": "activity-module-trail-001-02",
+              "moduleId": "module-trail-001-02",
+              "perguntas": [
+                {
+                  "id": "question-module-trail-001-02-01",
+                  "enunciado": "Qual é o primeiro passo recomendado para preparar uma entrevista?",
+                  "opcoes": [
+                    {
+                      "id": "activity-module-trail-001-02-a",
+                      "texto": "Definir o objectivo e o público."
+                    },
+                    {
+                      "id": "activity-module-trail-001-02-b",
+                      "texto": "Publicar sem fazer um plano."
+                    },
+                    {
+                      "id": "activity-module-trail-001-02-c",
+                      "texto": "Ignorar os resultados."
+                    }
+                  ],
+                  "respostaCorretaId": "activity-module-trail-001-02-a"
+                }
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "id": "fase-trail-001-02",
+        "trailId": "trail-001",
+        "titulo": "Prática",
+        "descricao": "Desenvolve competências de empregabilidade nesta fase.",
+        "ordem": 2,
+        "duracao": 150,
+        "modulos": [
+          {
+            "id": "module-trail-001-03",
+            "trailId": "trail-001",
+            "faseId": "fase-trail-001-02",
+            "titulo": "Comunicar as tuas competências",
+            "descricao": "Liga as tuas competências a exemplos concretos do dia a dia.",
+            "ordem": 3,
+            "duracao": 75,
+            "contentItems": [
+              {
+                "id": "content-module-trail-001-03-01",
+                "moduleId": "module-trail-001-03",
+                "tipo": "texto",
+                "titulo": "Competências com evidências",
+                "conteudo": "Uma competência torna-se mais clara quando a ligas a uma situação observável. Pensa em trabalhos de grupo, projectos pessoais, actividades comunitárias ou tarefas académicas.",
+                "ordem": 1
+              },
+              {
+                "id": "content-module-trail-001-03-02",
+                "moduleId": "module-trail-001-03",
+                "tipo": "texto",
+                "titulo": "Escolher exemplos",
+                "conteudo": "Selecciona exemplos relevantes para a oportunidade. Explica o desafio, a tua contribuição e aquilo que aprendeste com o resultado.",
+                "ordem": 2
+              },
+              {
+                "id": "content-module-trail-001-03-03",
+                "moduleId": "module-trail-001-03",
+                "tipo": "texto",
+                "titulo": "Preparar o próximo passo",
+                "conteudo": "Guarda o currículo e os exemplos num local acessível. Revê-os antes de cada candidatura e actualiza-os à medida que ganhas experiência.",
+                "ordem": 3
+              }
+            ],
+            "atividade": {
+              "tipo": "link",
+              "enunciado": "Partilha uma ligação para o teu currículo ou portefólio.",
+              "instrucoes": "Usa uma ligação acessível para quem vai avaliar o teu trabalho. Se ainda não tens uma, podes criar um documento partilhável.",
+              "obrigatoria": false,
+              "pontos": 20,
+              "id": "activity-module-trail-001-03",
+              "moduleId": "module-trail-001-03"
+            }
+          },
+          {
+            "id": "module-trail-001-04",
+            "trailId": "trail-001",
+            "faseId": "fase-trail-001-02",
+            "titulo": "Pesquisar oportunidades adequadas",
+            "descricao": "Aplica pesquisar oportunidades adequadas a uma situação concreta.",
+            "ordem": 4,
+            "duracao": 75,
+            "contentItems": [
+              {
+                "id": "content-module-trail-001-04-01",
+                "moduleId": "module-trail-001-04",
+                "tipo": "texto",
+                "titulo": "Compreender o contexto",
+                "conteudo": "Começa por identificar o objectivo e as pessoas envolvidas em pesquisar oportunidades adequadas.",
+                "ordem": 1
+              },
+              {
+                "id": "content-module-trail-001-04-02",
+                "moduleId": "module-trail-001-04",
+                "tipo": "texto",
+                "titulo": "Escolher uma abordagem",
+                "conteudo": "Compara opções e escolhe uma abordagem de pesquisar oportunidades adequadas adequada aos recursos disponíveis.",
+                "ordem": 2
+              },
+              {
+                "id": "content-module-trail-001-04-03",
+                "moduleId": "module-trail-001-04",
+                "tipo": "texto",
+                "titulo": "Rever o resultado",
+                "conteudo": "Regista o que aprendeste e define como vais melhorar a tua prática de pesquisar oportunidades adequadas.",
+                "ordem": 3
+              }
+            ],
+            "atividade": {
+              "tipo": "escrita",
+              "enunciado": "Prepara um pequeno plano para pesquisar oportunidades adequadas.",
+              "instrucoes": "Indica o objectivo, os passos principais e a forma como vais rever o resultado.",
+              "obrigatoria": true,
+              "pontos": 20,
+              "id": "activity-module-trail-001-04",
+              "moduleId": "module-trail-001-04"
+            }
+          }
+        ]
+      },
+      {
+        "id": "fase-trail-001-03",
+        "trailId": "trail-001",
+        "titulo": "Projecto Final",
+        "descricao": "Desenvolve competências de empregabilidade nesta fase.",
+        "ordem": 3,
+        "duracao": 150,
+        "modulos": [
+          {
+            "id": "module-trail-001-05",
+            "trailId": "trail-001",
+            "faseId": "fase-trail-001-03",
+            "titulo": "Escrever uma carta de apresentação",
+            "descricao": "Aplica escrever uma carta de apresentação a uma situação concreta.",
+            "ordem": 5,
+            "duracao": 75,
+            "contentItems": [
+              {
+                "id": "content-module-trail-001-05-01",
+                "moduleId": "module-trail-001-05",
+                "tipo": "texto",
+                "titulo": "Compreender o contexto",
+                "conteudo": "Começa por identificar o objectivo e as pessoas envolvidas em escrever uma carta de apresentação.",
+                "ordem": 1
+              },
+              {
+                "id": "content-module-trail-001-05-02",
+                "moduleId": "module-trail-001-05",
+                "tipo": "texto",
+                "titulo": "Escolher uma abordagem",
+                "conteudo": "Compara opções e escolhe uma abordagem de escrever uma carta de apresentação adequada aos recursos disponíveis.",
+                "ordem": 2
+              },
+              {
+                "id": "content-module-trail-001-05-03",
+                "moduleId": "module-trail-001-05",
+                "tipo": "texto",
+                "titulo": "Rever o resultado",
+                "conteudo": "Regista o que aprendeste e define como vais melhorar a tua prática de escrever uma carta de apresentação.",
+                "ordem": 3
+              }
+            ],
+            "atividade": {
+              "tipo": "escrita",
+              "enunciado": "Prepara um pequeno plano para escrever uma carta de apresentação.",
+              "instrucoes": "Indica o objectivo, os passos principais e a forma como vais rever o resultado.",
+              "obrigatoria": true,
+              "pontos": 20,
+              "id": "activity-module-trail-001-05",
+              "moduleId": "module-trail-001-05"
+            }
+          },
+          {
+            "id": "module-trail-001-06",
+            "trailId": "trail-001",
+            "faseId": "fase-trail-001-03",
+            "titulo": "Criar uma presença profissional online",
+            "descricao": "Aplica criar uma presença profissional online a uma situação concreta.",
+            "ordem": 6,
+            "duracao": 75,
+            "contentItems": [
+              {
+                "id": "content-module-trail-001-06-01",
+                "moduleId": "module-trail-001-06",
+                "tipo": "texto",
+                "titulo": "Compreender o contexto",
+                "conteudo": "Começa por identificar o objectivo e as pessoas envolvidas em criar uma presença profissional online.",
+                "ordem": 1
+              },
+              {
+                "id": "content-module-trail-001-06-02",
+                "moduleId": "module-trail-001-06",
+                "tipo": "texto",
+                "titulo": "Escolher uma abordagem",
+                "conteudo": "Compara opções e escolhe uma abordagem de criar uma presença profissional online adequada aos recursos disponíveis.",
+                "ordem": 2
+              },
+              {
+                "id": "content-module-trail-001-06-03",
+                "moduleId": "module-trail-001-06",
+                "tipo": "texto",
+                "titulo": "Rever o resultado",
+                "conteudo": "Regista o que aprendeste e define como vais melhorar a tua prática de criar uma presença profissional online.",
+                "ordem": 3
+              }
+            ],
+            "atividade": {
+              "tipo": "escrita",
+              "enunciado": "Prepara um pequeno plano para criar uma presença profissional online.",
+              "instrucoes": "Indica o objectivo, os passos principais e a forma como vais rever o resultado.",
+              "obrigatoria": true,
+              "pontos": 20,
+              "id": "activity-module-trail-001-06",
+              "moduleId": "module-trail-001-06"
+            }
+          }
+        ]
+      },
+      {
+        "id": "fase-trail-001-04",
+        "trailId": "trail-001",
+        "titulo": "Revisão",
+        "descricao": "Desenvolve competências de empregabilidade nesta fase.",
+        "ordem": 4,
+        "duracao": 150,
+        "modulos": [
+          {
+            "id": "module-trail-001-07",
+            "trailId": "trail-001",
+            "faseId": "fase-trail-001-04",
+            "titulo": "Avaliar propostas e preparar a candidatura",
+            "descricao": "Aplica avaliar propostas e preparar a candidatura a uma situação concreta.",
+            "ordem": 7,
+            "duracao": 75,
+            "contentItems": [
+              {
+                "id": "content-module-trail-001-07-01",
+                "moduleId": "module-trail-001-07",
+                "tipo": "texto",
+                "titulo": "Compreender o contexto",
+                "conteudo": "Começa por identificar o objectivo e as pessoas envolvidas em avaliar propostas e preparar a candidatura.",
+                "ordem": 1
+              },
+              {
+                "id": "content-module-trail-001-07-02",
+                "moduleId": "module-trail-001-07",
+                "tipo": "texto",
+                "titulo": "Escolher uma abordagem",
+                "conteudo": "Compara opções e escolhe uma abordagem de avaliar propostas e preparar a candidatura adequada aos recursos disponíveis.",
+                "ordem": 2
+              },
+              {
+                "id": "content-module-trail-001-07-03",
+                "moduleId": "module-trail-001-07",
+                "tipo": "texto",
+                "titulo": "Rever o resultado",
+                "conteudo": "Regista o que aprendeste e define como vais melhorar a tua prática de avaliar propostas e preparar a candidatura.",
+                "ordem": 3
+              }
+            ],
+            "atividade": {
+              "tipo": "escrita",
+              "enunciado": "Prepara um pequeno plano para avaliar propostas e preparar a candidatura.",
+              "instrucoes": "Indica o objectivo, os passos principais e a forma como vais rever o resultado.",
+              "obrigatoria": true,
+              "pontos": 20,
+              "id": "activity-module-trail-001-07",
+              "moduleId": "module-trail-001-07"
+            }
+          },
+          {
+            "id": "module-trail-001-08",
+            "trailId": "trail-001",
+            "faseId": "fase-trail-001-04",
+            "titulo": "Organizar o teu plano de procura",
+            "descricao": "Aplica organizar o teu plano de procura a uma situação concreta.",
+            "ordem": 8,
+            "duracao": 75,
+            "contentItems": [
+              {
+                "id": "content-module-trail-001-08-01",
+                "moduleId": "module-trail-001-08",
+                "tipo": "texto",
+                "titulo": "Compreender o contexto",
+                "conteudo": "Começa por identificar o objectivo e as pessoas envolvidas em organizar o teu plano de procura.",
+                "ordem": 1
+              },
+              {
+                "id": "content-module-trail-001-08-02",
+                "moduleId": "module-trail-001-08",
+                "tipo": "texto",
+                "titulo": "Escolher uma abordagem",
+                "conteudo": "Compara opções e escolhe uma abordagem de organizar o teu plano de procura adequada aos recursos disponíveis.",
+                "ordem": 2
+              },
+              {
+                "id": "content-module-trail-001-08-03",
+                "moduleId": "module-trail-001-08",
+                "tipo": "texto",
+                "titulo": "Rever o resultado",
+                "conteudo": "Regista o que aprendeste e define como vais melhorar a tua prática de organizar o teu plano de procura.",
+                "ordem": 3
+              }
+            ],
+            "atividade": {
+              "tipo": "escrita",
+              "enunciado": "Prepara um pequeno plano para organizar o teu plano de procura.",
+              "instrucoes": "Indica o objectivo, os passos principais e a forma como vais rever o resultado.",
+              "obrigatoria": true,
+              "pontos": 20,
+              "id": "activity-module-trail-001-08",
+              "moduleId": "module-trail-001-08"
+            }
+          }
+        ]
+      }
+    ],
+    "totalModulos": 8,
+    "publicoAlvo": "Jovens interessados em desenvolver empregabilidade.",
+    "preRequisitos": [],
+    "objetivosAprendizagem": [
+      "Compreender os fundamentos de empregabilidade.",
+      "Aplicar os conceitos em actividades práticas.",
+      "Apresentar evidências do que aprendeste."
+    ],
+    "status": "published",
+    "acesso": "free",
+    "preco": null,
+    "imagem": null,
+    "certificado": true,
+    "totalFases": 4,
+    "createdAt": "2026-08-15T10:00:00Z",
+    "updatedAt": "2026-08-15T10:00:00Z"
+  },
+  {
+    "id": "trail-002",
+    "slug": "fundamentos-marketing-digital",
+    "titulo": "Fundamentos de Marketing Digital",
+    "descricao": "Explora os princípios do marketing digital e a forma como as marcas comunicam. Aprende a planear conteúdos e observar resultados.",
+    "descricaoLonga": "O marketing digital ajuda organizações a comunicar com pessoas através de canais online. Nesta trilha, vais definir públicos, planear conteúdos e observar indicadores simples. Cada módulo contribui para um plano de comunicação que podes apresentar no teu portefólio.",
+    "categoria": "Marketing",
+    "competenciaCentral": "Marketing Digital",
+    "nivel": "iniciante",
+    "duracao": 12,
+    "resultadoEsperado": "Um plano inicial de comunicação digital com público, conteúdos e indicadores definidos.",
+    "modulos": [
+      {
+        "id": "module-trail-002-01",
+        "trailId": "trail-002",
+        "faseId": "fase-trail-002-01",
+        "titulo": "Conhecer o marketing digital",
+        "descricao": "Compreende canais digitais e os seus objectivos de comunicação.",
+        "ordem": 1,
+        "duracao": 75,
+        "contentItems": [
+          {
+            "id": "content-module-trail-002-01-01",
+            "moduleId": "module-trail-002-01",
+            "tipo": "texto",
+            "titulo": "Canais e objectivos",
+            "conteudo": "Um canal digital é um meio de comunicar, como um website, uma newsletter ou uma rede social. O objectivo pode ser informar, criar confiança ou incentivar uma acção.",
+            "ordem": 1
+          },
+          {
+            "id": "content-module-trail-002-01-02",
+            "moduleId": "module-trail-002-01",
+            "tipo": "texto",
+            "titulo": "Escolher o canal",
+            "conteudo": "A escolha depende do público, do formato e dos recursos disponíveis. Não é necessário estar em todas as plataformas para comunicar bem.",
+            "ordem": 2
+          },
+          {
+            "id": "content-module-trail-002-01-03",
+            "moduleId": "module-trail-002-01",
+            "tipo": "texto",
+            "titulo": "Definir uma mensagem",
+            "conteudo": "Uma mensagem eficaz tem um propósito e usa linguagem adequada ao público. Mantém a ideia principal visível em cada formato.",
+            "ordem": 3
+          }
+        ],
+        "atividade": {
+          "tipo": "escrita",
+          "enunciado": "Define um objectivo de comunicação para uma marca local.",
+          "instrucoes": "Indica a marca, o público que queres alcançar e a acção que esperas que esse público tome.",
+          "obrigatoria": true,
+          "pontos": 20,
+          "id": "activity-module-trail-002-01",
+          "moduleId": "module-trail-002-01"
+        }
+      },
+      {
+        "id": "module-trail-002-02",
+        "trailId": "trail-002",
+        "faseId": "fase-trail-002-01",
+        "titulo": "Identificar o público-alvo",
+        "descricao": "Define para quem é uma mensagem e que necessidade pretende responder.",
+        "ordem": 2,
+        "duracao": 75,
+        "contentItems": [
+          {
+            "id": "content-module-trail-002-02-01",
+            "moduleId": "module-trail-002-02",
+            "tipo": "texto",
+            "titulo": "Público e necessidade",
+            "conteudo": "Descreve o público por necessidades e contexto, evitando pressupostos. Observa que perguntas essas pessoas fazem e que problemas tentam resolver.",
+            "ordem": 1
+          },
+          {
+            "id": "content-module-trail-002-02-02",
+            "moduleId": "module-trail-002-02",
+            "tipo": "texto",
+            "titulo": "Criar uma descrição útil",
+            "conteudo": "Uma descrição de público resume os seus interesses e necessidades. Mantém o foco em características que ajudam a tomar decisões de comunicação.",
+            "ordem": 2
+          },
+          {
+            "id": "content-module-trail-002-02-03",
+            "moduleId": "module-trail-002-02",
+            "tipo": "texto",
+            "titulo": "Adaptar a mensagem",
+            "conteudo": "Escolhe palavras e exemplos que façam sentido para o público. Testa se a mensagem é compreendida sem explicações adicionais.",
+            "ordem": 3
+          }
+        ],
+        "atividade": {
+          "tipo": "quiz",
+          "enunciado": "Escolhe a melhor forma de definir um público-alvo.",
+          "instrucoes": "Considera necessidades e contexto antes de escolher um canal.",
+          "obrigatoria": true,
+          "pontos": 20,
+          "id": "activity-module-trail-002-02",
+          "moduleId": "module-trail-002-02",
+          "perguntas": [
+            {
+              "id": "question-module-trail-002-02-01",
+              "enunciado": "Qual é o primeiro passo recomendado para identificar o público-alvo?",
+              "opcoes": [
+                {
+                  "id": "activity-module-trail-002-02-a",
+                  "texto": "Definir o objectivo e o público."
+                },
+                {
+                  "id": "activity-module-trail-002-02-b",
+                  "texto": "Publicar sem fazer um plano."
+                },
+                {
+                  "id": "activity-module-trail-002-02-c",
+                  "texto": "Ignorar os resultados."
+                }
+              ],
+              "respostaCorretaId": "activity-module-trail-002-02-a"
+            }
+          ]
+        }
+      },
+      {
+        "id": "module-trail-002-03",
+        "trailId": "trail-002",
+        "faseId": "fase-trail-002-02",
+        "titulo": "Planear conteúdos digitais",
+        "descricao": "Organiza ideias de conteúdo de acordo com o tema e o canal.",
+        "ordem": 3,
+        "duracao": 75,
+        "contentItems": [
+          {
+            "id": "content-module-trail-002-03-01",
+            "moduleId": "module-trail-002-03",
+            "tipo": "texto",
+            "titulo": "Escolher temas",
+            "conteudo": "Agrupa temas relacionados com as perguntas do público e os objectivos da marca. Varia entre informação útil, histórias e convites à participação.",
+            "ordem": 1
+          },
+          {
+            "id": "content-module-trail-002-03-02",
+            "moduleId": "module-trail-002-03",
+            "tipo": "texto",
+            "titulo": "Montar um calendário",
+            "conteudo": "Um calendário simples regista tema, formato, canal e data. Reserva tempo para rever cada conteúdo antes de publicar.",
+            "ordem": 2
+          },
+          {
+            "id": "content-module-trail-002-03-03",
+            "moduleId": "module-trail-002-03",
+            "tipo": "texto",
+            "titulo": "Observar resultados",
+            "conteudo": "Define um indicador para cada objectivo, como visitas a uma página ou respostas a uma publicação. Usa os resultados para melhorar o próximo plano.",
+            "ordem": 3
+          }
+        ],
+        "atividade": {
+          "tipo": "link",
+          "enunciado": "Partilha o teu calendário de conteúdos.",
+          "instrucoes": "Coloca uma ligação para um documento ou quadro que possa ser consultado pela equipa.",
+          "obrigatoria": true,
+          "pontos": 20,
+          "id": "activity-module-trail-002-03",
+          "moduleId": "module-trail-002-03"
+        }
+      },
+      {
+        "id": "module-trail-002-04",
+        "trailId": "trail-002",
+        "faseId": "fase-trail-002-03",
+        "titulo": "Definir o público e a proposta de valor",
+        "descricao": "Aplica definir o público e a proposta de valor a uma situação concreta.",
+        "ordem": 4,
+        "duracao": 75,
+        "contentItems": [
+          {
+            "id": "content-module-trail-002-04-01",
+            "moduleId": "module-trail-002-04",
+            "tipo": "texto",
+            "titulo": "Compreender o contexto",
+            "conteudo": "Começa por identificar o objectivo e as pessoas envolvidas em definir o público e a proposta de valor.",
+            "ordem": 1
+          },
+          {
+            "id": "content-module-trail-002-04-02",
+            "moduleId": "module-trail-002-04",
+            "tipo": "texto",
+            "titulo": "Escolher uma abordagem",
+            "conteudo": "Compara opções e escolhe uma abordagem de definir o público e a proposta de valor adequada aos recursos disponíveis.",
+            "ordem": 2
+          },
+          {
+            "id": "content-module-trail-002-04-03",
+            "moduleId": "module-trail-002-04",
+            "tipo": "texto",
+            "titulo": "Rever o resultado",
+            "conteudo": "Regista o que aprendeste e define como vais melhorar a tua prática de definir o público e a proposta de valor.",
+            "ordem": 3
+          }
+        ],
+        "atividade": {
+          "tipo": "escrita",
+          "enunciado": "Prepara um pequeno plano para definir o público e a proposta de valor.",
+          "instrucoes": "Indica o objectivo, os passos principais e a forma como vais rever o resultado.",
+          "obrigatoria": true,
+          "pontos": 20,
+          "id": "activity-module-trail-002-04",
+          "moduleId": "module-trail-002-04"
+        }
+      },
+      {
+        "id": "module-trail-002-05",
+        "trailId": "trail-002",
+        "faseId": "fase-trail-002-03",
+        "titulo": "Planear conteúdos para canais digitais",
+        "descricao": "Aplica planear conteúdos para canais digitais a uma situação concreta.",
+        "ordem": 5,
+        "duracao": 75,
+        "contentItems": [
+          {
+            "id": "content-module-trail-002-05-01",
+            "moduleId": "module-trail-002-05",
+            "tipo": "texto",
+            "titulo": "Compreender o contexto",
+            "conteudo": "Começa por identificar o objectivo e as pessoas envolvidas em planear conteúdos para canais digitais.",
+            "ordem": 1
+          },
+          {
+            "id": "content-module-trail-002-05-02",
+            "moduleId": "module-trail-002-05",
+            "tipo": "texto",
+            "titulo": "Escolher uma abordagem",
+            "conteudo": "Compara opções e escolhe uma abordagem de planear conteúdos para canais digitais adequada aos recursos disponíveis.",
+            "ordem": 2
+          },
+          {
+            "id": "content-module-trail-002-05-03",
+            "moduleId": "module-trail-002-05",
+            "tipo": "texto",
+            "titulo": "Rever o resultado",
+            "conteudo": "Regista o que aprendeste e define como vais melhorar a tua prática de planear conteúdos para canais digitais.",
+            "ordem": 3
+          }
+        ],
+        "atividade": {
+          "tipo": "escrita",
+          "enunciado": "Prepara um pequeno plano para planear conteúdos para canais digitais.",
+          "instrucoes": "Indica o objectivo, os passos principais e a forma como vais rever o resultado.",
+          "obrigatoria": true,
+          "pontos": 20,
+          "id": "activity-module-trail-002-05",
+          "moduleId": "module-trail-002-05"
+        }
+      },
+      {
+        "id": "module-trail-002-06",
+        "trailId": "trail-002",
+        "faseId": "fase-trail-002-04",
+        "titulo": "Medir resultados e melhorar uma campanha",
+        "descricao": "Aplica medir resultados e melhorar uma campanha a uma situação concreta.",
+        "ordem": 6,
+        "duracao": 75,
+        "contentItems": [
+          {
+            "id": "content-module-trail-002-06-01",
+            "moduleId": "module-trail-002-06",
+            "tipo": "texto",
+            "titulo": "Compreender o contexto",
+            "conteudo": "Começa por identificar o objectivo e as pessoas envolvidas em medir resultados e melhorar uma campanha.",
+            "ordem": 1
+          },
+          {
+            "id": "content-module-trail-002-06-02",
+            "moduleId": "module-trail-002-06",
+            "tipo": "texto",
+            "titulo": "Escolher uma abordagem",
+            "conteudo": "Compara opções e escolhe uma abordagem de medir resultados e melhorar uma campanha adequada aos recursos disponíveis.",
+            "ordem": 2
+          },
+          {
+            "id": "content-module-trail-002-06-03",
+            "moduleId": "module-trail-002-06",
+            "tipo": "texto",
+            "titulo": "Rever o resultado",
+            "conteudo": "Regista o que aprendeste e define como vais melhorar a tua prática de medir resultados e melhorar uma campanha.",
+            "ordem": 3
+          }
+        ],
+        "atividade": {
+          "tipo": "escrita",
+          "enunciado": "Prepara um pequeno plano para medir resultados e melhorar uma campanha.",
+          "instrucoes": "Indica o objectivo, os passos principais e a forma como vais rever o resultado.",
+          "obrigatoria": true,
+          "pontos": 20,
+          "id": "activity-module-trail-002-06",
+          "moduleId": "module-trail-002-06"
+        }
+      }
+    ],
+    "fases": [
+      {
+        "id": "fase-trail-002-01",
+        "trailId": "trail-002",
+        "titulo": "Fundamentos",
+        "descricao": "Desenvolve competências de marketing digital nesta fase.",
+        "ordem": 1,
+        "duracao": 150,
+        "modulos": [
+          {
+            "id": "module-trail-002-01",
+            "trailId": "trail-002",
+            "faseId": "fase-trail-002-01",
+            "titulo": "Conhecer o marketing digital",
+            "descricao": "Compreende canais digitais e os seus objectivos de comunicação.",
+            "ordem": 1,
+            "duracao": 75,
+            "contentItems": [
+              {
+                "id": "content-module-trail-002-01-01",
+                "moduleId": "module-trail-002-01",
+                "tipo": "texto",
+                "titulo": "Canais e objectivos",
+                "conteudo": "Um canal digital é um meio de comunicar, como um website, uma newsletter ou uma rede social. O objectivo pode ser informar, criar confiança ou incentivar uma acção.",
+                "ordem": 1
+              },
+              {
+                "id": "content-module-trail-002-01-02",
+                "moduleId": "module-trail-002-01",
+                "tipo": "texto",
+                "titulo": "Escolher o canal",
+                "conteudo": "A escolha depende do público, do formato e dos recursos disponíveis. Não é necessário estar em todas as plataformas para comunicar bem.",
+                "ordem": 2
+              },
+              {
+                "id": "content-module-trail-002-01-03",
+                "moduleId": "module-trail-002-01",
+                "tipo": "texto",
+                "titulo": "Definir uma mensagem",
+                "conteudo": "Uma mensagem eficaz tem um propósito e usa linguagem adequada ao público. Mantém a ideia principal visível em cada formato.",
+                "ordem": 3
+              }
+            ],
+            "atividade": {
+              "tipo": "escrita",
+              "enunciado": "Define um objectivo de comunicação para uma marca local.",
+              "instrucoes": "Indica a marca, o público que queres alcançar e a acção que esperas que esse público tome.",
+              "obrigatoria": true,
+              "pontos": 20,
+              "id": "activity-module-trail-002-01",
+              "moduleId": "module-trail-002-01"
+            }
+          },
+          {
+            "id": "module-trail-002-02",
+            "trailId": "trail-002",
+            "faseId": "fase-trail-002-01",
+            "titulo": "Identificar o público-alvo",
+            "descricao": "Define para quem é uma mensagem e que necessidade pretende responder.",
+            "ordem": 2,
+            "duracao": 75,
+            "contentItems": [
+              {
+                "id": "content-module-trail-002-02-01",
+                "moduleId": "module-trail-002-02",
+                "tipo": "texto",
+                "titulo": "Público e necessidade",
+                "conteudo": "Descreve o público por necessidades e contexto, evitando pressupostos. Observa que perguntas essas pessoas fazem e que problemas tentam resolver.",
+                "ordem": 1
+              },
+              {
+                "id": "content-module-trail-002-02-02",
+                "moduleId": "module-trail-002-02",
+                "tipo": "texto",
+                "titulo": "Criar uma descrição útil",
+                "conteudo": "Uma descrição de público resume os seus interesses e necessidades. Mantém o foco em características que ajudam a tomar decisões de comunicação.",
+                "ordem": 2
+              },
+              {
+                "id": "content-module-trail-002-02-03",
+                "moduleId": "module-trail-002-02",
+                "tipo": "texto",
+                "titulo": "Adaptar a mensagem",
+                "conteudo": "Escolhe palavras e exemplos que façam sentido para o público. Testa se a mensagem é compreendida sem explicações adicionais.",
+                "ordem": 3
+              }
+            ],
+            "atividade": {
+              "tipo": "quiz",
+              "enunciado": "Escolhe a melhor forma de definir um público-alvo.",
+              "instrucoes": "Considera necessidades e contexto antes de escolher um canal.",
+              "obrigatoria": true,
+              "pontos": 20,
+              "id": "activity-module-trail-002-02",
+              "moduleId": "module-trail-002-02",
+              "perguntas": [
+                {
+                  "id": "question-module-trail-002-02-01",
+                  "enunciado": "Qual é o primeiro passo recomendado para identificar o público-alvo?",
+                  "opcoes": [
+                    {
+                      "id": "activity-module-trail-002-02-a",
+                      "texto": "Definir o objectivo e o público."
+                    },
+                    {
+                      "id": "activity-module-trail-002-02-b",
+                      "texto": "Publicar sem fazer um plano."
+                    },
+                    {
+                      "id": "activity-module-trail-002-02-c",
+                      "texto": "Ignorar os resultados."
+                    }
+                  ],
+                  "respostaCorretaId": "activity-module-trail-002-02-a"
+                }
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "id": "fase-trail-002-02",
+        "trailId": "trail-002",
+        "titulo": "Público e estratégia",
+        "descricao": "Desenvolve competências de marketing digital nesta fase.",
+        "ordem": 2,
+        "duracao": 75,
+        "modulos": [
+          {
+            "id": "module-trail-002-03",
+            "trailId": "trail-002",
+            "faseId": "fase-trail-002-02",
+            "titulo": "Planear conteúdos digitais",
+            "descricao": "Organiza ideias de conteúdo de acordo com o tema e o canal.",
+            "ordem": 3,
+            "duracao": 75,
+            "contentItems": [
+              {
+                "id": "content-module-trail-002-03-01",
+                "moduleId": "module-trail-002-03",
+                "tipo": "texto",
+                "titulo": "Escolher temas",
+                "conteudo": "Agrupa temas relacionados com as perguntas do público e os objectivos da marca. Varia entre informação útil, histórias e convites à participação.",
+                "ordem": 1
+              },
+              {
+                "id": "content-module-trail-002-03-02",
+                "moduleId": "module-trail-002-03",
+                "tipo": "texto",
+                "titulo": "Montar um calendário",
+                "conteudo": "Um calendário simples regista tema, formato, canal e data. Reserva tempo para rever cada conteúdo antes de publicar.",
+                "ordem": 2
+              },
+              {
+                "id": "content-module-trail-002-03-03",
+                "moduleId": "module-trail-002-03",
+                "tipo": "texto",
+                "titulo": "Observar resultados",
+                "conteudo": "Define um indicador para cada objectivo, como visitas a uma página ou respostas a uma publicação. Usa os resultados para melhorar o próximo plano.",
+                "ordem": 3
+              }
+            ],
+            "atividade": {
+              "tipo": "link",
+              "enunciado": "Partilha o teu calendário de conteúdos.",
+              "instrucoes": "Coloca uma ligação para um documento ou quadro que possa ser consultado pela equipa.",
+              "obrigatoria": true,
+              "pontos": 20,
+              "id": "activity-module-trail-002-03",
+              "moduleId": "module-trail-002-03"
+            }
+          }
+        ]
+      },
+      {
+        "id": "fase-trail-002-03",
+        "trailId": "trail-002",
+        "titulo": "Conteúdos e canais",
+        "descricao": "Desenvolve competências de marketing digital nesta fase.",
+        "ordem": 3,
+        "duracao": 150,
+        "modulos": [
+          {
+            "id": "module-trail-002-04",
+            "trailId": "trail-002",
+            "faseId": "fase-trail-002-03",
+            "titulo": "Definir o público e a proposta de valor",
+            "descricao": "Aplica definir o público e a proposta de valor a uma situação concreta.",
+            "ordem": 4,
+            "duracao": 75,
+            "contentItems": [
+              {
+                "id": "content-module-trail-002-04-01",
+                "moduleId": "module-trail-002-04",
+                "tipo": "texto",
+                "titulo": "Compreender o contexto",
+                "conteudo": "Começa por identificar o objectivo e as pessoas envolvidas em definir o público e a proposta de valor.",
+                "ordem": 1
+              },
+              {
+                "id": "content-module-trail-002-04-02",
+                "moduleId": "module-trail-002-04",
+                "tipo": "texto",
+                "titulo": "Escolher uma abordagem",
+                "conteudo": "Compara opções e escolhe uma abordagem de definir o público e a proposta de valor adequada aos recursos disponíveis.",
+                "ordem": 2
+              },
+              {
+                "id": "content-module-trail-002-04-03",
+                "moduleId": "module-trail-002-04",
+                "tipo": "texto",
+                "titulo": "Rever o resultado",
+                "conteudo": "Regista o que aprendeste e define como vais melhorar a tua prática de definir o público e a proposta de valor.",
+                "ordem": 3
+              }
+            ],
+            "atividade": {
+              "tipo": "escrita",
+              "enunciado": "Prepara um pequeno plano para definir o público e a proposta de valor.",
+              "instrucoes": "Indica o objectivo, os passos principais e a forma como vais rever o resultado.",
+              "obrigatoria": true,
+              "pontos": 20,
+              "id": "activity-module-trail-002-04",
+              "moduleId": "module-trail-002-04"
+            }
+          },
+          {
+            "id": "module-trail-002-05",
+            "trailId": "trail-002",
+            "faseId": "fase-trail-002-03",
+            "titulo": "Planear conteúdos para canais digitais",
+            "descricao": "Aplica planear conteúdos para canais digitais a uma situação concreta.",
+            "ordem": 5,
+            "duracao": 75,
+            "contentItems": [
+              {
+                "id": "content-module-trail-002-05-01",
+                "moduleId": "module-trail-002-05",
+                "tipo": "texto",
+                "titulo": "Compreender o contexto",
+                "conteudo": "Começa por identificar o objectivo e as pessoas envolvidas em planear conteúdos para canais digitais.",
+                "ordem": 1
+              },
+              {
+                "id": "content-module-trail-002-05-02",
+                "moduleId": "module-trail-002-05",
+                "tipo": "texto",
+                "titulo": "Escolher uma abordagem",
+                "conteudo": "Compara opções e escolhe uma abordagem de planear conteúdos para canais digitais adequada aos recursos disponíveis.",
+                "ordem": 2
+              },
+              {
+                "id": "content-module-trail-002-05-03",
+                "moduleId": "module-trail-002-05",
+                "tipo": "texto",
+                "titulo": "Rever o resultado",
+                "conteudo": "Regista o que aprendeste e define como vais melhorar a tua prática de planear conteúdos para canais digitais.",
+                "ordem": 3
+              }
+            ],
+            "atividade": {
+              "tipo": "escrita",
+              "enunciado": "Prepara um pequeno plano para planear conteúdos para canais digitais.",
+              "instrucoes": "Indica o objectivo, os passos principais e a forma como vais rever o resultado.",
+              "obrigatoria": true,
+              "pontos": 20,
+              "id": "activity-module-trail-002-05",
+              "moduleId": "module-trail-002-05"
+            }
+          }
+        ]
+      },
+      {
+        "id": "fase-trail-002-04",
+        "trailId": "trail-002",
+        "titulo": "Análise e próximos passos",
+        "descricao": "Desenvolve competências de marketing digital nesta fase.",
+        "ordem": 4,
+        "duracao": 75,
+        "modulos": [
+          {
+            "id": "module-trail-002-06",
+            "trailId": "trail-002",
+            "faseId": "fase-trail-002-04",
+            "titulo": "Medir resultados e melhorar uma campanha",
+            "descricao": "Aplica medir resultados e melhorar uma campanha a uma situação concreta.",
+            "ordem": 6,
+            "duracao": 75,
+            "contentItems": [
+              {
+                "id": "content-module-trail-002-06-01",
+                "moduleId": "module-trail-002-06",
+                "tipo": "texto",
+                "titulo": "Compreender o contexto",
+                "conteudo": "Começa por identificar o objectivo e as pessoas envolvidas em medir resultados e melhorar uma campanha.",
+                "ordem": 1
+              },
+              {
+                "id": "content-module-trail-002-06-02",
+                "moduleId": "module-trail-002-06",
+                "tipo": "texto",
+                "titulo": "Escolher uma abordagem",
+                "conteudo": "Compara opções e escolhe uma abordagem de medir resultados e melhorar uma campanha adequada aos recursos disponíveis.",
+                "ordem": 2
+              },
+              {
+                "id": "content-module-trail-002-06-03",
+                "moduleId": "module-trail-002-06",
+                "tipo": "texto",
+                "titulo": "Rever o resultado",
+                "conteudo": "Regista o que aprendeste e define como vais melhorar a tua prática de medir resultados e melhorar uma campanha.",
+                "ordem": 3
+              }
+            ],
+            "atividade": {
+              "tipo": "escrita",
+              "enunciado": "Prepara um pequeno plano para medir resultados e melhorar uma campanha.",
+              "instrucoes": "Indica o objectivo, os passos principais e a forma como vais rever o resultado.",
+              "obrigatoria": true,
+              "pontos": 20,
+              "id": "activity-module-trail-002-06",
+              "moduleId": "module-trail-002-06"
+            }
+          }
+        ]
+      }
+    ],
+    "totalModulos": 6,
+    "publicoAlvo": "Jovens interessados em desenvolver marketing digital.",
+    "preRequisitos": [],
+    "objetivosAprendizagem": [
+      "Compreender os fundamentos de marketing digital.",
+      "Aplicar os conceitos em actividades práticas.",
+      "Apresentar evidências do que aprendeste."
+    ],
+    "status": "published",
+    "acesso": "free",
+    "preco": null,
+    "imagem": null,
+    "certificado": true,
+    "totalFases": 4,
+    "createdAt": "2026-08-15T10:00:00Z",
+    "updatedAt": "2026-08-15T10:00:00Z"
+  },
+  {
+    "id": "trail-003",
+    "slug": "introducao-programacao-web",
+    "titulo": "Introdução à Programação Web",
+    "descricao": "Descobre os elementos que formam uma página web. Dá os primeiros passos na estrutura, no estilo e na interacção.",
+    "descricaoLonga": "Uma página web combina estrutura, apresentação e interacção. Vais conhecer o papel do HTML e do CSS e publicar uma primeira página simples. Não precisas de experiência anterior: cada passo explica os conceitos essenciais e termina com prática.",
+    "categoria": "Tecnologia",
+    "competenciaCentral": "Desenvolvimento Web",
+    "nivel": "iniciante",
+    "duracao": 20,
+    "resultadoEsperado": "Uma página web simples, publicada e com estrutura semântica e estilo próprio.",
+    "modulos": [
+      {
+        "id": "module-trail-003-01",
+        "trailId": "trail-003",
+        "faseId": "fase-trail-003-01",
+        "titulo": "Estruturar uma página web",
+        "descricao": "Conhece os elementos usados para organizar conteúdo numa página.",
+        "ordem": 1,
+        "duracao": 75,
+        "contentItems": [
+          {
+            "id": "content-module-trail-003-01-01",
+            "moduleId": "module-trail-003-01",
+            "tipo": "texto",
+            "titulo": "Elementos HTML",
+            "conteudo": "HTML descreve a estrutura e o significado do conteúdo. Usa títulos, parágrafos e ligações para organizar a informação.",
+            "ordem": 1
+          },
+          {
+            "id": "content-module-trail-003-01-02",
+            "moduleId": "module-trail-003-01",
+            "tipo": "texto",
+            "titulo": "Criar uma página",
+            "conteudo": "Uma página começa com um título principal e secções que agrupam ideias relacionadas. Mantém a hierarquia de títulos coerente.",
+            "ordem": 2
+          },
+          {
+            "id": "content-module-trail-003-01-03",
+            "moduleId": "module-trail-003-01",
+            "tipo": "texto",
+            "titulo": "Acessibilidade básica",
+            "conteudo": "Texto descritivo nas ligações e títulos claros ajudam todas as pessoas a navegar. Escolhe elementos de acordo com a função do conteúdo.",
+            "ordem": 3
+          }
+        ],
+        "atividade": {
+          "tipo": "escrita",
+          "enunciado": "Desenha a estrutura de uma página sobre um tema que conheces.",
+          "instrucoes": "Indica o título principal, três secções e uma ligação que seria útil ao visitante.",
+          "obrigatoria": true,
+          "pontos": 20,
+          "id": "activity-module-trail-003-01",
+          "moduleId": "module-trail-003-01"
+        }
+      },
+      {
+        "id": "module-trail-003-02",
+        "trailId": "trail-003",
+        "faseId": "fase-trail-003-01",
+        "titulo": "Dar estilo com CSS",
+        "descricao": "Aplica cor, espaçamento e tipografia sem prejudicar a leitura.",
+        "ordem": 2,
+        "duracao": 75,
+        "contentItems": [
+          {
+            "id": "content-module-trail-003-02-01",
+            "moduleId": "module-trail-003-02",
+            "tipo": "texto",
+            "titulo": "Separar estrutura e estilo",
+            "conteudo": "CSS define como os elementos aparecem sem alterar o significado do HTML. Agrupa regras relacionadas e reutiliza estilos.",
+            "ordem": 1
+          },
+          {
+            "id": "content-module-trail-003-02-02",
+            "moduleId": "module-trail-003-02",
+            "tipo": "texto",
+            "titulo": "Espaçamento e tipografia",
+            "conteudo": "Usa espaçamento para separar secções e cria uma hierarquia de tamanhos legível. Verifica o resultado num ecrã pequeno.",
+            "ordem": 2
+          },
+          {
+            "id": "content-module-trail-003-02-03",
+            "moduleId": "module-trail-003-02",
+            "tipo": "texto",
+            "titulo": "Cores com contraste",
+            "conteudo": "Escolhe cores que mantenham o texto legível sobre o fundo. Não uses apenas a cor para transmitir uma informação importante.",
+            "ordem": 3
+          }
+        ],
+        "atividade": {
+          "tipo": "upload",
+          "enunciado": "Entrega uma captura da tua página com estilos aplicados.",
+          "instrucoes": "Selecciona uma imagem PNG, JPG ou WebP que mostre a página completa.",
+          "obrigatoria": true,
+          "pontos": 20,
+          "id": "activity-module-trail-003-02",
+          "moduleId": "module-trail-003-02"
+        }
+      },
+      {
+        "id": "module-trail-003-03",
+        "trailId": "trail-003",
+        "faseId": "fase-trail-003-02",
+        "titulo": "Publicar e rever a página",
+        "descricao": "Testa a página em vários ecrãs e prepara uma ligação para o projecto.",
+        "ordem": 3,
+        "duracao": 75,
+        "contentItems": [
+          {
+            "id": "content-module-trail-003-03-01",
+            "moduleId": "module-trail-003-03",
+            "tipo": "texto",
+            "titulo": "Verificar o resultado",
+            "conteudo": "Abre a página em diferentes larguras e testa todas as ligações. Corrige texto cortado, imagens demasiado largas e elementos que não respondem.",
+            "ordem": 1
+          },
+          {
+            "id": "content-module-trail-003-03-02",
+            "moduleId": "module-trail-003-03",
+            "tipo": "texto",
+            "titulo": "Partilhar o projecto",
+            "conteudo": "Uma demonstração publicada facilita a revisão do teu trabalho. Confirma que o endereço é público e abre numa janela privada.",
+            "ordem": 2
+          },
+          {
+            "id": "content-module-trail-003-03-03",
+            "moduleId": "module-trail-003-03",
+            "tipo": "texto",
+            "titulo": "Registar aprendizagem",
+            "conteudo": "Anota o que construíste, os obstáculos que resolveste e o que melhorarias a seguir. Estas notas ajudam a explicar o projecto.",
+            "ordem": 3
+          }
+        ],
+        "atividade": {
+          "tipo": "link",
+          "enunciado": "Partilha a ligação para a página que criaste.",
+          "instrucoes": "Confirma que a página abre sem autenticação e que os elementos principais funcionam.",
+          "obrigatoria": true,
+          "pontos": 20,
+          "id": "activity-module-trail-003-03",
+          "moduleId": "module-trail-003-03"
+        }
+      },
+      {
+        "id": "module-trail-003-04",
+        "trailId": "trail-003",
+        "faseId": "fase-trail-003-02",
+        "titulo": "Estruturar páginas com HTML",
+        "descricao": "Aplica estruturar páginas com html a uma situação concreta.",
+        "ordem": 4,
+        "duracao": 75,
+        "contentItems": [
+          {
+            "id": "content-module-trail-003-04-01",
+            "moduleId": "module-trail-003-04",
+            "tipo": "texto",
+            "titulo": "Compreender o contexto",
+            "conteudo": "Começa por identificar o objectivo e as pessoas envolvidas em estruturar páginas com html.",
+            "ordem": 1
+          },
+          {
+            "id": "content-module-trail-003-04-02",
+            "moduleId": "module-trail-003-04",
+            "tipo": "texto",
+            "titulo": "Escolher uma abordagem",
+            "conteudo": "Compara opções e escolhe uma abordagem de estruturar páginas com html adequada aos recursos disponíveis.",
+            "ordem": 2
+          },
+          {
+            "id": "content-module-trail-003-04-03",
+            "moduleId": "module-trail-003-04",
+            "tipo": "texto",
+            "titulo": "Rever o resultado",
+            "conteudo": "Regista o que aprendeste e define como vais melhorar a tua prática de estruturar páginas com html.",
+            "ordem": 3
+          }
+        ],
+        "atividade": {
+          "tipo": "escrita",
+          "enunciado": "Prepara um pequeno plano para estruturar páginas com html.",
+          "instrucoes": "Indica o objectivo, os passos principais e a forma como vais rever o resultado.",
+          "obrigatoria": true,
+          "pontos": 20,
+          "id": "activity-module-trail-003-04",
+          "moduleId": "module-trail-003-04"
+        }
+      },
+      {
+        "id": "module-trail-003-05",
+        "trailId": "trail-003",
+        "faseId": "fase-trail-003-03",
+        "titulo": "Aplicar estilos com CSS",
+        "descricao": "Aplica aplicar estilos com css a uma situação concreta.",
+        "ordem": 5,
+        "duracao": 75,
+        "contentItems": [
+          {
+            "id": "content-module-trail-003-05-01",
+            "moduleId": "module-trail-003-05",
+            "tipo": "texto",
+            "titulo": "Compreender o contexto",
+            "conteudo": "Começa por identificar o objectivo e as pessoas envolvidas em aplicar estilos com css.",
+            "ordem": 1
+          },
+          {
+            "id": "content-module-trail-003-05-02",
+            "moduleId": "module-trail-003-05",
+            "tipo": "texto",
+            "titulo": "Escolher uma abordagem",
+            "conteudo": "Compara opções e escolhe uma abordagem de aplicar estilos com css adequada aos recursos disponíveis.",
+            "ordem": 2
+          },
+          {
+            "id": "content-module-trail-003-05-03",
+            "moduleId": "module-trail-003-05",
+            "tipo": "texto",
+            "titulo": "Rever o resultado",
+            "conteudo": "Regista o que aprendeste e define como vais melhorar a tua prática de aplicar estilos com css.",
+            "ordem": 3
+          }
+        ],
+        "atividade": {
+          "tipo": "escrita",
+          "enunciado": "Prepara um pequeno plano para aplicar estilos com css.",
+          "instrucoes": "Indica o objectivo, os passos principais e a forma como vais rever o resultado.",
+          "obrigatoria": true,
+          "pontos": 20,
+          "id": "activity-module-trail-003-05",
+          "moduleId": "module-trail-003-05"
+        }
+      },
+      {
+        "id": "module-trail-003-06",
+        "trailId": "trail-003",
+        "faseId": "fase-trail-003-03",
+        "titulo": "Criar interacções com JavaScript",
+        "descricao": "Aplica criar interacções com javascript a uma situação concreta.",
+        "ordem": 6,
+        "duracao": 75,
+        "contentItems": [
+          {
+            "id": "content-module-trail-003-06-01",
+            "moduleId": "module-trail-003-06",
+            "tipo": "texto",
+            "titulo": "Compreender o contexto",
+            "conteudo": "Começa por identificar o objectivo e as pessoas envolvidas em criar interacções com javascript.",
+            "ordem": 1
+          },
+          {
+            "id": "content-module-trail-003-06-02",
+            "moduleId": "module-trail-003-06",
+            "tipo": "texto",
+            "titulo": "Escolher uma abordagem",
+            "conteudo": "Compara opções e escolhe uma abordagem de criar interacções com javascript adequada aos recursos disponíveis.",
+            "ordem": 2
+          },
+          {
+            "id": "content-module-trail-003-06-03",
+            "moduleId": "module-trail-003-06",
+            "tipo": "texto",
+            "titulo": "Rever o resultado",
+            "conteudo": "Regista o que aprendeste e define como vais melhorar a tua prática de criar interacções com javascript.",
+            "ordem": 3
+          }
+        ],
+        "atividade": {
+          "tipo": "escrita",
+          "enunciado": "Prepara um pequeno plano para criar interacções com javascript.",
+          "instrucoes": "Indica o objectivo, os passos principais e a forma como vais rever o resultado.",
+          "obrigatoria": true,
+          "pontos": 20,
+          "id": "activity-module-trail-003-06",
+          "moduleId": "module-trail-003-06"
+        }
+      },
+      {
+        "id": "module-trail-003-07",
+        "trailId": "trail-003",
+        "faseId": "fase-trail-003-04",
+        "titulo": "Testar a experiência em diferentes ecrãs",
+        "descricao": "Aplica testar a experiência em diferentes ecrãs a uma situação concreta.",
+        "ordem": 7,
+        "duracao": 75,
+        "contentItems": [
+          {
+            "id": "content-module-trail-003-07-01",
+            "moduleId": "module-trail-003-07",
+            "tipo": "texto",
+            "titulo": "Compreender o contexto",
+            "conteudo": "Começa por identificar o objectivo e as pessoas envolvidas em testar a experiência em diferentes ecrãs.",
+            "ordem": 1
+          },
+          {
+            "id": "content-module-trail-003-07-02",
+            "moduleId": "module-trail-003-07",
+            "tipo": "texto",
+            "titulo": "Escolher uma abordagem",
+            "conteudo": "Compara opções e escolhe uma abordagem de testar a experiência em diferentes ecrãs adequada aos recursos disponíveis.",
+            "ordem": 2
+          },
+          {
+            "id": "content-module-trail-003-07-03",
+            "moduleId": "module-trail-003-07",
+            "tipo": "texto",
+            "titulo": "Rever o resultado",
+            "conteudo": "Regista o que aprendeste e define como vais melhorar a tua prática de testar a experiência em diferentes ecrãs.",
+            "ordem": 3
+          }
+        ],
+        "atividade": {
+          "tipo": "escrita",
+          "enunciado": "Prepara um pequeno plano para testar a experiência em diferentes ecrãs.",
+          "instrucoes": "Indica o objectivo, os passos principais e a forma como vais rever o resultado.",
+          "obrigatoria": true,
+          "pontos": 20,
+          "id": "activity-module-trail-003-07",
+          "moduleId": "module-trail-003-07"
+        }
+      },
+      {
+        "id": "module-trail-003-08",
+        "trailId": "trail-003",
+        "faseId": "fase-trail-003-04",
+        "titulo": "Publicar e apresentar um projecto web",
+        "descricao": "Aplica publicar e apresentar um projecto web a uma situação concreta.",
+        "ordem": 8,
+        "duracao": 75,
+        "contentItems": [
+          {
+            "id": "content-module-trail-003-08-01",
+            "moduleId": "module-trail-003-08",
+            "tipo": "texto",
+            "titulo": "Compreender o contexto",
+            "conteudo": "Começa por identificar o objectivo e as pessoas envolvidas em publicar e apresentar um projecto web.",
+            "ordem": 1
+          },
+          {
+            "id": "content-module-trail-003-08-02",
+            "moduleId": "module-trail-003-08",
+            "tipo": "texto",
+            "titulo": "Escolher uma abordagem",
+            "conteudo": "Compara opções e escolhe uma abordagem de publicar e apresentar um projecto web adequada aos recursos disponíveis.",
+            "ordem": 2
+          },
+          {
+            "id": "content-module-trail-003-08-03",
+            "moduleId": "module-trail-003-08",
+            "tipo": "texto",
+            "titulo": "Rever o resultado",
+            "conteudo": "Regista o que aprendeste e define como vais melhorar a tua prática de publicar e apresentar um projecto web.",
+            "ordem": 3
+          }
+        ],
+        "atividade": {
+          "tipo": "escrita",
+          "enunciado": "Prepara um pequeno plano para publicar e apresentar um projecto web.",
+          "instrucoes": "Indica o objectivo, os passos principais e a forma como vais rever o resultado.",
+          "obrigatoria": true,
+          "pontos": 20,
+          "id": "activity-module-trail-003-08",
+          "moduleId": "module-trail-003-08"
+        }
+      },
+      {
+        "id": "module-trail-003-09",
+        "trailId": "trail-003",
+        "faseId": "fase-trail-003-05",
+        "titulo": "Rever acessibilidade e qualidade do código",
+        "descricao": "Aplica rever acessibilidade e qualidade do código a uma situação concreta.",
+        "ordem": 9,
+        "duracao": 75,
+        "contentItems": [
+          {
+            "id": "content-module-trail-003-09-01",
+            "moduleId": "module-trail-003-09",
+            "tipo": "texto",
+            "titulo": "Compreender o contexto",
+            "conteudo": "Começa por identificar o objectivo e as pessoas envolvidas em rever acessibilidade e qualidade do código.",
+            "ordem": 1
+          },
+          {
+            "id": "content-module-trail-003-09-02",
+            "moduleId": "module-trail-003-09",
+            "tipo": "texto",
+            "titulo": "Escolher uma abordagem",
+            "conteudo": "Compara opções e escolhe uma abordagem de rever acessibilidade e qualidade do código adequada aos recursos disponíveis.",
+            "ordem": 2
+          },
+          {
+            "id": "content-module-trail-003-09-03",
+            "moduleId": "module-trail-003-09",
+            "tipo": "texto",
+            "titulo": "Rever o resultado",
+            "conteudo": "Regista o que aprendeste e define como vais melhorar a tua prática de rever acessibilidade e qualidade do código.",
+            "ordem": 3
+          }
+        ],
+        "atividade": {
+          "tipo": "escrita",
+          "enunciado": "Prepara um pequeno plano para rever acessibilidade e qualidade do código.",
+          "instrucoes": "Indica o objectivo, os passos principais e a forma como vais rever o resultado.",
+          "obrigatoria": true,
+          "pontos": 20,
+          "id": "activity-module-trail-003-09",
+          "moduleId": "module-trail-003-09"
+        }
+      },
+      {
+        "id": "module-trail-003-10",
+        "trailId": "trail-003",
+        "faseId": "fase-trail-003-05",
+        "titulo": "Preparar o teu portefólio de programação",
+        "descricao": "Aplica preparar o teu portefólio de programação a uma situação concreta.",
+        "ordem": 10,
+        "duracao": 75,
+        "contentItems": [
+          {
+            "id": "content-module-trail-003-10-01",
+            "moduleId": "module-trail-003-10",
+            "tipo": "texto",
+            "titulo": "Compreender o contexto",
+            "conteudo": "Começa por identificar o objectivo e as pessoas envolvidas em preparar o teu portefólio de programação.",
+            "ordem": 1
+          },
+          {
+            "id": "content-module-trail-003-10-02",
+            "moduleId": "module-trail-003-10",
+            "tipo": "texto",
+            "titulo": "Escolher uma abordagem",
+            "conteudo": "Compara opções e escolhe uma abordagem de preparar o teu portefólio de programação adequada aos recursos disponíveis.",
+            "ordem": 2
+          },
+          {
+            "id": "content-module-trail-003-10-03",
+            "moduleId": "module-trail-003-10",
+            "tipo": "texto",
+            "titulo": "Rever o resultado",
+            "conteudo": "Regista o que aprendeste e define como vais melhorar a tua prática de preparar o teu portefólio de programação.",
+            "ordem": 3
+          }
+        ],
+        "atividade": {
+          "tipo": "escrita",
+          "enunciado": "Prepara um pequeno plano para preparar o teu portefólio de programação.",
+          "instrucoes": "Indica o objectivo, os passos principais e a forma como vais rever o resultado.",
+          "obrigatoria": true,
+          "pontos": 20,
+          "id": "activity-module-trail-003-10",
+          "moduleId": "module-trail-003-10"
+        }
+      }
+    ],
+    "fases": [
+      {
+        "id": "fase-trail-003-01",
+        "trailId": "trail-003",
+        "titulo": "Fundamentos",
+        "descricao": "Desenvolve competências de desenvolvimento web nesta fase.",
+        "ordem": 1,
+        "duracao": 150,
+        "modulos": [
+          {
+            "id": "module-trail-003-01",
+            "trailId": "trail-003",
+            "faseId": "fase-trail-003-01",
+            "titulo": "Estruturar uma página web",
+            "descricao": "Conhece os elementos usados para organizar conteúdo numa página.",
+            "ordem": 1,
+            "duracao": 75,
+            "contentItems": [
+              {
+                "id": "content-module-trail-003-01-01",
+                "moduleId": "module-trail-003-01",
+                "tipo": "texto",
+                "titulo": "Elementos HTML",
+                "conteudo": "HTML descreve a estrutura e o significado do conteúdo. Usa títulos, parágrafos e ligações para organizar a informação.",
+                "ordem": 1
+              },
+              {
+                "id": "content-module-trail-003-01-02",
+                "moduleId": "module-trail-003-01",
+                "tipo": "texto",
+                "titulo": "Criar uma página",
+                "conteudo": "Uma página começa com um título principal e secções que agrupam ideias relacionadas. Mantém a hierarquia de títulos coerente.",
+                "ordem": 2
+              },
+              {
+                "id": "content-module-trail-003-01-03",
+                "moduleId": "module-trail-003-01",
+                "tipo": "texto",
+                "titulo": "Acessibilidade básica",
+                "conteudo": "Texto descritivo nas ligações e títulos claros ajudam todas as pessoas a navegar. Escolhe elementos de acordo com a função do conteúdo.",
+                "ordem": 3
+              }
+            ],
+            "atividade": {
+              "tipo": "escrita",
+              "enunciado": "Desenha a estrutura de uma página sobre um tema que conheces.",
+              "instrucoes": "Indica o título principal, três secções e uma ligação que seria útil ao visitante.",
+              "obrigatoria": true,
+              "pontos": 20,
+              "id": "activity-module-trail-003-01",
+              "moduleId": "module-trail-003-01"
+            }
+          },
+          {
+            "id": "module-trail-003-02",
+            "trailId": "trail-003",
+            "faseId": "fase-trail-003-01",
+            "titulo": "Dar estilo com CSS",
+            "descricao": "Aplica cor, espaçamento e tipografia sem prejudicar a leitura.",
+            "ordem": 2,
+            "duracao": 75,
+            "contentItems": [
+              {
+                "id": "content-module-trail-003-02-01",
+                "moduleId": "module-trail-003-02",
+                "tipo": "texto",
+                "titulo": "Separar estrutura e estilo",
+                "conteudo": "CSS define como os elementos aparecem sem alterar o significado do HTML. Agrupa regras relacionadas e reutiliza estilos.",
+                "ordem": 1
+              },
+              {
+                "id": "content-module-trail-003-02-02",
+                "moduleId": "module-trail-003-02",
+                "tipo": "texto",
+                "titulo": "Espaçamento e tipografia",
+                "conteudo": "Usa espaçamento para separar secções e cria uma hierarquia de tamanhos legível. Verifica o resultado num ecrã pequeno.",
+                "ordem": 2
+              },
+              {
+                "id": "content-module-trail-003-02-03",
+                "moduleId": "module-trail-003-02",
+                "tipo": "texto",
+                "titulo": "Cores com contraste",
+                "conteudo": "Escolhe cores que mantenham o texto legível sobre o fundo. Não uses apenas a cor para transmitir uma informação importante.",
+                "ordem": 3
+              }
+            ],
+            "atividade": {
+              "tipo": "upload",
+              "enunciado": "Entrega uma captura da tua página com estilos aplicados.",
+              "instrucoes": "Selecciona uma imagem PNG, JPG ou WebP que mostre a página completa.",
+              "obrigatoria": true,
+              "pontos": 20,
+              "id": "activity-module-trail-003-02",
+              "moduleId": "module-trail-003-02"
+            }
+          }
+        ]
+      },
+      {
+        "id": "fase-trail-003-02",
+        "trailId": "trail-003",
+        "titulo": "Estrutura",
+        "descricao": "Desenvolve competências de desenvolvimento web nesta fase.",
+        "ordem": 2,
+        "duracao": 150,
+        "modulos": [
+          {
+            "id": "module-trail-003-03",
+            "trailId": "trail-003",
+            "faseId": "fase-trail-003-02",
+            "titulo": "Publicar e rever a página",
+            "descricao": "Testa a página em vários ecrãs e prepara uma ligação para o projecto.",
+            "ordem": 3,
+            "duracao": 75,
+            "contentItems": [
+              {
+                "id": "content-module-trail-003-03-01",
+                "moduleId": "module-trail-003-03",
+                "tipo": "texto",
+                "titulo": "Verificar o resultado",
+                "conteudo": "Abre a página em diferentes larguras e testa todas as ligações. Corrige texto cortado, imagens demasiado largas e elementos que não respondem.",
+                "ordem": 1
+              },
+              {
+                "id": "content-module-trail-003-03-02",
+                "moduleId": "module-trail-003-03",
+                "tipo": "texto",
+                "titulo": "Partilhar o projecto",
+                "conteudo": "Uma demonstração publicada facilita a revisão do teu trabalho. Confirma que o endereço é público e abre numa janela privada.",
+                "ordem": 2
+              },
+              {
+                "id": "content-module-trail-003-03-03",
+                "moduleId": "module-trail-003-03",
+                "tipo": "texto",
+                "titulo": "Registar aprendizagem",
+                "conteudo": "Anota o que construíste, os obstáculos que resolveste e o que melhorarias a seguir. Estas notas ajudam a explicar o projecto.",
+                "ordem": 3
+              }
+            ],
+            "atividade": {
+              "tipo": "link",
+              "enunciado": "Partilha a ligação para a página que criaste.",
+              "instrucoes": "Confirma que a página abre sem autenticação e que os elementos principais funcionam.",
+              "obrigatoria": true,
+              "pontos": 20,
+              "id": "activity-module-trail-003-03",
+              "moduleId": "module-trail-003-03"
+            }
+          },
+          {
+            "id": "module-trail-003-04",
+            "trailId": "trail-003",
+            "faseId": "fase-trail-003-02",
+            "titulo": "Estruturar páginas com HTML",
+            "descricao": "Aplica estruturar páginas com html a uma situação concreta.",
+            "ordem": 4,
+            "duracao": 75,
+            "contentItems": [
+              {
+                "id": "content-module-trail-003-04-01",
+                "moduleId": "module-trail-003-04",
+                "tipo": "texto",
+                "titulo": "Compreender o contexto",
+                "conteudo": "Começa por identificar o objectivo e as pessoas envolvidas em estruturar páginas com html.",
+                "ordem": 1
+              },
+              {
+                "id": "content-module-trail-003-04-02",
+                "moduleId": "module-trail-003-04",
+                "tipo": "texto",
+                "titulo": "Escolher uma abordagem",
+                "conteudo": "Compara opções e escolhe uma abordagem de estruturar páginas com html adequada aos recursos disponíveis.",
+                "ordem": 2
+              },
+              {
+                "id": "content-module-trail-003-04-03",
+                "moduleId": "module-trail-003-04",
+                "tipo": "texto",
+                "titulo": "Rever o resultado",
+                "conteudo": "Regista o que aprendeste e define como vais melhorar a tua prática de estruturar páginas com html.",
+                "ordem": 3
+              }
+            ],
+            "atividade": {
+              "tipo": "escrita",
+              "enunciado": "Prepara um pequeno plano para estruturar páginas com html.",
+              "instrucoes": "Indica o objectivo, os passos principais e a forma como vais rever o resultado.",
+              "obrigatoria": true,
+              "pontos": 20,
+              "id": "activity-module-trail-003-04",
+              "moduleId": "module-trail-003-04"
+            }
+          }
+        ]
+      },
+      {
+        "id": "fase-trail-003-03",
+        "trailId": "trail-003",
+        "titulo": "Estilos",
+        "descricao": "Desenvolve competências de desenvolvimento web nesta fase.",
+        "ordem": 3,
+        "duracao": 150,
+        "modulos": [
+          {
+            "id": "module-trail-003-05",
+            "trailId": "trail-003",
+            "faseId": "fase-trail-003-03",
+            "titulo": "Aplicar estilos com CSS",
+            "descricao": "Aplica aplicar estilos com css a uma situação concreta.",
+            "ordem": 5,
+            "duracao": 75,
+            "contentItems": [
+              {
+                "id": "content-module-trail-003-05-01",
+                "moduleId": "module-trail-003-05",
+                "tipo": "texto",
+                "titulo": "Compreender o contexto",
+                "conteudo": "Começa por identificar o objectivo e as pessoas envolvidas em aplicar estilos com css.",
+                "ordem": 1
+              },
+              {
+                "id": "content-module-trail-003-05-02",
+                "moduleId": "module-trail-003-05",
+                "tipo": "texto",
+                "titulo": "Escolher uma abordagem",
+                "conteudo": "Compara opções e escolhe uma abordagem de aplicar estilos com css adequada aos recursos disponíveis.",
+                "ordem": 2
+              },
+              {
+                "id": "content-module-trail-003-05-03",
+                "moduleId": "module-trail-003-05",
+                "tipo": "texto",
+                "titulo": "Rever o resultado",
+                "conteudo": "Regista o que aprendeste e define como vais melhorar a tua prática de aplicar estilos com css.",
+                "ordem": 3
+              }
+            ],
+            "atividade": {
+              "tipo": "escrita",
+              "enunciado": "Prepara um pequeno plano para aplicar estilos com css.",
+              "instrucoes": "Indica o objectivo, os passos principais e a forma como vais rever o resultado.",
+              "obrigatoria": true,
+              "pontos": 20,
+              "id": "activity-module-trail-003-05",
+              "moduleId": "module-trail-003-05"
+            }
+          },
+          {
+            "id": "module-trail-003-06",
+            "trailId": "trail-003",
+            "faseId": "fase-trail-003-03",
+            "titulo": "Criar interacções com JavaScript",
+            "descricao": "Aplica criar interacções com javascript a uma situação concreta.",
+            "ordem": 6,
+            "duracao": 75,
+            "contentItems": [
+              {
+                "id": "content-module-trail-003-06-01",
+                "moduleId": "module-trail-003-06",
+                "tipo": "texto",
+                "titulo": "Compreender o contexto",
+                "conteudo": "Começa por identificar o objectivo e as pessoas envolvidas em criar interacções com javascript.",
+                "ordem": 1
+              },
+              {
+                "id": "content-module-trail-003-06-02",
+                "moduleId": "module-trail-003-06",
+                "tipo": "texto",
+                "titulo": "Escolher uma abordagem",
+                "conteudo": "Compara opções e escolhe uma abordagem de criar interacções com javascript adequada aos recursos disponíveis.",
+                "ordem": 2
+              },
+              {
+                "id": "content-module-trail-003-06-03",
+                "moduleId": "module-trail-003-06",
+                "tipo": "texto",
+                "titulo": "Rever o resultado",
+                "conteudo": "Regista o que aprendeste e define como vais melhorar a tua prática de criar interacções com javascript.",
+                "ordem": 3
+              }
+            ],
+            "atividade": {
+              "tipo": "escrita",
+              "enunciado": "Prepara um pequeno plano para criar interacções com javascript.",
+              "instrucoes": "Indica o objectivo, os passos principais e a forma como vais rever o resultado.",
+              "obrigatoria": true,
+              "pontos": 20,
+              "id": "activity-module-trail-003-06",
+              "moduleId": "module-trail-003-06"
+            }
+          }
+        ]
+      },
+      {
+        "id": "fase-trail-003-04",
+        "trailId": "trail-003",
+        "titulo": "Interactividade",
+        "descricao": "Desenvolve competências de desenvolvimento web nesta fase.",
+        "ordem": 4,
+        "duracao": 150,
+        "modulos": [
+          {
+            "id": "module-trail-003-07",
+            "trailId": "trail-003",
+            "faseId": "fase-trail-003-04",
+            "titulo": "Testar a experiência em diferentes ecrãs",
+            "descricao": "Aplica testar a experiência em diferentes ecrãs a uma situação concreta.",
+            "ordem": 7,
+            "duracao": 75,
+            "contentItems": [
+              {
+                "id": "content-module-trail-003-07-01",
+                "moduleId": "module-trail-003-07",
+                "tipo": "texto",
+                "titulo": "Compreender o contexto",
+                "conteudo": "Começa por identificar o objectivo e as pessoas envolvidas em testar a experiência em diferentes ecrãs.",
+                "ordem": 1
+              },
+              {
+                "id": "content-module-trail-003-07-02",
+                "moduleId": "module-trail-003-07",
+                "tipo": "texto",
+                "titulo": "Escolher uma abordagem",
+                "conteudo": "Compara opções e escolhe uma abordagem de testar a experiência em diferentes ecrãs adequada aos recursos disponíveis.",
+                "ordem": 2
+              },
+              {
+                "id": "content-module-trail-003-07-03",
+                "moduleId": "module-trail-003-07",
+                "tipo": "texto",
+                "titulo": "Rever o resultado",
+                "conteudo": "Regista o que aprendeste e define como vais melhorar a tua prática de testar a experiência em diferentes ecrãs.",
+                "ordem": 3
+              }
+            ],
+            "atividade": {
+              "tipo": "escrita",
+              "enunciado": "Prepara um pequeno plano para testar a experiência em diferentes ecrãs.",
+              "instrucoes": "Indica o objectivo, os passos principais e a forma como vais rever o resultado.",
+              "obrigatoria": true,
+              "pontos": 20,
+              "id": "activity-module-trail-003-07",
+              "moduleId": "module-trail-003-07"
+            }
+          },
+          {
+            "id": "module-trail-003-08",
+            "trailId": "trail-003",
+            "faseId": "fase-trail-003-04",
+            "titulo": "Publicar e apresentar um projecto web",
+            "descricao": "Aplica publicar e apresentar um projecto web a uma situação concreta.",
+            "ordem": 8,
+            "duracao": 75,
+            "contentItems": [
+              {
+                "id": "content-module-trail-003-08-01",
+                "moduleId": "module-trail-003-08",
+                "tipo": "texto",
+                "titulo": "Compreender o contexto",
+                "conteudo": "Começa por identificar o objectivo e as pessoas envolvidas em publicar e apresentar um projecto web.",
+                "ordem": 1
+              },
+              {
+                "id": "content-module-trail-003-08-02",
+                "moduleId": "module-trail-003-08",
+                "tipo": "texto",
+                "titulo": "Escolher uma abordagem",
+                "conteudo": "Compara opções e escolhe uma abordagem de publicar e apresentar um projecto web adequada aos recursos disponíveis.",
+                "ordem": 2
+              },
+              {
+                "id": "content-module-trail-003-08-03",
+                "moduleId": "module-trail-003-08",
+                "tipo": "texto",
+                "titulo": "Rever o resultado",
+                "conteudo": "Regista o que aprendeste e define como vais melhorar a tua prática de publicar e apresentar um projecto web.",
+                "ordem": 3
+              }
+            ],
+            "atividade": {
+              "tipo": "escrita",
+              "enunciado": "Prepara um pequeno plano para publicar e apresentar um projecto web.",
+              "instrucoes": "Indica o objectivo, os passos principais e a forma como vais rever o resultado.",
+              "obrigatoria": true,
+              "pontos": 20,
+              "id": "activity-module-trail-003-08",
+              "moduleId": "module-trail-003-08"
+            }
+          }
+        ]
+      },
+      {
+        "id": "fase-trail-003-05",
+        "trailId": "trail-003",
+        "titulo": "Publicação",
+        "descricao": "Desenvolve competências de desenvolvimento web nesta fase.",
+        "ordem": 5,
+        "duracao": 150,
+        "modulos": [
+          {
+            "id": "module-trail-003-09",
+            "trailId": "trail-003",
+            "faseId": "fase-trail-003-05",
+            "titulo": "Rever acessibilidade e qualidade do código",
+            "descricao": "Aplica rever acessibilidade e qualidade do código a uma situação concreta.",
+            "ordem": 9,
+            "duracao": 75,
+            "contentItems": [
+              {
+                "id": "content-module-trail-003-09-01",
+                "moduleId": "module-trail-003-09",
+                "tipo": "texto",
+                "titulo": "Compreender o contexto",
+                "conteudo": "Começa por identificar o objectivo e as pessoas envolvidas em rever acessibilidade e qualidade do código.",
+                "ordem": 1
+              },
+              {
+                "id": "content-module-trail-003-09-02",
+                "moduleId": "module-trail-003-09",
+                "tipo": "texto",
+                "titulo": "Escolher uma abordagem",
+                "conteudo": "Compara opções e escolhe uma abordagem de rever acessibilidade e qualidade do código adequada aos recursos disponíveis.",
+                "ordem": 2
+              },
+              {
+                "id": "content-module-trail-003-09-03",
+                "moduleId": "module-trail-003-09",
+                "tipo": "texto",
+                "titulo": "Rever o resultado",
+                "conteudo": "Regista o que aprendeste e define como vais melhorar a tua prática de rever acessibilidade e qualidade do código.",
+                "ordem": 3
+              }
+            ],
+            "atividade": {
+              "tipo": "escrita",
+              "enunciado": "Prepara um pequeno plano para rever acessibilidade e qualidade do código.",
+              "instrucoes": "Indica o objectivo, os passos principais e a forma como vais rever o resultado.",
+              "obrigatoria": true,
+              "pontos": 20,
+              "id": "activity-module-trail-003-09",
+              "moduleId": "module-trail-003-09"
+            }
+          },
+          {
+            "id": "module-trail-003-10",
+            "trailId": "trail-003",
+            "faseId": "fase-trail-003-05",
+            "titulo": "Preparar o teu portefólio de programação",
+            "descricao": "Aplica preparar o teu portefólio de programação a uma situação concreta.",
+            "ordem": 10,
+            "duracao": 75,
+            "contentItems": [
+              {
+                "id": "content-module-trail-003-10-01",
+                "moduleId": "module-trail-003-10",
+                "tipo": "texto",
+                "titulo": "Compreender o contexto",
+                "conteudo": "Começa por identificar o objectivo e as pessoas envolvidas em preparar o teu portefólio de programação.",
+                "ordem": 1
+              },
+              {
+                "id": "content-module-trail-003-10-02",
+                "moduleId": "module-trail-003-10",
+                "tipo": "texto",
+                "titulo": "Escolher uma abordagem",
+                "conteudo": "Compara opções e escolhe uma abordagem de preparar o teu portefólio de programação adequada aos recursos disponíveis.",
+                "ordem": 2
+              },
+              {
+                "id": "content-module-trail-003-10-03",
+                "moduleId": "module-trail-003-10",
+                "tipo": "texto",
+                "titulo": "Rever o resultado",
+                "conteudo": "Regista o que aprendeste e define como vais melhorar a tua prática de preparar o teu portefólio de programação.",
+                "ordem": 3
+              }
+            ],
+            "atividade": {
+              "tipo": "escrita",
+              "enunciado": "Prepara um pequeno plano para preparar o teu portefólio de programação.",
+              "instrucoes": "Indica o objectivo, os passos principais e a forma como vais rever o resultado.",
+              "obrigatoria": true,
+              "pontos": 20,
+              "id": "activity-module-trail-003-10",
+              "moduleId": "module-trail-003-10"
+            }
+          }
+        ]
+      }
+    ],
+    "totalModulos": 10,
+    "publicoAlvo": "Jovens interessados em desenvolver desenvolvimento web.",
+    "preRequisitos": [],
+    "objetivosAprendizagem": [
+      "Compreender os fundamentos de desenvolvimento web.",
+      "Aplicar os conceitos em actividades práticas.",
+      "Apresentar evidências do que aprendeste."
+    ],
+    "status": "published",
+    "acesso": "free",
+    "preco": null,
+    "imagem": null,
+    "certificado": true,
+    "totalFases": 5,
+    "createdAt": "2026-08-15T10:00:00Z",
+    "updatedAt": "2026-08-15T10:00:00Z"
+  },
+  {
+    "id": "trail-004",
+    "slug": "lideranca-para-jovens",
+    "titulo": "Liderança para Jovens",
+    "descricao": "Explora formas de colaborar e orientar uma equipa. Pratica comunicação e tomada de decisão em grupo.",
+    "descricaoLonga": "Liderar também significa criar condições para que outras pessoas contribuam. Nesta trilha, vais praticar escuta, distribuição de tarefas e tomada de decisão. O resultado é um plano simples que podes aplicar num projecto, associação ou actividade de estudo.",
+    "categoria": "Liderança",
+    "competenciaCentral": "Liderança",
+    "nivel": "intermedio",
+    "duracao": 10,
+    "resultadoEsperado": "Um plano de acção de equipa com responsabilidades, decisões e próximos passos claros.",
+    "modulos": [
+      {
+        "id": "module-trail-004-01",
+        "trailId": "trail-004",
+        "faseId": "fase-trail-004-01",
+        "titulo": "Colaborar em equipa",
+        "descricao": "Identifica formas de partilhar responsabilidades e ouvir diferentes ideias.",
+        "ordem": 1,
+        "duracao": 75,
+        "contentItems": [
+          {
+            "id": "content-module-trail-004-01-01",
+            "moduleId": "module-trail-004-01",
+            "tipo": "texto",
+            "titulo": "Papéis e colaboração",
+            "conteudo": "Clarifica responsabilidades e mantém a equipa informada sobre os próximos passos. A colaboração melhora quando cada pessoa sabe onde pode contribuir.",
+            "ordem": 1
+          },
+          {
+            "id": "content-module-trail-004-01-02",
+            "moduleId": "module-trail-004-01",
+            "tipo": "texto",
+            "titulo": "Escuta activa",
+            "conteudo": "Faz perguntas para compreender diferentes pontos de vista antes de responder. Resume o que ouviste para confirmar que todos estão alinhados.",
+            "ordem": 2
+          },
+          {
+            "id": "content-module-trail-004-01-03",
+            "moduleId": "module-trail-004-01",
+            "tipo": "texto",
+            "titulo": "Acordos de equipa",
+            "conteudo": "Combina como partilhar actualizações, resolver dúvidas e pedir ajuda. Revê os acordos quando as necessidades do grupo mudam.",
+            "ordem": 3
+          }
+        ],
+        "atividade": {
+          "tipo": "escrita",
+          "enunciado": "Propõe três acordos para uma equipa de projecto.",
+          "instrucoes": "Inclui uma forma de distribuir tarefas, uma regra de comunicação e uma forma de pedir ajuda.",
+          "obrigatoria": true,
+          "pontos": 20,
+          "id": "activity-module-trail-004-01",
+          "moduleId": "module-trail-004-01"
+        }
+      },
+      {
+        "id": "module-trail-004-02",
+        "trailId": "trail-004",
+        "faseId": "fase-trail-004-01",
+        "titulo": "Tomar decisões em conjunto",
+        "descricao": "Compara opções e escolhe próximos passos com a equipa.",
+        "ordem": 2,
+        "duracao": 75,
+        "contentItems": [
+          {
+            "id": "content-module-trail-004-02-01",
+            "moduleId": "module-trail-004-02",
+            "tipo": "texto",
+            "titulo": "Definir o problema",
+            "conteudo": "Antes de escolher uma solução, descreve a situação e o resultado pretendido. Distingue factos observados de suposições.",
+            "ordem": 1
+          },
+          {
+            "id": "content-module-trail-004-02-02",
+            "moduleId": "module-trail-004-02",
+            "tipo": "texto",
+            "titulo": "Comparar opções",
+            "conteudo": "Lista alternativas e considera tempo, impacto e recursos. Dá espaço a opiniões diferentes e regista as razões da decisão.",
+            "ordem": 2
+          },
+          {
+            "id": "content-module-trail-004-02-03",
+            "moduleId": "module-trail-004-02",
+            "tipo": "texto",
+            "titulo": "Acompanhar a decisão",
+            "conteudo": "Atribui uma pessoa responsável e uma data para rever o progresso. Ajusta o plano quando surgem novas informações.",
+            "ordem": 3
+          }
+        ],
+        "atividade": {
+          "tipo": "quiz",
+          "enunciado": "Escolhe uma abordagem colaborativa para decidir.",
+          "instrucoes": "Pensa em como clarificar o problema e ouvir a equipa antes de agir.",
+          "obrigatoria": true,
+          "pontos": 20,
+          "id": "activity-module-trail-004-02",
+          "moduleId": "module-trail-004-02",
+          "perguntas": [
+            {
+              "id": "question-module-trail-004-02-01",
+              "enunciado": "Qual é o primeiro passo recomendado para tomar decisões em conjunto?",
+              "opcoes": [
+                {
+                  "id": "activity-module-trail-004-02-a",
+                  "texto": "Definir o objectivo e o público."
+                },
+                {
+                  "id": "activity-module-trail-004-02-b",
+                  "texto": "Publicar sem fazer um plano."
+                },
+                {
+                  "id": "activity-module-trail-004-02-c",
+                  "texto": "Ignorar os resultados."
+                }
+              ],
+              "respostaCorretaId": "activity-module-trail-004-02-a"
+            }
+          ]
+        }
+      },
+      {
+        "id": "module-trail-004-03",
+        "trailId": "trail-004",
+        "faseId": "fase-trail-004-02",
+        "titulo": "Dar e receber feedback",
+        "descricao": "Transforma observações em conversas respeitosas e úteis.",
+        "ordem": 3,
+        "duracao": 75,
+        "contentItems": [
+          {
+            "id": "content-module-trail-004-03-01",
+            "moduleId": "module-trail-004-03",
+            "tipo": "texto",
+            "titulo": "Feedback concreto",
+            "conteudo": "Descreve comportamentos observáveis e o seu impacto, sem fazer julgamentos sobre a pessoa. Dá um exemplo específico e sugere um próximo passo.",
+            "ordem": 1
+          },
+          {
+            "id": "content-module-trail-004-03-02",
+            "moduleId": "module-trail-004-03",
+            "tipo": "texto",
+            "titulo": "Receber feedback",
+            "conteudo": "Escuta até ao fim e pede um exemplo se algo não estiver claro. Decide que sugestão podes experimentar e agradece a contribuição.",
+            "ordem": 2
+          },
+          {
+            "id": "content-module-trail-004-03-03",
+            "moduleId": "module-trail-004-03",
+            "tipo": "texto",
+            "titulo": "Acordar acções",
+            "conteudo": "Fecha a conversa com um compromisso que possa ser revisto. O feedback torna-se útil quando se transforma numa acção possível.",
+            "ordem": 3
+          }
+        ],
+        "atividade": {
+          "tipo": "link",
+          "enunciado": "Partilha o plano de acção da tua equipa.",
+          "instrucoes": "Inclui o objectivo, as responsabilidades e a data de revisão do plano.",
+          "obrigatoria": false,
+          "pontos": 20,
+          "id": "activity-module-trail-004-03",
+          "moduleId": "module-trail-004-03"
+        }
+      },
+      {
+        "id": "module-trail-004-04",
+        "trailId": "trail-004",
+        "faseId": "fase-trail-004-02",
+        "titulo": "Comunicar uma visão partilhada",
+        "descricao": "Aplica comunicar uma visão partilhada a uma situação concreta.",
+        "ordem": 4,
+        "duracao": 75,
+        "contentItems": [
+          {
+            "id": "content-module-trail-004-04-01",
+            "moduleId": "module-trail-004-04",
+            "tipo": "texto",
+            "titulo": "Compreender o contexto",
+            "conteudo": "Começa por identificar o objectivo e as pessoas envolvidas em comunicar uma visão partilhada.",
+            "ordem": 1
+          },
+          {
+            "id": "content-module-trail-004-04-02",
+            "moduleId": "module-trail-004-04",
+            "tipo": "texto",
+            "titulo": "Escolher uma abordagem",
+            "conteudo": "Compara opções e escolhe uma abordagem de comunicar uma visão partilhada adequada aos recursos disponíveis.",
+            "ordem": 2
+          },
+          {
+            "id": "content-module-trail-004-04-03",
+            "moduleId": "module-trail-004-04",
+            "tipo": "texto",
+            "titulo": "Rever o resultado",
+            "conteudo": "Regista o que aprendeste e define como vais melhorar a tua prática de comunicar uma visão partilhada.",
+            "ordem": 3
+          }
+        ],
+        "atividade": {
+          "tipo": "escrita",
+          "enunciado": "Prepara um pequeno plano para comunicar uma visão partilhada.",
+          "instrucoes": "Indica o objectivo, os passos principais e a forma como vais rever o resultado.",
+          "obrigatoria": true,
+          "pontos": 20,
+          "id": "activity-module-trail-004-04",
+          "moduleId": "module-trail-004-04"
+        }
+      },
+      {
+        "id": "module-trail-004-05",
+        "trailId": "trail-004",
+        "faseId": "fase-trail-004-03",
+        "titulo": "Tomar decisões em equipa",
+        "descricao": "Aplica tomar decisões em equipa a uma situação concreta.",
+        "ordem": 5,
+        "duracao": 75,
+        "contentItems": [
+          {
+            "id": "content-module-trail-004-05-01",
+            "moduleId": "module-trail-004-05",
+            "tipo": "texto",
+            "titulo": "Compreender o contexto",
+            "conteudo": "Começa por identificar o objectivo e as pessoas envolvidas em tomar decisões em equipa.",
+            "ordem": 1
+          },
+          {
+            "id": "content-module-trail-004-05-02",
+            "moduleId": "module-trail-004-05",
+            "tipo": "texto",
+            "titulo": "Escolher uma abordagem",
+            "conteudo": "Compara opções e escolhe uma abordagem de tomar decisões em equipa adequada aos recursos disponíveis.",
+            "ordem": 2
+          },
+          {
+            "id": "content-module-trail-004-05-03",
+            "moduleId": "module-trail-004-05",
+            "tipo": "texto",
+            "titulo": "Rever o resultado",
+            "conteudo": "Regista o que aprendeste e define como vais melhorar a tua prática de tomar decisões em equipa.",
+            "ordem": 3
+          }
+        ],
+        "atividade": {
+          "tipo": "escrita",
+          "enunciado": "Prepara um pequeno plano para tomar decisões em equipa.",
+          "instrucoes": "Indica o objectivo, os passos principais e a forma como vais rever o resultado.",
+          "obrigatoria": true,
+          "pontos": 20,
+          "id": "activity-module-trail-004-05",
+          "moduleId": "module-trail-004-05"
+        }
+      },
+      {
+        "id": "module-trail-004-06",
+        "trailId": "trail-004",
+        "faseId": "fase-trail-004-03",
+        "titulo": "Dar feedback construtivo",
+        "descricao": "Aplica dar feedback construtivo a uma situação concreta.",
+        "ordem": 6,
+        "duracao": 75,
+        "contentItems": [
+          {
+            "id": "content-module-trail-004-06-01",
+            "moduleId": "module-trail-004-06",
+            "tipo": "texto",
+            "titulo": "Compreender o contexto",
+            "conteudo": "Começa por identificar o objectivo e as pessoas envolvidas em dar feedback construtivo.",
+            "ordem": 1
+          },
+          {
+            "id": "content-module-trail-004-06-02",
+            "moduleId": "module-trail-004-06",
+            "tipo": "texto",
+            "titulo": "Escolher uma abordagem",
+            "conteudo": "Compara opções e escolhe uma abordagem de dar feedback construtivo adequada aos recursos disponíveis.",
+            "ordem": 2
+          },
+          {
+            "id": "content-module-trail-004-06-03",
+            "moduleId": "module-trail-004-06",
+            "tipo": "texto",
+            "titulo": "Rever o resultado",
+            "conteudo": "Regista o que aprendeste e define como vais melhorar a tua prática de dar feedback construtivo.",
+            "ordem": 3
+          }
+        ],
+        "atividade": {
+          "tipo": "escrita",
+          "enunciado": "Prepara um pequeno plano para dar feedback construtivo.",
+          "instrucoes": "Indica o objectivo, os passos principais e a forma como vais rever o resultado.",
+          "obrigatoria": true,
+          "pontos": 20,
+          "id": "activity-module-trail-004-06",
+          "moduleId": "module-trail-004-06"
+        }
+      }
+    ],
+    "fases": [
+      {
+        "id": "fase-trail-004-01",
+        "trailId": "trail-004",
+        "titulo": "Autoconhecimento",
+        "descricao": "Desenvolve competências de liderança nesta fase.",
+        "ordem": 1,
+        "duracao": 150,
+        "modulos": [
+          {
+            "id": "module-trail-004-01",
+            "trailId": "trail-004",
+            "faseId": "fase-trail-004-01",
+            "titulo": "Colaborar em equipa",
+            "descricao": "Identifica formas de partilhar responsabilidades e ouvir diferentes ideias.",
+            "ordem": 1,
+            "duracao": 75,
+            "contentItems": [
+              {
+                "id": "content-module-trail-004-01-01",
+                "moduleId": "module-trail-004-01",
+                "tipo": "texto",
+                "titulo": "Papéis e colaboração",
+                "conteudo": "Clarifica responsabilidades e mantém a equipa informada sobre os próximos passos. A colaboração melhora quando cada pessoa sabe onde pode contribuir.",
+                "ordem": 1
+              },
+              {
+                "id": "content-module-trail-004-01-02",
+                "moduleId": "module-trail-004-01",
+                "tipo": "texto",
+                "titulo": "Escuta activa",
+                "conteudo": "Faz perguntas para compreender diferentes pontos de vista antes de responder. Resume o que ouviste para confirmar que todos estão alinhados.",
+                "ordem": 2
+              },
+              {
+                "id": "content-module-trail-004-01-03",
+                "moduleId": "module-trail-004-01",
+                "tipo": "texto",
+                "titulo": "Acordos de equipa",
+                "conteudo": "Combina como partilhar actualizações, resolver dúvidas e pedir ajuda. Revê os acordos quando as necessidades do grupo mudam.",
+                "ordem": 3
+              }
+            ],
+            "atividade": {
+              "tipo": "escrita",
+              "enunciado": "Propõe três acordos para uma equipa de projecto.",
+              "instrucoes": "Inclui uma forma de distribuir tarefas, uma regra de comunicação e uma forma de pedir ajuda.",
+              "obrigatoria": true,
+              "pontos": 20,
+              "id": "activity-module-trail-004-01",
+              "moduleId": "module-trail-004-01"
+            }
+          },
+          {
+            "id": "module-trail-004-02",
+            "trailId": "trail-004",
+            "faseId": "fase-trail-004-01",
+            "titulo": "Tomar decisões em conjunto",
+            "descricao": "Compara opções e escolhe próximos passos com a equipa.",
+            "ordem": 2,
+            "duracao": 75,
+            "contentItems": [
+              {
+                "id": "content-module-trail-004-02-01",
+                "moduleId": "module-trail-004-02",
+                "tipo": "texto",
+                "titulo": "Definir o problema",
+                "conteudo": "Antes de escolher uma solução, descreve a situação e o resultado pretendido. Distingue factos observados de suposições.",
+                "ordem": 1
+              },
+              {
+                "id": "content-module-trail-004-02-02",
+                "moduleId": "module-trail-004-02",
+                "tipo": "texto",
+                "titulo": "Comparar opções",
+                "conteudo": "Lista alternativas e considera tempo, impacto e recursos. Dá espaço a opiniões diferentes e regista as razões da decisão.",
+                "ordem": 2
+              },
+              {
+                "id": "content-module-trail-004-02-03",
+                "moduleId": "module-trail-004-02",
+                "tipo": "texto",
+                "titulo": "Acompanhar a decisão",
+                "conteudo": "Atribui uma pessoa responsável e uma data para rever o progresso. Ajusta o plano quando surgem novas informações.",
+                "ordem": 3
+              }
+            ],
+            "atividade": {
+              "tipo": "quiz",
+              "enunciado": "Escolhe uma abordagem colaborativa para decidir.",
+              "instrucoes": "Pensa em como clarificar o problema e ouvir a equipa antes de agir.",
+              "obrigatoria": true,
+              "pontos": 20,
+              "id": "activity-module-trail-004-02",
+              "moduleId": "module-trail-004-02",
+              "perguntas": [
+                {
+                  "id": "question-module-trail-004-02-01",
+                  "enunciado": "Qual é o primeiro passo recomendado para tomar decisões em conjunto?",
+                  "opcoes": [
+                    {
+                      "id": "activity-module-trail-004-02-a",
+                      "texto": "Definir o objectivo e o público."
+                    },
+                    {
+                      "id": "activity-module-trail-004-02-b",
+                      "texto": "Publicar sem fazer um plano."
+                    },
+                    {
+                      "id": "activity-module-trail-004-02-c",
+                      "texto": "Ignorar os resultados."
+                    }
+                  ],
+                  "respostaCorretaId": "activity-module-trail-004-02-a"
+                }
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "id": "fase-trail-004-02",
+        "trailId": "trail-004",
+        "titulo": "Colaboração",
+        "descricao": "Desenvolve competências de liderança nesta fase.",
+        "ordem": 2,
+        "duracao": 150,
+        "modulos": [
+          {
+            "id": "module-trail-004-03",
+            "trailId": "trail-004",
+            "faseId": "fase-trail-004-02",
+            "titulo": "Dar e receber feedback",
+            "descricao": "Transforma observações em conversas respeitosas e úteis.",
+            "ordem": 3,
+            "duracao": 75,
+            "contentItems": [
+              {
+                "id": "content-module-trail-004-03-01",
+                "moduleId": "module-trail-004-03",
+                "tipo": "texto",
+                "titulo": "Feedback concreto",
+                "conteudo": "Descreve comportamentos observáveis e o seu impacto, sem fazer julgamentos sobre a pessoa. Dá um exemplo específico e sugere um próximo passo.",
+                "ordem": 1
+              },
+              {
+                "id": "content-module-trail-004-03-02",
+                "moduleId": "module-trail-004-03",
+                "tipo": "texto",
+                "titulo": "Receber feedback",
+                "conteudo": "Escuta até ao fim e pede um exemplo se algo não estiver claro. Decide que sugestão podes experimentar e agradece a contribuição.",
+                "ordem": 2
+              },
+              {
+                "id": "content-module-trail-004-03-03",
+                "moduleId": "module-trail-004-03",
+                "tipo": "texto",
+                "titulo": "Acordar acções",
+                "conteudo": "Fecha a conversa com um compromisso que possa ser revisto. O feedback torna-se útil quando se transforma numa acção possível.",
+                "ordem": 3
+              }
+            ],
+            "atividade": {
+              "tipo": "link",
+              "enunciado": "Partilha o plano de acção da tua equipa.",
+              "instrucoes": "Inclui o objectivo, as responsabilidades e a data de revisão do plano.",
+              "obrigatoria": false,
+              "pontos": 20,
+              "id": "activity-module-trail-004-03",
+              "moduleId": "module-trail-004-03"
+            }
+          },
+          {
+            "id": "module-trail-004-04",
+            "trailId": "trail-004",
+            "faseId": "fase-trail-004-02",
+            "titulo": "Comunicar uma visão partilhada",
+            "descricao": "Aplica comunicar uma visão partilhada a uma situação concreta.",
+            "ordem": 4,
+            "duracao": 75,
+            "contentItems": [
+              {
+                "id": "content-module-trail-004-04-01",
+                "moduleId": "module-trail-004-04",
+                "tipo": "texto",
+                "titulo": "Compreender o contexto",
+                "conteudo": "Começa por identificar o objectivo e as pessoas envolvidas em comunicar uma visão partilhada.",
+                "ordem": 1
+              },
+              {
+                "id": "content-module-trail-004-04-02",
+                "moduleId": "module-trail-004-04",
+                "tipo": "texto",
+                "titulo": "Escolher uma abordagem",
+                "conteudo": "Compara opções e escolhe uma abordagem de comunicar uma visão partilhada adequada aos recursos disponíveis.",
+                "ordem": 2
+              },
+              {
+                "id": "content-module-trail-004-04-03",
+                "moduleId": "module-trail-004-04",
+                "tipo": "texto",
+                "titulo": "Rever o resultado",
+                "conteudo": "Regista o que aprendeste e define como vais melhorar a tua prática de comunicar uma visão partilhada.",
+                "ordem": 3
+              }
+            ],
+            "atividade": {
+              "tipo": "escrita",
+              "enunciado": "Prepara um pequeno plano para comunicar uma visão partilhada.",
+              "instrucoes": "Indica o objectivo, os passos principais e a forma como vais rever o resultado.",
+              "obrigatoria": true,
+              "pontos": 20,
+              "id": "activity-module-trail-004-04",
+              "moduleId": "module-trail-004-04"
+            }
+          }
+        ]
+      },
+      {
+        "id": "fase-trail-004-03",
+        "trailId": "trail-004",
+        "titulo": "Liderança na prática",
+        "descricao": "Desenvolve competências de liderança nesta fase.",
+        "ordem": 3,
+        "duracao": 150,
+        "modulos": [
+          {
+            "id": "module-trail-004-05",
+            "trailId": "trail-004",
+            "faseId": "fase-trail-004-03",
+            "titulo": "Tomar decisões em equipa",
+            "descricao": "Aplica tomar decisões em equipa a uma situação concreta.",
+            "ordem": 5,
+            "duracao": 75,
+            "contentItems": [
+              {
+                "id": "content-module-trail-004-05-01",
+                "moduleId": "module-trail-004-05",
+                "tipo": "texto",
+                "titulo": "Compreender o contexto",
+                "conteudo": "Começa por identificar o objectivo e as pessoas envolvidas em tomar decisões em equipa.",
+                "ordem": 1
+              },
+              {
+                "id": "content-module-trail-004-05-02",
+                "moduleId": "module-trail-004-05",
+                "tipo": "texto",
+                "titulo": "Escolher uma abordagem",
+                "conteudo": "Compara opções e escolhe uma abordagem de tomar decisões em equipa adequada aos recursos disponíveis.",
+                "ordem": 2
+              },
+              {
+                "id": "content-module-trail-004-05-03",
+                "moduleId": "module-trail-004-05",
+                "tipo": "texto",
+                "titulo": "Rever o resultado",
+                "conteudo": "Regista o que aprendeste e define como vais melhorar a tua prática de tomar decisões em equipa.",
+                "ordem": 3
+              }
+            ],
+            "atividade": {
+              "tipo": "escrita",
+              "enunciado": "Prepara um pequeno plano para tomar decisões em equipa.",
+              "instrucoes": "Indica o objectivo, os passos principais e a forma como vais rever o resultado.",
+              "obrigatoria": true,
+              "pontos": 20,
+              "id": "activity-module-trail-004-05",
+              "moduleId": "module-trail-004-05"
+            }
+          },
+          {
+            "id": "module-trail-004-06",
+            "trailId": "trail-004",
+            "faseId": "fase-trail-004-03",
+            "titulo": "Dar feedback construtivo",
+            "descricao": "Aplica dar feedback construtivo a uma situação concreta.",
+            "ordem": 6,
+            "duracao": 75,
+            "contentItems": [
+              {
+                "id": "content-module-trail-004-06-01",
+                "moduleId": "module-trail-004-06",
+                "tipo": "texto",
+                "titulo": "Compreender o contexto",
+                "conteudo": "Começa por identificar o objectivo e as pessoas envolvidas em dar feedback construtivo.",
+                "ordem": 1
+              },
+              {
+                "id": "content-module-trail-004-06-02",
+                "moduleId": "module-trail-004-06",
+                "tipo": "texto",
+                "titulo": "Escolher uma abordagem",
+                "conteudo": "Compara opções e escolhe uma abordagem de dar feedback construtivo adequada aos recursos disponíveis.",
+                "ordem": 2
+              },
+              {
+                "id": "content-module-trail-004-06-03",
+                "moduleId": "module-trail-004-06",
+                "tipo": "texto",
+                "titulo": "Rever o resultado",
+                "conteudo": "Regista o que aprendeste e define como vais melhorar a tua prática de dar feedback construtivo.",
+                "ordem": 3
+              }
+            ],
+            "atividade": {
+              "tipo": "escrita",
+              "enunciado": "Prepara um pequeno plano para dar feedback construtivo.",
+              "instrucoes": "Indica o objectivo, os passos principais e a forma como vais rever o resultado.",
+              "obrigatoria": true,
+              "pontos": 20,
+              "id": "activity-module-trail-004-06",
+              "moduleId": "module-trail-004-06"
+            }
+          }
+        ]
+      }
+    ],
+    "totalModulos": 6,
+    "publicoAlvo": "Jovens interessados em desenvolver liderança.",
+    "preRequisitos": [],
+    "objetivosAprendizagem": [
+      "Compreender os fundamentos de liderança.",
+      "Aplicar os conceitos em actividades práticas.",
+      "Apresentar evidências do que aprendeste."
+    ],
+    "status": "published",
+    "acesso": "free",
+    "preco": null,
+    "imagem": null,
+    "certificado": true,
+    "totalFases": 3,
+    "createdAt": "2026-08-15T10:00:00Z",
+    "updatedAt": "2026-08-15T10:00:00Z"
+  },
+  {
+    "id": "trail-005",
+    "slug": "financas-pessoais-jovens",
+    "titulo": "Finanças Pessoais para Jovens",
+    "descricao": "Aprende a organizar receitas e despesas do dia a dia. Define prioridades para tomar decisões financeiras mais conscientes.",
+    "descricaoLonga": "Um orçamento ajuda a perceber como o dinheiro entra e sai ao longo do mês. Vais registar receitas, organizar despesas e definir prioridades usando exemplos simples em kwanzas. O objectivo é criar um plano que possas rever e adaptar à tua realidade.",
+    "categoria": "Finanças",
+    "competenciaCentral": "Literacia Financeira",
+    "nivel": "iniciante",
+    "duracao": 6,
+    "resultadoEsperado": "Um orçamento pessoal simples em kwanzas, com despesas organizadas e uma prioridade de poupança.",
+    "modulos": [
+      {
+        "id": "module-trail-005-01",
+        "trailId": "trail-005",
+        "faseId": "fase-trail-005-01",
+        "titulo": "Organizar um orçamento",
+        "descricao": "Regista receitas e despesas para perceber como distribuis o teu dinheiro.",
+        "ordem": 1,
+        "duracao": 75,
+        "contentItems": [
+          {
+            "id": "content-module-trail-005-01-01",
+            "moduleId": "module-trail-005-01",
+            "tipo": "texto",
+            "titulo": "Receitas e despesas",
+            "conteudo": "Anota entradas e saídas e revê as despesas que podes planear. Usa valores reais apenas se te sentires confortável; também podes praticar com um exemplo fictício.",
+            "ordem": 1
+          },
+          {
+            "id": "content-module-trail-005-01-02",
+            "moduleId": "module-trail-005-01",
+            "tipo": "texto",
+            "titulo": "Separar categorias",
+            "conteudo": "Agrupa despesas essenciais, variáveis e ocasionais. Esta separação ajuda a perceber quais os custos que mudam de mês para mês.",
+            "ordem": 2
+          },
+          {
+            "id": "content-module-trail-005-01-03",
+            "moduleId": "module-trail-005-01",
+            "tipo": "texto",
+            "titulo": "Definir prioridades",
+            "conteudo": "Escolhe uma prioridade realista para o próximo mês. Um plano útil pode ser ajustado quando a situação muda.",
+            "ordem": 3
+          }
+        ],
+        "atividade": {
+          "tipo": "escrita",
+          "enunciado": "Cria um orçamento mensal de exemplo em Kz.",
+          "instrucoes": "Regista pelo menos três categorias de despesa e explica uma prioridade. Não incluas dados financeiros pessoais.",
+          "obrigatoria": true,
+          "pontos": 20,
+          "id": "activity-module-trail-005-01",
+          "moduleId": "module-trail-005-01"
+        }
+      },
+      {
+        "id": "module-trail-005-02",
+        "trailId": "trail-005",
+        "faseId": "fase-trail-005-01",
+        "titulo": "Planear despesas e poupança",
+        "descricao": "Define limites e prepara-te para despesas que não acontecem todos os meses.",
+        "ordem": 2,
+        "duracao": 75,
+        "contentItems": [
+          {
+            "id": "content-module-trail-005-02-01",
+            "moduleId": "module-trail-005-02",
+            "tipo": "texto",
+            "titulo": "Despesas previstas",
+            "conteudo": "Algumas despesas acontecem apenas em certas alturas. Regista-as quando possível para evitar que apareçam como uma surpresa.",
+            "ordem": 1
+          },
+          {
+            "id": "content-module-trail-005-02-02",
+            "moduleId": "module-trail-005-02",
+            "tipo": "texto",
+            "titulo": "Objectivo de poupança",
+            "conteudo": "Define para que estás a poupar e em que prazo. Divide o objectivo em passos que caibam no teu orçamento.",
+            "ordem": 2
+          },
+          {
+            "id": "content-module-trail-005-02-03",
+            "moduleId": "module-trail-005-02",
+            "tipo": "texto",
+            "titulo": "Rever o plano",
+            "conteudo": "Compara o plano com o que realmente aconteceu. Ajusta categorias e prazos sem perder de vista a prioridade escolhida.",
+            "ordem": 3
+          }
+        ],
+        "atividade": {
+          "tipo": "quiz",
+          "enunciado": "Escolhe a forma mais realista de planear uma despesa futura.",
+          "instrucoes": "Considera o prazo, a prioridade e os valores disponíveis.",
+          "obrigatoria": true,
+          "pontos": 20,
+          "id": "activity-module-trail-005-02",
+          "moduleId": "module-trail-005-02",
+          "perguntas": [
+            {
+              "id": "question-module-trail-005-02-01",
+              "enunciado": "Qual é o primeiro passo recomendado para planear despesas e poupança?",
+              "opcoes": [
+                {
+                  "id": "activity-module-trail-005-02-a",
+                  "texto": "Definir o objectivo e o público."
+                },
+                {
+                  "id": "activity-module-trail-005-02-b",
+                  "texto": "Publicar sem fazer um plano."
+                },
+                {
+                  "id": "activity-module-trail-005-02-c",
+                  "texto": "Ignorar os resultados."
+                }
+              ],
+              "respostaCorretaId": "activity-module-trail-005-02-a"
+            }
+          ]
+        }
+      },
+      {
+        "id": "module-trail-005-03",
+        "trailId": "trail-005",
+        "faseId": "fase-trail-005-02",
+        "titulo": "Tomar decisões financeiras",
+        "descricao": "Avalia custos e considera opções antes de assumir um compromisso.",
+        "ordem": 3,
+        "duracao": 75,
+        "contentItems": [
+          {
+            "id": "content-module-trail-005-03-01",
+            "moduleId": "module-trail-005-03",
+            "tipo": "texto",
+            "titulo": "Comparar alternativas",
+            "conteudo": "Compara o custo total, as condições e o momento de pagamento. Pede esclarecimentos quando alguma condição não estiver clara.",
+            "ordem": 1
+          },
+          {
+            "id": "content-module-trail-005-03-02",
+            "moduleId": "module-trail-005-03",
+            "tipo": "texto",
+            "titulo": "Reconhecer riscos",
+            "conteudo": "Desconfia de promessas de retorno garantido ou pressão para decidir imediatamente. Procura fontes confiáveis antes de partilhar dados.",
+            "ordem": 2
+          },
+          {
+            "id": "content-module-trail-005-03-03",
+            "moduleId": "module-trail-005-03",
+            "tipo": "texto",
+            "titulo": "Manter hábitos úteis",
+            "conteudo": "Uma revisão regular ajuda a perceber o que mudou e a manter prioridades visíveis. Escolhe um momento simples para actualizar o teu orçamento.",
+            "ordem": 3
+          }
+        ],
+        "atividade": {
+          "tipo": "escrita",
+          "enunciado": "Descreve os critérios que usarias para comparar duas opções de compra.",
+          "instrucoes": "Considera custo total, necessidade, prazo e condições. Não partilhes dados pessoais.",
+          "obrigatoria": false,
+          "pontos": 20,
+          "id": "activity-module-trail-005-03",
+          "moduleId": "module-trail-005-03"
+        }
+      },
+      {
+        "id": "module-trail-005-04",
+        "trailId": "trail-005",
+        "faseId": "fase-trail-005-02",
+        "titulo": "Planear um orçamento mensal",
+        "descricao": "Aplica planear um orçamento mensal a uma situação concreta.",
+        "ordem": 4,
+        "duracao": 75,
+        "contentItems": [
+          {
+            "id": "content-module-trail-005-04-01",
+            "moduleId": "module-trail-005-04",
+            "tipo": "texto",
+            "titulo": "Compreender o contexto",
+            "conteudo": "Começa por identificar o objectivo e as pessoas envolvidas em planear um orçamento mensal.",
+            "ordem": 1
+          },
+          {
+            "id": "content-module-trail-005-04-02",
+            "moduleId": "module-trail-005-04",
+            "tipo": "texto",
+            "titulo": "Escolher uma abordagem",
+            "conteudo": "Compara opções e escolhe uma abordagem de planear um orçamento mensal adequada aos recursos disponíveis.",
+            "ordem": 2
+          },
+          {
+            "id": "content-module-trail-005-04-03",
+            "moduleId": "module-trail-005-04",
+            "tipo": "texto",
+            "titulo": "Rever o resultado",
+            "conteudo": "Regista o que aprendeste e define como vais melhorar a tua prática de planear um orçamento mensal.",
+            "ordem": 3
+          }
+        ],
+        "atividade": {
+          "tipo": "escrita",
+          "enunciado": "Prepara um pequeno plano para planear um orçamento mensal.",
+          "instrucoes": "Indica o objectivo, os passos principais e a forma como vais rever o resultado.",
+          "obrigatoria": true,
+          "pontos": 20,
+          "id": "activity-module-trail-005-04",
+          "moduleId": "module-trail-005-04"
+        }
+      },
+      {
+        "id": "module-trail-005-05",
+        "trailId": "trail-005",
+        "faseId": "fase-trail-005-03",
+        "titulo": "Criar uma estratégia de poupança",
+        "descricao": "Aplica criar uma estratégia de poupança a uma situação concreta.",
+        "ordem": 5,
+        "duracao": 75,
+        "contentItems": [
+          {
+            "id": "content-module-trail-005-05-01",
+            "moduleId": "module-trail-005-05",
+            "tipo": "texto",
+            "titulo": "Compreender o contexto",
+            "conteudo": "Começa por identificar o objectivo e as pessoas envolvidas em criar uma estratégia de poupança.",
+            "ordem": 1
+          },
+          {
+            "id": "content-module-trail-005-05-02",
+            "moduleId": "module-trail-005-05",
+            "tipo": "texto",
+            "titulo": "Escolher uma abordagem",
+            "conteudo": "Compara opções e escolhe uma abordagem de criar uma estratégia de poupança adequada aos recursos disponíveis.",
+            "ordem": 2
+          },
+          {
+            "id": "content-module-trail-005-05-03",
+            "moduleId": "module-trail-005-05",
+            "tipo": "texto",
+            "titulo": "Rever o resultado",
+            "conteudo": "Regista o que aprendeste e define como vais melhorar a tua prática de criar uma estratégia de poupança.",
+            "ordem": 3
+          }
+        ],
+        "atividade": {
+          "tipo": "escrita",
+          "enunciado": "Prepara um pequeno plano para criar uma estratégia de poupança.",
+          "instrucoes": "Indica o objectivo, os passos principais e a forma como vais rever o resultado.",
+          "obrigatoria": true,
+          "pontos": 20,
+          "id": "activity-module-trail-005-05",
+          "moduleId": "module-trail-005-05"
+        }
+      }
+    ],
+    "fases": [
+      {
+        "id": "fase-trail-005-01",
+        "trailId": "trail-005",
+        "titulo": "Fundamentos",
+        "descricao": "Desenvolve competências de literacia financeira nesta fase.",
+        "ordem": 1,
+        "duracao": 150,
+        "modulos": [
+          {
+            "id": "module-trail-005-01",
+            "trailId": "trail-005",
+            "faseId": "fase-trail-005-01",
+            "titulo": "Organizar um orçamento",
+            "descricao": "Regista receitas e despesas para perceber como distribuis o teu dinheiro.",
+            "ordem": 1,
+            "duracao": 75,
+            "contentItems": [
+              {
+                "id": "content-module-trail-005-01-01",
+                "moduleId": "module-trail-005-01",
+                "tipo": "texto",
+                "titulo": "Receitas e despesas",
+                "conteudo": "Anota entradas e saídas e revê as despesas que podes planear. Usa valores reais apenas se te sentires confortável; também podes praticar com um exemplo fictício.",
+                "ordem": 1
+              },
+              {
+                "id": "content-module-trail-005-01-02",
+                "moduleId": "module-trail-005-01",
+                "tipo": "texto",
+                "titulo": "Separar categorias",
+                "conteudo": "Agrupa despesas essenciais, variáveis e ocasionais. Esta separação ajuda a perceber quais os custos que mudam de mês para mês.",
+                "ordem": 2
+              },
+              {
+                "id": "content-module-trail-005-01-03",
+                "moduleId": "module-trail-005-01",
+                "tipo": "texto",
+                "titulo": "Definir prioridades",
+                "conteudo": "Escolhe uma prioridade realista para o próximo mês. Um plano útil pode ser ajustado quando a situação muda.",
+                "ordem": 3
+              }
+            ],
+            "atividade": {
+              "tipo": "escrita",
+              "enunciado": "Cria um orçamento mensal de exemplo em Kz.",
+              "instrucoes": "Regista pelo menos três categorias de despesa e explica uma prioridade. Não incluas dados financeiros pessoais.",
+              "obrigatoria": true,
+              "pontos": 20,
+              "id": "activity-module-trail-005-01",
+              "moduleId": "module-trail-005-01"
+            }
+          },
+          {
+            "id": "module-trail-005-02",
+            "trailId": "trail-005",
+            "faseId": "fase-trail-005-01",
+            "titulo": "Planear despesas e poupança",
+            "descricao": "Define limites e prepara-te para despesas que não acontecem todos os meses.",
+            "ordem": 2,
+            "duracao": 75,
+            "contentItems": [
+              {
+                "id": "content-module-trail-005-02-01",
+                "moduleId": "module-trail-005-02",
+                "tipo": "texto",
+                "titulo": "Despesas previstas",
+                "conteudo": "Algumas despesas acontecem apenas em certas alturas. Regista-as quando possível para evitar que apareçam como uma surpresa.",
+                "ordem": 1
+              },
+              {
+                "id": "content-module-trail-005-02-02",
+                "moduleId": "module-trail-005-02",
+                "tipo": "texto",
+                "titulo": "Objectivo de poupança",
+                "conteudo": "Define para que estás a poupar e em que prazo. Divide o objectivo em passos que caibam no teu orçamento.",
+                "ordem": 2
+              },
+              {
+                "id": "content-module-trail-005-02-03",
+                "moduleId": "module-trail-005-02",
+                "tipo": "texto",
+                "titulo": "Rever o plano",
+                "conteudo": "Compara o plano com o que realmente aconteceu. Ajusta categorias e prazos sem perder de vista a prioridade escolhida.",
+                "ordem": 3
+              }
+            ],
+            "atividade": {
+              "tipo": "quiz",
+              "enunciado": "Escolhe a forma mais realista de planear uma despesa futura.",
+              "instrucoes": "Considera o prazo, a prioridade e os valores disponíveis.",
+              "obrigatoria": true,
+              "pontos": 20,
+              "id": "activity-module-trail-005-02",
+              "moduleId": "module-trail-005-02",
+              "perguntas": [
+                {
+                  "id": "question-module-trail-005-02-01",
+                  "enunciado": "Qual é o primeiro passo recomendado para planear despesas e poupança?",
+                  "opcoes": [
+                    {
+                      "id": "activity-module-trail-005-02-a",
+                      "texto": "Definir o objectivo e o público."
+                    },
+                    {
+                      "id": "activity-module-trail-005-02-b",
+                      "texto": "Publicar sem fazer um plano."
+                    },
+                    {
+                      "id": "activity-module-trail-005-02-c",
+                      "texto": "Ignorar os resultados."
+                    }
+                  ],
+                  "respostaCorretaId": "activity-module-trail-005-02-a"
+                }
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "id": "fase-trail-005-02",
+        "trailId": "trail-005",
+        "titulo": "Planeamento",
+        "descricao": "Desenvolve competências de literacia financeira nesta fase.",
+        "ordem": 2,
+        "duracao": 150,
+        "modulos": [
+          {
+            "id": "module-trail-005-03",
+            "trailId": "trail-005",
+            "faseId": "fase-trail-005-02",
+            "titulo": "Tomar decisões financeiras",
+            "descricao": "Avalia custos e considera opções antes de assumir um compromisso.",
+            "ordem": 3,
+            "duracao": 75,
+            "contentItems": [
+              {
+                "id": "content-module-trail-005-03-01",
+                "moduleId": "module-trail-005-03",
+                "tipo": "texto",
+                "titulo": "Comparar alternativas",
+                "conteudo": "Compara o custo total, as condições e o momento de pagamento. Pede esclarecimentos quando alguma condição não estiver clara.",
+                "ordem": 1
+              },
+              {
+                "id": "content-module-trail-005-03-02",
+                "moduleId": "module-trail-005-03",
+                "tipo": "texto",
+                "titulo": "Reconhecer riscos",
+                "conteudo": "Desconfia de promessas de retorno garantido ou pressão para decidir imediatamente. Procura fontes confiáveis antes de partilhar dados.",
+                "ordem": 2
+              },
+              {
+                "id": "content-module-trail-005-03-03",
+                "moduleId": "module-trail-005-03",
+                "tipo": "texto",
+                "titulo": "Manter hábitos úteis",
+                "conteudo": "Uma revisão regular ajuda a perceber o que mudou e a manter prioridades visíveis. Escolhe um momento simples para actualizar o teu orçamento.",
+                "ordem": 3
+              }
+            ],
+            "atividade": {
+              "tipo": "escrita",
+              "enunciado": "Descreve os critérios que usarias para comparar duas opções de compra.",
+              "instrucoes": "Considera custo total, necessidade, prazo e condições. Não partilhes dados pessoais.",
+              "obrigatoria": false,
+              "pontos": 20,
+              "id": "activity-module-trail-005-03",
+              "moduleId": "module-trail-005-03"
+            }
+          },
+          {
+            "id": "module-trail-005-04",
+            "trailId": "trail-005",
+            "faseId": "fase-trail-005-02",
+            "titulo": "Planear um orçamento mensal",
+            "descricao": "Aplica planear um orçamento mensal a uma situação concreta.",
+            "ordem": 4,
+            "duracao": 75,
+            "contentItems": [
+              {
+                "id": "content-module-trail-005-04-01",
+                "moduleId": "module-trail-005-04",
+                "tipo": "texto",
+                "titulo": "Compreender o contexto",
+                "conteudo": "Começa por identificar o objectivo e as pessoas envolvidas em planear um orçamento mensal.",
+                "ordem": 1
+              },
+              {
+                "id": "content-module-trail-005-04-02",
+                "moduleId": "module-trail-005-04",
+                "tipo": "texto",
+                "titulo": "Escolher uma abordagem",
+                "conteudo": "Compara opções e escolhe uma abordagem de planear um orçamento mensal adequada aos recursos disponíveis.",
+                "ordem": 2
+              },
+              {
+                "id": "content-module-trail-005-04-03",
+                "moduleId": "module-trail-005-04",
+                "tipo": "texto",
+                "titulo": "Rever o resultado",
+                "conteudo": "Regista o que aprendeste e define como vais melhorar a tua prática de planear um orçamento mensal.",
+                "ordem": 3
+              }
+            ],
+            "atividade": {
+              "tipo": "escrita",
+              "enunciado": "Prepara um pequeno plano para planear um orçamento mensal.",
+              "instrucoes": "Indica o objectivo, os passos principais e a forma como vais rever o resultado.",
+              "obrigatoria": true,
+              "pontos": 20,
+              "id": "activity-module-trail-005-04",
+              "moduleId": "module-trail-005-04"
+            }
+          }
+        ]
+      },
+      {
+        "id": "fase-trail-005-03",
+        "trailId": "trail-005",
+        "titulo": "Decisões financeiras",
+        "descricao": "Desenvolve competências de literacia financeira nesta fase.",
+        "ordem": 3,
+        "duracao": 75,
+        "modulos": [
+          {
+            "id": "module-trail-005-05",
+            "trailId": "trail-005",
+            "faseId": "fase-trail-005-03",
+            "titulo": "Criar uma estratégia de poupança",
+            "descricao": "Aplica criar uma estratégia de poupança a uma situação concreta.",
+            "ordem": 5,
+            "duracao": 75,
+            "contentItems": [
+              {
+                "id": "content-module-trail-005-05-01",
+                "moduleId": "module-trail-005-05",
+                "tipo": "texto",
+                "titulo": "Compreender o contexto",
+                "conteudo": "Começa por identificar o objectivo e as pessoas envolvidas em criar uma estratégia de poupança.",
+                "ordem": 1
+              },
+              {
+                "id": "content-module-trail-005-05-02",
+                "moduleId": "module-trail-005-05",
+                "tipo": "texto",
+                "titulo": "Escolher uma abordagem",
+                "conteudo": "Compara opções e escolhe uma abordagem de criar uma estratégia de poupança adequada aos recursos disponíveis.",
+                "ordem": 2
+              },
+              {
+                "id": "content-module-trail-005-05-03",
+                "moduleId": "module-trail-005-05",
+                "tipo": "texto",
+                "titulo": "Rever o resultado",
+                "conteudo": "Regista o que aprendeste e define como vais melhorar a tua prática de criar uma estratégia de poupança.",
+                "ordem": 3
+              }
+            ],
+            "atividade": {
+              "tipo": "escrita",
+              "enunciado": "Prepara um pequeno plano para criar uma estratégia de poupança.",
+              "instrucoes": "Indica o objectivo, os passos principais e a forma como vais rever o resultado.",
+              "obrigatoria": true,
+              "pontos": 20,
+              "id": "activity-module-trail-005-05",
+              "moduleId": "module-trail-005-05"
+            }
+          }
+        ]
+      }
+    ],
+    "totalModulos": 5,
+    "publicoAlvo": "Jovens interessados em desenvolver literacia financeira.",
+    "preRequisitos": [],
+    "objetivosAprendizagem": [
+      "Compreender os fundamentos de literacia financeira.",
+      "Aplicar os conceitos em actividades práticas.",
+      "Apresentar evidências do que aprendeste."
+    ],
+    "status": "published",
+    "acesso": "free",
+    "preco": null,
+    "imagem": null,
+    "certificado": true,
+    "totalFases": 3,
+    "createdAt": "2026-08-15T10:00:00Z",
+    "updatedAt": "2026-08-15T10:00:00Z"
+  },
+  {
+    "id": "trail-006",
+    "slug": "empreendedorismo-pratica",
+    "titulo": "Empreendedorismo na Prática",
+    "descricao": "Transforma uma ideia num plano inicial de negócio. Observa necessidades e pensa em formas de testar uma solução.",
+    "descricaoLonga": "Uma ideia ganha força quando responde a uma necessidade observada. Nesta trilha, vais conversar com potenciais utilizadores, desenhar uma proposta de valor e preparar um teste de baixo custo. O trabalho final é um plano curto para aprender com as primeiras respostas.",
+    "categoria": "Empreendedorismo",
+    "competenciaCentral": "Empreendedorismo",
+    "nivel": "intermedio",
+    "duracao": 15,
+    "resultadoEsperado": "Uma proposta de negócio inicial e um plano de teste com próximos passos definidos.",
+    "modulos": [
+      {
+        "id": "module-trail-006-01",
+        "trailId": "trail-006",
+        "faseId": "fase-trail-006-01",
+        "titulo": "Definir uma ideia de negócio",
+        "descricao": "Relaciona uma necessidade observada com uma solução que possas testar.",
+        "ordem": 1,
+        "duracao": 75,
+        "contentItems": [
+          {
+            "id": "content-module-trail-006-01-01",
+            "moduleId": "module-trail-006-01",
+            "tipo": "texto",
+            "titulo": "Necessidade e solução",
+            "conteudo": "Descreve quem enfrenta a necessidade e como a tua ideia pode ajudar. Evita começar pela solução antes de compreender o problema.",
+            "ordem": 1
+          },
+          {
+            "id": "content-module-trail-006-01-02",
+            "moduleId": "module-trail-006-01",
+            "tipo": "texto",
+            "titulo": "Observar o contexto",
+            "conteudo": "Fala com pessoas que conhecem a situação e ouve como lidam com ela hoje. Procura padrões sem assumir que uma opinião representa todas as pessoas.",
+            "ordem": 2
+          },
+          {
+            "id": "content-module-trail-006-01-03",
+            "moduleId": "module-trail-006-01",
+            "tipo": "texto",
+            "titulo": "Escrever uma hipótese",
+            "conteudo": "Formula quem beneficiaria, que problema resolverias e que mudança esperas observar. Mantém a hipótese simples para a poderes testar.",
+            "ordem": 3
+          }
+        ],
+        "atividade": {
+          "tipo": "escrita",
+          "enunciado": "Escreve uma hipótese para a tua ideia de negócio.",
+          "instrucoes": "Indica quem enfrenta a necessidade, que solução propões e como saberias se ajuda.",
+          "obrigatoria": true,
+          "pontos": 20,
+          "id": "activity-module-trail-006-01",
+          "moduleId": "module-trail-006-01"
+        }
+      },
+      {
+        "id": "module-trail-006-02",
+        "trailId": "trail-006",
+        "faseId": "fase-trail-006-01",
+        "titulo": "Testar uma proposta de valor",
+        "descricao": "Explica o benefício da ideia e recolhe reacções antes de investir.",
+        "ordem": 2,
+        "duracao": 75,
+        "contentItems": [
+          {
+            "id": "content-module-trail-006-02-01",
+            "moduleId": "module-trail-006-02",
+            "tipo": "texto",
+            "titulo": "Proposta de valor",
+            "conteudo": "Resume o benefício principal e para quem foi pensado. Usa palavras que as pessoas do público reconheceriam.",
+            "ordem": 1
+          },
+          {
+            "id": "content-module-trail-006-02-02",
+            "moduleId": "module-trail-006-02",
+            "tipo": "texto",
+            "titulo": "Teste de baixo custo",
+            "conteudo": "Um esboço, uma conversa ou uma demonstração simples pode revelar dúvidas importantes. Define o que queres aprender antes de preparar o teste.",
+            "ordem": 2
+          },
+          {
+            "id": "content-module-trail-006-02-03",
+            "moduleId": "module-trail-006-02",
+            "tipo": "texto",
+            "titulo": "Registar aprendizagens",
+            "conteudo": "Anota reacções e perguntas sem tentar defender a ideia. Usa o que descobriste para ajustar a proposta ou escolher outro problema.",
+            "ordem": 3
+          }
+        ],
+        "atividade": {
+          "tipo": "upload",
+          "enunciado": "Entrega um esboço simples da tua proposta.",
+          "instrucoes": "Carrega uma imagem do esboço, cartaz ou protótipo em PNG, JPG ou WebP.",
+          "obrigatoria": true,
+          "pontos": 20,
+          "id": "activity-module-trail-006-02",
+          "moduleId": "module-trail-006-02"
+        }
+      },
+      {
+        "id": "module-trail-006-03",
+        "trailId": "trail-006",
+        "faseId": "fase-trail-006-02",
+        "titulo": "Preparar os próximos passos",
+        "descricao": "Organiza recursos, custos e uma experiência inicial de validação.",
+        "ordem": 3,
+        "duracao": 75,
+        "contentItems": [
+          {
+            "id": "content-module-trail-006-03-01",
+            "moduleId": "module-trail-006-03",
+            "tipo": "texto",
+            "titulo": "Recursos necessários",
+            "conteudo": "Lista as pessoas, materiais e ferramentas necessárias para fazer um primeiro teste. Distingue o essencial do que pode esperar.",
+            "ordem": 1
+          },
+          {
+            "id": "content-module-trail-006-03-02",
+            "moduleId": "module-trail-006-03",
+            "tipo": "texto",
+            "titulo": "Custos e sustentabilidade",
+            "conteudo": "Regista custos previsíveis e considera como a proposta poderia manter-se ao longo do tempo. Usa estimativas e identifica o que ainda precisas de confirmar.",
+            "ordem": 2
+          },
+          {
+            "id": "content-module-trail-006-03-03",
+            "moduleId": "module-trail-006-03",
+            "tipo": "texto",
+            "titulo": "Plano de acção",
+            "conteudo": "Define a próxima experiência, uma data e o resultado que queres observar. Partilha o plano com alguém que possa dar feedback.",
+            "ordem": 3
+          }
+        ],
+        "atividade": {
+          "tipo": "link",
+          "enunciado": "Partilha o teu plano de validação.",
+          "instrucoes": "Inclui a experiência, o público, os recursos e como vais registar o que aprendeste.",
+          "obrigatoria": false,
+          "pontos": 20,
+          "id": "activity-module-trail-006-03",
+          "moduleId": "module-trail-006-03"
+        }
+      },
+      {
+        "id": "module-trail-006-04",
+        "trailId": "trail-006",
+        "faseId": "fase-trail-006-02",
+        "titulo": "Identificar um problema e o público",
+        "descricao": "Aplica identificar um problema e o público a uma situação concreta.",
+        "ordem": 4,
+        "duracao": 75,
+        "contentItems": [
+          {
+            "id": "content-module-trail-006-04-01",
+            "moduleId": "module-trail-006-04",
+            "tipo": "texto",
+            "titulo": "Compreender o contexto",
+            "conteudo": "Começa por identificar o objectivo e as pessoas envolvidas em identificar um problema e o público.",
+            "ordem": 1
+          },
+          {
+            "id": "content-module-trail-006-04-02",
+            "moduleId": "module-trail-006-04",
+            "tipo": "texto",
+            "titulo": "Escolher uma abordagem",
+            "conteudo": "Compara opções e escolhe uma abordagem de identificar um problema e o público adequada aos recursos disponíveis.",
+            "ordem": 2
+          },
+          {
+            "id": "content-module-trail-006-04-03",
+            "moduleId": "module-trail-006-04",
+            "tipo": "texto",
+            "titulo": "Rever o resultado",
+            "conteudo": "Regista o que aprendeste e define como vais melhorar a tua prática de identificar um problema e o público.",
+            "ordem": 3
+          }
+        ],
+        "atividade": {
+          "tipo": "escrita",
+          "enunciado": "Prepara um pequeno plano para identificar um problema e o público.",
+          "instrucoes": "Indica o objectivo, os passos principais e a forma como vais rever o resultado.",
+          "obrigatoria": true,
+          "pontos": 20,
+          "id": "activity-module-trail-006-04",
+          "moduleId": "module-trail-006-04"
+        }
+      },
+      {
+        "id": "module-trail-006-05",
+        "trailId": "trail-006",
+        "faseId": "fase-trail-006-03",
+        "titulo": "Desenhar uma proposta de valor",
+        "descricao": "Aplica desenhar uma proposta de valor a uma situação concreta.",
+        "ordem": 5,
+        "duracao": 75,
+        "contentItems": [
+          {
+            "id": "content-module-trail-006-05-01",
+            "moduleId": "module-trail-006-05",
+            "tipo": "texto",
+            "titulo": "Compreender o contexto",
+            "conteudo": "Começa por identificar o objectivo e as pessoas envolvidas em desenhar uma proposta de valor.",
+            "ordem": 1
+          },
+          {
+            "id": "content-module-trail-006-05-02",
+            "moduleId": "module-trail-006-05",
+            "tipo": "texto",
+            "titulo": "Escolher uma abordagem",
+            "conteudo": "Compara opções e escolhe uma abordagem de desenhar uma proposta de valor adequada aos recursos disponíveis.",
+            "ordem": 2
+          },
+          {
+            "id": "content-module-trail-006-05-03",
+            "moduleId": "module-trail-006-05",
+            "tipo": "texto",
+            "titulo": "Rever o resultado",
+            "conteudo": "Regista o que aprendeste e define como vais melhorar a tua prática de desenhar uma proposta de valor.",
+            "ordem": 3
+          }
+        ],
+        "atividade": {
+          "tipo": "escrita",
+          "enunciado": "Prepara um pequeno plano para desenhar uma proposta de valor.",
+          "instrucoes": "Indica o objectivo, os passos principais e a forma como vais rever o resultado.",
+          "obrigatoria": true,
+          "pontos": 20,
+          "id": "activity-module-trail-006-05",
+          "moduleId": "module-trail-006-05"
+        }
+      },
+      {
+        "id": "module-trail-006-06",
+        "trailId": "trail-006",
+        "faseId": "fase-trail-006-03",
+        "titulo": "Estimar custos e recursos",
+        "descricao": "Aplica estimar custos e recursos a uma situação concreta.",
+        "ordem": 6,
+        "duracao": 75,
+        "contentItems": [
+          {
+            "id": "content-module-trail-006-06-01",
+            "moduleId": "module-trail-006-06",
+            "tipo": "texto",
+            "titulo": "Compreender o contexto",
+            "conteudo": "Começa por identificar o objectivo e as pessoas envolvidas em estimar custos e recursos.",
+            "ordem": 1
+          },
+          {
+            "id": "content-module-trail-006-06-02",
+            "moduleId": "module-trail-006-06",
+            "tipo": "texto",
+            "titulo": "Escolher uma abordagem",
+            "conteudo": "Compara opções e escolhe uma abordagem de estimar custos e recursos adequada aos recursos disponíveis.",
+            "ordem": 2
+          },
+          {
+            "id": "content-module-trail-006-06-03",
+            "moduleId": "module-trail-006-06",
+            "tipo": "texto",
+            "titulo": "Rever o resultado",
+            "conteudo": "Regista o que aprendeste e define como vais melhorar a tua prática de estimar custos e recursos.",
+            "ordem": 3
+          }
+        ],
+        "atividade": {
+          "tipo": "escrita",
+          "enunciado": "Prepara um pequeno plano para estimar custos e recursos.",
+          "instrucoes": "Indica o objectivo, os passos principais e a forma como vais rever o resultado.",
+          "obrigatoria": true,
+          "pontos": 20,
+          "id": "activity-module-trail-006-06",
+          "moduleId": "module-trail-006-06"
+        }
+      },
+      {
+        "id": "module-trail-006-07",
+        "trailId": "trail-006",
+        "faseId": "fase-trail-006-04",
+        "titulo": "Testar uma ideia com potenciais clientes",
+        "descricao": "Aplica testar uma ideia com potenciais clientes a uma situação concreta.",
+        "ordem": 7,
+        "duracao": 75,
+        "contentItems": [
+          {
+            "id": "content-module-trail-006-07-01",
+            "moduleId": "module-trail-006-07",
+            "tipo": "texto",
+            "titulo": "Compreender o contexto",
+            "conteudo": "Começa por identificar o objectivo e as pessoas envolvidas em testar uma ideia com potenciais clientes.",
+            "ordem": 1
+          },
+          {
+            "id": "content-module-trail-006-07-02",
+            "moduleId": "module-trail-006-07",
+            "tipo": "texto",
+            "titulo": "Escolher uma abordagem",
+            "conteudo": "Compara opções e escolhe uma abordagem de testar uma ideia com potenciais clientes adequada aos recursos disponíveis.",
+            "ordem": 2
+          },
+          {
+            "id": "content-module-trail-006-07-03",
+            "moduleId": "module-trail-006-07",
+            "tipo": "texto",
+            "titulo": "Rever o resultado",
+            "conteudo": "Regista o que aprendeste e define como vais melhorar a tua prática de testar uma ideia com potenciais clientes.",
+            "ordem": 3
+          }
+        ],
+        "atividade": {
+          "tipo": "escrita",
+          "enunciado": "Prepara um pequeno plano para testar uma ideia com potenciais clientes.",
+          "instrucoes": "Indica o objectivo, os passos principais e a forma como vais rever o resultado.",
+          "obrigatoria": true,
+          "pontos": 20,
+          "id": "activity-module-trail-006-07",
+          "moduleId": "module-trail-006-07"
+        }
+      },
+      {
+        "id": "module-trail-006-08",
+        "trailId": "trail-006",
+        "faseId": "fase-trail-006-04",
+        "titulo": "Preparar uma apresentação do projecto",
+        "descricao": "Aplica preparar uma apresentação do projecto a uma situação concreta.",
+        "ordem": 8,
+        "duracao": 75,
+        "contentItems": [
+          {
+            "id": "content-module-trail-006-08-01",
+            "moduleId": "module-trail-006-08",
+            "tipo": "texto",
+            "titulo": "Compreender o contexto",
+            "conteudo": "Começa por identificar o objectivo e as pessoas envolvidas em preparar uma apresentação do projecto.",
+            "ordem": 1
+          },
+          {
+            "id": "content-module-trail-006-08-02",
+            "moduleId": "module-trail-006-08",
+            "tipo": "texto",
+            "titulo": "Escolher uma abordagem",
+            "conteudo": "Compara opções e escolhe uma abordagem de preparar uma apresentação do projecto adequada aos recursos disponíveis.",
+            "ordem": 2
+          },
+          {
+            "id": "content-module-trail-006-08-03",
+            "moduleId": "module-trail-006-08",
+            "tipo": "texto",
+            "titulo": "Rever o resultado",
+            "conteudo": "Regista o que aprendeste e define como vais melhorar a tua prática de preparar uma apresentação do projecto.",
+            "ordem": 3
+          }
+        ],
+        "atividade": {
+          "tipo": "escrita",
+          "enunciado": "Prepara um pequeno plano para preparar uma apresentação do projecto.",
+          "instrucoes": "Indica o objectivo, os passos principais e a forma como vais rever o resultado.",
+          "obrigatoria": true,
+          "pontos": 20,
+          "id": "activity-module-trail-006-08",
+          "moduleId": "module-trail-006-08"
+        }
+      }
+    ],
+    "fases": [
+      {
+        "id": "fase-trail-006-01",
+        "trailId": "trail-006",
+        "titulo": "Oportunidade",
+        "descricao": "Desenvolve competências de empreendedorismo nesta fase.",
+        "ordem": 1,
+        "duracao": 150,
+        "modulos": [
+          {
+            "id": "module-trail-006-01",
+            "trailId": "trail-006",
+            "faseId": "fase-trail-006-01",
+            "titulo": "Definir uma ideia de negócio",
+            "descricao": "Relaciona uma necessidade observada com uma solução que possas testar.",
+            "ordem": 1,
+            "duracao": 75,
+            "contentItems": [
+              {
+                "id": "content-module-trail-006-01-01",
+                "moduleId": "module-trail-006-01",
+                "tipo": "texto",
+                "titulo": "Necessidade e solução",
+                "conteudo": "Descreve quem enfrenta a necessidade e como a tua ideia pode ajudar. Evita começar pela solução antes de compreender o problema.",
+                "ordem": 1
+              },
+              {
+                "id": "content-module-trail-006-01-02",
+                "moduleId": "module-trail-006-01",
+                "tipo": "texto",
+                "titulo": "Observar o contexto",
+                "conteudo": "Fala com pessoas que conhecem a situação e ouve como lidam com ela hoje. Procura padrões sem assumir que uma opinião representa todas as pessoas.",
+                "ordem": 2
+              },
+              {
+                "id": "content-module-trail-006-01-03",
+                "moduleId": "module-trail-006-01",
+                "tipo": "texto",
+                "titulo": "Escrever uma hipótese",
+                "conteudo": "Formula quem beneficiaria, que problema resolverias e que mudança esperas observar. Mantém a hipótese simples para a poderes testar.",
+                "ordem": 3
+              }
+            ],
+            "atividade": {
+              "tipo": "escrita",
+              "enunciado": "Escreve uma hipótese para a tua ideia de negócio.",
+              "instrucoes": "Indica quem enfrenta a necessidade, que solução propões e como saberias se ajuda.",
+              "obrigatoria": true,
+              "pontos": 20,
+              "id": "activity-module-trail-006-01",
+              "moduleId": "module-trail-006-01"
+            }
+          },
+          {
+            "id": "module-trail-006-02",
+            "trailId": "trail-006",
+            "faseId": "fase-trail-006-01",
+            "titulo": "Testar uma proposta de valor",
+            "descricao": "Explica o benefício da ideia e recolhe reacções antes de investir.",
+            "ordem": 2,
+            "duracao": 75,
+            "contentItems": [
+              {
+                "id": "content-module-trail-006-02-01",
+                "moduleId": "module-trail-006-02",
+                "tipo": "texto",
+                "titulo": "Proposta de valor",
+                "conteudo": "Resume o benefício principal e para quem foi pensado. Usa palavras que as pessoas do público reconheceriam.",
+                "ordem": 1
+              },
+              {
+                "id": "content-module-trail-006-02-02",
+                "moduleId": "module-trail-006-02",
+                "tipo": "texto",
+                "titulo": "Teste de baixo custo",
+                "conteudo": "Um esboço, uma conversa ou uma demonstração simples pode revelar dúvidas importantes. Define o que queres aprender antes de preparar o teste.",
+                "ordem": 2
+              },
+              {
+                "id": "content-module-trail-006-02-03",
+                "moduleId": "module-trail-006-02",
+                "tipo": "texto",
+                "titulo": "Registar aprendizagens",
+                "conteudo": "Anota reacções e perguntas sem tentar defender a ideia. Usa o que descobriste para ajustar a proposta ou escolher outro problema.",
+                "ordem": 3
+              }
+            ],
+            "atividade": {
+              "tipo": "upload",
+              "enunciado": "Entrega um esboço simples da tua proposta.",
+              "instrucoes": "Carrega uma imagem do esboço, cartaz ou protótipo em PNG, JPG ou WebP.",
+              "obrigatoria": true,
+              "pontos": 20,
+              "id": "activity-module-trail-006-02",
+              "moduleId": "module-trail-006-02"
+            }
+          }
+        ]
+      },
+      {
+        "id": "fase-trail-006-02",
+        "trailId": "trail-006",
+        "titulo": "Proposta de valor",
+        "descricao": "Desenvolve competências de empreendedorismo nesta fase.",
+        "ordem": 2,
+        "duracao": 150,
+        "modulos": [
+          {
+            "id": "module-trail-006-03",
+            "trailId": "trail-006",
+            "faseId": "fase-trail-006-02",
+            "titulo": "Preparar os próximos passos",
+            "descricao": "Organiza recursos, custos e uma experiência inicial de validação.",
+            "ordem": 3,
+            "duracao": 75,
+            "contentItems": [
+              {
+                "id": "content-module-trail-006-03-01",
+                "moduleId": "module-trail-006-03",
+                "tipo": "texto",
+                "titulo": "Recursos necessários",
+                "conteudo": "Lista as pessoas, materiais e ferramentas necessárias para fazer um primeiro teste. Distingue o essencial do que pode esperar.",
+                "ordem": 1
+              },
+              {
+                "id": "content-module-trail-006-03-02",
+                "moduleId": "module-trail-006-03",
+                "tipo": "texto",
+                "titulo": "Custos e sustentabilidade",
+                "conteudo": "Regista custos previsíveis e considera como a proposta poderia manter-se ao longo do tempo. Usa estimativas e identifica o que ainda precisas de confirmar.",
+                "ordem": 2
+              },
+              {
+                "id": "content-module-trail-006-03-03",
+                "moduleId": "module-trail-006-03",
+                "tipo": "texto",
+                "titulo": "Plano de acção",
+                "conteudo": "Define a próxima experiência, uma data e o resultado que queres observar. Partilha o plano com alguém que possa dar feedback.",
+                "ordem": 3
+              }
+            ],
+            "atividade": {
+              "tipo": "link",
+              "enunciado": "Partilha o teu plano de validação.",
+              "instrucoes": "Inclui a experiência, o público, os recursos e como vais registar o que aprendeste.",
+              "obrigatoria": false,
+              "pontos": 20,
+              "id": "activity-module-trail-006-03",
+              "moduleId": "module-trail-006-03"
+            }
+          },
+          {
+            "id": "module-trail-006-04",
+            "trailId": "trail-006",
+            "faseId": "fase-trail-006-02",
+            "titulo": "Identificar um problema e o público",
+            "descricao": "Aplica identificar um problema e o público a uma situação concreta.",
+            "ordem": 4,
+            "duracao": 75,
+            "contentItems": [
+              {
+                "id": "content-module-trail-006-04-01",
+                "moduleId": "module-trail-006-04",
+                "tipo": "texto",
+                "titulo": "Compreender o contexto",
+                "conteudo": "Começa por identificar o objectivo e as pessoas envolvidas em identificar um problema e o público.",
+                "ordem": 1
+              },
+              {
+                "id": "content-module-trail-006-04-02",
+                "moduleId": "module-trail-006-04",
+                "tipo": "texto",
+                "titulo": "Escolher uma abordagem",
+                "conteudo": "Compara opções e escolhe uma abordagem de identificar um problema e o público adequada aos recursos disponíveis.",
+                "ordem": 2
+              },
+              {
+                "id": "content-module-trail-006-04-03",
+                "moduleId": "module-trail-006-04",
+                "tipo": "texto",
+                "titulo": "Rever o resultado",
+                "conteudo": "Regista o que aprendeste e define como vais melhorar a tua prática de identificar um problema e o público.",
+                "ordem": 3
+              }
+            ],
+            "atividade": {
+              "tipo": "escrita",
+              "enunciado": "Prepara um pequeno plano para identificar um problema e o público.",
+              "instrucoes": "Indica o objectivo, os passos principais e a forma como vais rever o resultado.",
+              "obrigatoria": true,
+              "pontos": 20,
+              "id": "activity-module-trail-006-04",
+              "moduleId": "module-trail-006-04"
+            }
+          }
+        ]
+      },
+      {
+        "id": "fase-trail-006-03",
+        "trailId": "trail-006",
+        "titulo": "Validação",
+        "descricao": "Desenvolve competências de empreendedorismo nesta fase.",
+        "ordem": 3,
+        "duracao": 150,
+        "modulos": [
+          {
+            "id": "module-trail-006-05",
+            "trailId": "trail-006",
+            "faseId": "fase-trail-006-03",
+            "titulo": "Desenhar uma proposta de valor",
+            "descricao": "Aplica desenhar uma proposta de valor a uma situação concreta.",
+            "ordem": 5,
+            "duracao": 75,
+            "contentItems": [
+              {
+                "id": "content-module-trail-006-05-01",
+                "moduleId": "module-trail-006-05",
+                "tipo": "texto",
+                "titulo": "Compreender o contexto",
+                "conteudo": "Começa por identificar o objectivo e as pessoas envolvidas em desenhar uma proposta de valor.",
+                "ordem": 1
+              },
+              {
+                "id": "content-module-trail-006-05-02",
+                "moduleId": "module-trail-006-05",
+                "tipo": "texto",
+                "titulo": "Escolher uma abordagem",
+                "conteudo": "Compara opções e escolhe uma abordagem de desenhar uma proposta de valor adequada aos recursos disponíveis.",
+                "ordem": 2
+              },
+              {
+                "id": "content-module-trail-006-05-03",
+                "moduleId": "module-trail-006-05",
+                "tipo": "texto",
+                "titulo": "Rever o resultado",
+                "conteudo": "Regista o que aprendeste e define como vais melhorar a tua prática de desenhar uma proposta de valor.",
+                "ordem": 3
+              }
+            ],
+            "atividade": {
+              "tipo": "escrita",
+              "enunciado": "Prepara um pequeno plano para desenhar uma proposta de valor.",
+              "instrucoes": "Indica o objectivo, os passos principais e a forma como vais rever o resultado.",
+              "obrigatoria": true,
+              "pontos": 20,
+              "id": "activity-module-trail-006-05",
+              "moduleId": "module-trail-006-05"
+            }
+          },
+          {
+            "id": "module-trail-006-06",
+            "trailId": "trail-006",
+            "faseId": "fase-trail-006-03",
+            "titulo": "Estimar custos e recursos",
+            "descricao": "Aplica estimar custos e recursos a uma situação concreta.",
+            "ordem": 6,
+            "duracao": 75,
+            "contentItems": [
+              {
+                "id": "content-module-trail-006-06-01",
+                "moduleId": "module-trail-006-06",
+                "tipo": "texto",
+                "titulo": "Compreender o contexto",
+                "conteudo": "Começa por identificar o objectivo e as pessoas envolvidas em estimar custos e recursos.",
+                "ordem": 1
+              },
+              {
+                "id": "content-module-trail-006-06-02",
+                "moduleId": "module-trail-006-06",
+                "tipo": "texto",
+                "titulo": "Escolher uma abordagem",
+                "conteudo": "Compara opções e escolhe uma abordagem de estimar custos e recursos adequada aos recursos disponíveis.",
+                "ordem": 2
+              },
+              {
+                "id": "content-module-trail-006-06-03",
+                "moduleId": "module-trail-006-06",
+                "tipo": "texto",
+                "titulo": "Rever o resultado",
+                "conteudo": "Regista o que aprendeste e define como vais melhorar a tua prática de estimar custos e recursos.",
+                "ordem": 3
+              }
+            ],
+            "atividade": {
+              "tipo": "escrita",
+              "enunciado": "Prepara um pequeno plano para estimar custos e recursos.",
+              "instrucoes": "Indica o objectivo, os passos principais e a forma como vais rever o resultado.",
+              "obrigatoria": true,
+              "pontos": 20,
+              "id": "activity-module-trail-006-06",
+              "moduleId": "module-trail-006-06"
+            }
+          }
+        ]
+      },
+      {
+        "id": "fase-trail-006-04",
+        "trailId": "trail-006",
+        "titulo": "Apresentação",
+        "descricao": "Desenvolve competências de empreendedorismo nesta fase.",
+        "ordem": 4,
+        "duracao": 150,
+        "modulos": [
+          {
+            "id": "module-trail-006-07",
+            "trailId": "trail-006",
+            "faseId": "fase-trail-006-04",
+            "titulo": "Testar uma ideia com potenciais clientes",
+            "descricao": "Aplica testar uma ideia com potenciais clientes a uma situação concreta.",
+            "ordem": 7,
+            "duracao": 75,
+            "contentItems": [
+              {
+                "id": "content-module-trail-006-07-01",
+                "moduleId": "module-trail-006-07",
+                "tipo": "texto",
+                "titulo": "Compreender o contexto",
+                "conteudo": "Começa por identificar o objectivo e as pessoas envolvidas em testar uma ideia com potenciais clientes.",
+                "ordem": 1
+              },
+              {
+                "id": "content-module-trail-006-07-02",
+                "moduleId": "module-trail-006-07",
+                "tipo": "texto",
+                "titulo": "Escolher uma abordagem",
+                "conteudo": "Compara opções e escolhe uma abordagem de testar uma ideia com potenciais clientes adequada aos recursos disponíveis.",
+                "ordem": 2
+              },
+              {
+                "id": "content-module-trail-006-07-03",
+                "moduleId": "module-trail-006-07",
+                "tipo": "texto",
+                "titulo": "Rever o resultado",
+                "conteudo": "Regista o que aprendeste e define como vais melhorar a tua prática de testar uma ideia com potenciais clientes.",
+                "ordem": 3
+              }
+            ],
+            "atividade": {
+              "tipo": "escrita",
+              "enunciado": "Prepara um pequeno plano para testar uma ideia com potenciais clientes.",
+              "instrucoes": "Indica o objectivo, os passos principais e a forma como vais rever o resultado.",
+              "obrigatoria": true,
+              "pontos": 20,
+              "id": "activity-module-trail-006-07",
+              "moduleId": "module-trail-006-07"
+            }
+          },
+          {
+            "id": "module-trail-006-08",
+            "trailId": "trail-006",
+            "faseId": "fase-trail-006-04",
+            "titulo": "Preparar uma apresentação do projecto",
+            "descricao": "Aplica preparar uma apresentação do projecto a uma situação concreta.",
+            "ordem": 8,
+            "duracao": 75,
+            "contentItems": [
+              {
+                "id": "content-module-trail-006-08-01",
+                "moduleId": "module-trail-006-08",
+                "tipo": "texto",
+                "titulo": "Compreender o contexto",
+                "conteudo": "Começa por identificar o objectivo e as pessoas envolvidas em preparar uma apresentação do projecto.",
+                "ordem": 1
+              },
+              {
+                "id": "content-module-trail-006-08-02",
+                "moduleId": "module-trail-006-08",
+                "tipo": "texto",
+                "titulo": "Escolher uma abordagem",
+                "conteudo": "Compara opções e escolhe uma abordagem de preparar uma apresentação do projecto adequada aos recursos disponíveis.",
+                "ordem": 2
+              },
+              {
+                "id": "content-module-trail-006-08-03",
+                "moduleId": "module-trail-006-08",
+                "tipo": "texto",
+                "titulo": "Rever o resultado",
+                "conteudo": "Regista o que aprendeste e define como vais melhorar a tua prática de preparar uma apresentação do projecto.",
+                "ordem": 3
+              }
+            ],
+            "atividade": {
+              "tipo": "escrita",
+              "enunciado": "Prepara um pequeno plano para preparar uma apresentação do projecto.",
+              "instrucoes": "Indica o objectivo, os passos principais e a forma como vais rever o resultado.",
+              "obrigatoria": true,
+              "pontos": 20,
+              "id": "activity-module-trail-006-08",
+              "moduleId": "module-trail-006-08"
+            }
+          }
+        ]
+      }
+    ],
+    "totalModulos": 8,
+    "publicoAlvo": "Jovens interessados em desenvolver empreendedorismo.",
+    "preRequisitos": [],
+    "objetivosAprendizagem": [
+      "Compreender os fundamentos de empreendedorismo.",
+      "Aplicar os conceitos em actividades práticas.",
+      "Apresentar evidências do que aprendeste."
+    ],
+    "status": "published",
+    "acesso": "free",
+    "preco": null,
+    "imagem": null,
+    "certificado": true,
+    "totalFases": 4,
+    "createdAt": "2026-08-15T10:00:00Z",
+    "updatedAt": "2026-08-15T10:00:00Z"
+  }
+]

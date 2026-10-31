@@ -3,15 +3,16 @@ import { BookOpen } from 'lucide-react';
 import { Link, useSearchParams } from 'react-router-dom';
 import { EmptyState } from '@/components/shared/EmptyState';
 import { PageHeader } from '@/components/shared/PageHeader';
+import { Pagination } from '@/components/shared/Pagination';
+import { pageFromSearch } from '@/lib/pagination';
 import { TrailCard } from '@/features/learn/components/TrailCard';
 import {
   TrailFilters,
   type TrailFilterValues,
 } from '@/features/learn/components/TrailFilters';
-import { useTrailProgressList } from '@/features/learn/hooks/useTrailFlow';
+import { useEnrollments } from '@/features/learn/hooks/useTrailFlow';
 import { useTrails } from '@/features/learn/hooks/useTrails';
 import { ROUTES } from '@/lib/constants/routes';
-import { useAuthStore } from '@/stores/authStore';
 import type { TrailLevel } from '@/types/trail';
 import { useTranslation } from 'react-i18next';
 
@@ -92,7 +93,6 @@ function initialFilterState(searchParams: URLSearchParams) {
 export default function TrailsPage() {
   const { t } = useTranslation('learning');
   const [searchParams, setSearchParams] = useSearchParams();
-  const userId = useAuthStore((state) => state.user?.id ?? '');
   const lastSearch = useRef(searchParams.toString());
   const [initial] = useState(() => initialFilterState(searchParams));
   const [filters, setFilters] = useState<TrailFilterValues>(initial.filters);
@@ -118,6 +118,7 @@ export default function TrailsPage() {
       nivel: debouncedFilters.nivel,
       duracao: debouncedFilters.duracao,
       categoria: debouncedFilters.categoria,
+      pagina: '',
     };
     Object.entries(values).forEach(([key, value]) => {
       if (value) next.set(key, value);
@@ -137,18 +138,21 @@ export default function TrailsPage() {
     }
   }, [debouncedFilters, searchParams, setSearchParams]);
 
+  const page = pageFromSearch(searchParams);
   const trails = useTrails({
     search: debouncedFilters.pesquisa.trim() || undefined,
     nivel: debouncedFilters.nivel || undefined,
     duracao: debouncedFilters.duracao || undefined,
     categoria: debouncedFilters.categoria || undefined,
+    page,
   });
-  const allTrails = useTrails();
-  const progress = useTrailProgressList(userId);
+  const allTrails = useTrails({ pageSize: 50 });
+  const progress = useEnrollments();
+  const results = trails.data?.data;
   const categories = Array.from(
     new Set([
-      ...(allTrails.data ?? []).map((trail) => trail.categoria),
-      ...(trails.data ?? []).map((trail) => trail.categoria),
+      ...(allTrails.data?.data ?? []).map((trail) => trail.categoria),
+      ...(results ?? []).map((trail) => trail.categoria),
       ...(debouncedFilters.categoria ? [debouncedFilters.categoria] : []),
     ]),
   ).sort((left, right) => left.localeCompare(right, 'pt'));
@@ -204,23 +208,21 @@ export default function TrailsPage() {
           {t('trailList.categoryError')}
         </p>
       )}
-      {!trails.isLoading && !trails.isError && trails.data?.length === 0 && (
+      {!trails.isLoading && !trails.isError && results?.length === 0 && (
         <EmptyState
           description={t('trailList.emptyDescription')}
           icon={BookOpen}
           title={t('trailList.emptyTitle')}
         />
       )}
-      {!!trails.data?.length && (
+      {!!results?.length && (
         <section aria-label={t('trailList.results')} className="space-y-4">
           <p aria-live="polite" className="text-sm text-muted-foreground">
-            {t('trailList.resultsCount', { count: trails.data.length })}
+            {t('trailList.resultsCount', { count: trails.data?.meta.total ?? results.length })}
           </p>
           <div className="grid gap-5 sm:grid-cols-2 xl:grid-cols-3">
-            {trails.data.map((trail) => {
-              const record = progress.data?.find(
-                (item) => item.recursoTipo === 'trail' && item.recursoId === trail.id,
-              );
+            {results.map((trail) => {
+              const record = progress.data?.find((item) => item.trailId === trail.id);
               return (
                 <TrailCard
                   key={trail.id}
@@ -234,6 +236,15 @@ export default function TrailsPage() {
               );
             })}
           </div>
+          <Pagination
+            meta={trails.data?.meta}
+            onPageChange={(next) => {
+              const params = new URLSearchParams(searchParams);
+              params.set('pagina', String(next));
+              lastSearch.current = params.toString();
+              setSearchParams(params);
+            }}
+          />
         </section>
       )}
     </div>

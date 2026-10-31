@@ -17,10 +17,12 @@ import {
 import { useLogin } from "../hooks";
 import { createLoginSchema, type LoginFormValues } from "../schemas";
 import { ROUTES } from "@/lib/constants/routes";
+import { useAuthStore } from "@/stores/authStore";
 
 export default function LoginPage() {
   const { t, i18n } = useTranslation('auth');
   const login = useLogin();
+  const sessionExpired = useAuthStore((state) => state.sessionExpired);
   const schema = useMemo(() => createLoginSchema(t), [t]);
 
   const form = useForm<LoginFormValues>({
@@ -50,6 +52,15 @@ export default function LoginPage() {
           {t('login.welcome')}
         </p>
       </div>
+
+      {sessionExpired && (
+        <p
+          className="rounded-lg border border-warning/40 bg-warning/10 p-3 text-center text-sm"
+          role="status"
+        >
+          {t('login.sessionExpired')}
+        </p>
+      )}
 
       <form onSubmit={form.handleSubmit(onSubmit)} noValidate>
         <FieldGroup className="space-y-4 ">
@@ -132,11 +143,6 @@ export default function LoginPage() {
         </Link>
       </p>
 
-      <div className="rounded-lg border border-dashed bg-muted/30 p-3 text-center">
-        <p className="text-xs text-muted-foreground">
-          <strong>{t('login.testCredentials')}</strong> maria.silva@kumuka.ao / 123456
-        </p>
-      </div>
     </div>
   );
 }

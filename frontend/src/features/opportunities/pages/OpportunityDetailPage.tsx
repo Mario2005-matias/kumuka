@@ -53,7 +53,7 @@ export default function OpportunityDetailPage() {
   const company = useCompany(opportunity.data?.empresaId ?? '');
   const applications = useOpportunityApplications(userId);
   const apply = useApplyToOpportunity(userId);
-  const all = useOpportunities();
+  const all = useOpportunities({ pageSize: 12 });
   const [actionError, setActionError] = useState<string | null>(null);
 
   async function submit() {
@@ -78,7 +78,7 @@ export default function OpportunityDetailPage() {
     : expired
       ? t('detail.deadlineClosed')
       : item.ctaTipo === 'interesse' ? t('interest') : t('apply');
-  const relatedCandidates = (all.data ?? []).filter((entry) => entry.id !== item.id);
+  const relatedCandidates = (all.data?.data ?? []).filter((entry) => entry.id !== item.id);
   const relatedInArea = relatedCandidates.filter((entry) => entry.area === item.area);
   const related = [
     ...relatedInArea,

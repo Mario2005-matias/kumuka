@@ -3,10 +3,9 @@ import { persist } from 'zustand/middleware';
 import type { OnboardingDraft, OnboardingState } from './types';
 import { ONBOARDING_STEPS } from './types';
 
-type PersistedOnboardingState = Pick<
-  OnboardingState,
-  'step' | 'draft' | 'completed'
->;
+type PersistedOnboardingState = Pick<OnboardingState, 'step' | 'draft'>;
+
+const lastStep = ONBOARDING_STEPS.length - 1;
 
 const initialDraft: OnboardingDraft = {
   name: '',
@@ -16,86 +15,32 @@ const initialDraft: OnboardingDraft = {
   goal: '',
 };
 
-function isRecord(value: unknown): value is Record<string, unknown> {
-  return typeof value === 'object' && value !== null;
+function clampStep(step: number) {
+  return Math.min(Math.max(step, 0), lastStep);
 }
 
-function restorePersistedState(value: unknown): PersistedOnboardingState {
-  const saved = isRecord(value) ? value : {};
-  const rawDraft = isRecord(saved.draft)
-    ? saved.draft
-    : isRecord(saved.data)
-      ? saved.data
-      : {};
-  const rawStep = saved.step;
-  const step =
-    typeof rawStep === 'number' && Number.isInteger(rawStep)
-      ? Math.min(Math.max(rawStep, 0), ONBOARDING_STEPS.length - 1)
-      : 0;
-
-  return {
-    step,
-    completed: typeof saved.completed === 'boolean' ? saved.completed : false,
-    draft: {
-      name:
-        typeof rawDraft.name === 'string'
-          ? rawDraft.name
-          : typeof rawDraft.nome === 'string'
-            ? rawDraft.nome
-            : initialDraft.name,
-      age:
-        typeof rawDraft.age === 'number' && Number.isFinite(rawDraft.age)
-          ? rawDraft.age
-          : initialDraft.age,
-      situation:
-        typeof rawDraft.situation === 'string'
-          ? rawDraft.situation
-          : typeof rawDraft.situacao === 'string'
-            ? rawDraft.situacao
-            : initialDraft.situation,
-      interests: Array.isArray(rawDraft.interests)
-        ? rawDraft.interests.filter(
-            (interest): interest is string => typeof interest === 'string',
-          )
-        : Array.isArray(rawDraft.interesses)
-          ? rawDraft.interesses.filter(
-              (interest): interest is string => typeof interest === 'string',
-            )
-          : initialDraft.interests,
-      goal:
-        typeof rawDraft.goal === 'string'
-          ? rawDraft.goal
-          : typeof rawDraft.objetivo === 'string'
-            ? rawDraft.objetivo
-            : initialDraft.goal,
-    },
-  };
-}
-
+/**
+ * Local copy of the onboarding answers. Once the account exists every answer is
+ * also saved to the profile API, so this store only smooths the UI and is reset
+ * whenever the session changes.
+ */
 export const useOnboardingStore = create<OnboardingState>()(
   persist<OnboardingState, [], [], PersistedOnboardingState>(
     (set) => ({
       step: 0,
       draft: initialDraft,
-      completed: false,
-      credentials: null,
-      nextStep: () =>
-        set((state) => ({
-          step: Math.min(state.step + 1, ONBOARDING_STEPS.length - 1),
-        })),
-      prevStep: () => set((state) => ({ step: Math.max(state.step - 1, 0) })),
+      nextStep: () => set((state) => ({ step: clampStep(state.step + 1) })),
+      prevStep: () => set((state) => ({ step: clampStep(state.step - 1) })),
+      setStep: (step) => set({ step: clampStep(step) }),
       updateDraft: (draft) =>
         set((state) => ({ draft: { ...state.draft, ...draft } })),
-      setCredentials: (credentials) => set({ credentials }),
-      complete: () => set({ completed: true }),
-      reset: () =>
-        set({ step: 0, draft: initialDraft, completed: false, credentials: null }),
+      reset: () => set({ step: 0, draft: initialDraft }),
     }),
     {
       name: 'kumuka-onboarding',
-      version: 2,
-      partialize: ({ step, draft, completed }) => ({ step, draft, completed }),
-      migrate: (persistedState) => restorePersistedState(persistedState),
+      version: 3,
+      partialize: ({ step, draft }) => ({ step, draft }),
+      migrate: () => ({ step: 0, draft: initialDraft }),
     },
   ),
 );

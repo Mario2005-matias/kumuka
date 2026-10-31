@@ -7,15 +7,13 @@ import { TrailCompletionCard } from '@/features/learn/components/TrailCompletion
 import { useTrailProgress } from '@/features/learn/hooks/useTrailFlow';
 import { useTrail } from '@/features/learn/hooks/useTrails';
 import { ROUTES } from '@/lib/constants/routes';
-import { useAuthStore } from '@/stores/authStore';
 import { useTranslation } from 'react-i18next';
 
 export default function TrailCompletionPage() {
   const { t } = useTranslation('learning');
   const { slug = '' } = useParams();
-  const userId = useAuthStore((state) => state.user?.id ?? '');
   const trail = useTrail(slug);
-  const progress = useTrailProgress(userId, trail.data?.id ?? '');
+  const progress = useTrailProgress(slug);
 
   if (trail.isLoading) return <p aria-live="polite">{t('trailCompletion.loading')}</p>;
   if (trail.isError) {

@@ -30,7 +30,10 @@
   "projectsDescription": "Projectos que mostram o que sabes fazer.",
   "loadingProjects": "A carregar projectos…",
   "projectsError": "Não foi possível carregar os projectos.",
-  "projectType": { "technical": "Técnico", "creative": "Criativo" },
+  "projectType": {
+    "technical": "Técnico",
+    "creative": "Criativo"
+  },
   "viewProject": "Ver projecto",
   "projectsEmptyTitle": "Ainda não há projectos para mostrar",
   "projectsEmptyDescription": "Os teus projectos vão ficar reunidos nesta área.",
@@ -45,5 +48,7 @@
   "loadingEvidence": "A carregar evidências…",
   "evidenceError": "Não foi possível carregar as evidências.",
   "evidenceEmptyTitle": "Ainda não há evidências para mostrar",
-  "evidenceEmptyDescription": "As evidências do teu trabalho vão ficar guardadas nesta área."
+  "evidenceEmptyDescription": "As evidências do teu trabalho vão ficar guardadas nesta área.",
+  "age_one": "{{count}} ano",
+  "age_other": "{{count}} anos"
 }

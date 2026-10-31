@@ -16,10 +16,22 @@
     "formatsEyebrow": "Find your format",
     "exploreTitle": "Explore content",
     "categories": {
-      "trails": { "title": "Learning paths", "description": "Complete journeys to develop your skills." },
-      "courses": { "title": "Courses", "description": "Structured learning organised by topic." },
-      "quickLearnings": { "title": "Quick lessons", "description": "Short content to learn something new." },
-      "guides": { "title": "Guides", "description": "Practical resources to refer to when you need them." }
+      "trails": {
+        "title": "Learning paths",
+        "description": "Complete journeys to develop your skills."
+      },
+      "courses": {
+        "title": "Courses",
+        "description": "Structured learning organised by topic."
+      },
+      "quickLearnings": {
+        "title": "Quick lessons",
+        "description": "Short content to learn something new."
+      },
+      "guides": {
+        "title": "Guides",
+        "description": "Practical resources to refer to when you need them."
+      }
     },
     "explore": "Explore",
     "continueTitle": "Keep learning",
@@ -158,7 +170,13 @@
     "loading": "Loading learning path…",
     "error": "We couldn't load this learning path.",
     "notFoundDescription": "Return to the catalogue and choose an available learning path.",
-    "notFoundTitle": "Learning path not found"
+    "notFoundTitle": "Learning path not found",
+    "lessonCount_one": "{{count}} lesson",
+    "lessonCount_other": "{{count}} lessons",
+    "hasActivity": "Includes an activity",
+    "trackingRules": "Each lesson counts when you really follow it: read to the end, watch the video or open the resource. Required activities must be passed.",
+    "trackingRulesSequential": "Modules unlock in order. Each lesson counts when you really follow it: read to the end, watch the video or open the resource. Required activities must be passed.",
+    "durationAndModules": "{{hours}} hours · {{modules}} modules"
   },
   "completion": {
     "mastered": "Skill mastered",
@@ -231,11 +249,9 @@
     "exploreAll": "Explore all"
   },
   "activityForm": {
-    "invalidQuiz": "The saved quiz answers have an invalid format.",
     "draftSaved": "Draft saved. You can continue later.",
     "saveError": "We couldn't save the activity. Try again.",
     "submitError": "We couldn't submit the activity.",
-    "completeError": "We couldn't complete the activity.",
     "submitted": "Activity submitted",
     "submittedDescription": "Well done! Your answer has been recorded for this module.",
     "points_one": "Activity · {{count}} point",
@@ -243,17 +259,26 @@
     "yourAnswer": "Your answer",
     "answerPlaceholder": "Write your answer here…",
     "workLink": "Link to your work",
-    "workImage": "Image of your work",
     "chooseFile": "Choose a PNG, JPG or WebP file",
-    "fileDemo": "Demo: we save the file name, not its contents.",
     "answerQuiz": "Answer the quiz",
     "saving": "Saving…",
     "saveDraft": "Save draft",
     "submitting": "Submitting…",
     "submit": "Submit activity",
     "submitOptional": "Submit activity (optional)",
-    "skipSubmit": "Continue without submitting",
-    "draftHint": "You can save a draft and continue later."
+    "draftHint": "You can save a draft and continue later.",
+    "fileRequired": "Choose a file to submit.",
+    "answerAllQuestions": "Answer every question before submitting.",
+    "quizPassed": "Passed with {{score}}%.",
+    "required": "Required",
+    "passingScore": "You need {{score}}% to move on.",
+    "quizFailed_one": "You scored {{score}}% ({{required}}% needed). Review the lessons and try again.",
+    "quizFailed_other": "You scored {{score}}% ({{required}}% needed) after {{count}} attempts. Review the lessons and try again.",
+    "minLength": "At least {{count}} characters.",
+    "workFile": "Your work file",
+    "fileTooLarge": "The file is larger than 5 MB.",
+    "fileHint": "PDF, Word or image up to 5 MB.",
+    "retry": "Try again"
   },
   "courseModule": {
     "completeCourse": "Complete course",
@@ -315,7 +340,10 @@
     "loadTrailError": "We couldn't load the learning path.",
     "notFoundTrailDescription": "Return to the catalogue and choose an available learning path.",
     "notFoundTrailTitle": "Learning path not found",
-    "moduleProgressLabel": "Progress for module {{title}}"
+    "moduleProgressLabel": "Progress for module {{title}}",
+    "moduleOf": "Module {{module}} of {{modules}}",
+    "lessonsToAdvance": "{{current}} of {{total}} lessons completed",
+    "checking": "Confirming your progress…"
   },
   "content": {
     "backToCategory": "Back to {{category}}",
@@ -326,5 +354,16 @@
     "loading": "Loading content…",
     "error": "We couldn't load this content.",
     "modules": "Content modules"
+  },
+  "lesson": {
+    "completed": "Lesson completed",
+    "videoHint": "Watch at least {{percent}}% of the video. Skipped parts do not count.",
+    "linkHint": "Open the resource to complete this lesson.",
+    "imageHint": "Take a careful look at the image to complete it.",
+    "textHint": "Read carefully to the end. Progress only advances while you are on this lesson.",
+    "scrollToEnd": "Almost there — scroll to the end of the lesson.",
+    "progressLabel": "Lesson progress",
+    "optional": "Optional",
+    "openLink": "Open resource"
   }
 }

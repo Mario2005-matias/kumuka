@@ -18,7 +18,8 @@ export interface Experience {
   tipo: TipoExperiencia;
   organizadorLogo: string | null;
   empresaId: string | null;
-  data: string;
+  /** Start date (YYYY-MM-DD). */
+  dataInicio: string;
   hora: string;
   dataFim: string | null;
   local: string;

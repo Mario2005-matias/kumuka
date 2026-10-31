@@ -17,6 +17,8 @@
   --color-primary-foreground: var(--primary-foreground);
   --color-primary-soft: var(--primary-soft);
   --color-primary-glow: var(--primary-glow);
+  --color-highlight: var(--highlight);
+  --color-highlight-foreground: var(--highlight-foreground);
   --color-secondary: var(--secondary);
   --color-secondary-foreground: var(--secondary-foreground);
   --color-muted: var(--muted);
@@ -42,116 +44,99 @@
   --radius-2xl: calc(var(--radius) * 1.8);
 }
 
-:root {
-  color-scheme: dark;
-  --background: hsl(222 47% 6%);
-  --surface-1: hsl(222 47% 9%);
-  --surface-2: hsl(222 47% 12%);
-  --surface-3: hsl(222 47% 15%);
-  --foreground: hsl(210 40% 98%);
-  --subtle-foreground: hsl(215 20% 55%);
-  --card: hsl(222 47% 9%);
-  --card-foreground: hsl(210 40% 96%);
-  --popover: hsl(222 47% 10%);
-  --popover-foreground: hsl(210 40% 96%);
-  --primary: hsl(217 91% 60%);
-  --primary-foreground: hsl(210 40% 98%);
-  --primary-soft: hsl(217 91% 20%);
-  --primary-glow: hsl(217 91% 65%);
-  --secondary: hsl(222 47% 15%);
-  --secondary-foreground: hsl(210 40% 98%);
-  --muted: hsl(222 47% 12%);
-  --muted-foreground: hsl(215 20% 68%);
-  --accent: hsl(217 70% 17%);
-  --accent-foreground: hsl(217 91% 78%);
-  --destructive: hsl(0 72% 55%);
-  --destructive-foreground: hsl(210 40% 98%);
-  --success: hsl(142 55% 44%);
-  --success-foreground: hsl(210 40% 98%);
-  --warning: hsl(38 75% 52%);
-  --warning-foreground: hsl(222 47% 9%);
-  --info: hsl(199 70% 48%);
-  --info-foreground: hsl(210 40% 98%);
-  --border: hsl(222 35% 19%);
-  --border-strong: hsl(222 32% 27%);
-  --input: hsl(222 47% 15%);
-  --ring: hsl(217 91% 60%);
+/*
+ * KUMUKA brand palette
+ *   Azul profundo     #123B72  identidade, logótipo e navegação  → primary
+ *   Amarelo dourado   #F5BE35  destaques, oportunidades, acções  → highlight
+ *   Branco            #FFFFFF  fundo principal                   → background (claro)
+ *   Branco frio       #F2F6FA  fundos secundários e cartões      → surface / muted
+ *   Azul muito escuro #0A1A2F  textos e fundos escuros           → foreground / background (escuro)
+ */
+:root,
+.light {
+  color-scheme: light;
+  --background: #ffffff;
+  --surface-1: #f2f6fa;
+  --surface-2: hsl(210 44% 93%);
+  --surface-3: hsl(212 38% 88%);
+  --foreground: #0a1a2f;
+  --subtle-foreground: hsl(214 20% 42%);
+  --card: #ffffff;
+  --card-foreground: #0a1a2f;
+  --popover: #ffffff;
+  --popover-foreground: #0a1a2f;
+  --primary: #123b72;
+  --primary-foreground: #ffffff;
+  --primary-soft: hsl(214 60% 94%);
+  --primary-glow: hsl(214 73% 36%);
+  --highlight: #f5be35;
+  --highlight-foreground: #0a1a2f;
+  --secondary: #f2f6fa;
+  --secondary-foreground: #123b72;
+  --muted: #f2f6fa;
+  --muted-foreground: hsl(214 22% 36%);
+  --accent: hsl(214 60% 94%);
+  --accent-foreground: #123b72;
+  --destructive: hsl(0 72% 45%);
+  --destructive-foreground: #ffffff;
+  --success: hsl(152 65% 30%);
+  --success-foreground: #ffffff;
+  --warning: hsl(38 92% 38%);
+  --warning-foreground: #0a1a2f;
+  --info: hsl(205 80% 38%);
+  --info-foreground: #ffffff;
+  --border: hsl(212 36% 89%);
+  --border-strong: hsl(212 30% 78%);
+  --input: hsl(212 36% 86%);
+  --ring: #123b72;
   --radius: 0.75rem;
-  --gradient-brand: linear-gradient(
-    135deg,
-    hsl(217 91% 38%) 0%,
-    hsl(199 89% 30%) 100%
-  );
-  --gradient-brand-soft: linear-gradient(
-    135deg,
-    hsl(217 70% 16%) 0%,
-    hsl(199 55% 13%) 100%
-  );
-  --gradient-surface: linear-gradient(
-    180deg,
-    hsl(222 47% 10%) 0%,
-    hsl(222 47% 8%) 100%
-  );
-  --gradient-glow: radial-gradient(
-    circle at 50% 0%,
-    hsl(217 91% 60% / 0.13) 0%,
-    transparent 70%
-  );
+  --gradient-brand: linear-gradient(135deg, #123b72 0%, #0a1a2f 100%);
+  --gradient-brand-soft: linear-gradient(135deg, hsl(214 60% 94%) 0%, hsl(43 90% 93%) 100%);
+  --gradient-surface: linear-gradient(180deg, #ffffff 0%, #f2f6fa 100%);
+  --gradient-glow: radial-gradient(circle at 50% 0%, hsl(214 73% 26% / 0.06) 0%, transparent 70%);
 }
 
 .dark {
   color-scheme: dark;
-}
-
-.light {
-  color-scheme: light;
-  --background: hsl(210 20% 98%);
-  --surface-1: hsl(0 0% 99%);
-  --surface-2: hsl(210 40% 96%);
-  --surface-3: hsl(214 32% 93%);
-  --foreground: hsl(222 47% 11%);
-  --subtle-foreground: hsl(215 16% 47%);
-  --card: hsl(0 0% 99%);
-  --card-foreground: hsl(222 47% 11%);
-  --popover: hsl(0 0% 99%);
-  --popover-foreground: hsl(222 47% 11%);
-  --primary: hsl(217 91% 50%);
-  --primary-foreground: hsl(210 40% 98%);
-  --primary-soft: hsl(217 91% 95%);
-  --primary-glow: hsl(217 91% 55%);
-  --secondary: hsl(214 95% 96%);
-  --secondary-foreground: hsl(217 91% 30%);
-  --muted: hsl(210 40% 96%);
-  --muted-foreground: hsl(215 16% 40%);
-  --accent: hsl(214 95% 93%);
-  --accent-foreground: hsl(217 91% 30%);
-  --destructive: hsl(0 72% 48%);
-  --destructive-foreground: hsl(210 40% 98%);
-  --success: hsl(142 71% 32%);
-  --success-foreground: hsl(210 40% 98%);
-  --warning: hsl(38 92% 42%);
-  --warning-foreground: hsl(222 47% 9%);
-  --info: hsl(199 89% 38%);
-  --info-foreground: hsl(210 40% 98%);
-  --border: hsl(214 32% 88%);
-  --border-strong: hsl(214 28% 78%);
-  --input: hsl(214 32% 88%);
-  --ring: hsl(217 91% 50%);
-  --gradient-brand-soft: linear-gradient(
-    135deg,
-    hsl(217 91% 96%) 0%,
-    hsl(199 78% 95%) 100%
-  );
-  --gradient-surface: linear-gradient(
-    180deg,
-    hsl(0 0% 100%) 0%,
-    hsl(210 40% 98%) 100%
-  );
-  --gradient-glow: radial-gradient(
-    circle at 50% 0%,
-    hsl(217 91% 60% / 0.08) 0%,
-    transparent 70%
-  );
+  --background: #0a1a2f;
+  --surface-1: hsl(214 60% 13%);
+  --surface-2: hsl(214 55% 16%);
+  --surface-3: hsl(214 50% 20%);
+  --foreground: #f2f6fa;
+  --subtle-foreground: hsl(212 22% 62%);
+  --card: hsl(214 62% 12%);
+  --card-foreground: #f2f6fa;
+  --popover: hsl(214 62% 12%);
+  --popover-foreground: #f2f6fa;
+  /* #123B72 is too dark on the dark background, so dark mode uses a lighter tint of the same blue. */
+  --primary: hsl(214 70% 66%);
+  --primary-foreground: #0a1a2f;
+  --primary-soft: hsl(214 60% 20%);
+  --primary-glow: hsl(214 75% 72%);
+  --highlight: #f5be35;
+  --highlight-foreground: #0a1a2f;
+  --secondary: hsl(214 55% 16%);
+  --secondary-foreground: #f2f6fa;
+  --muted: hsl(214 55% 16%);
+  --muted-foreground: hsl(212 26% 72%);
+  --accent: hsl(214 55% 20%);
+  --accent-foreground: hsl(214 80% 84%);
+  --destructive: hsl(0 72% 60%);
+  --destructive-foreground: #0a1a2f;
+  --success: hsl(152 55% 48%);
+  --success-foreground: #0a1a2f;
+  --warning: #f5be35;
+  --warning-foreground: #0a1a2f;
+  --info: hsl(205 75% 60%);
+  --info-foreground: #0a1a2f;
+  --border: hsl(214 45% 21%);
+  --border-strong: hsl(214 40% 29%);
+  --input: hsl(214 50% 18%);
+  --ring: hsl(214 70% 66%);
+  --gradient-brand: linear-gradient(135deg, #123b72 0%, hsl(214 60% 18%) 100%);
+  --gradient-brand-soft: linear-gradient(135deg, hsl(214 60% 18%) 0%, hsl(214 55% 13%) 100%);
+  --gradient-surface: linear-gradient(180deg, hsl(214 62% 12%) 0%, #0a1a2f 100%);
+  --gradient-glow: radial-gradient(circle at 50% 0%, hsl(214 70% 66% / 0.1) 0%, transparent 70%);
 }
 
 @layer base {

@@ -1,13 +1,17 @@
 import { Navigate, Outlet } from 'react-router-dom';
-import { useOnboardingStore } from '../store';
 import { useAuthStore } from '@/stores/authStore';
+import { useCurrentUser } from '@/features/auth/hooks';
 import { ROUTES } from '@/lib/constants/routes';
 
+/**
+ * Onboarding is open to visitors (who create their account in it) and to students
+ * who have not finished it yet; everyone else goes to the dashboard.
+ */
 export function OnboardingGuard() {
-  const isAuthenticated = useAuthStore((s) => s.isAuthenticated);
-  const completed = useOnboardingStore((s) => s.completed);
+  const user = useAuthStore((s) => s.user);
+  useCurrentUser();
 
-  if (isAuthenticated && completed) {
+  if (user?.onboardingCompleted) {
     return <Navigate to={ROUTES.dashboard} replace />;
   }
 

@@ -1,8 +1,8 @@
 const confettiColors = [
   'bg-primary',
   'bg-emerald-400',
-  'bg-amber-400',
-  'bg-sky-400',
+  'bg-highlight',
+  'bg-primary',
   'bg-rose-400',
 ];
 

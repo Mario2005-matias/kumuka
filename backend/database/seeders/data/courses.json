@@ -1,0 +1,1153 @@
+[
+  {
+    "id": "course-001",
+    "slug": "excel-zero-avancado",
+    "titulo": "Excel do Zero ao Avançado",
+    "descricao": "Aprende a organizar informação e trabalhar com folhas de cálculo. Explora fórmulas, tabelas dinâmicas e análise de dados.",
+    "descricaoLonga": "Começa pelos fundamentos das folhas de cálculo e avança para ferramentas que apoiam decisões. Vais praticar fórmulas, organizar tabelas, criar gráficos e resumir informação com tabelas dinâmicas. Cada módulo combina explicações directas com uma actividade prática. No fim, terás uma análise pronta para apresentar.",
+    "categoria": "Tecnologia",
+    "competenciaCentral": "Excel Avançado",
+    "nivel": "iniciante",
+    "duracao": 10,
+    "resultadoEsperado": "Vais dominar Excel do básico ao avançado, incluindo fórmulas, tabelas dinâmicas e análise de dados.",
+    "preRequisitos": [],
+    "publicoAlvo": "Jovens que querem organizar dados e desenvolver competências digitais para estudar ou trabalhar.",
+    "modulos": [
+      {
+        "id": "module-course-001-01",
+        "courseId": "course-001",
+        "titulo": "Introdução ao Excel",
+        "descricao": "Conhece o ambiente de trabalho, células e tipos de dados.",
+        "ordem": 1,
+        "duracao": 30,
+        "contentItems": [
+          {
+            "id": "content-module-course-001-01-01",
+            "moduleId": "module-course-001-01",
+            "tipo": "texto",
+            "titulo": "Conceito principal",
+            "conteudo": "Um livro do Excel é composto por folhas, células, linhas e colunas. Cada célula tem um endereço que combina a coluna e a linha, como A1.",
+            "ordem": 1
+          },
+          {
+            "id": "content-module-course-001-01-02",
+            "moduleId": "module-course-001-01",
+            "tipo": "texto",
+            "titulo": "Aplicar o método",
+            "conteudo": "Texto, números e datas são tipos de dados diferentes. Usa cabeçalhos para identificar cada coluna e mantém um registo por linha.",
+            "ordem": 2
+          },
+          {
+            "id": "content-module-course-001-01-03",
+            "moduleId": "module-course-001-01",
+            "tipo": "texto",
+            "titulo": "Rever resultados",
+            "conteudo": "Guarda o ficheiro com um nome claro e confirma a folha activa antes de introduzir dados.",
+            "ordem": 3
+          }
+        ],
+        "activity": {
+          "id": "activity-module-course-001-01",
+          "moduleId": "module-course-001-01",
+          "tipo": "escrita",
+          "enunciado": "Descreve uma pequena tabela que gostarias de organizar no Excel.",
+          "instrucoes": "Indica o objectivo da tabela e pelo menos três colunas que usarias.",
+          "obrigatoria": true,
+          "pontos": 20
+        }
+      },
+      {
+        "id": "module-course-001-02",
+        "courseId": "course-001",
+        "titulo": "Fórmulas Básicas",
+        "descricao": "Calcula totais, médias e contagens com fórmulas simples.",
+        "ordem": 2,
+        "duracao": 60,
+        "contentItems": [
+          {
+            "id": "content-module-course-001-02-01",
+            "moduleId": "module-course-001-02",
+            "tipo": "texto",
+            "titulo": "Conceito principal",
+            "conteudo": "As fórmulas começam com o sinal de igual. Podes combinar referências a células com operadores como +, -, * e /.",
+            "ordem": 1
+          },
+          {
+            "id": "content-module-course-001-02-02",
+            "moduleId": "module-course-001-02",
+            "tipo": "texto",
+            "titulo": "Aplicar o método",
+            "conteudo": "SOMA agrega vários valores e MÉDIA calcula o valor médio. Intervalos como B2:B8 tornam as fórmulas mais fáceis de rever.",
+            "ordem": 2
+          },
+          {
+            "id": "content-module-course-001-02-03",
+            "moduleId": "module-course-001-02",
+            "tipo": "texto",
+            "titulo": "Rever resultados",
+            "conteudo": "Confirma o intervalo seleccionado e testa o resultado com um cálculo simples antes de copiar a fórmula para outras linhas.",
+            "ordem": 3
+          }
+        ],
+        "activity": {
+          "id": "activity-module-course-001-02",
+          "moduleId": "module-course-001-02",
+          "tipo": "quiz",
+          "enunciado": "Escolhe a fórmula mais adequada para somar valores de B2 a B8.",
+          "instrucoes": "Selecciona uma resposta. A submissão valida as respostas do questionário.",
+          "obrigatoria": true,
+          "pontos": 20,
+          "perguntas": [
+            {
+              "id": "question-module-course-001-02-01",
+              "enunciado": "Qual é uma prática essencial para fórmulas básicas?",
+              "opcoes": [
+                {
+                  "id": "activity-module-course-001-02-a",
+                  "texto": "Definir o objectivo e rever os dados."
+                },
+                {
+                  "id": "activity-module-course-001-02-b",
+                  "texto": "Ignorar o contexto e avançar sem verificar."
+                },
+                {
+                  "id": "activity-module-course-001-02-c",
+                  "texto": "Usar sempre a primeira opção disponível."
+                }
+              ],
+              "respostaCorretaId": "activity-module-course-001-02-a"
+            }
+          ]
+        }
+      },
+      {
+        "id": "module-course-001-03",
+        "courseId": "course-001",
+        "titulo": "Tabelas e Gráficos",
+        "descricao": "Transforma listas em tabelas e escolhe um gráfico legível.",
+        "ordem": 3,
+        "duracao": 90,
+        "contentItems": [
+          {
+            "id": "content-module-course-001-03-01",
+            "moduleId": "module-course-001-03",
+            "tipo": "texto",
+            "titulo": "Conceito principal",
+            "conteudo": "Uma tabela estruturada facilita filtrar, ordenar e acrescentar registos sem perder os cabeçalhos.",
+            "ordem": 1
+          },
+          {
+            "id": "content-module-course-001-03-02",
+            "moduleId": "module-course-001-03",
+            "tipo": "texto",
+            "titulo": "Aplicar o método",
+            "conteudo": "Colunas e barras ajudam a comparar valores. Gráficos de linhas mostram alterações ao longo do tempo.",
+            "ordem": 2
+          },
+          {
+            "id": "content-module-course-001-03-03",
+            "moduleId": "module-course-001-03",
+            "tipo": "texto",
+            "titulo": "Rever resultados",
+            "conteudo": "Usa um título descritivo, unidades visíveis e poucas cores para que a mensagem principal se destaque.",
+            "ordem": 3
+          }
+        ],
+        "activity": {
+          "id": "activity-module-course-001-03",
+          "moduleId": "module-course-001-03",
+          "tipo": "upload",
+          "enunciado": "Partilha uma imagem de uma tabela ou gráfico que criaste.",
+          "instrucoes": "Escolhe uma captura PNG, JPG ou WebP. O mock regista apenas o nome do ficheiro.",
+          "obrigatoria": true,
+          "pontos": 20
+        }
+      },
+      {
+        "id": "module-course-001-04",
+        "courseId": "course-001",
+        "titulo": "Fórmulas Avançadas",
+        "descricao": "Combina funções condicionais e de pesquisa para responder a perguntas.",
+        "ordem": 4,
+        "duracao": 90,
+        "contentItems": [
+          {
+            "id": "content-module-course-001-04-01",
+            "moduleId": "module-course-001-04",
+            "tipo": "texto",
+            "titulo": "Conceito principal",
+            "conteudo": "A função SE devolve um resultado quando uma condição é verdadeira e outro quando é falsa.",
+            "ordem": 1
+          },
+          {
+            "id": "content-module-course-001-04-02",
+            "moduleId": "module-course-001-04",
+            "tipo": "texto",
+            "titulo": "Aplicar o método",
+            "conteudo": "Funções de contagem condicionada ajudam a contar apenas registos que correspondem a critérios definidos.",
+            "ordem": 2
+          },
+          {
+            "id": "content-module-course-001-04-03",
+            "moduleId": "module-course-001-04",
+            "tipo": "texto",
+            "titulo": "Rever resultados",
+            "conteudo": "Divide fórmulas complexas em partes e verifica referências e critérios com alguns exemplos conhecidos.",
+            "ordem": 3
+          }
+        ],
+        "activity": {
+          "id": "activity-module-course-001-04",
+          "moduleId": "module-course-001-04",
+          "tipo": "quiz",
+          "enunciado": "Verifica como escolher uma função para analisar condições.",
+          "instrucoes": "Responde ao questionário sobre funções condicionais.",
+          "obrigatoria": true,
+          "pontos": 20,
+          "perguntas": [
+            {
+              "id": "question-module-course-001-04-01",
+              "enunciado": "Qual é uma prática essencial para fórmulas avançadas?",
+              "opcoes": [
+                {
+                  "id": "activity-module-course-001-04-a",
+                  "texto": "Definir o objectivo e rever os dados."
+                },
+                {
+                  "id": "activity-module-course-001-04-b",
+                  "texto": "Ignorar o contexto e avançar sem verificar."
+                },
+                {
+                  "id": "activity-module-course-001-04-c",
+                  "texto": "Usar sempre a primeira opção disponível."
+                }
+              ],
+              "respostaCorretaId": "activity-module-course-001-04-a"
+            }
+          ]
+        }
+      },
+      {
+        "id": "module-course-001-05",
+        "courseId": "course-001",
+        "titulo": "Tabelas Dinâmicas",
+        "descricao": "Resume grandes listas e compara resultados por categoria.",
+        "ordem": 5,
+        "duracao": 120,
+        "contentItems": [
+          {
+            "id": "content-module-course-001-05-01",
+            "moduleId": "module-course-001-05",
+            "tipo": "texto",
+            "titulo": "Conceito principal",
+            "conteudo": "Uma tabela dinâmica resume dados sem alterar a lista original. Confirma que os dados têm cabeçalhos e não têm linhas vazias.",
+            "ordem": 1
+          },
+          {
+            "id": "content-module-course-001-05-02",
+            "moduleId": "module-course-001-05",
+            "tipo": "texto",
+            "titulo": "Aplicar o método",
+            "conteudo": "Arrasta campos para linhas, colunas e valores para agrupar e comparar. Podes alterar a operação de soma para contagem ou média.",
+            "ordem": 2
+          },
+          {
+            "id": "content-module-course-001-05-03",
+            "moduleId": "module-course-001-05",
+            "tipo": "texto",
+            "titulo": "Rever resultados",
+            "conteudo": "Actualiza a tabela depois de acrescentar registos e valida o resumo comparando-o com a fonte.",
+            "ordem": 3
+          }
+        ],
+        "activity": {
+          "id": "activity-module-course-001-05",
+          "moduleId": "module-course-001-05",
+          "tipo": "escrita",
+          "enunciado": "Planeia uma análise que poderias apresentar com uma tabela dinâmica.",
+          "instrucoes": "Escreve a pergunta que queres responder, os campos de agrupamento e o valor que vais resumir.",
+          "obrigatoria": true,
+          "pontos": 20
+        }
+      }
+    ],
+    "totalModulos": 5,
+    "certifica": true,
+    "status": "published",
+    "acesso": "free",
+    "preco": null,
+    "imagem": null,
+    "createdAt": "2026-08-15T10:00:00Z",
+    "updatedAt": "2026-08-15T10:00:00Z"
+  },
+  {
+    "id": "course-002",
+    "slug": "comunicacao-eficaz",
+    "titulo": "Comunicação Eficaz",
+    "descricao": "Pratica formas claras de partilhar ideias em diferentes situações. Trabalha a escuta e a organização da mensagem.",
+    "descricaoLonga": "Comunicar com clareza ajuda a trocar ideias, colaborar e resolver mal-entendidos. Vais organizar mensagens, praticar escuta activa e adaptar a comunicação ao público. Os exercícios usam situações do quotidiano e de trabalho.",
+    "categoria": "Comunicação",
+    "competenciaCentral": "Comunicação",
+    "nivel": "iniciante",
+    "duracao": 6,
+    "resultadoEsperado": "Vais dominar técnicas para estruturar mensagens claras, ouvir activamente e comunicar com confiança.",
+    "preRequisitos": [],
+    "publicoAlvo": "Jovens que querem apresentar ideias com clareza em estudos, projectos e oportunidades profissionais.",
+    "modulos": [
+      {
+        "id": "module-course-002-01",
+        "courseId": "course-002",
+        "titulo": "Organizar uma mensagem",
+        "descricao": "Define a ideia principal e apresenta-a com clareza.",
+        "ordem": 1,
+        "duracao": 45,
+        "contentItems": [
+          {
+            "id": "content-module-course-002-01-01",
+            "moduleId": "module-course-002-01",
+            "tipo": "texto",
+            "titulo": "Conceito principal",
+            "conteudo": "Identifica primeiro o que queres que a outra pessoa saiba ou faça.",
+            "ordem": 1
+          },
+          {
+            "id": "content-module-course-002-01-02",
+            "moduleId": "module-course-002-01",
+            "tipo": "texto",
+            "titulo": "Aplicar o método",
+            "conteudo": "Organiza a mensagem em ideia principal, contexto e próximo passo.",
+            "ordem": 2
+          },
+          {
+            "id": "content-module-course-002-01-03",
+            "moduleId": "module-course-002-01",
+            "tipo": "texto",
+            "titulo": "Rever resultados",
+            "conteudo": "Remove detalhes que não ajudam a compreender o ponto central.",
+            "ordem": 3
+          }
+        ],
+        "activity": {
+          "id": "activity-module-course-002-01",
+          "moduleId": "module-course-002-01",
+          "tipo": "escrita",
+          "enunciado": "Escreve uma mensagem curta para apresentar uma ideia.",
+          "instrucoes": "Indica o público e termina com um próximo passo claro.",
+          "obrigatoria": true,
+          "pontos": 20
+        }
+      },
+      {
+        "id": "module-course-002-02",
+        "courseId": "course-002",
+        "titulo": "Praticar escuta activa",
+        "descricao": "Ouve para compreender antes de responder.",
+        "ordem": 2,
+        "duracao": 60,
+        "contentItems": [
+          {
+            "id": "content-module-course-002-02-01",
+            "moduleId": "module-course-002-02",
+            "tipo": "texto",
+            "titulo": "Conceito principal",
+            "conteudo": "Escuta sem interromper e observa as perguntas e preocupações da outra pessoa.",
+            "ordem": 1
+          },
+          {
+            "id": "content-module-course-002-02-02",
+            "moduleId": "module-course-002-02",
+            "tipo": "texto",
+            "titulo": "Aplicar o método",
+            "conteudo": "Resume o que entendeste com as tuas palavras e confirma se está correcto.",
+            "ordem": 2
+          },
+          {
+            "id": "content-module-course-002-02-03",
+            "moduleId": "module-course-002-02",
+            "tipo": "texto",
+            "titulo": "Rever resultados",
+            "conteudo": "Faz perguntas abertas quando precisares de contexto adicional.",
+            "ordem": 3
+          }
+        ],
+        "activity": {
+          "id": "activity-module-course-002-02",
+          "moduleId": "module-course-002-02",
+          "tipo": "quiz",
+          "enunciado": "Revê situações de escuta activa.",
+          "instrucoes": "Escolhe a resposta que demonstra compreensão e respeito.",
+          "obrigatoria": true,
+          "pontos": 20,
+          "perguntas": [
+            {
+              "id": "question-module-course-002-02-01",
+              "enunciado": "Qual é uma prática essencial para praticar escuta activa?",
+              "opcoes": [
+                {
+                  "id": "activity-module-course-002-02-a",
+                  "texto": "Definir o objectivo e rever os dados."
+                },
+                {
+                  "id": "activity-module-course-002-02-b",
+                  "texto": "Ignorar o contexto e avançar sem verificar."
+                },
+                {
+                  "id": "activity-module-course-002-02-c",
+                  "texto": "Usar sempre a primeira opção disponível."
+                }
+              ],
+              "respostaCorretaId": "activity-module-course-002-02-a"
+            }
+          ]
+        }
+      },
+      {
+        "id": "module-course-002-03",
+        "courseId": "course-002",
+        "titulo": "Adaptar a comunicação",
+        "descricao": "Ajusta o tom, o canal e os exemplos ao contexto.",
+        "ordem": 3,
+        "duracao": 60,
+        "contentItems": [
+          {
+            "id": "content-module-course-002-03-01",
+            "moduleId": "module-course-002-03",
+            "tipo": "texto",
+            "titulo": "Conceito principal",
+            "conteudo": "Pensa no que o público já sabe e no contexto em que vai receber a mensagem.",
+            "ordem": 1
+          },
+          {
+            "id": "content-module-course-002-03-02",
+            "moduleId": "module-course-002-03",
+            "tipo": "texto",
+            "titulo": "Aplicar o método",
+            "conteudo": "Escolhe um canal acessível e uma linguagem adequada à situação.",
+            "ordem": 2
+          },
+          {
+            "id": "content-module-course-002-03-03",
+            "moduleId": "module-course-002-03",
+            "tipo": "texto",
+            "titulo": "Rever resultados",
+            "conteudo": "Pede feedback e ajusta a mensagem quando não for compreendida.",
+            "ordem": 3
+          }
+        ],
+        "activity": {
+          "id": "activity-module-course-002-03",
+          "moduleId": "module-course-002-03",
+          "tipo": "link",
+          "enunciado": "Partilha um exemplo de apresentação ou mensagem.",
+          "instrucoes": "Cola uma ligação acessível para o teu exemplo.",
+          "obrigatoria": true,
+          "pontos": 20
+        }
+      },
+      {
+        "id": "module-course-002-04",
+        "courseId": "course-002",
+        "titulo": "Comunicar em equipa",
+        "descricao": "Partilha responsabilidades e mantém uma equipa alinhada.",
+        "ordem": 4,
+        "duracao": 60,
+        "contentItems": [
+          {
+            "id": "content-module-course-002-04-01",
+            "moduleId": "module-course-002-04",
+            "tipo": "texto",
+            "titulo": "Conceito principal",
+            "conteudo": "Combina objectivos, responsabilidades e prazos antes de começar um trabalho conjunto.",
+            "ordem": 1
+          },
+          {
+            "id": "content-module-course-002-04-02",
+            "moduleId": "module-course-002-04",
+            "tipo": "texto",
+            "titulo": "Aplicar o método",
+            "conteudo": "Partilha actualizações de forma breve e escolhe um canal acessível à equipa.",
+            "ordem": 2
+          },
+          {
+            "id": "content-module-course-002-04-03",
+            "moduleId": "module-course-002-04",
+            "tipo": "texto",
+            "titulo": "Rever resultados",
+            "conteudo": "Quando houver desacordo, descreve o problema e procura uma solução concreta.",
+            "ordem": 3
+          }
+        ],
+        "activity": {
+          "id": "activity-module-course-002-04",
+          "moduleId": "module-course-002-04",
+          "tipo": "escrita",
+          "enunciado": "Descreve como alinharias uma tarefa com uma equipa.",
+          "instrucoes": "Inclui um objectivo, uma responsabilidade e uma forma de acompanhar o progresso.",
+          "obrigatoria": true,
+          "pontos": 20
+        }
+      }
+    ],
+    "totalModulos": 4,
+    "certifica": true,
+    "status": "published",
+    "acesso": "free",
+    "preco": null,
+    "imagem": null,
+    "createdAt": "2026-08-15T10:00:00Z",
+    "updatedAt": "2026-08-15T10:00:00Z"
+  },
+  {
+    "id": "course-003",
+    "slug": "gestao-de-tempo",
+    "titulo": "Gestão de Tempo",
+    "descricao": "Organiza tarefas e prioridades para usar melhor o teu tempo. Cria um plano realista para a semana.",
+    "descricaoLonga": "Uma boa gestão do tempo começa por compreender compromissos, energia e prioridades. Vais dividir tarefas, planear blocos de trabalho e rever o que precisa de ser ajustado. O objectivo é construir um plano sustentável, não preencher cada minuto.",
+    "categoria": "Produtividade",
+    "competenciaCentral": "Gestão de Tempo",
+    "nivel": "iniciante",
+    "duracao": 4,
+    "resultadoEsperado": "Vais dominar métodos de priorização e criar um plano semanal realista.",
+    "preRequisitos": [],
+    "publicoAlvo": "Estudantes e jovens profissionais que querem equilibrar responsabilidades e objectivos.",
+    "modulos": [
+      {
+        "id": "module-course-003-01",
+        "courseId": "course-003",
+        "titulo": "Priorizar tarefas",
+        "descricao": "Distingue tarefas urgentes, importantes e adiáveis.",
+        "ordem": 1,
+        "duracao": 45,
+        "contentItems": [
+          {
+            "id": "content-module-course-003-01-01",
+            "moduleId": "module-course-003-01",
+            "tipo": "texto",
+            "titulo": "Conceito principal",
+            "conteudo": "Regista tarefas e prazos para libertar espaço mental.",
+            "ordem": 1
+          },
+          {
+            "id": "content-module-course-003-01-02",
+            "moduleId": "module-course-003-01",
+            "tipo": "texto",
+            "titulo": "Aplicar o método",
+            "conteudo": "Compara impacto, urgência e esforço antes de escolher o que fazer.",
+            "ordem": 2
+          },
+          {
+            "id": "content-module-course-003-01-03",
+            "moduleId": "module-course-003-01",
+            "tipo": "texto",
+            "titulo": "Rever resultados",
+            "conteudo": "Divide tarefas grandes em passos que possas concluir.",
+            "ordem": 3
+          }
+        ],
+        "activity": {
+          "id": "activity-module-course-003-01",
+          "moduleId": "module-course-003-01",
+          "tipo": "quiz",
+          "enunciado": "Escolhe uma estratégia para priorizar tarefas.",
+          "instrucoes": "Selecciona a opção mais realista para organizar a semana.",
+          "obrigatoria": true,
+          "pontos": 20,
+          "perguntas": [
+            {
+              "id": "question-module-course-003-01-01",
+              "enunciado": "Qual é uma prática essencial para priorizar tarefas?",
+              "opcoes": [
+                {
+                  "id": "activity-module-course-003-01-a",
+                  "texto": "Definir o objectivo e rever os dados."
+                },
+                {
+                  "id": "activity-module-course-003-01-b",
+                  "texto": "Ignorar o contexto e avançar sem verificar."
+                },
+                {
+                  "id": "activity-module-course-003-01-c",
+                  "texto": "Usar sempre a primeira opção disponível."
+                }
+              ],
+              "respostaCorretaId": "activity-module-course-003-01-a"
+            }
+          ]
+        }
+      },
+      {
+        "id": "module-course-003-02",
+        "courseId": "course-003",
+        "titulo": "Planear a semana",
+        "descricao": "Distribui trabalho e pausas de forma sustentável.",
+        "ordem": 2,
+        "duracao": 60,
+        "contentItems": [
+          {
+            "id": "content-module-course-003-02-01",
+            "moduleId": "module-course-003-02",
+            "tipo": "texto",
+            "titulo": "Conceito principal",
+            "conteudo": "Reserva primeiro os compromissos fixos e depois os blocos de foco.",
+            "ordem": 1
+          },
+          {
+            "id": "content-module-course-003-02-02",
+            "moduleId": "module-course-003-02",
+            "tipo": "texto",
+            "titulo": "Aplicar o método",
+            "conteudo": "Estima a duração e deixa espaço para imprevistos e pausas.",
+            "ordem": 2
+          },
+          {
+            "id": "content-module-course-003-02-03",
+            "moduleId": "module-course-003-02",
+            "tipo": "texto",
+            "titulo": "Rever resultados",
+            "conteudo": "Agrupa tarefas semelhantes quando isso reduzir mudanças de contexto.",
+            "ordem": 3
+          }
+        ],
+        "activity": {
+          "id": "activity-module-course-003-02",
+          "moduleId": "module-course-003-02",
+          "tipo": "escrita",
+          "enunciado": "Cria um plano para uma semana de trabalho ou estudo.",
+          "instrucoes": "Define três prioridades e quando vais avançar em cada uma.",
+          "obrigatoria": true,
+          "pontos": 20
+        }
+      },
+      {
+        "id": "module-course-003-03",
+        "courseId": "course-003",
+        "titulo": "Rever e ajustar",
+        "descricao": "Aprende com o plano e adapta prioridades.",
+        "ordem": 3,
+        "duracao": 60,
+        "contentItems": [
+          {
+            "id": "content-module-course-003-03-01",
+            "moduleId": "module-course-003-03",
+            "tipo": "texto",
+            "titulo": "Conceito principal",
+            "conteudo": "No fim do dia, observa o que avançou e o que ficou pendente.",
+            "ordem": 1
+          },
+          {
+            "id": "content-module-course-003-03-02",
+            "moduleId": "module-course-003-03",
+            "tipo": "texto",
+            "titulo": "Aplicar o método",
+            "conteudo": "Procura causas e dependências em vez de te culpares por atrasos.",
+            "ordem": 2
+          },
+          {
+            "id": "content-module-course-003-03-03",
+            "moduleId": "module-course-003-03",
+            "tipo": "texto",
+            "titulo": "Rever resultados",
+            "conteudo": "Actualiza prazos e comunica cedo quando uma prioridade muda.",
+            "ordem": 3
+          }
+        ],
+        "activity": {
+          "id": "activity-module-course-003-03",
+          "moduleId": "module-course-003-03",
+          "tipo": "link",
+          "enunciado": "Partilha o teu plano semanal.",
+          "instrucoes": "Cola a ligação para um documento ou quadro que possas consultar.",
+          "obrigatoria": true,
+          "pontos": 20
+        }
+      }
+    ],
+    "totalModulos": 3,
+    "certifica": true,
+    "status": "published",
+    "acesso": "free",
+    "preco": null,
+    "imagem": null,
+    "createdAt": "2026-08-15T10:00:00Z",
+    "updatedAt": "2026-08-15T10:00:00Z"
+  },
+  {
+    "id": "course-004",
+    "slug": "design-grafico-com-canva",
+    "titulo": "Design Gráfico com Canva",
+    "descricao": "Explora princípios visuais e organiza elementos numa composição. Prepara peças gráficas simples a partir de uma ideia.",
+    "descricaoLonga": "Aprende a transformar uma mensagem numa peça visual simples e legível. Vais praticar hierarquia, cor e composição e preparar um design para um público e canal definidos. Não precisas de experiência anterior em design.",
+    "categoria": "Design",
+    "competenciaCentral": "Design Gráfico",
+    "nivel": "iniciante",
+    "duracao": 8,
+    "resultadoEsperado": "Vais dominar os fundamentos de composição, hierarquia visual e criação de peças no Canva.",
+    "preRequisitos": [],
+    "publicoAlvo": "Jovens que querem criar materiais visuais para projectos, pequenos negócios ou portefólio.",
+    "modulos": [
+      {
+        "id": "module-course-004-01",
+        "courseId": "course-004",
+        "titulo": "Composição visual",
+        "descricao": "Combina texto e elementos visuais com equilíbrio.",
+        "ordem": 1,
+        "duracao": 45,
+        "contentItems": [
+          {
+            "id": "content-module-course-004-01-01",
+            "moduleId": "module-course-004-01",
+            "tipo": "texto",
+            "titulo": "Conceito principal",
+            "conteudo": "Define uma mensagem principal antes de escolher imagens e formas.",
+            "ordem": 1
+          },
+          {
+            "id": "content-module-course-004-01-02",
+            "moduleId": "module-course-004-01",
+            "tipo": "texto",
+            "titulo": "Aplicar o método",
+            "conteudo": "Usa alinhamento, proximidade e espaço para organizar elementos.",
+            "ordem": 2
+          },
+          {
+            "id": "content-module-course-004-01-03",
+            "moduleId": "module-course-004-01",
+            "tipo": "texto",
+            "titulo": "Rever resultados",
+            "conteudo": "Mantém contraste suficiente entre texto e fundo.",
+            "ordem": 3
+          }
+        ],
+        "activity": {
+          "id": "activity-module-course-004-01",
+          "moduleId": "module-course-004-01",
+          "tipo": "quiz",
+          "enunciado": "Identifica princípios de uma composição legível.",
+          "instrucoes": "Escolhe a opção que melhora a hierarquia visual.",
+          "obrigatoria": true,
+          "pontos": 20,
+          "perguntas": [
+            {
+              "id": "question-module-course-004-01-01",
+              "enunciado": "Qual é uma prática essencial para composição visual?",
+              "opcoes": [
+                {
+                  "id": "activity-module-course-004-01-a",
+                  "texto": "Definir o objectivo e rever os dados."
+                },
+                {
+                  "id": "activity-module-course-004-01-b",
+                  "texto": "Ignorar o contexto e avançar sem verificar."
+                },
+                {
+                  "id": "activity-module-course-004-01-c",
+                  "texto": "Usar sempre a primeira opção disponível."
+                }
+              ],
+              "respostaCorretaId": "activity-module-course-004-01-a"
+            }
+          ]
+        }
+      },
+      {
+        "id": "module-course-004-02",
+        "courseId": "course-004",
+        "titulo": "Cores e tipografia",
+        "descricao": "Escolhe cores e tipos de letra coerentes.",
+        "ordem": 2,
+        "duracao": 60,
+        "contentItems": [
+          {
+            "id": "content-module-course-004-02-01",
+            "moduleId": "module-course-004-02",
+            "tipo": "texto",
+            "titulo": "Conceito principal",
+            "conteudo": "Uma paleta curta ajuda a manter consistência visual.",
+            "ordem": 1
+          },
+          {
+            "id": "content-module-course-004-02-02",
+            "moduleId": "module-course-004-02",
+            "tipo": "texto",
+            "titulo": "Aplicar o método",
+            "conteudo": "Limita o número de tipos de letra e define níveis para títulos e corpo.",
+            "ordem": 2
+          },
+          {
+            "id": "content-module-course-004-02-03",
+            "moduleId": "module-course-004-02",
+            "tipo": "texto",
+            "titulo": "Rever resultados",
+            "conteudo": "Verifica o contraste e a leitura em ecrãs pequenos.",
+            "ordem": 3
+          }
+        ],
+        "activity": {
+          "id": "activity-module-course-004-02",
+          "moduleId": "module-course-004-02",
+          "tipo": "escrita",
+          "enunciado": "Descreve a paleta e a tipografia para uma peça.",
+          "instrucoes": "Explica como as escolhas apoiam a mensagem e o público.",
+          "obrigatoria": true,
+          "pontos": 20
+        }
+      },
+      {
+        "id": "module-course-004-03",
+        "courseId": "course-004",
+        "titulo": "Criar e exportar no Canva",
+        "descricao": "Constrói uma peça e prepara-a para partilha.",
+        "ordem": 3,
+        "duracao": 75,
+        "contentItems": [
+          {
+            "id": "content-module-course-004-03-01",
+            "moduleId": "module-course-004-03",
+            "tipo": "texto",
+            "titulo": "Conceito principal",
+            "conteudo": "Escolhe dimensões adequadas ao canal onde a peça será publicada.",
+            "ordem": 1
+          },
+          {
+            "id": "content-module-course-004-03-02",
+            "moduleId": "module-course-004-03",
+            "tipo": "texto",
+            "titulo": "Aplicar o método",
+            "conteudo": "Usa modelos como ponto de partida e adapta-os à identidade do projecto.",
+            "ordem": 2
+          },
+          {
+            "id": "content-module-course-004-03-03",
+            "moduleId": "module-course-004-03",
+            "tipo": "texto",
+            "titulo": "Rever resultados",
+            "conteudo": "Revê ortografia e exporta no formato apropriado ao destino.",
+            "ordem": 3
+          }
+        ],
+        "activity": {
+          "id": "activity-module-course-004-03",
+          "moduleId": "module-course-004-03",
+          "tipo": "upload",
+          "enunciado": "Partilha uma imagem da peça criada.",
+          "instrucoes": "Escolhe um ficheiro PNG, JPG ou WebP com o teu design.",
+          "obrigatoria": true,
+          "pontos": 20
+        }
+      },
+      {
+        "id": "module-course-004-04",
+        "courseId": "course-004",
+        "titulo": "Criar uma identidade visual",
+        "descricao": "Mantém uma linguagem visual consistente num projecto.",
+        "ordem": 4,
+        "duracao": 60,
+        "contentItems": [
+          {
+            "id": "content-module-course-004-04-01",
+            "moduleId": "module-course-004-04",
+            "tipo": "texto",
+            "titulo": "Conceito principal",
+            "conteudo": "Define a personalidade e o público antes de escolher cores e formas.",
+            "ordem": 1
+          },
+          {
+            "id": "content-module-course-004-04-02",
+            "moduleId": "module-course-004-04",
+            "tipo": "texto",
+            "titulo": "Aplicar o método",
+            "conteudo": "Selecciona elementos que possam ser repetidos em diferentes peças.",
+            "ordem": 2
+          },
+          {
+            "id": "content-module-course-004-04-03",
+            "moduleId": "module-course-004-04",
+            "tipo": "texto",
+            "titulo": "Rever resultados",
+            "conteudo": "Guarda as escolhas num guia simples para manter consistência.",
+            "ordem": 3
+          }
+        ],
+        "activity": {
+          "id": "activity-module-course-004-04",
+          "moduleId": "module-course-004-04",
+          "tipo": "escrita",
+          "enunciado": "Propõe uma identidade visual para um pequeno projecto.",
+          "instrucoes": "Indica o público, uma paleta e dois elementos visuais recorrentes.",
+          "obrigatoria": true,
+          "pontos": 20
+        }
+      },
+      {
+        "id": "module-course-004-05",
+        "courseId": "course-004",
+        "titulo": "Preparar um portefólio visual",
+        "descricao": "Apresenta peças e explica as decisões de design.",
+        "ordem": 5,
+        "duracao": 60,
+        "contentItems": [
+          {
+            "id": "content-module-course-004-05-01",
+            "moduleId": "module-course-004-05",
+            "tipo": "texto",
+            "titulo": "Conceito principal",
+            "conteudo": "Escolhe peças que demonstrem competências diferentes e relevantes.",
+            "ordem": 1
+          },
+          {
+            "id": "content-module-course-004-05-02",
+            "moduleId": "module-course-004-05",
+            "tipo": "texto",
+            "titulo": "Aplicar o método",
+            "conteudo": "Apresenta cada peça com contexto, objectivo e contributo pessoal.",
+            "ordem": 2
+          },
+          {
+            "id": "content-module-course-004-05-03",
+            "moduleId": "module-course-004-05",
+            "tipo": "texto",
+            "titulo": "Rever resultados",
+            "conteudo": "Confirma que as imagens estão nítidas e as ligações funcionam.",
+            "ordem": 3
+          }
+        ],
+        "activity": {
+          "id": "activity-module-course-004-05",
+          "moduleId": "module-course-004-05",
+          "tipo": "link",
+          "enunciado": "Partilha uma página ou pasta com as tuas peças.",
+          "instrucoes": "Usa uma ligação acessível e descreve o conteúdo do portefólio.",
+          "obrigatoria": true,
+          "pontos": 20
+        }
+      }
+    ],
+    "totalModulos": 5,
+    "certifica": true,
+    "status": "published",
+    "acesso": "free",
+    "preco": null,
+    "imagem": null,
+    "createdAt": "2026-08-15T10:00:00Z",
+    "updatedAt": "2026-08-15T10:00:00Z"
+  },
+  {
+    "id": "course-005",
+    "slug": "introducao-ao-seo",
+    "titulo": "Introdução ao SEO",
+    "descricao": "Conhece práticas básicas para tornar conteúdos mais fáceis de encontrar. Relaciona palavras-chave, páginas e intenção de pesquisa.",
+    "descricaoLonga": "SEO reúne práticas que ajudam motores de pesquisa e pessoas a compreender uma página. Vais identificar intenção de pesquisa, estruturar conteúdo útil e rever elementos básicos da página. As actividades aplicam os conceitos a um tema à tua escolha.",
+    "categoria": "Marketing",
+    "competenciaCentral": "SEO",
+    "nivel": "intermedio",
+    "duracao": 5,
+    "resultadoEsperado": "Vais dominar os fundamentos de SEO e estruturar uma página alinhada com a intenção de pesquisa.",
+    "preRequisitos": [
+      "Saber navegar na web e editar um documento de texto."
+    ],
+    "publicoAlvo": "Jovens criadores de conteúdo e empreendedores que querem melhorar a descoberta das suas páginas.",
+    "modulos": [
+      {
+        "id": "module-course-005-01",
+        "courseId": "course-005",
+        "titulo": "Conhecer a intenção de pesquisa",
+        "descricao": "Relaciona palavras-chave com as necessidades de quem pesquisa.",
+        "ordem": 1,
+        "duracao": 45,
+        "contentItems": [
+          {
+            "id": "content-module-course-005-01-01",
+            "moduleId": "module-course-005-01",
+            "tipo": "texto",
+            "titulo": "Conceito principal",
+            "conteudo": "Uma pesquisa pode procurar informação, comparar opções ou encontrar um serviço.",
+            "ordem": 1
+          },
+          {
+            "id": "content-module-course-005-01-02",
+            "moduleId": "module-course-005-01",
+            "tipo": "texto",
+            "titulo": "Aplicar o método",
+            "conteudo": "Escolhe termos que descrevam o tema sem repetir palavras artificialmente.",
+            "ordem": 2
+          },
+          {
+            "id": "content-module-course-005-01-03",
+            "moduleId": "module-course-005-01",
+            "tipo": "texto",
+            "titulo": "Rever resultados",
+            "conteudo": "Analisa resultados para perceber formatos e perguntas frequentes.",
+            "ordem": 3
+          }
+        ],
+        "activity": {
+          "id": "activity-module-course-005-01",
+          "moduleId": "module-course-005-01",
+          "tipo": "quiz",
+          "enunciado": "Relaciona uma pesquisa com a intenção correspondente.",
+          "instrucoes": "Escolhe a opção que melhor explica a necessidade do público.",
+          "obrigatoria": true,
+          "pontos": 20,
+          "perguntas": [
+            {
+              "id": "question-module-course-005-01-01",
+              "enunciado": "Qual é uma prática essencial para conhecer a intenção de pesquisa?",
+              "opcoes": [
+                {
+                  "id": "activity-module-course-005-01-a",
+                  "texto": "Definir o objectivo e rever os dados."
+                },
+                {
+                  "id": "activity-module-course-005-01-b",
+                  "texto": "Ignorar o contexto e avançar sem verificar."
+                },
+                {
+                  "id": "activity-module-course-005-01-c",
+                  "texto": "Usar sempre a primeira opção disponível."
+                }
+              ],
+              "respostaCorretaId": "activity-module-course-005-01-a"
+            }
+          ]
+        }
+      },
+      {
+        "id": "module-course-005-02",
+        "courseId": "course-005",
+        "titulo": "Estruturar uma página",
+        "descricao": "Organiza títulos e informação para leitores e pesquisa.",
+        "ordem": 2,
+        "duracao": 60,
+        "contentItems": [
+          {
+            "id": "content-module-course-005-02-01",
+            "moduleId": "module-course-005-02",
+            "tipo": "texto",
+            "titulo": "Conceito principal",
+            "conteudo": "Usa um título específico e cabeçalhos que descrevam cada secção.",
+            "ordem": 1
+          },
+          {
+            "id": "content-module-course-005-02-02",
+            "moduleId": "module-course-005-02",
+            "tipo": "texto",
+            "titulo": "Aplicar o método",
+            "conteudo": "Responde à pergunta principal antes de acrescentar informação complementar.",
+            "ordem": 2
+          },
+          {
+            "id": "content-module-course-005-02-03",
+            "moduleId": "module-course-005-02",
+            "tipo": "texto",
+            "titulo": "Rever resultados",
+            "conteudo": "Escreve uma descrição breve que represente com exactidão a página.",
+            "ordem": 3
+          }
+        ],
+        "activity": {
+          "id": "activity-module-course-005-02",
+          "moduleId": "module-course-005-02",
+          "tipo": "escrita",
+          "enunciado": "Escreve um título e uma descrição para uma página.",
+          "instrucoes": "Escolhe um tema e explica claramente o valor da página.",
+          "obrigatoria": true,
+          "pontos": 20
+        }
+      },
+      {
+        "id": "module-course-005-03",
+        "courseId": "course-005",
+        "titulo": "Rever e melhorar conteúdo",
+        "descricao": "Verifica qualidade, ligações e clareza do conteúdo.",
+        "ordem": 3,
+        "duracao": 60,
+        "contentItems": [
+          {
+            "id": "content-module-course-005-03-01",
+            "moduleId": "module-course-005-03",
+            "tipo": "texto",
+            "titulo": "Conceito principal",
+            "conteudo": "Conteúdo útil responde às necessidades do público e mantém informação actualizada.",
+            "ordem": 1
+          },
+          {
+            "id": "content-module-course-005-03-02",
+            "moduleId": "module-course-005-03",
+            "tipo": "texto",
+            "titulo": "Aplicar o método",
+            "conteudo": "Liga páginas relacionadas com texto descritivo e confirma que as ligações funcionam.",
+            "ordem": 2
+          },
+          {
+            "id": "content-module-course-005-03-03",
+            "moduleId": "module-course-005-03",
+            "tipo": "texto",
+            "titulo": "Rever resultados",
+            "conteudo": "Observa resultados ao longo do tempo e melhora páginas com base em evidências.",
+            "ordem": 3
+          }
+        ],
+        "activity": {
+          "id": "activity-module-course-005-03",
+          "moduleId": "module-course-005-03",
+          "tipo": "link",
+          "enunciado": "Partilha uma página optimizada ou um rascunho.",
+          "instrucoes": "Cola uma ligação para uma página ou documento partilhável.",
+          "obrigatoria": true,
+          "pontos": 20
+        }
+      },
+      {
+        "id": "module-course-005-04",
+        "courseId": "course-005",
+        "titulo": "Optimizar uma página",
+        "descricao": "Aplica fundamentos de SEO a uma página concreta.",
+        "ordem": 4,
+        "duracao": 75,
+        "contentItems": [
+          {
+            "id": "content-module-course-005-04-01",
+            "moduleId": "module-course-005-04",
+            "tipo": "texto",
+            "titulo": "Conceito principal",
+            "conteudo": "Confirma que o título e o conteúdo respondem à mesma necessidade de pesquisa.",
+            "ordem": 1
+          },
+          {
+            "id": "content-module-course-005-04-02",
+            "moduleId": "module-course-005-04",
+            "tipo": "texto",
+            "titulo": "Aplicar o método",
+            "conteudo": "Usa ligações internas úteis e texto alternativo descritivo nas imagens.",
+            "ordem": 2
+          },
+          {
+            "id": "content-module-course-005-04-03",
+            "moduleId": "module-course-005-04",
+            "tipo": "texto",
+            "titulo": "Rever resultados",
+            "conteudo": "Revê a página num telemóvel e melhora a velocidade e a leitura quando possível.",
+            "ordem": 3
+          }
+        ],
+        "activity": {
+          "id": "activity-module-course-005-04",
+          "moduleId": "module-course-005-04",
+          "tipo": "escrita",
+          "enunciado": "Prepara uma lista de melhorias para uma página.",
+          "instrucoes": "Inclui título, estrutura, ligação interna e uma melhoria de acessibilidade.",
+          "obrigatoria": true,
+          "pontos": 20
+        }
+      }
+    ],
+    "totalModulos": 4,
+    "certifica": true,
+    "status": "published",
+    "acesso": "free",
+    "preco": null,
+    "imagem": null,
+    "createdAt": "2026-08-15T10:00:00Z",
+    "updatedAt": "2026-08-15T10:00:00Z"
+  }
+]

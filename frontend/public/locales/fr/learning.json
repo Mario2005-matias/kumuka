@@ -16,10 +16,22 @@
     "formatsEyebrow": "Trouve ton format",
     "exploreTitle": "Explorer les contenus",
     "categories": {
-      "trails": { "title": "Parcours", "description": "Des parcours complets pour développer tes compétences." },
-      "courses": { "title": "Cours", "description": "Un apprentissage structuré par thème." },
-      "quickLearnings": { "title": "Leçons rapides", "description": "Des contenus courts pour apprendre quelque chose de nouveau." },
-      "guides": { "title": "Guides", "description": "Des ressources pratiques à consulter au besoin." }
+      "trails": {
+        "title": "Parcours",
+        "description": "Des parcours complets pour développer tes compétences."
+      },
+      "courses": {
+        "title": "Cours",
+        "description": "Un apprentissage structuré par thème."
+      },
+      "quickLearnings": {
+        "title": "Leçons rapides",
+        "description": "Des contenus courts pour apprendre quelque chose de nouveau."
+      },
+      "guides": {
+        "title": "Guides",
+        "description": "Des ressources pratiques à consulter au besoin."
+      }
     },
     "explore": "Explorer",
     "continueTitle": "Continue à apprendre",
@@ -158,7 +170,13 @@
     "loading": "Chargement du parcours…",
     "error": "Impossible de charger ce parcours.",
     "notFoundDescription": "Retourne au catalogue et choisis un parcours disponible.",
-    "notFoundTitle": "Parcours introuvable"
+    "notFoundTitle": "Parcours introuvable",
+    "lessonCount_one": "{{count}} leçon",
+    "lessonCount_other": "{{count}} leçons",
+    "hasActivity": "Avec activité",
+    "trackingRules": "Chaque leçon compte quand tu la suis vraiment : lire jusqu'à la fin, regarder la vidéo ou ouvrir la ressource. Les activités obligatoires doivent être validées.",
+    "trackingRulesSequential": "Les modules se débloquent dans l'ordre. Chaque leçon compte quand tu la suis vraiment : lire jusqu'à la fin, regarder la vidéo ou ouvrir la ressource. Les activités obligatoires doivent être validées.",
+    "durationAndModules": "{{hours}} heures · {{modules}} modules"
   },
   "completion": {
     "mastered": "Compétence maîtrisée",
@@ -231,11 +249,9 @@
     "exploreAll": "Tout explorer"
   },
   "activityForm": {
-    "invalidQuiz": "Les réponses au questionnaire enregistrées ont un format invalide.",
     "draftSaved": "Brouillon enregistré. Tu pourras continuer plus tard.",
     "saveError": "Impossible d’enregistrer l’activité. Réessaie.",
     "submitError": "Impossible d’envoyer l’activité.",
-    "completeError": "Impossible de terminer l’activité.",
     "submitted": "Activité envoyée",
     "submittedDescription": "Bravo ! Ta réponse a été enregistrée pour ce module.",
     "points_one": "Activité · {{count}} point",
@@ -243,17 +259,26 @@
     "yourAnswer": "Ta réponse",
     "answerPlaceholder": "Écris ta réponse ici…",
     "workLink": "Lien vers ton travail",
-    "workImage": "Image de ton travail",
     "chooseFile": "Choisis un fichier PNG, JPG ou WebP",
-    "fileDemo": "Démo : seul le nom du fichier est enregistré, pas son contenu.",
     "answerQuiz": "Réponds au questionnaire",
     "saving": "Enregistrement…",
     "saveDraft": "Enregistrer le brouillon",
     "submitting": "Envoi…",
     "submit": "Envoyer l’activité",
     "submitOptional": "Envoyer l’activité (facultatif)",
-    "skipSubmit": "Continuer sans envoyer",
-    "draftHint": "Tu peux enregistrer un brouillon et continuer plus tard."
+    "draftHint": "Tu peux enregistrer un brouillon et continuer plus tard.",
+    "fileRequired": "Choisis un fichier à soumettre.",
+    "answerAllQuestions": "Réponds à toutes les questions avant de soumettre.",
+    "quizPassed": "Réussi avec {{score}} %.",
+    "required": "Obligatoire",
+    "passingScore": "Il te faut {{score}} % pour avancer.",
+    "quizFailed_one": "Tu as obtenu {{score}} % ({{required}} % requis). Revois les leçons et réessaie.",
+    "quizFailed_other": "Tu as obtenu {{score}} % ({{required}} % requis) après {{count}} tentatives. Revois les leçons et réessaie.",
+    "minLength": "Au moins {{count}} caractères.",
+    "workFile": "Fichier de ton travail",
+    "fileTooLarge": "Le fichier dépasse 5 Mo.",
+    "fileHint": "PDF, Word ou image jusqu'à 5 Mo.",
+    "retry": "Réessayer"
   },
   "courseModule": {
     "completeCourse": "Terminer le cours",
@@ -315,7 +340,10 @@
     "loadTrailError": "Impossible de charger le parcours.",
     "notFoundTrailDescription": "Retourne au catalogue et choisis un parcours disponible.",
     "notFoundTrailTitle": "Parcours introuvable",
-    "moduleProgressLabel": "Progression du module {{title}}"
+    "moduleProgressLabel": "Progression du module {{title}}",
+    "moduleOf": "Module {{module}} sur {{modules}}",
+    "lessonsToAdvance": "{{current}} leçons terminées sur {{total}}",
+    "checking": "Vérification de ta progression…"
   },
   "content": {
     "backToCategory": "Retour à {{category}}",
@@ -326,5 +354,16 @@
     "loading": "Chargement du contenu…",
     "error": "Impossible de charger ce contenu.",
     "modules": "Modules du contenu"
+  },
+  "lesson": {
+    "completed": "Leçon terminée",
+    "videoHint": "Regarde au moins {{percent}} % de la vidéo. Les passages sautés ne comptent pas.",
+    "linkHint": "Ouvre la ressource pour terminer cette leçon.",
+    "imageHint": "Observe attentivement l'image pour terminer.",
+    "textHint": "Lis attentivement jusqu'à la fin. La progression n'avance que lorsque tu es sur cette leçon.",
+    "scrollToEnd": "Presque — descends jusqu'à la fin de la leçon.",
+    "progressLabel": "Progression de la leçon",
+    "optional": "Facultatif",
+    "openLink": "Ouvrir la ressource"
   }
 }

@@ -41,8 +41,8 @@ export default function ExperienceDetailPage() {
   const dateLocale = i18n.resolvedLanguage === 'pt' ? 'pt-AO' : i18n.resolvedLanguage ?? 'pt-AO';
   const { slug = '' } = useParams();
   const userId = useAuthStore((state) => state.user?.id ?? '');
-  const experience = useExperience(slug, userId);
-  const allExperiences = useExperiences(undefined, userId);
+  const experience = useExperience(slug);
+  const allExperiences = useExperiences({ pageSize: 12 });
   const register = useRegisterExperience(userId);
   const [actionError, setActionError] = useState<string | null>(null);
 
@@ -66,7 +66,7 @@ export default function ExperienceDetailPage() {
   const alreadyRegistered = item.estado === 'inscrita';
   const full = item.estado === 'sem-vagas';
   const closed = item.estado === 'encerrada';
-  const relatedCandidates = (allExperiences.data ?? []).filter((entry) => entry.id !== item.id);
+  const relatedCandidates = (allExperiences.data?.data ?? []).filter((entry) => entry.id !== item.id);
   const relatedOfType = relatedCandidates.filter((entry) => entry.tipo === item.tipo);
   const related = [
     ...relatedOfType,
@@ -127,7 +127,7 @@ export default function ExperienceDetailPage() {
         </div>
         <aside className="h-fit space-y-4 rounded-xl border border-border bg-card p-5">
           <dl className="space-y-4 text-sm">
-            <div className="flex gap-3"><CalendarDays aria-hidden="true" className="mt-0.5 size-4 text-primary" /><div><dt className="font-medium">{t('detail.dateTime')}</dt><dd className="mt-1 text-muted-foreground">{dateLabel(item.data, dateLocale)} · {item.hora}</dd></div></div>
+            <div className="flex gap-3"><CalendarDays aria-hidden="true" className="mt-0.5 size-4 text-primary" /><div><dt className="font-medium">{t('detail.dateTime')}</dt><dd className="mt-1 text-muted-foreground">{dateLabel(item.dataInicio, dateLocale)} · {item.hora}</dd></div></div>
             <div className="flex gap-3"><MapPin aria-hidden="true" className="mt-0.5 size-4 text-primary" /><div><dt className="font-medium">{t('detail.locationAndModality')}</dt><dd className="mt-1 text-muted-foreground">{item.local}{item.localDetalhado ? ` · ${item.localDetalhado}` : ''} · {t(modalityTranslationKeys[item.modalidade])}</dd></div></div>
             <div className="flex gap-3"><UsersRound aria-hidden="true" className="mt-0.5 size-4 text-primary" /><div><dt className="font-medium">{t('detail.vacancies')}</dt><dd className="mt-1 text-muted-foreground">{item.vagasOcupadas}/{item.vagas} {t('filled')}</dd></div></div>
           </dl>
@@ -138,7 +138,7 @@ export default function ExperienceDetailPage() {
           {alreadyRegistered && <p className="flex items-center gap-2 text-sm text-success"><CheckCircle2 aria-hidden="true" className="size-4" />{t('detail.registrationSaved')}</p>}
         </aside>
       </div>
-      {!!allExperiences.data?.length && (
+      {related.length > 0 && (
         <section aria-labelledby="related-experiences-title" className="space-y-4">
           <h2 className="text-xl font-semibold" id="related-experiences-title">{t('detail.related')}</h2>
           <div className="grid gap-4 md:grid-cols-3">

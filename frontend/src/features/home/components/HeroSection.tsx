@@ -1,12 +1,4 @@
-import {
-  ArrowDown,
-  ArrowRight,
-  BriefcaseBusiness,
-  BookOpen,
-  Sparkles,
-  Target,
-  Wrench,
-} from "lucide-react";
+import { ArrowDown, ArrowRight, Sparkles } from "lucide-react";
 import { useRef } from "react";
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
@@ -18,12 +10,13 @@ import { Button } from "@/components/ui/button";
 import { ROUTES } from "@/lib/constants/routes";
 import Painel from "../../../assets/painel.png"
 
-const journey = [
-  { key: "learn", icon: BookOpen, highlight: false },
-  { key: "do", icon: Wrench, highlight: false },
-  { key: "prove", icon: Target, highlight: false },
-  { key: "opportunities", icon: BriefcaseBusiness, highlight: true },
-] as const;
+// Used by the journey card that is commented out below.
+// const journey = [
+//   { key: "learn", icon: BookOpen, highlight: false },
+//   { key: "do", icon: Wrench, highlight: false },
+//   { key: "prove", icon: Target, highlight: false },
+//   { key: "opportunities", icon: BriefcaseBusiness, highlight: true },
+// ] as const;
 
 export function HeroSection() {
   const { t } = useTranslation("home");

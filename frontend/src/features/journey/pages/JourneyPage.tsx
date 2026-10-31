@@ -19,13 +19,10 @@ import { PageHeader } from '@/components/shared/PageHeader';
 import { StatusBadge } from '@/components/shared/StatusBadge';
 import { ROUTES } from '@/lib/constants/routes';
 import { useExperiences } from '@/features/experiences/hooks/useExperiences';
-import { useCourses } from '@/features/learn/hooks/useCourses';
-import { useQuickLearnings } from '@/features/learn/hooks/useQuickLearnings';
-import { useTrails } from '@/features/learn/hooks/useTrails';
+import { useEnrollments } from '@/features/learn/hooks/useTrailFlow';
 import { useProjects } from '@/features/profile/hooks/useProfile';
 import { useAuthStore } from '@/stores/authStore';
 import { useAchievements } from '@/features/dashboard/hooks/useAchievements';
-import { useProgress } from '@/features/dashboard/hooks/useProgress';
 import { useTranslation } from 'react-i18next';
 
 const milestones: { key: 'learn' | 'develop' | 'do' | 'prove' | 'experience' | 'advance'; icon: LucideIcon }[] = [
@@ -40,34 +37,28 @@ const milestones: { key: 'learn' | 'develop' | 'do' | 'prove' | 'experience' | '
 export default function JourneyPage() {
   const { t } = useTranslation('journey');
   const userId = useAuthStore((state) => state.user?.id ?? '');
-  const progress = useProgress(userId);
-  const trails = useTrails();
-  const courses = useCourses();
-  const quickLearnings = useQuickLearnings();
+  const progress = useEnrollments(Boolean(userId));
   const projects = useProjects(userId);
   const achievements = useAchievements(userId);
-  const experiences = useExperiences();
+  const experiences = useExperiences({ pageSize: 50 });
   const records = progress.data ?? [];
   const averageProgress = records.length
     ? Math.round(records.reduce((total, item) => total + item.percentual, 0) / records.length)
     : 0;
-  const learningItems = [
-    ...(trails.data ?? []).map((item) => ({ id: item.id, slug: item.slug, title: item.titulo, type: 'trail' as const })),
-    ...(courses.data ?? []).map((item) => ({ id: item.id, slug: item.slug, title: item.titulo, type: 'course' as const })),
-    ...(quickLearnings.data ?? []).map((item) => ({ id: item.id, slug: item.slug, title: item.titulo, type: 'quick-learning' as const })),
-  ];
-  const activities = records.map((record) => {
-    const item = learningItems.find((entry) => entry.id === record.recursoId);
-    if (!item) return null;
-    const to =
-      item.type === 'trail'
-        ? ROUTES.learn.trail(item.slug)
-        : item.type === 'course'
-          ? ROUTES.learn.course(item.slug)
-          : ROUTES.learn.quickLearning(item.slug);
-    return { ...item, to, percent: record.percentual, status: record.estado };
-  }).filter((item): item is NonNullable<typeof item> => item !== null);
-  const enrolledExperiences = experiences.data?.filter((item) => item.estado === 'inscrita') ?? [];
+  const activities = records.flatMap((record) =>
+    record.trilha
+      ? [{
+          id: record.id,
+          slug: record.trilha.slug,
+          title: record.trilha.titulo,
+          type: 'trail' as const,
+          to: ROUTES.learn.trail(record.trilha.slug),
+          percent: record.percentual,
+          status: record.estado,
+        }]
+      : [],
+  );
+  const enrolledExperiences = experiences.data?.data.filter((item) => item.estado === 'inscrita') ?? [];
   const milestoneStatus = [
     records.some((item) => item.estado === 'concluido')
       ? { label: t('milestones.completed'), tone: 'success' as const }
@@ -81,12 +72,10 @@ export default function JourneyPage() {
     { label: t('milestones.next'), tone: 'neutral' as const },
   ];
   const isLoading =
-    progress.isLoading || trails.isLoading || courses.isLoading ||
-    quickLearnings.isLoading || projects.isLoading || achievements.isLoading ||
+    progress.isLoading || projects.isLoading || achievements.isLoading ||
     experiences.isLoading;
   const hasError =
-    progress.isError || trails.isError || courses.isError ||
-    quickLearnings.isError || projects.isError || achievements.isError ||
+    progress.isError || projects.isError || achievements.isError ||
     experiences.isError;
 
   return (
@@ -219,7 +208,7 @@ export default function JourneyPage() {
                 >
                   <MapPin aria-hidden="true" className="size-5 text-primary" />
                   <span className="flex-1 font-medium">{experience.titulo}</span>
-                  <span className="text-sm text-muted-foreground">{experience.data}</span>
+                  <span className="text-sm text-muted-foreground">{experience.dataInicio}</span>
                 </Link>
               ))}
             </section>

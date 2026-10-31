@@ -23,6 +23,7 @@ import {
 } from '@/components/ui/dropdown-menu';
 import { ROUTES } from '@/lib/constants/routes';
 import { useAuthStore } from '@/stores/authStore';
+import { useLogout } from '@/features/auth/hooks';
 import { ModeToggle } from '../shared/mode-toggle';
 import { LanguageSwitcher } from '@/components/shared/LanguageSwitcher';
 import { useTranslation } from 'react-i18next';
@@ -73,7 +74,7 @@ export function AppTopbar({ onOpenMobileMenu }: AppTopbarProps) {
   const location = useLocation();
   const navigate = useNavigate();
   const user = useAuthStore((state) => state.user);
-  const clearAuth = useAuthStore((state) => state.clearAuth);
+  const signOut = useLogout();
   const [searchOpen, setSearchOpen] = useState(false);
   const [query, setQuery] = useState('');
   const [activeResult, setActiveResult] = useState(0);
@@ -138,8 +139,7 @@ export function AppTopbar({ onOpenMobileMenu }: AppTopbarProps) {
   }
 
   function logout() {
-    clearAuth();
-    navigate(ROUTES.home);
+    signOut.mutate();
   }
 
   const initials = user?.email.slice(0, 2).toUpperCase() ?? 'K';

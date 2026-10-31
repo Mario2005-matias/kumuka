@@ -31,7 +31,8 @@
     "requiredConfirmation": "Confirme ton mot de passe.",
     "passwordMismatch": "Les mots de passe ne correspondent pas.",
     "creating": "Création du compte…",
-    "createAndContinue": "Créer le compte et continuer"
+    "createAndContinue": "Créer le compte et continuer",
+    "error": "Impossible de créer le compte. Réessaie."
   },
   "name": {
     "title": "Comment pouvons-nous t’appeler ?",
@@ -93,7 +94,8 @@
     "journeyDescription": "Ton parcours commence avec des recommandations adaptées à tes intérêts et à tes objectifs.",
     "goal": "Objectif :",
     "interests": "Intérêts :",
-    "complete": "Terminer mon profil"
+    "complete": "Terminer mon profil",
+    "completing": "Enregistrement…"
   },
   "complete": {
     "congratulations": "Félicitations !",
@@ -101,5 +103,7 @@
     "description": "Ton profil KUMUKA est prêt. Ta prochaine opportunité commence maintenant.",
     "explore": "Explorer KUMUKA"
   },
-  "progress": "Étape {{current}} sur {{total}}"
+  "progress": "Étape {{current}} sur {{total}}",
+  "saveError": "Impossible d'enregistrer ta réponse",
+  "saveErrorDescription": "Vérifie ta connexion et réessaie."
 }

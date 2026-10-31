@@ -31,7 +31,8 @@
     "requiredConfirmation": "Confirma a tua password.",
     "passwordMismatch": "As passwords não coincidem.",
     "creating": "A criar conta…",
-    "createAndContinue": "Criar conta e continuar"
+    "createAndContinue": "Criar conta e continuar",
+    "error": "Não foi possível criar a conta. Tenta novamente."
   },
   "name": {
     "title": "Como te podemos chamar?",
@@ -93,7 +94,8 @@
     "journeyDescription": "A tua jornada começa com recomendações alinhadas com os teus interesses e objetivos.",
     "goal": "Objetivo:",
     "interests": "Interesses:",
-    "complete": "Concluir o meu perfil"
+    "complete": "Concluir o meu perfil",
+    "completing": "A guardar…"
   },
   "complete": {
     "congratulations": "Parabéns!",
@@ -101,5 +103,7 @@
     "description": "O teu perfil KUMUKA está pronto. A tua próxima oportunidade começa agora.",
     "explore": "Explorar a KUMUKA"
   },
-  "progress": "Passo {{current}} de {{total}}"
+  "progress": "Passo {{current}} de {{total}}",
+  "saveError": "Não foi possível guardar a resposta",
+  "saveErrorDescription": "Verifica a tua ligação e tenta novamente."
 }

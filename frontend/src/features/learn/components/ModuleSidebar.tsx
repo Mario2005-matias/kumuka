@@ -1,6 +1,8 @@
 import { Check, LockKeyhole } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import { ROUTES } from '@/lib/constants/routes';
 import type { Trail, TrailProgress } from '@/types/trail';
+import { groupModulesByPhase } from '../lib/modules';
 import { useTranslation } from 'react-i18next';
 
 interface ModuleSidebarProps {
@@ -15,26 +17,16 @@ export function ModuleSidebar({
   activeModuleId,
 }: ModuleSidebarProps) {
   const { t } = useTranslation('learning');
-  function canOpen(order: number) {
-    return (
-      progress?.estado === 'concluido' ||
-      order === 1 ||
-      Boolean(
-        progress?.modulosConcluidos.includes(
-          trail.modulos[order - 2]?.id ?? '',
-        ),
-      )
-    );
-  }
-
-  const modules = trail.fases.map((phase) => (
-    <section className="mb-4 space-y-1" key={phase.id}>
-      <h3 className="px-2 py-1 text-xs font-semibold uppercase tracking-wide text-muted-foreground">
-        {t('common.phaseNumber', { number: phase.ordem })} · {phase.titulo}
-      </h3>
+  const modules = groupModulesByPhase(trail).map(({ phase, modules: phaseModules }) => (
+    <section className="mb-4 space-y-1" key={phase?.id ?? 'modules'}>
+      {phase && (
+        <h3 className="px-2 py-1 text-xs font-semibold uppercase tracking-wide text-muted-foreground">
+          {t('common.phaseNumber', { number: phase.ordem })} · {phase.titulo}
+        </h3>
+      )}
       <ol className="space-y-1">
-        {phase.modulos.map((module) => {
-          const unlocked = canOpen(module.ordem);
+        {phaseModules.map((module) => {
+          const unlocked = progress?.modulosAcessiveis.includes(module.id) ?? false;
           const complete = progress?.modulosConcluidos.includes(module.id) ?? false;
           return (
             <li key={module.id}>
@@ -46,7 +38,7 @@ export function ModuleSidebar({
                       ? 'border-primary/50 bg-primary/10 text-foreground'
                       : 'border-transparent text-muted-foreground hover:border-border hover:bg-surface-1'
                   }`}
-                  to={`/aprender/trilhas/${trail.slug}/modulo/${module.id}`}
+                  to={ROUTES.learn.trailModule(trail.slug, module.id)}
                 >
                   {complete ? <Check aria-hidden="true" className="size-4 text-success" /> : <span className="flex size-4 items-center justify-center text-xs">{String(module.ordem).padStart(2, '0')}</span>}
                   <span className="line-clamp-2">{module.titulo}</span>

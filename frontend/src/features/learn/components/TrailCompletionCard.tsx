@@ -14,7 +14,7 @@ export function TrailCompletionCard({
   progress,
 }: TrailCompletionCardProps) {
   const { t } = useTranslation('learning');
-  const submittedCount = progress.atividadesSubmetidas.length;
+  const submittedCount = Object.values(progress.atividades).filter((item) => item.aprovada).length;
 
   return (
     <Card className="border-success/30 bg-[image:var(--gradient-surface)]">

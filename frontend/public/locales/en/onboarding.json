@@ -31,7 +31,8 @@
     "requiredConfirmation": "Please confirm your password.",
     "passwordMismatch": "Passwords do not match.",
     "creating": "Creating account…",
-    "createAndContinue": "Create account and continue"
+    "createAndContinue": "Create account and continue",
+    "error": "Could not create the account. Please try again."
   },
   "name": {
     "title": "What should we call you?",
@@ -93,7 +94,8 @@
     "journeyDescription": "Your journey starts with recommendations matched to your interests and goals.",
     "goal": "Goal:",
     "interests": "Interests:",
-    "complete": "Complete my profile"
+    "complete": "Complete my profile",
+    "completing": "Saving…"
   },
   "complete": {
     "congratulations": "Congratulations!",
@@ -101,5 +103,7 @@
     "description": "Your KUMUKA profile is ready. Your next opportunity starts now.",
     "explore": "Explore KUMUKA"
   },
-  "progress": "Step {{current}} of {{total}}"
+  "progress": "Step {{current}} of {{total}}",
+  "saveError": "Could not save your answer",
+  "saveErrorDescription": "Check your connection and try again."
 }
