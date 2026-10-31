@@ -4,11 +4,14 @@ import {
   ExternalLink,
   FolderKanban,
   Mail,
+  MapPin,
+  Pencil,
+  Plus,
   UserRound,
 } from 'lucide-react';
-import { Avatar, AvatarFallback } from '@/components/ui/avatar';
+import { useState } from 'react';
 import { Badge } from '@/components/ui/badge';
-import { Card, CardContent } from '@/components/ui/card';
+import { Button } from '@/components/ui/button';
 import { EmptyState } from '@/components/shared/EmptyState';
 import { ErrorState } from '@/components/shared/ErrorState';
 import { LoadingState } from '@/components/shared/LoadingState';
@@ -18,7 +21,11 @@ import { StatusBadge } from '@/components/shared/StatusBadge';
 import { useExperiences } from '@/features/experiences/hooks/useExperiences';
 import { useAchievements } from '@/features/dashboard/hooks/useAchievements';
 import { useAuthStore } from '@/stores/authStore';
+import type { Project } from '@/types/project';
 import { useProfile, useProfileCompetences, useProjects } from '../hooks/useProfile';
+import { ProfileEditDialog } from '../components/ProfileEditDialog';
+import { ProfileHero } from '../components/ProfileHero';
+import { ProjectDialog } from '../components/ProjectDialog';
 import { useTranslation } from 'react-i18next';
 
 export default function ProfilePage() {
@@ -30,12 +37,8 @@ export default function ProfilePage() {
   const projects = useProjects(userId);
   const experiences = useExperiences({ pageSize: 50 });
   const achievements = useAchievements(userId);
-  const initials = profile.data?.nome
-    .split(/\s+/)
-    .map((part) => part[0])
-    .slice(0, 2)
-    .join('')
-    .toUpperCase() ?? 'K';
+  const [editingProfile, setEditingProfile] = useState(false);
+  const [projectDialog, setProjectDialog] = useState<Project | 'new' | null>(null);
   const enrolled = experiences.data?.data.filter((item) => item.estado === 'inscrita') ?? [];
 
   if (profile.isLoading) {
@@ -76,21 +79,14 @@ export default function ProfilePage() {
         title={t('title')}
       />
 
-      <Card className="overflow-hidden border-border bg-[image:var(--gradient-surface)]">
-        <div aria-hidden="true" className="h-24 bg-[image:var(--gradient-brand-soft)]" />
-        <CardContent className="-mt-10 flex flex-col gap-4 p-5 sm:flex-row sm:items-end sm:gap-5 sm:p-6">
-          <Avatar className="size-20 border-4 border-card" size="lg">
-            <AvatarFallback className="bg-primary/15 text-xl font-semibold text-primary">
-              {initials}
-            </AvatarFallback>
-          </Avatar>
-          <div className="min-w-0 pb-1">
-            <p className="text-xs font-semibold uppercase tracking-[0.14em] text-primary">{t('kumukaProfile')}</p>
-            <h2 className="mt-1 text-xl font-bold tracking-tight">{profile.data.nome}</h2>
-            <p className="mt-1 text-sm text-muted-foreground">{profile.data.bio}</p>
-          </div>
-        </CardContent>
-      </Card>
+      <ProfileHero onEdit={() => setEditingProfile(true)} profile={profile.data} />
+      <ProfileEditDialog onClose={() => setEditingProfile(false)} open={editingProfile} profile={profile.data} />
+      <ProjectDialog
+        onClose={() => setProjectDialog(null)}
+        open={projectDialog !== null}
+        project={projectDialog === 'new' ? null : projectDialog}
+        userId={userId}
+      />
 
       <nav aria-label={t('sections.nav')} className="overflow-x-auto">
         <ul className="flex min-w-max gap-2 border-b border-border">
@@ -119,7 +115,17 @@ export default function ProfilePage() {
       </nav>
 
       <div className="grid gap-4 xl:grid-cols-2">
-        <SectionCard description={t('accountDescription')} id="profile-data" title={t('accountData')}>
+        <SectionCard
+          action={
+            <Button onClick={() => setEditingProfile(true)} size="sm" variant="ghost">
+              <Pencil aria-hidden="true" />
+              {t('edit.short')}
+            </Button>
+          }
+          description={t('accountDescription')}
+          id="profile-data"
+          title={t('accountData')}
+        >
           <dl className="space-y-4">
             <div className="flex items-start gap-3">
               <Mail aria-hidden="true" className="mt-0.5 size-4 text-primary" />
@@ -132,12 +138,19 @@ export default function ProfilePage() {
               <UserRound aria-hidden="true" className="mt-0.5 size-4 text-primary" />
               <div>
                 <dt className="text-xs font-medium uppercase tracking-wide text-muted-foreground">{t('situation')}</dt>
-                <dd className="mt-1 text-sm">{profile.data.situacao}{profile.data.idade ? ` · ${t('age', { count: profile.data.idade })}` : ''}</dd>
+                <dd className="mt-1 text-sm">{profile.data.situacao || t('notAvailable')}{profile.data.idade ? ` · ${t('age', { count: profile.data.idade })}` : ''}</dd>
+              </div>
+            </div>
+            <div className="flex items-start gap-3">
+              <MapPin aria-hidden="true" className="mt-0.5 size-4 text-primary" />
+              <div>
+                <dt className="text-xs font-medium uppercase tracking-wide text-muted-foreground">{t('edit.location')}</dt>
+                <dd className="mt-1 text-sm">{profile.data.localizacao || t('notAvailable')}</dd>
               </div>
             </div>
             <div>
               <dt className="text-xs font-medium uppercase tracking-wide text-muted-foreground">{t('goal')}</dt>
-              <dd className="mt-1 text-sm">{profile.data.objetivo}</dd>
+              <dd className="mt-1 text-sm">{profile.data.objetivo || t('notAvailable')}</dd>
             </div>
             <div>
               <dt className="text-xs font-medium uppercase tracking-wide text-muted-foreground">{t('interests')}</dt>
@@ -164,7 +177,17 @@ export default function ProfilePage() {
           )}
         </SectionCard>
 
-        <SectionCard description={t('projectsDescription')} id="profile-projects" title={t('portfolio')}>
+        <SectionCard
+          action={
+            <Button onClick={() => setProjectDialog('new')} size="sm">
+              <Plus aria-hidden="true" />
+              {t('projectForm.add')}
+            </Button>
+          }
+          description={t('projectsDescription')}
+          id="profile-projects"
+          title={t('portfolio')}
+        >
           {projects.isLoading ? (
             <p className="text-sm text-muted-foreground">{t('loadingProjects')}</p>
           ) : projects.isError ? (
@@ -172,18 +195,25 @@ export default function ProfilePage() {
           ) : projects.data?.length ? (
             <ul className="space-y-3">
               {projects.data.map((project) => (
-                <li className="rounded-lg border border-border p-4" key={project.id}>
+                <li className="rounded-2xl border border-border bg-surface-1 p-4" key={project.id}>
                   <div className="flex flex-wrap items-start justify-between gap-3">
                     <div>
                       <h3 className="font-semibold">{project.titulo}</h3>
                       <p className="mt-1 text-sm leading-6 text-muted-foreground">{project.descricao}</p>
                     </div>
-                    <StatusBadge status="info">{project.tipo === 'tecnico' ? t('projectType.technical') : t('projectType.creative')}</StatusBadge>
+                    <div className="flex items-center gap-1">
+                      <StatusBadge status="info">{project.tipo === 'tecnico' ? t('projectType.technical') : t('projectType.creative')}</StatusBadge>
+                      <Button aria-label={t('projectForm.editNamed', { title: project.titulo })} onClick={() => setProjectDialog(project)} size="icon" variant="ghost">
+                        <Pencil aria-hidden="true" />
+                      </Button>
+                    </div>
                   </div>
-                  <ul className="mt-3 flex flex-wrap gap-2">
-                    {project.competencias.map((skill) => <li key={skill}><Badge variant="outline">{skill}</Badge></li>)}
-                  </ul>
-                  <a
+                  {project.competencias.length > 0 && (
+                    <ul className="mt-3 flex flex-wrap gap-2">
+                      {project.competencias.map((skill) => <li key={skill}><Badge variant="outline">{skill}</Badge></li>)}
+                    </ul>
+                  )}
+                  {project.link && <a
                     className="mt-4 inline-flex min-h-10 items-center gap-2 text-sm font-medium text-primary underline-offset-4 hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
                     href={project.link}
                     rel="noreferrer"
@@ -191,7 +221,7 @@ export default function ProfilePage() {
                   >
                     {t('viewProject')}
                     <ExternalLink aria-hidden="true" className="size-4" />
-                  </a>
+                  </a>}
                 </li>
               ))}
             </ul>
@@ -208,7 +238,7 @@ export default function ProfilePage() {
           ) : enrolled.length ? (
             <ul className="space-y-3">
               {enrolled.map((experience) => (
-                <li className="rounded-lg border border-border p-4" key={experience.id}>
+                <li className="rounded-2xl border border-border bg-surface-1 p-4" key={experience.id}>
                   <h3 className="font-semibold">{experience.titulo}</h3>
                   <p className="mt-1 text-sm text-muted-foreground">{experience.dataInicio} · {experience.local}</p>
                   <StatusBadge className="mt-3" status="success">{t('enrolled')}</StatusBadge>
@@ -228,7 +258,7 @@ export default function ProfilePage() {
           ) : achievements.data?.some((item) => item.unlocked) ? (
             <ul className="space-y-3">
               {achievements.data.filter((item) => item.unlocked).map((item) => (
-                <li className="flex items-start gap-3 rounded-lg border border-border p-4" key={item.id}>
+                <li className="flex items-start gap-3 rounded-2xl border border-border bg-surface-1 p-4" key={item.id}>
                   <Award aria-hidden="true" className="mt-0.5 size-5 text-primary" />
                   <div>
                     <h3 className="font-semibold">{item.titulo}</h3>

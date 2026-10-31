@@ -19,6 +19,7 @@ const AuthLayout = lazy(() =>
   import("@/components/layout/AuthLayout").then((module) => ({ default: module.AuthLayout })),
 );
 const HomePage = lazy(() => import("@/features/home/pages/HomePage"));
+const FaqPage = lazy(() => import("@/features/help/pages/FaqPage"));
 const LoginPage = lazy(() => import("@/features/auth/pages/LoginPage"));
 const ForgotPasswordPage = lazy(
   () => import("@/features/auth/pages/ForgotPasswordPage"),
@@ -45,6 +46,9 @@ const TrailDetailPage = lazy(
 );
 const TrailModulePage = lazy(
   () => import("@/features/learn/pages/TrailModulePage"),
+);
+const ModuleQuizPage = lazy(
+  () => import("@/features/learn/pages/ModuleQuizPage"),
 );
 const TrailCompletionPage = lazy(
   () => import("@/features/learn/pages/TrailCompletionPage"),
@@ -74,6 +78,7 @@ const appRoutes: { path: string; page: ReactNode }[] = [
   { path: ROUTES.learn.trails, page: <TrailsPage /> },
   { path: ROUTES.learn.trail(":slug"), page: <TrailDetailPage /> },
   { path: ROUTES.learn.trailModule(":slug", ":moduleId"), page: <TrailModulePage /> },
+  { path: ROUTES.learn.moduleQuiz(":slug", ":moduleId"), page: <ModuleQuizPage /> },
   { path: ROUTES.learn.trailComplete(":slug"), page: <TrailCompletionPage /> },
   { path: ROUTES.learn.quickLearnings, page: <LearnContentPage /> },
   { path: ROUTES.learn.quickLearning(":slug"), page: <LearnContentPage /> },
@@ -92,6 +97,7 @@ export function AppRouter() {
     <Routes>
       {/* Públicas */}
       <Route element={<PublicLayout />}>
+        <Route path={ROUTES.faq} element={<Lazy><FaqPage /></Lazy>} />
         <Route
           path={ROUTES.home}
           element={

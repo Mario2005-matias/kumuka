@@ -7,6 +7,7 @@ import { useTranslation } from "react-i18next";
 const footerLinks = [
   { key: "learn", to: ROUTES.learn.root },
   { key: "experiences", to: ROUTES.experiences.root },
+  { key: "faq", to: ROUTES.faq },
   { key: "login", to: ROUTES.auth.login },
 ] as const;
 

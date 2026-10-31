@@ -2,13 +2,14 @@
 
 namespace App\Services;
 
-use App\Enums\ActivityType;
-use App\Enums\LessonType;
 use App\Models\Achievement;
 use App\Models\Activity;
 use App\Models\ActivitySubmission;
 use App\Models\Lesson;
+use App\Models\LessonBlock;
+use App\Models\LessonBlockProgress;
 use App\Models\LessonProgress;
+use App\Models\QuizAttempt;
 use App\Models\Trail;
 use App\Models\TrailEnrollment;
 use App\Models\TrailModule;
@@ -18,20 +19,19 @@ use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
 
 /**
- * Tracks how a student actually follows a trail and decides, on the server,
- * when lessons, modules and the trail itself count as completed.
+ * Decides, on the server, when lessons, modules and trails count as completed.
+ *
+ * Progress is based on evidence of learning, not on time spent on a page:
+ * - a lesson is done when its videos were actually watched and its checkpoint was answered correctly;
+ * - a module is done when its lessons are done, its quiz is passed and its required task is submitted;
+ * - mastery is the average of the best quiz scores across the trail's modules.
  */
 class TrailProgressService
 {
     /**
-     * Longest gap between heartbeats that still counts as continuous engagement.
+     * Longest gap between video heartbeats that still counts as continuous playback.
      */
     public const MAX_HEARTBEAT_GAP_SECONDS = 30;
-
-    /**
-     * Most engagement time credited by a single heartbeat.
-     */
-    public const MAX_CREDIT_PER_HEARTBEAT_SECONDS = 15;
 
     /**
      * Fastest playback rate accepted when crediting watched video.
@@ -100,72 +100,131 @@ class TrailProgressService
     }
 
     /**
-     * Record a heartbeat sent while the student is on a lesson.
+     * Record playback of a video block.
      *
-     * @param  array{event: string, position?: int|float|null, reached_end?: bool|null}  $signal
+     * Only segments played continuously are credited, so seeking ahead does not count.
+     *
+     * @param  array{position: int|float}  $signal
      */
-    public function recordHeartbeat(User $user, Lesson $lesson, array $signal): LessonProgress
+    public function recordVideoHeartbeat(User $user, LessonBlock $block, array $signal): LessonBlockProgress
     {
-        $progress = $user->lessonProgress()->firstOrNew(['lesson_id' => $lesson->id]);
+        $progress = $user->blockProgress()->firstOrNew(['lesson_block_id' => $block->id]);
         $now = now();
-        $position = isset($signal['position']) ? max(0, (int) floor($signal['position'])) : null;
-
-        if ($progress->completed_at !== null) {
-            $progress->fill(['last_position_seconds' => $position ?? $progress->last_position_seconds]);
-            $progress->save();
-
-            return $progress;
-        }
+        $position = max(0, (int) floor($signal['position']));
 
         $elapsed = $progress->last_heartbeat_at?->diffInSeconds($now);
-        $isContinuous = $elapsed !== null && $elapsed >= 0 && $elapsed <= self::MAX_HEARTBEAT_GAP_SECONDS;
+        $previous = $progress->last_position_seconds;
+        $segments = str_pad((string) $progress->watched_segments, $block->segmentCount(), '0');
 
-        if ($isContinuous && $signal['event'] !== 'opened') {
-            $progress->engaged_seconds += (int) min($elapsed, self::MAX_CREDIT_PER_HEARTBEAT_SECONDS);
+        if ($elapsed !== null && $elapsed >= 0 && $elapsed <= self::MAX_HEARTBEAT_GAP_SECONDS && $previous !== null) {
+            $advanced = $position - $previous;
+
+            if ($advanced > 0 && $advanced <= $elapsed * self::MAX_PLAYBACK_RATE + 2) {
+                $first = intdiv($previous, LessonBlock::SEGMENT_SECONDS);
+                $last = min($block->segmentCount() - 1, max($first, (int) ceil($position / LessonBlock::SEGMENT_SECONDS) - 1));
+
+                for ($index = $first; $index <= $last; $index++) {
+                    $segments[$index] = '1';
+                }
+            }
         }
 
-        match ($lesson->type) {
-            LessonType::Text => $progress->reached_end = $progress->reached_end || (bool) ($signal['reached_end'] ?? false),
-            LessonType::Image => $progress->reached_end = true,
-            LessonType::Link => $progress->reached_end = $progress->reached_end || $signal['event'] === 'opened',
-            LessonType::Video => $this->creditWatchedVideo($lesson, $progress, $position, $isContinuous ? (float) $elapsed : null),
-        };
+        $progress->fill([
+            'watched_segments' => $segments,
+            'last_position_seconds' => $position,
+            'last_heartbeat_at' => $now,
+        ]);
 
-        $progress->last_heartbeat_at = $now;
+        $justCompleted = $progress->completed_at === null
+            && $this->watchedPercent($block, $progress) >= $block->lesson->completion_threshold;
 
-        if ($this->lessonRequirementsMet($lesson, $progress)) {
+        if ($justCompleted) {
             $progress->completed_at = $now;
         }
 
         $progress->save();
 
-        if ($progress->completed_at !== null) {
-            $this->evaluateModule($user, $lesson->module);
+        if ($justCompleted) {
+            $this->evaluateLesson($user, $block->lesson);
         } else {
-            $this->touchEnrollment($user, $lesson->module);
+            $this->touchEnrollment($user, $block->lesson->module);
         }
 
         return $progress;
     }
 
     /**
-     * Share (0-100) of the lesson's completion requirement already met.
+     * Share (0-100) of a video block that has actually been watched.
      */
-    public function lessonPercent(Lesson $lesson, ?LessonProgress $progress): int
+    public function watchedPercent(LessonBlock $block, ?LessonBlockProgress $progress): int
     {
         if ($progress === null) {
             return 0;
         }
 
-        if ($progress->completed_at !== null) {
-            return 100;
+        return (int) floor(substr_count((string) $progress->watched_segments, '1') / $block->segmentCount() * 100);
+    }
+
+    /**
+     * Mark a lesson that has nothing to watch or answer as read.
+     *
+     * Lessons with a tracked video or a checkpoint can only be completed through them.
+     */
+    public function markLessonRead(User $user, Lesson $lesson): bool
+    {
+        if ($this->lessonNeedsEvidence($lesson)) {
+            return false;
         }
 
-        return match ($lesson->type) {
-            LessonType::Video => (int) min(99, floor($this->watchedRatio($lesson, $progress) * 100 / max(1, $lesson->completion_threshold) * 100)),
-            LessonType::Link => 0,
-            default => (int) min(99, floor($progress->engaged_seconds / max(1, $lesson->requiredEngagedSeconds()) * 100)),
-        };
+        $this->completeLesson($user, $lesson);
+
+        return true;
+    }
+
+    /**
+     * Complete the lesson when its videos were watched and its checkpoint was passed.
+     */
+    public function evaluateLesson(User $user, Lesson $lesson): bool
+    {
+        $missing = $this->missingLessonRequirements($user, $lesson);
+
+        if (! $this->lessonNeedsEvidence($lesson) || $missing['videos'] !== [] || $missing['checkpoint']) {
+            $this->touchEnrollment($user, $lesson->module);
+
+            return false;
+        }
+
+        $this->completeLesson($user, $lesson);
+
+        return true;
+    }
+
+    /**
+     * Requirements still missing before the lesson counts as completed.
+     *
+     * @return array{videos: list<int>, checkpoint: bool}
+     */
+    public function missingLessonRequirements(User $user, Lesson $lesson): array
+    {
+        $videoIds = $lesson->blocks()->get()->filter->isTracked()->pluck('id');
+        $watchedIds = $user->blockProgress()->whereIn('lesson_block_id', $videoIds)->whereNotNull('completed_at')->pluck('lesson_block_id');
+
+        $checkpointMissing = $lesson->checkpointQuestions()->exists()
+            && ! $user->quizAttempts()->where('lesson_id', $lesson->id)->where('passed', true)->exists();
+
+        return [
+            'videos' => $videoIds->diff($watchedIds)->values()->all(),
+            'checkpoint' => $checkpointMissing,
+        ];
+    }
+
+    /**
+     * Whether the lesson has a video or a checkpoint that proves it was followed.
+     */
+    public function lessonNeedsEvidence(Lesson $lesson): bool
+    {
+        return $lesson->checkpointQuestions()->exists()
+            || $lesson->blocks()->get()->contains->isTracked();
     }
 
     /**
@@ -183,11 +242,9 @@ class TrailProgressService
     }
 
     /**
-     * Submit an activity answer, grading quizzes on the server.
-     *
-     * @param  string|array<string, string>|null  $answer
+     * Submit a practical task.
      */
-    public function submit(User $user, Activity $activity, string|array|null $answer, ?UploadedFile $file = null): ActivitySubmission
+    public function submitActivity(User $user, Activity $activity, ?string $answer, ?UploadedFile $file = null): ActivitySubmission
     {
         $submission = $user->activitySubmissions()->firstOrNew(['activity_id' => $activity->id]);
 
@@ -195,27 +252,13 @@ class TrailProgressService
             $submission->file_path = $file->store("activity-submissions/{$user->id}");
         }
 
-        $submission->answer = is_array($answer) ? json_encode($answer, JSON_THROW_ON_ERROR) : $answer;
+        $submission->answer = $answer;
         $submission->attempts++;
         $submission->submitted_at = now();
-
-        if ($activity->type === ActivityType::Quiz) {
-            $submission->score = $this->gradeQuiz($activity, is_array($answer) ? $answer : []);
-            $passed = $submission->score >= $activity->passing_score;
-        } else {
-            $passed = true;
-        }
-
-        if ($passed && $submission->passed_at === null) {
-            $submission->passed_at = now();
-        }
-
+        $submission->passed_at ??= now();
         $submission->save();
 
-        if ($submission->passed_at !== null) {
-            $this->achievements->unlock($user, Achievement::FIRST_ACTIVITY);
-        }
-
+        $this->achievements->unlock($user, Achievement::FIRST_ACTIVITY);
         $this->evaluateModule($user, $activity->module);
 
         return $submission;
@@ -226,7 +269,8 @@ class TrailProgressService
      */
     public function evaluateModule(User $user, TrailModule $module): bool
     {
-        $isComplete = $this->moduleRequirementsMet($user, $module);
+        $missing = $this->missingModuleRequirements($user, $module);
+        $isComplete = $missing['lessons'] === [] && ! $missing['quiz'] && ! $missing['activity'];
 
         DB::transaction(function () use ($user, $module, $isComplete): void {
             if ($isComplete) {
@@ -245,7 +289,7 @@ class TrailProgressService
     /**
      * Requirements still missing before the module counts as completed.
      *
-     * @return array{lessons: list<int>, activity: bool}
+     * @return array{lessons: list<int>, quiz: bool, activity: bool}
      */
     public function missingModuleRequirements(User $user, TrailModule $module): array
     {
@@ -255,18 +299,49 @@ class TrailProgressService
             ->whereNotNull('completed_at')
             ->pluck('lesson_id');
 
+        $quizMissing = $module->quizQuestions()->exists() && ! $this->hasPassedQuiz($user, $module);
+
         $activity = $module->activity;
         $activityMissing = $activity !== null
             && $activity->is_required
-            && ! $user->activitySubmissions()
-                ->where('activity_id', $activity->id)
-                ->whereNotNull('passed_at')
-                ->exists();
+            && ! $user->activitySubmissions()->where('activity_id', $activity->id)->whereNotNull('passed_at')->exists();
 
         return [
             'lessons' => $requiredLessonIds->diff($completedLessonIds)->values()->all(),
+            'quiz' => $quizMissing,
             'activity' => $activityMissing,
         ];
+    }
+
+    /**
+     * Whether every required lesson of the module is completed, which unlocks its quiz.
+     */
+    public function lessonsCompleted(User $user, TrailModule $module): bool
+    {
+        return $this->missingModuleRequirements($user, $module)['lessons'] === [];
+    }
+
+    public function hasPassedQuiz(User $user, TrailModule $module): bool
+    {
+        return $user->quizAttempts()
+            ->where('trail_module_id', $module->id)
+            ->whereNull('lesson_id')
+            ->where('passed', true)
+            ->exists();
+    }
+
+    /**
+     * Best module quiz score of the user, if they attempted it.
+     */
+    public function bestQuizScore(User $user, TrailModule $module): ?int
+    {
+        $score = $user->quizAttempts()
+            ->where('trail_module_id', $module->id)
+            ->whereNull('lesson_id')
+            ->whereNotNull('submitted_at')
+            ->max('score');
+
+        return $score === null ? null : (int) $score;
     }
 
     /**
@@ -283,9 +358,12 @@ class TrailProgressService
     }
 
     /**
-     * Recalculate percentage, current module and completion of the user's enrollment.
+     * Recalculate progress, mastery, current module and completion of the user's enrollment.
+     *
+     * Progress counts completed lessons, passed quizzes and submitted required tasks.
+     * Mastery averages the best quiz score of every module that has a quiz.
      */
-    private function refreshEnrollment(User $user, Trail $trail): void
+    public function refreshEnrollment(User $user, Trail $trail): void
     {
         $enrollment = $this->enrollment($user, $trail);
 
@@ -293,22 +371,36 @@ class TrailProgressService
             return;
         }
 
-        $modules = $trail->modules()->with(['lessons', 'activity'])->get();
+        $modules = $trail->modules()->with('activity')->withCount('quizQuestions')->get();
         $moduleIds = $modules->pluck('id')->map(fn (mixed $id): int => (int) $id);
         $completedModules = $this->completedModuleIds($user, $moduleIds);
 
-        $requiredLessonIds = $modules->flatMap->lessons->where('is_required', true)->pluck('id');
+        $requiredLessonIds = Lesson::query()->whereIn('trail_module_id', $moduleIds)->where('is_required', true)->pluck('id');
         $requiredActivityIds = $modules->pluck('activity')->filter(fn (?Activity $activity): bool => $activity?->is_required ?? false)->pluck('id');
+        $quizModuleIds = $modules->where('quiz_questions_count', '>', 0)->pluck('id');
 
-        $completedLessons = $user->lessonProgress()->whereIn('lesson_id', $requiredLessonIds)->whereNotNull('completed_at')->count();
-        $passedActivities = $user->activitySubmissions()->whereIn('activity_id', $requiredActivityIds)->whereNotNull('passed_at')->count();
-        $totalItems = $requiredLessonIds->count() + $requiredActivityIds->count();
+        $quizAttempts = QuizAttempt::query()
+            ->where('user_id', $user->id)
+            ->whereIn('trail_module_id', $quizModuleIds)
+            ->whereNull('lesson_id')
+            ->whereNotNull('submitted_at')
+            ->get(['trail_module_id', 'score', 'passed'])
+            ->groupBy('trail_module_id');
+
+        $passedQuizzes = $quizAttempts->filter(fn (Collection $attempts): bool => $attempts->contains('passed', true))->count();
+        $bestScoreSum = $quizAttempts->sum(fn (Collection $attempts): int => (int) $attempts->max('score'));
+
+        $done = LessonProgress::query()->where('user_id', $user->id)->whereIn('lesson_id', $requiredLessonIds)->whereNotNull('completed_at')->count()
+            + $passedQuizzes
+            + ActivitySubmission::query()->where('user_id', $user->id)->whereIn('activity_id', $requiredActivityIds)->whereNotNull('passed_at')->count();
+        $total = $requiredLessonIds->count() + $quizModuleIds->count() + $requiredActivityIds->count();
 
         $isTrailComplete = $modules->isNotEmpty() && count($completedModules) === $modules->count();
         $nextModuleId = $moduleIds->first(fn (int $id): bool => ! in_array($id, $completedModules, true));
 
         $enrollment->fill([
-            'percent' => $isTrailComplete ? 100 : ($totalItems === 0 ? 0 : (int) min(99, floor(($completedLessons + $passedActivities) / $totalItems * 100))),
+            'percent' => $isTrailComplete ? 100 : ($total === 0 ? 0 : (int) min(99, floor($done / $total * 100))),
+            'mastery' => $quizModuleIds->isEmpty() ? 0 : (int) round($bestScoreSum / $quizModuleIds->count()),
             'current_module_id' => $nextModuleId ?? $moduleIds->last(),
             'last_activity_at' => now(),
         ]);
@@ -326,84 +418,16 @@ class TrailProgressService
         $enrollment->save();
     }
 
+    private function completeLesson(User $user, Lesson $lesson): void
+    {
+        $user->lessonProgress()->firstOrCreate(['lesson_id' => $lesson->id], ['completed_at' => now()]);
+        $this->evaluateModule($user, $lesson->module);
+    }
+
     private function touchEnrollment(User $user, TrailModule $module): void
     {
         $user->enrollments()
             ->where('trail_id', $module->trail_id)
             ->update(['last_activity_at' => now(), 'current_module_id' => $module->id]);
-    }
-
-    private function moduleRequirementsMet(User $user, TrailModule $module): bool
-    {
-        $missing = $this->missingModuleRequirements($user, $module);
-
-        return $missing['lessons'] === [] && ! $missing['activity'];
-    }
-
-    private function lessonRequirementsMet(Lesson $lesson, LessonProgress $progress): bool
-    {
-        return match ($lesson->type) {
-            LessonType::Text => $progress->reached_end && $progress->engaged_seconds >= $lesson->requiredEngagedSeconds(),
-            LessonType::Image => $progress->engaged_seconds >= $lesson->requiredEngagedSeconds(),
-            LessonType::Link => $progress->reached_end,
-            LessonType::Video => $this->watchedRatio($lesson, $progress) * 100 >= $lesson->completion_threshold,
-        };
-    }
-
-    /**
-     * Credit the video segments played since the last heartbeat.
-     *
-     * Jumps forward faster than the maximum playback rate are treated as seeks and credit nothing.
-     */
-    private function creditWatchedVideo(Lesson $lesson, LessonProgress $progress, ?int $position, ?float $elapsed): void
-    {
-        $segments = str_pad((string) $progress->watched_segments, $lesson->segmentCount(), '0');
-        $previous = $progress->last_position_seconds;
-
-        if ($position !== null && $previous !== null && $elapsed !== null) {
-            $advanced = $position - $previous;
-
-            if ($advanced > 0 && $advanced <= $elapsed * self::MAX_PLAYBACK_RATE + 2) {
-                $first = intdiv($previous, Lesson::SEGMENT_SECONDS);
-                $last = min($lesson->segmentCount() - 1, max($first, (int) ceil($position / Lesson::SEGMENT_SECONDS) - 1));
-
-                for ($index = $first; $index <= $last; $index++) {
-                    $segments[$index] = '1';
-                }
-            }
-        }
-
-        $progress->watched_segments = $segments;
-
-        if ($position !== null) {
-            $progress->last_position_seconds = $position;
-        }
-    }
-
-    private function watchedRatio(Lesson $lesson, LessonProgress $progress): float
-    {
-        $watched = substr_count((string) $progress->watched_segments, '1');
-
-        return $watched / $lesson->segmentCount();
-    }
-
-    /**
-     * Score a quiz from 0 to 100.
-     *
-     * @param  array<string, string>  $answers
-     */
-    private function gradeQuiz(Activity $activity, array $answers): int
-    {
-        $questions = collect($activity->questions ?? []);
-
-        if ($questions->isEmpty()) {
-            return 100;
-        }
-
-        $correct = $questions->filter(
-            fn (array $question): bool => ($answers[$question['id']] ?? null) === $question['respostaCorretaId'],
-        )->count();
-
-        return (int) round($correct / $questions->count() * 100);
     }
 }

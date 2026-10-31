@@ -31,7 +31,9 @@
     "collapse": "Réduire le menu",
     "expand": "Développer le menu",
     "logout": "Se déconnecter",
-    "brandTagline": "Construis ton avenir."
+    "brandTagline": "Construis ton avenir.",
+    "faq": "Questions fréquentes",
+    "main": "Navigation principale"
   },
   "actions": {
     "login": "Se connecter",
@@ -44,7 +46,8 @@
     "details": "Voir les détails",
     "save": "Enregistrer",
     "cancel": "Annuler",
-    "search": "Rechercher"
+    "search": "Rechercher",
+    "close": "Fermer"
   },
   "search": {
     "open": "Rechercher (Ctrl+K)",

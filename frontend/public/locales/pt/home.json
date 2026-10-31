@@ -24,29 +24,74 @@
     "whatIsTitle": "O que é a KUMUKA?",
     "whatIsDescription": "A KUMUKA liga aprendizagem a oportunidades. Aqui, transformas o que aprendes em competências, mostras o que sabes fazer e preparas o teu próximo passo.",
     "pillars": {
-      "learn": { "title": "Aprender fazendo", "description": "Explora conteúdos e põe as ideias em prática com desafios reais." },
-      "prove": { "title": "Provar o que sabes", "description": "Constrói evidências do teu trabalho e reúne tudo no teu portefólio." },
-      "opportunities": { "title": "Encontrar oportunidades", "description": "Descobre experiências e oportunidades para dar o próximo passo." }
+      "learn": {
+        "title": "Aprender fazendo",
+        "description": "Explora conteúdos e põe as ideias em prática com desafios reais."
+      },
+      "prove": {
+        "title": "Provar o que sabes",
+        "description": "Constrói evidências do teu trabalho e reúne tudo no teu portefólio."
+      },
+      "opportunities": {
+        "title": "Encontrar oportunidades",
+        "description": "Descobre experiências e oportunidades para dar o próximo passo."
+      }
     },
     "featuresTitle": "Tudo para dares o próximo passo",
     "featuresDescription": "Ferramentas para aprender, praticar e mostrar o teu progresso.",
     "features": {
-      "trails": { "title": "Trilhas", "description": "Jornadas completas de aprendizagem." },
-      "courses": { "title": "Cursos", "description": "Aprendizagem estruturada e ao teu ritmo." },
-      "quickLearnings": { "title": "Aprendizados", "description": "Conteúdos curtos e práticos." },
-      "guides": { "title": "Guias", "description": "Materiais práticos para consulta." },
-      "experiences": { "title": "Experiências", "description": "Programas, workshops e eventos." },
-      "portfolio": { "title": "Portefólio", "description": "Mostra o que sabes fazer." }
+      "trails": {
+        "title": "Trilhas",
+        "description": "Jornadas completas de aprendizagem."
+      },
+      "courses": {
+        "title": "Cursos",
+        "description": "Aprendizagem estruturada e ao teu ritmo."
+      },
+      "quickLearnings": {
+        "title": "Aprendizados",
+        "description": "Conteúdos curtos e práticos."
+      },
+      "guides": {
+        "title": "Guias",
+        "description": "Materiais práticos para consulta."
+      },
+      "experiences": {
+        "title": "Experiências",
+        "description": "Programas, workshops e eventos."
+      },
+      "portfolio": {
+        "title": "Portefólio",
+        "description": "Mostra o que sabes fazer."
+      }
     },
     "journeyTitle": "Uma jornada feita à tua medida",
     "journeyDescription": "Uma jornada clara: do primeiro clique até à oportunidade.",
     "journeySteps": {
-      "learn": { "title": "Aprender", "description": "Descobre ideias e conhecimentos ao teu ritmo." },
-      "develop": { "title": "Desenvolver", "description": "Pratica e fortalece competências para a vida." },
-      "do": { "title": "Fazer", "description": "Aplica o que aprendeste em projectos e desafios." },
-      "prove": { "title": "Provar", "description": "Guarda resultados e mostra o que sabes fazer." },
-      "experience": { "title": "Experimentar", "description": "Participa em programas, workshops e eventos." },
-      "advance": { "title": "Avançar", "description": "Encontra oportunidades e dá o próximo passo." }
+      "learn": {
+        "title": "Aprender",
+        "description": "Descobre ideias e conhecimentos ao teu ritmo."
+      },
+      "develop": {
+        "title": "Desenvolver",
+        "description": "Pratica e fortalece competências para a vida."
+      },
+      "do": {
+        "title": "Fazer",
+        "description": "Aplica o que aprendeste em projectos e desafios."
+      },
+      "prove": {
+        "title": "Provar",
+        "description": "Guarda resultados e mostra o que sabes fazer."
+      },
+      "experience": {
+        "title": "Experimentar",
+        "description": "Participa em programas, workshops e eventos."
+      },
+      "advance": {
+        "title": "Avançar",
+        "description": "Encontra oportunidades e dá o próximo passo."
+      }
     },
     "audienceTitle": "Um espaço para o teu futuro",
     "audienceDescription": "Para jovens com vontade de aprender, fazer e avançar.",
@@ -75,5 +120,22 @@
   "footer": {
     "tagline": "Constrói o teu futuro.",
     "copyright": "Todos os direitos reservados."
+  },
+  "faq": {
+    "eyebrow": "Ajuda",
+    "title": "Como podemos ajudar?",
+    "description": "Respostas às perguntas que mais recebemos. Pesquisa ou escolhe um tema.",
+    "search": "Pesquisar nas perguntas frequentes",
+    "searchPlaceholder": "Pesquisar, por ex.: password, quiz, certificado",
+    "categories": "Temas",
+    "all": "Todas",
+    "listLabel": "Perguntas frequentes",
+    "error": "Não foi possível carregar as perguntas.",
+    "emptyTitle": "Nenhuma pergunta encontrada",
+    "emptyDescription": "Experimenta outras palavras ou escolhe outro tema.",
+    "contactTitle": "Não encontraste o que procuravas?",
+    "contactDescription": "Escreve-nos e a nossa equipa responde o mais depressa possível.",
+    "contactUnavailable": "O contacto de apoio estará disponível em breve.",
+    "contactAction": "Contactar o apoio"
   }
 }

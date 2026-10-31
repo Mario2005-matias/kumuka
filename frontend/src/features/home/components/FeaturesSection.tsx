@@ -1,3 +1,4 @@
+import { MediaCard } from '@/components/shared/MediaCard';
 import {
   BookOpen,
   Compass,
@@ -7,16 +8,8 @@ import {
   Zap,
 } from 'lucide-react';
 import type { LucideIcon } from 'lucide-react';
-import { motion } from 'motion/react';
-import { usePrefersReducedMotion } from '../hooks/usePrefersReducedMotion';
 import { revealSection } from '../lib/animations/sectionAnimations';
 import { useScrollAnimation } from '../hooks/useScrollAnimation';
-import {
-  Card,
-  CardContent,
-  CardHeader,
-  CardTitle,
-} from '@/components/ui/card';
 import { useTranslation } from 'react-i18next';
 
 const features: {
@@ -34,7 +27,6 @@ const features: {
 export function FeaturesSection() {
   const { t } = useTranslation('home');
   const sectionRef = useScrollAnimation(revealSection);
-  const prefersReducedMotion = usePrefersReducedMotion();
 
   return (
     <section
@@ -56,34 +48,17 @@ export function FeaturesSection() {
         </p>
       </div>
       <div className="mt-10 grid gap-4 sm:mt-14 sm:grid-cols-2 lg:grid-cols-3">
-        {features.map(({ key, icon: Icon }) => (
-          <motion.div
-            className="h-full"
-            key={key}
-            transition={{ duration: 0.25, ease: 'easeOut' }}
-            whileHover={prefersReducedMotion ? undefined : { scale: 1.02 }}
-          >
-            <Card
-              className="group h-full border border-border/70 bg-card/80 transition-[border-color,box-shadow] duration-300 hover:border-primary/50 hover:shadow-xl hover:shadow-primary/5"
-              data-reveal
-            >
-              <CardHeader>
-                <motion.div
-                  className="mb-3 flex size-14 items-center justify-center rounded-2xl bg-primary/10 text-primary transition-colors duration-300 group-hover:bg-primary group-hover:text-primary-foreground"
-                  transition={{ duration: 0.25, ease: 'easeOut' }}
-                  whileHover={prefersReducedMotion ? undefined : { rotate: 5 }}
-                >
-                  <Icon aria-hidden="true" className="size-7" />
-                </motion.div>
-                <CardTitle className="text-lg">
-                  {t(`sections.features.${key}.title`)}
-                </CardTitle>
-              </CardHeader>
-              <CardContent className="leading-6 text-muted-foreground">
-                {t(`sections.features.${key}.description`)}
-              </CardContent>
-            </Card>
-          </motion.div>
+        {features.map(({ key, icon }) => (
+          <div className="h-full" data-reveal key={key}>
+            <MediaCard
+              description={t(`sections.features.${key}.description`)}
+              descriptionLines={0}
+              headingLevel="h3"
+              icon={icon}
+              title={t(`sections.features.${key}.title`)}
+              visual="banner"
+            />
+          </div>
         ))}
       </div>
     </section>

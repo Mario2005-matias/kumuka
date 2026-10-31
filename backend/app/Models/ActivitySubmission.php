@@ -12,6 +12,14 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 class ActivitySubmission extends Model
 {
     /**
+     * @return BelongsTo<User, $this>
+     */
+    public function user(): BelongsTo
+    {
+        return $this->belongsTo(User::class)->withTrashed();
+    }
+
+    /**
      * @return BelongsTo<Activity, $this>
      */
     public function activity(): BelongsTo

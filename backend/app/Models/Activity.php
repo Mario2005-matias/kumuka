@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-#[Fillable(['type', 'prompt', 'instructions', 'is_required', 'points', 'passing_score', 'questions'])]
+#[Fillable(['type', 'prompt', 'instructions', 'is_required', 'points'])]
 class Activity extends Model
 {
     use HasFactory;
@@ -29,7 +29,6 @@ class Activity extends Model
         return [
             'type' => ActivityType::class,
             'is_required' => 'boolean',
-            'questions' => 'array',
         ];
     }
 }

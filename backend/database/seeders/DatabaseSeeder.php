@@ -16,12 +16,17 @@ class DatabaseSeeder extends Seeder
     {
         $this->call([
             AchievementSeeder::class,
+            PilotTrailSeeder::class,
             LearningContentSeeder::class,
+            CurriculumSeeder::class,
             OpportunitySeeder::class,
+            FaqSeeder::class,
         ]);
 
+        $this->command->call('kumuka:covers');
+
         if (app()->environment('local')) {
-            $this->call(DemoStudentSeeder::class);
+            $this->call([DemoStudentSeeder::class, AdminUserSeeder::class]);
         }
     }
 }

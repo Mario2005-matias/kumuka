@@ -3,6 +3,7 @@
 namespace App\Http\Resources;
 
 use App\Models\Company;
+use App\Support\PublicFile;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -20,7 +21,7 @@ class CompanyResource extends JsonResource
             'id' => (string) $this->id,
             'slug' => $this->slug,
             'nome' => $this->name,
-            'logo' => $this->logo,
+            'logo' => PublicFile::url($this->logo),
             'descricao' => $this->description,
             'area' => $this->area,
             'website' => $this->website,

@@ -1,11 +1,12 @@
+import { CompanyLogo } from '@/components/shared/CoverImage';
+import { MediaCard } from '@/components/shared/MediaCard';
 import { BriefcaseBusiness, CalendarDays, MapPin, Search, X } from 'lucide-react';
-import { Link, useSearchParams } from 'react-router-dom';
+import { useSearchParams } from 'react-router-dom';
 import { EmptyState } from '@/components/shared/EmptyState';
 import { Pagination } from '@/components/shared/Pagination';
 import { pageFromSearch } from '@/lib/pagination';
 import { ErrorState } from '@/components/shared/ErrorState';
 import { PageHeader } from '@/components/shared/PageHeader';
-import { StatusBadge } from '@/components/shared/StatusBadge';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { useOpportunities } from '@/features/opportunities/hooks/useOpportunities';
@@ -100,7 +101,7 @@ export default function OpportunitiesPage() {
   return (
     <div className="space-y-8">
       <PageHeader description={t('description')} title={t('title')} />
-      <div className="grid gap-3 rounded-xl border border-border bg-card p-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+      <div className="grid gap-3 elevated rounded-2xl border border-border/70 bg-card p-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
         <div className="relative sm:col-span-2">
           <label className="mb-2 block text-sm font-medium" htmlFor="opportunity-search">{t('filters.search')}</label>
           <Search aria-hidden="true" className="absolute left-3 top-[2.65rem] size-4 text-muted-foreground" />
@@ -123,23 +124,22 @@ export default function OpportunitiesPage() {
           <p aria-live="polite" className="text-sm text-muted-foreground">{t('results', { count: opportunities.data.meta.total })}</p>
           <section aria-label={t('resultList')} className="grid gap-5 sm:grid-cols-2 xl:grid-cols-3">
             {opportunities.data.data.map((item) => (
-              <article className="flex flex-col overflow-hidden rounded-xl border border-border bg-card" key={item.id}>
-                <div className="flex min-h-28 items-center justify-between bg-surface-1 p-5">
-                  <div className="flex size-14 items-center justify-center rounded-xl border border-border bg-card text-lg font-bold text-primary">{item.empresaNome.slice(0, 2).toLocaleUpperCase()}</div>
-                  <StatusBadge status="info">{t(typeTranslationKeys[item.tipo])}</StatusBadge>
-                </div>
-                <div className="flex flex-1 flex-col p-5">
-                  <h2 className="font-semibold">{item.titulo}</h2>
-                  <p className="mt-2 text-sm leading-6 text-muted-foreground">{item.subtitulo}</p>
-                  <p className="mt-3 text-sm font-medium">{item.empresaNome} · {item.area}</p>
-                  <dl className="mt-3 space-y-2 text-sm text-muted-foreground">
-                    <div className="flex items-center gap-2"><MapPin aria-hidden="true" className="size-4 text-primary" /><dt className="sr-only">{t('locationLabel')}</dt><dd>{item.localizacao} · {t(modalityTranslationKeys[item.modalidade])}</dd></div>
-                    <div className="flex items-center gap-2"><CalendarDays aria-hidden="true" className="size-4 text-primary" /><dt className="sr-only">{t('deadlineLabel')}</dt><dd>{t('until', { date: dateLabel(item.prazo, dateLocale) })} · {t('daysRemaining', { count: daysRemaining(item.prazo) })}</dd></div>
-                  </dl>
-                  <ul className="mt-4 list-disc space-y-1 pl-5 text-sm text-muted-foreground">{item.requisitos.slice(0, 3).map((requirement) => <li key={requirement}>{requirement}</li>)}</ul>
-                  <Button className="mt-auto min-h-11 w-full pt-5" nativeButton={false} render={<Link to={ROUTES.opportunities.detail(item.slug)} />}>{item.ctaTipo === 'interesse' ? t('interest') : t('apply')}</Button>
-                </div>
-              </article>
+              <MediaCard
+                aside={<span className="text-xs text-muted-foreground">{t('daysRemaining', { count: daysRemaining(item.prazo) })}</span>}
+                category={t(typeTranslationKeys[item.tipo])}
+                description={item.subtitulo}
+                image={item.banner}
+                key={item.id}
+                overlay={<CompanyLogo className="size-11 rounded-xl text-sm" name={item.empresaNome} src={item.empresaLogo} />}
+                title={item.titulo}
+                to={ROUTES.opportunities.detail(item.slug)}
+              >
+                <p className="text-sm font-medium">{item.empresaNome} · {item.area}</p>
+                <dl className="space-y-1.5 text-xs text-muted-foreground">
+                  <div className="flex items-center gap-2"><MapPin aria-hidden="true" className="size-3.5 text-primary" /><dt className="sr-only">{t('locationLabel')}</dt><dd>{item.localizacao} · {t(modalityTranslationKeys[item.modalidade])}</dd></div>
+                  <div className="flex items-center gap-2"><CalendarDays aria-hidden="true" className="size-3.5 text-primary" /><dt className="sr-only">{t('deadlineLabel')}</dt><dd>{t('until', { date: dateLabel(item.prazo, dateLocale) })}</dd></div>
+                </dl>
+              </MediaCard>
             ))}
           </section>
           <Pagination

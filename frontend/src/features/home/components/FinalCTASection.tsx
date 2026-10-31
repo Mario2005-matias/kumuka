@@ -13,7 +13,7 @@ export function FinalCTASection() {
   return (
     <section
       aria-labelledby="final-cta-title"
-      className="relative isolate overflow-hidden bg-[image:var(--gradient-brand)] text-primary-foreground "
+      className="relative isolate overflow-hidden bg-[image:var(--gradient-brand)] text-on-brand "
       id="comecar"
       ref={sectionRef}
     >
@@ -34,7 +34,7 @@ export function FinalCTASection() {
           {t("sections.finalHeading")}
         </h2>
         <p
-          className="mx-auto mt-4 max-w-xl text-pretty leading-7 text-primary-foreground/85"
+          className="mx-auto mt-4 max-w-xl text-pretty leading-7 text-on-brand/85"
           data-reveal
         >
           {t("sections.finalDescription")}
@@ -54,7 +54,7 @@ export function FinalCTASection() {
             <ArrowRight aria-hidden="true" />
           </Button>
           <Button
-            className="min-h-11 w-full border-primary-foreground/50 dark:border-white bg-transparent px-6 py-3 text-primary-foreground transition-transform hover:scale-[1.02] hover:bg-primary-foreground/10 hover:text-primary-foreground sm:w-auto"
+            className="min-h-11 w-full border-on-brand/50 bg-transparent px-6 py-3 text-on-brand transition-transform hover:scale-[1.02] hover:bg-on-brand/10 hover:text-on-brand sm:w-auto"
             nativeButton={false}
             render={<Link to={ROUTES.auth.login} />}
             size="lg"

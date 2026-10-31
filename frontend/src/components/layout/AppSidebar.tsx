@@ -9,11 +9,13 @@ import {
   PanelLeftClose,
   PanelLeftOpen,
   UserRound,
+  CircleHelp,
   X,
 } from 'lucide-react';
 import type { LucideIcon } from 'lucide-react';
 import { useEffect, useRef } from 'react';
 import { Link, NavLink } from 'react-router-dom';
+import { motion } from 'motion/react';
 import { useLogout } from '@/features/auth/hooks';
 import { ROUTES } from '@/lib/constants/routes';
 import { cn } from '@/lib/utils';
@@ -58,7 +60,10 @@ export function AppSidebar({
     },
     {
       label: t('navigation.account'),
-      links: [{ label: t('navigation.profile'), to: ROUTES.profile, icon: UserRound }],
+      links: [
+        { label: t('navigation.profile'), to: ROUTES.profile, icon: UserRound },
+        { label: t('navigation.faq'), to: ROUTES.faq, icon: CircleHelp },
+      ],
     },
   ];
 
@@ -115,7 +120,7 @@ export function AppSidebar({
         ref={sidebarRef}
         role={mobileOpen ? 'dialog' : undefined}
         className={cn(
-          'fixed inset-y-0 left-0 z-50 flex w-[260px] flex-col border-r bg-surface-1 transition-[transform,width] duration-200 md:sticky md:top-0 md:z-30 md:h-screen md:translate-x-0',
+          'fixed inset-y-0 left-0 z-50 flex w-[260px] flex-col border-r glass-surface transition-[transform,width] duration-200 md:sticky md:top-0 md:z-30 md:h-screen md:translate-x-0',
           collapsed && 'md:w-[76px]',
           mobileOpen
             ? 'visible translate-x-0'
@@ -128,7 +133,7 @@ export function AppSidebar({
             className="flex min-w-0 items-center gap-3 rounded-md font-bold tracking-tight focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
             to={ROUTES.dashboard}
           >
-            <span className="flex size-9 shrink-0 items-center justify-center rounded-xl bg-[image:var(--gradient-brand)] text-sm text-primary-foreground shadow-lg shadow-primary/20">
+            <span className="flex size-9 shrink-0 items-center justify-center rounded-xl bg-[image:var(--gradient-brand)] text-sm text-on-brand shadow-lg shadow-primary/20">
               K
             </span>
             <span className={cn('truncate', collapsed && 'md:hidden')}>
@@ -183,16 +188,28 @@ export function AppSidebar({
                       to={to}
                       className={({ isActive }) =>
                         cn(
-                          'group relative flex min-h-10 items-center gap-3 rounded-lg px-3 text-sm font-medium transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring',
+                          'group relative isolate flex min-h-10 items-center gap-3 rounded-lg px-3 text-sm font-medium transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring',
                           collapsed && 'md:justify-center md:px-0',
                           isActive
-                            ? 'bg-primary/10 text-primary before:absolute before:inset-y-2 before:left-0 before:w-0.5 before:rounded-full before:bg-primary'
+                            ? 'text-primary'
                             : 'text-muted-foreground hover:bg-surface-3 hover:text-foreground',
                         )
                       }
                     >
-                      <Icon aria-hidden="true" className="size-[18px] shrink-0" />
-                      <span className={cn(collapsed && 'md:hidden')}>{label}</span>
+                      {({ isActive }) => (
+                        <>
+                          {isActive && (
+                            <motion.span
+                              aria-hidden="true"
+                              className="absolute inset-0 -z-10 rounded-lg bg-primary/10 before:absolute before:inset-y-2 before:left-0 before:w-0.5 before:rounded-full before:bg-primary"
+                              layoutId="sidebar-active"
+                              transition={{ type: 'spring', stiffness: 420, damping: 34 }}
+                            />
+                          )}
+                          <Icon aria-hidden="true" className="size-[18px] shrink-0 transition-transform duration-200 group-hover:scale-110" />
+                          <span className={cn(collapsed && 'md:hidden')}>{label}</span>
+                        </>
+                      )}
                     </NavLink>
                   </li>
                 ))}

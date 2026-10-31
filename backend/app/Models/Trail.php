@@ -9,16 +9,17 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 #[RouteKey('slug')]
 #[Fillable([
     'slug', 'title', 'summary', 'description', 'category', 'core_competence', 'level',
     'duration_minutes', 'expected_outcome', 'target_audience', 'prerequisites',
-    'learning_objectives', 'status', 'access', 'price', 'image', 'has_certificate', 'is_sequential',
+    'learning_objectives', 'status', 'access', 'price', 'image', 'has_certificate', 'is_sequential', 'content_version',
 ])]
 class Trail extends Model
 {
-    use HasFactory;
+    use HasFactory, SoftDeletes;
 
     /**
      * @return HasMany<TrailPhase, $this>

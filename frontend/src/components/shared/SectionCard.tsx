@@ -22,7 +22,7 @@ export function SectionCard({
   contentClassName,
 }: SectionCardProps) {
   return (
-    <Card className={cn('scroll-mt-24 border-border bg-card', className)} id={id}>
+    <Card className={cn('reveal scroll-mt-24 rounded-[1.75rem] border-border/70 bg-card elevated', className)} id={id}>
       <CardHeader className="flex-row items-start justify-between gap-4 p-5 sm:p-6">
         <div className="space-y-1">
           <CardTitle className="text-lg">{title}</CardTitle>

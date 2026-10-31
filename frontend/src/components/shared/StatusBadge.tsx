@@ -24,14 +24,14 @@ export function StatusBadge({
   return (
     <span
       className={cn(
-        'inline-flex items-center gap-2 rounded-full px-2.5 py-1 text-xs font-medium',
+        'inline-flex max-w-full items-center gap-2 rounded-full px-2.5 py-1 text-xs font-medium',
         styles[status],
         className,
       )}
       {...props}
     >
-      <span aria-hidden="true" className="size-1.5 rounded-full bg-current" />
-      {children}
+      <span aria-hidden="true" className="size-1.5 shrink-0 rounded-full bg-current" />
+      <span className="truncate">{children}</span>
     </span>
   );
 }

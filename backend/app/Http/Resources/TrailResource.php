@@ -3,6 +3,7 @@
 namespace App\Http\Resources;
 
 use App\Models\Trail;
+use App\Support\PublicFile;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -33,7 +34,7 @@ class TrailResource extends JsonResource
             'status' => $this->status,
             'acesso' => $this->access,
             'preco' => $this->price === null ? null : (float) $this->price,
-            'imagem' => $this->image,
+            'imagem' => PublicFile::url($this->image),
             'certificado' => $this->has_certificate,
             'sequencial' => $this->is_sequential,
             'totalFases' => $this->whenCounted('phases', fn () => $this->phases_count, fn () => $this->phases->count()),

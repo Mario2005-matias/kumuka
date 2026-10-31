@@ -18,6 +18,7 @@
   --color-primary-soft: var(--primary-soft);
   --color-primary-glow: var(--primary-glow);
   --color-highlight: var(--highlight);
+  --color-on-brand: var(--on-brand);
   --color-highlight-foreground: var(--highlight-foreground);
   --color-secondary: var(--secondary);
   --color-secondary-foreground: var(--secondary-foreground);
@@ -89,8 +90,11 @@
   --border-strong: hsl(212 30% 78%);
   --input: hsl(212 36% 86%);
   --ring: #123b72;
-  --radius: 0.75rem;
-  --gradient-brand: linear-gradient(135deg, #123b72 0%, #0a1a2f 100%);
+  --radius: 1rem;
+  /* The brand gradient is always deep blue, so text on it is always white. */
+  --gradient-brand: linear-gradient(135deg, #1a4c8f 0%, #123b72 55%, #0a1a2f 100%);
+  --on-brand: #ffffff;
+  --gradient-brand-text: linear-gradient(135deg, #123b72 0%, #2f6fbf 100%);
   --gradient-brand-soft: linear-gradient(135deg, hsl(214 60% 94%) 0%, hsl(43 90% 93%) 100%);
   --gradient-surface: linear-gradient(180deg, #ffffff 0%, #f2f6fa 100%);
   --gradient-glow: radial-gradient(circle at 50% 0%, hsl(214 73% 26% / 0.06) 0%, transparent 70%);
@@ -133,7 +137,9 @@
   --border-strong: hsl(214 40% 29%);
   --input: hsl(214 50% 18%);
   --ring: hsl(214 70% 66%);
-  --gradient-brand: linear-gradient(135deg, #123b72 0%, hsl(214 60% 18%) 100%);
+  --gradient-brand: linear-gradient(135deg, #2a63ad 0%, #1a4c8f 50%, #123b72 100%);
+  --on-brand: #ffffff;
+  --gradient-brand-text: linear-gradient(135deg, hsl(214 80% 75%) 0%, #f5be35 100%);
   --gradient-brand-soft: linear-gradient(135deg, hsl(214 60% 18%) 0%, hsl(214 55% 13%) 100%);
   --gradient-surface: linear-gradient(180deg, hsl(214 62% 12%) 0%, #0a1a2f 100%);
   --gradient-glow: radial-gradient(circle at 50% 0%, hsl(214 70% 66% / 0.1) 0%, transparent 70%);
@@ -157,9 +163,16 @@
     background-attachment: fixed;
     color: var(--foreground);
     font-family: 'Poppins', system-ui, sans-serif;
+    /* Long words, links or codes wrap instead of overflowing cards and columns. */
+    overflow-wrap: anywhere;
     font-feature-settings: 'rlig' 1, 'calt' 1;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+  }
+
+  pre,
+  code {
+    overflow-wrap: normal;
   }
 
   :focus-visible {
@@ -193,6 +206,33 @@
 }
 
 @layer components {
+  /* Frosted glass over imagery (covers, banners). */
+  .glass {
+    /* Dark tint so white text stays readable over light and dark photos alike. */
+    background-color: rgb(10 26 47 / 0.42);
+    border: 1px solid rgb(255 255 255 / 0.22);
+    box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.18), 0 8px 24px rgb(10 26 47 / 0.2);
+    -webkit-backdrop-filter: blur(16px) saturate(170%);
+    backdrop-filter: blur(16px) saturate(170%);
+  }
+
+  /* Frosted app surfaces (headers, sidebars, floating panels) that follow the theme. */
+  .glass-surface {
+    background-color: color-mix(in srgb, var(--card) 72%, transparent);
+    border-color: color-mix(in srgb, var(--border) 80%, transparent);
+    -webkit-backdrop-filter: blur(24px) saturate(180%);
+    backdrop-filter: blur(24px) saturate(180%);
+  }
+
+  /* Soft, layered elevation used by cards. */
+  .elevated {
+    box-shadow: 0 1px 2px rgb(10 26 47 / 0.04), 0 10px 30px -12px rgb(10 26 47 / 0.12);
+  }
+
+  .dark .elevated {
+    box-shadow: 0 1px 0 rgb(255 255 255 / 0.04) inset, 0 12px 32px -14px rgb(0 0 0 / 0.6);
+  }
+
   .journey-step.is-active {
     border-color: color-mix(in srgb, var(--primary) 58%, var(--border));
     box-shadow: 0 0 28px color-mix(in srgb, var(--primary) 12%, transparent);
@@ -201,6 +241,81 @@
   .journey-progress-fill {
     transform: scaleY(0);
   }
+}
+
+
+/* Motion: short, eased and purposeful. Everything below is switched off for reduced motion. */
+@keyframes rise {
+  from { opacity: 0; transform: translateY(14px); }
+  to { opacity: 1; transform: none; }
+}
+
+@keyframes header-enter {
+  from { opacity: 0; transform: translateY(-100%); }
+  to { opacity: 1; transform: none; }
+}
+
+@keyframes reveal {
+  from { opacity: 0; transform: translateY(24px) scale(0.98); }
+  to { opacity: 1; transform: none; }
+}
+
+.page-enter,
+.animate-rise {
+  animation: rise 0.45s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.header-enter {
+  animation: header-enter 0.5s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+/* Cards appear as they scroll into view (browsers with scroll-driven animations). */
+@supports (animation-timeline: view()) {
+  .reveal {
+    animation: reveal linear both;
+    animation-timeline: view();
+    animation-range: entry 0% entry 35%;
+  }
+}
+
+/* Native dialog: fade and lift in, blurred backdrop. */
+.modal {
+  opacity: 1;
+  transform: none;
+  transition: opacity 0.25s ease, transform 0.3s cubic-bezier(0.22, 1, 0.36, 1), overlay 0.3s allow-discrete, display 0.3s allow-discrete;
+}
+
+.modal:not([open]) {
+  opacity: 0;
+  transform: translateY(16px) scale(0.98);
+}
+
+@starting-style {
+  .modal[open] {
+    opacity: 0;
+    transform: translateY(16px) scale(0.98);
+  }
+}
+
+.modal::backdrop {
+  background: rgb(10 26 47 / 0.45);
+  backdrop-filter: blur(6px);
+  transition: background-color 0.25s ease, overlay 0.3s allow-discrete, display 0.3s allow-discrete;
+}
+
+/* Accordions (<details>) open smoothly where the browser allows animating to auto height. */
+:root {
+  interpolate-size: allow-keywords;
+}
+
+details::details-content {
+  block-size: 0;
+  overflow-y: clip;
+  transition: block-size 0.3s cubic-bezier(0.22, 1, 0.36, 1), content-visibility 0.3s allow-discrete;
+}
+
+details[open]::details-content {
+  block-size: auto;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -215,5 +330,9 @@
 
   .journey-progress-fill {
     transform: scaleY(1);
+  }
+
+  .reveal {
+    animation: none;
   }
 }

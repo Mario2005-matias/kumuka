@@ -1,5 +1,6 @@
+import { MediaCard } from '@/components/shared/MediaCard';
 import { CalendarDays, MapPin, Search, UsersRound, X } from 'lucide-react';
-import { Link, useSearchParams } from 'react-router-dom';
+import { useSearchParams } from 'react-router-dom';
 import { EmptyState } from '@/components/shared/EmptyState';
 import { Pagination } from '@/components/shared/Pagination';
 import { pageFromSearch } from '@/lib/pagination';
@@ -98,7 +99,7 @@ export default function ExperiencesPage() {
         description={t('description')}
         title={t('title')}
       />
-      <div className="grid gap-3 rounded-xl border border-border bg-card p-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-[minmax(15rem,2fr)_repeat(4,minmax(9rem,1fr))_auto] xl:items-end">
+      <div className="grid gap-3 elevated rounded-2xl border border-border/70 bg-card p-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-[minmax(15rem,2fr)_repeat(4,minmax(9rem,1fr))_auto] xl:items-end">
         <div className="relative sm:col-span-2 xl:col-span-1">
           <label className="mb-2 block text-sm font-medium" htmlFor="experience-search">{t('filters.search')}</label>
           <Search aria-hidden="true" className="absolute left-3 top-[2.65rem] size-4 text-muted-foreground" />
@@ -132,7 +133,7 @@ export default function ExperiencesPage() {
       </div>
       {experiences.isLoading ? (
         <section aria-label={t('loading')} className="grid gap-5 sm:grid-cols-2 xl:grid-cols-3">
-          {Array.from({ length: 6 }, (_, index) => <div aria-hidden="true" className="h-96 animate-pulse rounded-xl border border-border bg-card p-5" key={index}><div className="h-36 rounded-lg bg-surface-2" /><div className="mt-5 h-5 w-3/4 rounded bg-surface-2" /><div className="mt-3 h-4 w-1/2 rounded bg-surface-2" /><div className="mt-8 h-11 rounded-lg bg-surface-2" /></div>)}
+          {Array.from({ length: 6 }, (_, index) => <div aria-hidden="true" className="h-96 animate-pulse elevated rounded-2xl border border-border/70 bg-card p-5" key={index}><div className="h-36 rounded-lg bg-surface-2" /><div className="mt-5 h-5 w-3/4 rounded bg-surface-2" /><div className="mt-3 h-4 w-1/2 rounded bg-surface-2" /><div className="mt-8 h-11 rounded-lg bg-surface-2" /></div>)}
         </section>
       ) : experiences.isError ? (
         <ErrorState message={t('error')} onRetry={() => void experiences.refetch()} />
@@ -142,26 +143,21 @@ export default function ExperiencesPage() {
           {experiences.data.data.map((experience) => {
             const state = readState(experience);
             return (
-              <article className="flex flex-col overflow-hidden rounded-xl border border-border bg-card" key={experience.id}>
-                <div aria-hidden="true" className="flex aspect-[16/8] items-end bg-[image:var(--gradient-surface)] p-5">
-                  <StatusBadge status="info">{t(typeTranslationKeys[experience.tipo])}</StatusBadge>
-                </div>
-                <div className="flex flex-1 flex-col p-5">
-                  <div className="flex items-start justify-between gap-3">
-                    <h2 className="font-semibold">{experience.titulo}</h2>
-                    <StatusBadge className="shrink-0" status={state.tone}>{t(state.key)}</StatusBadge>
-                  </div>
-                  <p className="mt-2 text-sm leading-6 text-muted-foreground">{experience.subtitulo}</p>
-                  <dl className="mt-4 space-y-2 text-sm text-muted-foreground">
-                    <div className="flex items-center gap-2"><CalendarDays aria-hidden="true" className="size-4 text-primary" /><dt className="sr-only">{t('dateLabel')}</dt><dd>{dateLabel(experience.dataInicio, dateLocale)} · {experience.hora}</dd></div>
-                    <div className="flex items-center gap-2"><MapPin aria-hidden="true" className="size-4 text-primary" /><dt className="sr-only">{t('locationLabel')}</dt><dd>{experience.local} · {t(modalityTranslationKeys[experience.modalidade])}</dd></div>
-                    <div className="flex items-center gap-2"><UsersRound aria-hidden="true" className="size-4 text-primary" /><dt className="sr-only">{t('vacanciesLabel')}</dt><dd>{experience.vagasOcupadas}/{experience.vagas} {t('filled')}</dd></div>
-                  </dl>
-                  <Button className="mt-auto min-h-11 w-full pt-5" nativeButton={false} render={<Link to={ROUTES.experiences.detail(experience.slug)} />}>
-                    {t('learnMore')}
-                  </Button>
-                </div>
-              </article>
+              <MediaCard
+                aside={<StatusBadge className="shrink-0" status={state.tone}>{t(state.key)}</StatusBadge>}
+                category={t(typeTranslationKeys[experience.tipo])}
+                description={experience.subtitulo}
+                image={experience.banner}
+                key={experience.id}
+                title={experience.titulo}
+                to={ROUTES.experiences.detail(experience.slug)}
+              >
+                <dl className="space-y-1.5 text-xs text-muted-foreground">
+                  <div className="flex items-center gap-2"><CalendarDays aria-hidden="true" className="size-3.5 text-primary" /><dt className="sr-only">{t('dateLabel')}</dt><dd>{dateLabel(experience.dataInicio, dateLocale)} · {experience.hora}</dd></div>
+                  <div className="flex items-center gap-2"><MapPin aria-hidden="true" className="size-3.5 text-primary" /><dt className="sr-only">{t('locationLabel')}</dt><dd>{experience.local} · {t(modalityTranslationKeys[experience.modalidade])}</dd></div>
+                  <div className="flex items-center gap-2"><UsersRound aria-hidden="true" className="size-3.5 text-primary" /><dt className="sr-only">{t('vacanciesLabel')}</dt><dd>{experience.vagasOcupadas}/{experience.vagas} {t('filled')}</dd></div>
+                </dl>
+              </MediaCard>
             );
           })}
         </section>

@@ -1,8 +1,8 @@
-import { ArrowRight, BookOpen, FileText, Zap } from 'lucide-react';
+import { BookOpen, FileText, Zap } from 'lucide-react';
 import type { LucideIcon } from 'lucide-react';
 import { Link } from 'react-router-dom';
-import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { MediaCard, MediaCardAction } from '@/components/shared/MediaCard';
+import { ProgressBar } from '../components/ProgressBar';
 import { EmptyState } from '@/components/shared/EmptyState';
 import { PageHeader } from '@/components/shared/PageHeader';
 import { SectionCard } from '@/components/shared/SectionCard';
@@ -35,6 +35,8 @@ export default function LearnHubPage() {
     .map((record) => ({
       id: record.id,
       title: record.trilha?.titulo ?? '',
+      image: record.trilha?.imagem ?? null,
+      category: record.trilha?.categoria ?? '',
       to: record.moduloAtualId && record.trilha
         ? ROUTES.learn.trailModule(record.trilha.slug, record.moduloAtualId)
         : ROUTES.learn.trail(record.trilha?.slug ?? ''),
@@ -89,34 +91,18 @@ export default function LearnHubPage() {
           </h2>
         </div>
         <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
-          {categories.map(({ key, icon: Icon, to }) => (
-            <Card
-              className="group border-border transition-all duration-200 hover:-translate-y-0.5 hover:border-primary/50 hover:bg-surface-1"
+          {categories.map(({ key, icon, to }) => (
+            <MediaCard
+              description={t(`hub.categories.${key}.description`)}
+              headingLevel="h3"
+              icon={icon}
               key={key}
+              title={t(`hub.categories.${key}.title`)}
+              to={to}
+              visual="banner"
             >
-              <CardHeader>
-                <div className="mb-3 flex size-11 items-center justify-center rounded-xl bg-primary/10 text-primary transition-colors group-hover:bg-primary group-hover:text-primary-foreground">
-                  <Icon aria-hidden="true" className="size-5" />
-                </div>
-                <CardTitle className="text-lg">
-                  {t(`hub.categories.${key}.title`)}
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
-                <p className="min-h-12 text-sm leading-6 text-muted-foreground">
-                  {t(`hub.categories.${key}.description`)}
-                </p>
-                <Button
-                  className="mt-4 px-0 text-primary"
-                  nativeButton={false}
-                  render={<Link to={to} />}
-                  variant="ghost"
-                >
-                  {t('hub.explore')}
-                  <ArrowRight aria-hidden="true" />
-                </Button>
-              </CardContent>
-            </Card>
+              <MediaCardAction>{t('hub.explore')}</MediaCardAction>
+            </MediaCard>
           ))}
         </div>
       </section>
@@ -132,31 +118,18 @@ export default function LearnHubPage() {
         ) : inProgress.length ? (
           <div className="grid gap-3 sm:grid-cols-2">
             {inProgress.map((item) => (
-              <Card className="border-border" key={item.id}>
-                <CardContent className="p-4">
-                  <h3 className="font-semibold">{item.title}</h3>
-                  <p className="mt-1 text-sm text-muted-foreground">{t('hub.completed', { percent: item.percent })}</p>
-                  <div
-                    aria-label={t('hub.completed', { percent: item.percent })}
-                    aria-valuemax={100}
-                    aria-valuemin={0}
-                    aria-valuenow={item.percent}
-                    className="mt-3 h-2 overflow-hidden rounded-full bg-surface-3"
-                    role="progressbar"
-                  >
-                    <div className="h-full rounded-full bg-primary" style={{ width: `${item.percent}%` }} />
-                  </div>
-                  <Button
-                    className="mt-3 px-0 text-primary"
-                    nativeButton={false}
-                    render={<Link to={item.to} />}
-                    variant="ghost"
-                  >
-                    {t('hub.continueAction')}
-                    <ArrowRight aria-hidden="true" />
-                  </Button>
-                </CardContent>
-              </Card>
+              <MediaCard
+                badge={t('hub.completed', { percent: item.percent })}
+                category={item.category || undefined}
+                headingLevel="h3"
+                image={item.image}
+                key={item.id}
+                title={item.title}
+                to={item.to}
+              >
+                <ProgressBar label={t('hub.completed', { percent: item.percent })} value={item.percent} />
+                <MediaCardAction>{t('hub.continueAction')}</MediaCardAction>
+              </MediaCard>
             ))}
           </div>
         ) : (

@@ -68,6 +68,18 @@ return [
 
     /*
     |--------------------------------------------------------------------------
+    | Support email
+    |--------------------------------------------------------------------------
+    |
+    | Shown on the FAQ page so students can ask questions the FAQ does not
+    | answer. Leave empty to hide the contact button.
+    |
+    */
+
+    'support_email' => env('SUPPORT_EMAIL'),
+
+    /*
+    |--------------------------------------------------------------------------
     | Application Timezone
     |--------------------------------------------------------------------------
     |

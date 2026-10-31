@@ -10,6 +10,14 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 class OpportunityApplication extends Model
 {
     /**
+     * @return BelongsTo<User, $this>
+     */
+    public function user(): BelongsTo
+    {
+        return $this->belongsTo(User::class)->withTrashed();
+    }
+
+    /**
      * @return BelongsTo<Opportunity, $this>
      */
     public function opportunity(): BelongsTo

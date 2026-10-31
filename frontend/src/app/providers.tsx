@@ -1,4 +1,5 @@
 import { QueryClientProvider } from '@tanstack/react-query';
+import { MotionConfig } from 'motion/react';
 import { BrowserRouter } from 'react-router-dom';
 import { Toaster } from '../components/ui/toast';
 import type { ReactNode } from 'react';
@@ -8,8 +9,10 @@ export function Providers({ children }: { children: ReactNode }) {
   return (
     <QueryClientProvider client={queryClient}>
       <BrowserRouter>
-        {children}
-        <Toaster />
+        <MotionConfig reducedMotion="user">
+          {children}
+          <Toaster />
+        </MotionConfig>
       </BrowserRouter>
     </QueryClientProvider>
   );

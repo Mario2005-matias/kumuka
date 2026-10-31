@@ -3,6 +3,7 @@
 namespace App\Http\Resources;
 
 use App\Models\Experience;
+use App\Support\PublicFile;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -28,7 +29,7 @@ class ExperienceResource extends JsonResource
             'descricaoLonga' => $this->description,
             'tipo' => $this->type,
             'organizador' => $this->organizer,
-            'organizadorLogo' => $this->organizer_logo,
+            'organizadorLogo' => PublicFile::url($this->organizer_logo),
             'empresaId' => $this->company_id === null ? null : (string) $this->company_id,
             'dataInicio' => $this->starts_at->toDateString(),
             'hora' => $this->starts_at->format('H:i'),
@@ -48,8 +49,8 @@ class ExperienceResource extends JsonResource
                 $occupied >= $this->capacity => 'sem-vagas',
                 default => 'aberta',
             },
-            'banner' => $this->banner,
-            'galeria' => $this->gallery ?? [],
+            'banner' => PublicFile::url($this->banner),
+            'galeria' => array_map(PublicFile::url(...), $this->gallery ?? []),
             'createdAt' => $this->created_at?->toIso8601ZuluString(),
             'updatedAt' => $this->updated_at?->toIso8601ZuluString(),
         ];

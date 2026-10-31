@@ -23,6 +23,7 @@ class TrailEnrollmentResource extends JsonResource
             'trailId' => (string) $this->trail_id,
             'estado' => $this->completed_at === null ? 'em_progresso' : 'concluido',
             'percentual' => $this->percent,
+            'dominio' => $this->mastery,
             'moduloAtualId' => $this->current_module_id === null ? null : (string) $this->current_module_id,
             'iniciadoEm' => $this->started_at->toIso8601ZuluString(),
             'atualizadoEm' => ($this->last_activity_at ?? $this->started_at)->toIso8601ZuluString(),

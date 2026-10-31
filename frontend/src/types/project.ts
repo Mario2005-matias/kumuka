@@ -4,7 +4,7 @@ export interface Project {
   titulo: string;
   descricao: string;
   tipo: 'tecnico' | 'criativo';
-  link: string;
+  link: string | null;
   competencias: string[];
   createdAt: string;
   updatedAt: string;

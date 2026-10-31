@@ -58,7 +58,7 @@ export function ModuleSidebar({
 
   return (
     <>
-      <details className="rounded-xl border border-border bg-card p-4 md:hidden">
+      <details className="elevated rounded-2xl border border-border/70 bg-card p-4 md:hidden">
         <summary className="min-h-11 cursor-pointer content-center font-semibold focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring">
           {t('trailDetails.modules')}
         </summary>
@@ -66,7 +66,7 @@ export function ModuleSidebar({
           {modules}
         </nav>
       </details>
-      <aside className="sticky top-24 hidden self-start rounded-xl border border-border bg-card p-4 md:block">
+      <aside className="sticky top-24 hidden self-start elevated rounded-2xl border border-border/70 bg-card p-4 md:block">
         <h2 className="mb-4 font-semibold">{t('trailDetails.modules')}</h2>
         <nav aria-label={t('trailDetails.phasesAndModules')}>{modules}</nav>
       </aside>

@@ -31,7 +31,9 @@
     "collapse": "Recolher menu",
     "expand": "Expandir menu",
     "logout": "Sair",
-    "brandTagline": "Constrói o teu futuro."
+    "brandTagline": "Constrói o teu futuro.",
+    "faq": "Perguntas frequentes",
+    "main": "Navegação principal"
   },
   "actions": {
     "login": "Entrar",
@@ -44,7 +46,8 @@
     "details": "Ver detalhes",
     "save": "Guardar",
     "cancel": "Cancelar",
-    "search": "Pesquisar"
+    "search": "Pesquisar",
+    "close": "Fechar"
   },
   "search": {
     "open": "Pesquisar (Ctrl+K)",

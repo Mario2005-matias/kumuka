@@ -1,56 +1,153 @@
 import type { ReactNode } from 'react';
+import { CodeBlock } from '../components/CodeBlock';
+
+const INLINE = /(`[^`]+`|\*\*[^*]+\*\*|\*[^*\s][^*]*\*|\[[^\]]+\]\((?:https?:\/\/|\/)[^)\s]+\))/g;
 
 /**
- * Renders the small Markdown subset used by lesson bodies (headings and lists).
+ * Renders inline emphasis and links as React nodes (never as raw HTML).
+ */
+function renderInline(text: string, keyPrefix: string): ReactNode[] {
+  return text.split(INLINE).map((part, index) => {
+    const key = `${keyPrefix}-${index}`;
+    if (part.startsWith('`') && part.endsWith('`') && part.length > 2) {
+      return <code className="rounded-md bg-surface-2 px-1.5 py-0.5 font-mono text-[0.9em] text-foreground" key={key}>{part.slice(1, -1)}</code>;
+    }
+    if (part.startsWith('**') && part.endsWith('**') && part.length > 4) {
+      return <strong className="font-semibold text-foreground" key={key}>{part.slice(2, -2)}</strong>;
+    }
+    if (part.startsWith('*') && part.endsWith('*') && part.length > 2) {
+      return <em key={key}>{part.slice(1, -1)}</em>;
+    }
+    const link = part.match(/^\[([^\]]+)\]\(([^)\s]+)\)$/);
+    if (link) {
+      return (
+        <a className="font-medium text-primary underline underline-offset-4" href={link[2]} key={key} rel="noopener noreferrer" target="_blank">
+          {link[1]}
+        </a>
+      );
+    }
+    return part;
+  });
+}
+
+/**
+ * Renders the Markdown subset used by lesson content: headings, paragraphs, bullet and numbered
+ * lists (including [ ] task items), tables, blockquotes, fenced code blocks, bold, italic, inline code and links.
  */
 export function renderMarkdown(content: string) {
   const lines = content.split(/\r?\n/);
   const elements: ReactNode[] = [];
-  let list: string[] = [];
+  let list: { ordered: boolean; items: string[] } | null = null;
+  let code: { language: string; lines: string[] } | null = null;
+  let table: string[][] | null = null;
+
+  function flushTable() {
+    if (!table) return;
+    const [header, ...rows] = table;
+    const key = `table-${elements.length}`;
+    elements.push(
+      <div className="my-5 overflow-x-auto rounded-2xl border border-border/70" key={key}>
+        <table className="w-full text-left text-sm [overflow-wrap:break-word]">
+          <thead className="bg-surface-1">
+            <tr>{header.map((cell, index) => <th className="px-4 py-2.5 font-semibold" key={index} scope="col">{renderInline(cell, `${key}-h${index}`)}</th>)}</tr>
+          </thead>
+          <tbody>
+            {rows.map((row, rowIndex) => (
+              <tr className="border-t border-border/60" key={rowIndex}>
+                {row.map((cell, index) => <td className="px-4 py-2.5 text-muted-foreground" key={index}>{renderInline(cell, `${key}-${rowIndex}-${index}`)}</td>)}
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>,
+    );
+    table = null;
+  }
 
   function flushList() {
-    if (!list.length) return;
+    if (!list) return;
+    const key = `list-${elements.length}`;
+    const items = list.items.map((item, index) => {
+      const task = item.match(/^\[( |x)\] (.+)$/i);
+      return (
+        <li className={task ? 'list-none' : undefined} key={`${key}-${index}`}>
+          {task && <span aria-hidden="true" className="mr-2">{task[1].trim() ? '☑' : '☐'}</span>}
+          {renderInline(task ? task[2] : item, `${key}-${index}`)}
+        </li>
+      );
+    });
     elements.push(
-      <ul className="my-4 list-disc space-y-2 pl-6" key={`list-${elements.length}`}>
-        {list.map((item, index) => (
-          <li key={`${item}-${index}`}>{item}</li>
-        ))}
-      </ul>,
+      list.ordered ? (
+        <ol className="my-4 list-decimal space-y-2 pl-6 text-muted-foreground" key={key}>{items}</ol>
+      ) : (
+        <ul className="my-4 list-disc space-y-2 pl-6 text-muted-foreground" key={key}>{items}</ul>
+      ),
     );
-    list = [];
+    list = null;
   }
 
   lines.forEach((line, index) => {
     const trimmed = line.trim();
-    if (!trimmed) {
+
+    if (code) {
+      if (trimmed.startsWith('```')) {
+        elements.push(<CodeBlock code={code.lines.join('\n')} key={`code-${index}`} language={code.language} />);
+        code = null;
+      } else {
+        code.lines.push(line);
+      }
+      return;
+    }
+
+    if (trimmed.startsWith('|') && trimmed.endsWith('|')) {
       flushList();
+      if (/^\|[\s:|-]+\|$/.test(trimmed)) return;
+      table ??= [];
+      table.push(trimmed.slice(1, -1).split('|').map((cell) => cell.trim()));
       return;
     }
-    if (trimmed.startsWith('- ')) {
-      list.push(trimmed.slice(2));
+    flushTable();
+
+    if (trimmed.startsWith('```')) {
+      flushList();
+      code = { language: trimmed.slice(3).trim().toLowerCase(), lines: [] };
       return;
     }
+
+    const bullet = trimmed.match(/^[-*] (.+)$/);
+    const numbered = trimmed.match(/^\d+[.)] (.+)$/);
+
+    if (bullet || numbered) {
+      const ordered = Boolean(numbered);
+      if (list && list.ordered !== ordered) flushList();
+      list ??= { ordered, items: [] };
+      list.items.push((bullet ?? numbered)![1]);
+      return;
+    }
+
     flushList();
+    if (!trimmed) return;
+
+    const key = `line-${index}`;
     if (trimmed.startsWith('### ')) {
-      elements.push(
-        <h3 className="mt-6 text-lg font-semibold" key={`heading-${index}`}>
-          {trimmed.slice(4)}
-        </h3>,
-      );
+      elements.push(<h4 className="mt-6 text-lg font-semibold" key={key}>{renderInline(trimmed.slice(4), key)}</h4>);
     } else if (trimmed.startsWith('## ')) {
+      elements.push(<h3 className="mt-6 text-xl font-semibold" key={key}>{renderInline(trimmed.slice(3), key)}</h3>);
+    } else if (trimmed.startsWith('> ')) {
       elements.push(
-        <h2 className="mt-6 text-xl font-semibold" key={`heading-${index}`}>
-          {trimmed.slice(3)}
-        </h2>,
+        <blockquote className="my-4 border-l-4 border-highlight bg-surface-1 px-4 py-3 text-foreground" key={key}>
+          {renderInline(trimmed.slice(2), key)}
+        </blockquote>,
       );
     } else {
-      elements.push(
-        <p className="my-3 leading-7 text-muted-foreground" key={`line-${index}`}>
-          {trimmed}
-        </p>,
-      );
+      elements.push(<p className="my-3 leading-7 text-muted-foreground" key={key}>{renderInline(trimmed, key)}</p>);
     }
   });
   flushList();
+  flushTable();
+  if (code) {
+    const unclosed = code as { language: string; lines: string[] };
+    elements.push(<CodeBlock code={unclosed.lines.join('\n')} key="code-end" language={unclosed.language} />);
+  }
   return elements;
 }

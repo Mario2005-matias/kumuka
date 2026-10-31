@@ -13,6 +13,8 @@ import type { LucideIcon } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { MediaCard } from '@/components/shared/MediaCard';
+import { ProgressBar } from '@/features/learn/components/ProgressBar';
 import { EmptyState } from '@/components/shared/EmptyState';
 import { ErrorState } from '@/components/shared/ErrorState';
 import { PageHeader } from '@/components/shared/PageHeader';
@@ -51,6 +53,8 @@ export default function JourneyPage() {
           id: record.id,
           slug: record.trilha.slug,
           title: record.trilha.titulo,
+          image: record.trilha.imagem,
+          category: record.trilha.categoria,
           type: 'trail' as const,
           to: ROUTES.learn.trail(record.trilha.slug),
           percent: record.percentual,
@@ -89,7 +93,7 @@ export default function JourneyPage() {
         <ErrorState message={t('error')} />
       ) : (
         <>
-          <Card className="overflow-hidden bg-[image:var(--gradient-surface)]">
+          <Card className="elevated overflow-hidden rounded-[1.75rem] border-border/70 bg-[image:var(--gradient-surface)]">
             <CardHeader>
               <p className="text-xs font-semibold uppercase tracking-[0.14em] text-primary">{t('overview')}</p>
               <CardTitle className="text-xl">{t('overviewTitle')}</CardTitle>
@@ -124,28 +128,23 @@ export default function JourneyPage() {
             <h2 className="mb-5 text-xl font-semibold tracking-tight" id="journey-steps-title">
               {t('stepsTitle')}
             </h2>
-            <ol className="relative space-y-4 before:absolute before:bottom-8 before:left-6 before:top-8 before:w-px before:bg-border">
-              {milestones.map(({ key, icon: Icon }, index) => (
-                <li className="relative" key={key}>
-                  <Card className="relative ml-0 border-border bg-card sm:ml-2">
-                    <CardContent className="flex items-center gap-4 p-4 sm:p-5">
-                      <span className="z-10 flex size-12 shrink-0 items-center justify-center rounded-xl border border-border bg-surface-2 text-primary">
-                        <Icon aria-hidden="true" className="size-5" />
-                      </span>
-                      <div className="min-w-0 flex-1">
-                        <div className="flex flex-wrap items-center gap-2">
-                          <span className="text-xs font-semibold tabular-nums text-subtle-foreground">
-                            {String(index + 1).padStart(2, '0')}
-                          </span>
-                          <h3 className="font-semibold">{t(`steps.${key}.title`)}</h3>
-                        </div>
-                        <p className="mt-1 text-sm leading-6 text-muted-foreground">{t(`steps.${key}.description`)}</p>
-                      </div>
+            <ol className="grid gap-5 sm:grid-cols-2 xl:grid-cols-3">
+              {milestones.map(({ key, icon }, index) => (
+                <li key={key}>
+                  <MediaCard
+                    aside={
                       <StatusBadge status={isLoading ? 'neutral' : milestoneStatus[index].tone}>
                         {isLoading ? t('milestones.loading') : milestoneStatus[index].label}
                       </StatusBadge>
-                    </CardContent>
-                  </Card>
+                    }
+                    badge={String(index + 1).padStart(2, '0')}
+                    description={t(`steps.${key}.description`)}
+                    descriptionLines={0}
+                    headingLevel="h3"
+                    icon={icon}
+                    title={t(`steps.${key}.title`)}
+                    visual="banner"
+                  />
                 </li>
               ))}
             </ol>
@@ -163,21 +162,24 @@ export default function JourneyPage() {
             {isLoading ? (
               <p aria-live="polite" className="text-sm text-muted-foreground">{t('loadingActivities')}</p>
             ) : activities.length ? (
-              <ul className="grid gap-3 sm:grid-cols-2">
+              <ul className="grid gap-5 sm:grid-cols-2 xl:grid-cols-3">
                 {activities.map((item) => (
                   <li key={item.id}>
-                    <Link
-                      className="block rounded-xl border border-border bg-card p-4 hover:border-primary/50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
-                      to={item.to}
-                    >
-                      <div className="flex items-center justify-between gap-3">
-                        <h3 className="font-semibold">{item.title}</h3>
+                    <MediaCard
+                      aside={
                         <StatusBadge status={item.status === 'concluido' ? 'success' : 'info'}>
                           {item.status === 'concluido' ? t('activityStatus.completed') : t('activityStatus.inProgress')}
                         </StatusBadge>
-                      </div>
-                      <p className="mt-2 text-sm text-muted-foreground">{t('activityProgress', { percent: item.percent })}</p>
-                    </Link>
+                      }
+                      badge={t('activityProgress', { percent: item.percent })}
+                      category={item.category}
+                      headingLevel="h3"
+                      image={item.image}
+                      title={item.title}
+                      to={item.to}
+                    >
+                      <ProgressBar label={t('activityProgress', { percent: item.percent })} value={item.percent} />
+                    </MediaCard>
                   </li>
                 ))}
               </ul>
@@ -196,21 +198,27 @@ export default function JourneyPage() {
             )}
           </section>
           {enrolledExperiences.length > 0 && (
-            <section aria-labelledby="journey-experiences-title" className="space-y-3">
+            <section aria-labelledby="journey-experiences-title" className="space-y-4">
               <h2 className="text-xl font-semibold tracking-tight" id="journey-experiences-title">
                 {t('enrolledTitle')}
               </h2>
-              {enrolledExperiences.map((experience) => (
-                <Link
-                  className="flex min-h-14 items-center gap-3 rounded-xl border border-border bg-card p-4 hover:border-primary/50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
-                  key={experience.id}
-                  to={ROUTES.experiences.detail(experience.slug)}
-                >
-                  <MapPin aria-hidden="true" className="size-5 text-primary" />
-                  <span className="flex-1 font-medium">{experience.titulo}</span>
-                  <span className="text-sm text-muted-foreground">{experience.dataInicio}</span>
-                </Link>
-              ))}
+              <div className="grid gap-5 sm:grid-cols-2 xl:grid-cols-3">
+                {enrolledExperiences.map((experience) => (
+                  <MediaCard
+                    description={experience.subtitulo}
+                    headingLevel="h3"
+                    image={experience.banner}
+                    key={experience.id}
+                    title={experience.titulo}
+                    to={ROUTES.experiences.detail(experience.slug)}
+                  >
+                    <p className="flex items-center gap-2 text-xs text-muted-foreground">
+                      <MapPin aria-hidden="true" className="size-3.5 text-primary" />
+                      {experience.dataInicio} · {experience.local}
+                    </p>
+                  </MediaCard>
+                ))}
+              </div>
             </section>
           )}
         </>
