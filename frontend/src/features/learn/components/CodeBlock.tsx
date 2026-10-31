@@ -11,8 +11,8 @@ const PREVIEW_STYLES =
   'body{font-family:-apple-system,"Segoe UI",Poppins,sans-serif;margin:16px;line-height:1.5;color:#0a1a2f}a{color:#123b72}';
 
 /**
- * A code example. HTML examples also show the rendered result in a sandboxed frame
- * (no scripts, no access to the app), so students see what each element produces.
+ * A code example. HTML examples also show the rendered result in a sandboxed frame: scripts
+ * run so JavaScript lessons work, but in an isolated origin with no access to the app or session.
  */
 export function CodeBlock({ code, language }: CodeBlockProps) {
   const { t } = useTranslation('learning');
@@ -58,7 +58,7 @@ export function CodeBlock({ code, language }: CodeBlockProps) {
           <p className="border-b border-black/5 px-4 py-1.5 text-xs font-medium text-[#475569]">{t('code.result')}</p>
           <iframe
             className="h-56 w-full resize-y bg-white"
-            sandbox=""
+            sandbox="allow-scripts"
             srcDoc={`<!doctype html><html><head><meta charset="utf-8"><style>${PREVIEW_STYLES}</style></head><body>${code}</body></html>`}
             title={t('code.result')}
           />

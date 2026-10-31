@@ -32,18 +32,50 @@ function renderInline(text: string, keyPrefix: string): ReactNode[] {
 
 /**
  * Renders the Markdown subset used by lesson content: headings, paragraphs, bullet and numbered
- * lists, blockquotes, fenced code blocks, bold, italic, inline code and links.
+ * lists (including [ ] task items), tables, blockquotes, fenced code blocks, bold, italic, inline code and links.
  */
 export function renderMarkdown(content: string) {
   const lines = content.split(/\r?\n/);
   const elements: ReactNode[] = [];
   let list: { ordered: boolean; items: string[] } | null = null;
   let code: { language: string; lines: string[] } | null = null;
+  let table: string[][] | null = null;
+
+  function flushTable() {
+    if (!table) return;
+    const [header, ...rows] = table;
+    const key = `table-${elements.length}`;
+    elements.push(
+      <div className="my-5 overflow-x-auto rounded-2xl border border-border/70" key={key}>
+        <table className="w-full text-left text-sm [overflow-wrap:break-word]">
+          <thead className="bg-surface-1">
+            <tr>{header.map((cell, index) => <th className="px-4 py-2.5 font-semibold" key={index} scope="col">{renderInline(cell, `${key}-h${index}`)}</th>)}</tr>
+          </thead>
+          <tbody>
+            {rows.map((row, rowIndex) => (
+              <tr className="border-t border-border/60" key={rowIndex}>
+                {row.map((cell, index) => <td className="px-4 py-2.5 text-muted-foreground" key={index}>{renderInline(cell, `${key}-${rowIndex}-${index}`)}</td>)}
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>,
+    );
+    table = null;
+  }
 
   function flushList() {
     if (!list) return;
     const key = `list-${elements.length}`;
-    const items = list.items.map((item, index) => <li key={`${key}-${index}`}>{renderInline(item, `${key}-${index}`)}</li>);
+    const items = list.items.map((item, index) => {
+      const task = item.match(/^\[( |x)\] (.+)$/i);
+      return (
+        <li className={task ? 'list-none' : undefined} key={`${key}-${index}`}>
+          {task && <span aria-hidden="true" className="mr-2">{task[1].trim() ? '☑' : '☐'}</span>}
+          {renderInline(task ? task[2] : item, `${key}-${index}`)}
+        </li>
+      );
+    });
     elements.push(
       list.ordered ? (
         <ol className="my-4 list-decimal space-y-2 pl-6 text-muted-foreground" key={key}>{items}</ol>
@@ -66,6 +98,15 @@ export function renderMarkdown(content: string) {
       }
       return;
     }
+
+    if (trimmed.startsWith('|') && trimmed.endsWith('|')) {
+      flushList();
+      if (/^\|[\s:|-]+\|$/.test(trimmed)) return;
+      table ??= [];
+      table.push(trimmed.slice(1, -1).split('|').map((cell) => cell.trim()));
+      return;
+    }
+    flushTable();
 
     if (trimmed.startsWith('```')) {
       flushList();
@@ -103,6 +144,7 @@ export function renderMarkdown(content: string) {
     }
   });
   flushList();
+  flushTable();
   if (code) {
     const unclosed = code as { language: string; lines: string[] };
     elements.push(<CodeBlock code={unclosed.lines.join('\n')} key="code-end" language={unclosed.language} />);

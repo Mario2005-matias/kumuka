@@ -1,4 +1,3 @@
-import { CoverImage } from '@/components/shared/CoverImage';
 import {
   Award,
   ArrowRight,
@@ -11,7 +10,8 @@ import {
 } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { MediaCard, MediaCardAction } from '@/components/shared/MediaCard';
+import { ProgressBar } from '@/features/learn/components/ProgressBar';
 import { EmptyState } from '@/components/shared/EmptyState';
 import { ErrorState } from '@/components/shared/ErrorState';
 import { PageHeader } from '@/components/shared/PageHeader';
@@ -32,20 +32,17 @@ const exploreCards = [
   {
     key: 'learn',
     icon: BookOpen,
-    to: ROUTES.learn.root,
-    color: 'bg-primary/10'
+    to: ROUTES.learn.root
   },
   {
     key: 'journey',
     icon: Map,
-    to: ROUTES.journey,
-     color: 'bg-highlight/25'
+    to: ROUTES.journey
   },
   {
     key: 'experiences',
     icon: Compass,
-    to: ROUTES.experiences.root,
-     color: 'bg-primary/10'
+    to: ROUTES.experiences.root
   },
 ] as const;
 
@@ -70,6 +67,8 @@ export default function DashboardPage() {
     .map((record) => ({
       id: record.id,
       title: record.trilha?.titulo ?? '',
+      image: record.trilha?.imagem ?? null,
+      category: record.trilha?.categoria ?? '',
       percent: record.percentual,
       href: record.moduloAtualId && record.trilha
         ? ROUTES.learn.trailModule(record.trilha.slug, record.moduloAtualId)
@@ -118,27 +117,23 @@ export default function DashboardPage() {
           <StatCard
             description={t('averageDescription')}
             icon={Target}
-            color='bg-highlight/25'
             label={t('progress')}
             value={`${averageProgress}%`}
           />
           <StatCard
             description={t('trailsCount', { count: trailCount })}
             icon={BookOpen}
-            color='bg-primary/10'
             label={t('trails')}
             value={trailCount}
           />
           <StatCard
             description={t('catalogue')}
-            color='bg-highlight/25'
             icon={BriefcaseBusiness}
             label={t('experiences')}
             value={experienceCount}
           />
           <StatCard
             description={t('unlocked')}
-            color='bg-primary/10'
             icon={Award}
             label={t('achievements')}
             value={unlockedCount}
@@ -155,31 +150,18 @@ export default function DashboardPage() {
         ) : continuing.length ? (
           <div className="grid gap-3 sm:grid-cols-2">
             {continuing.map((item) => (
-              <Card className="border-border" key={item.id}>
-                <CardContent className="p-4">
-                  <h3 className="font-semibold">{item.title}</h3>
-                  <p className="mt-1 text-sm text-muted-foreground">{t('completed', { percent: item.percent })}</p>
-                  <div
-                    aria-label={t('completed', { percent: item.percent })}
-                    aria-valuemax={100}
-                    aria-valuemin={0}
-                    aria-valuenow={item.percent}
-                    className="mt-3 h-2 overflow-hidden rounded-full bg-surface-3"
-                    role="progressbar"
-                  >
-                    <div className="h-full rounded-full bg-primary" style={{ width: `${item.percent}%` }} />
-                  </div>
-                  <Button
-                    className="mt-3 px-0 text-primary"
-                    nativeButton={false}
-                    render={<Link to={item.href} />}
-                    variant="ghost"
-                  >
-                    {t('continue')}
-                    <ArrowRight aria-hidden="true" />
-                  </Button>
-                </CardContent>
-              </Card>
+              <MediaCard
+                badge={t('completed', { percent: item.percent })}
+                category={item.category || undefined}
+                headingLevel="h3"
+                image={item.image}
+                key={item.id}
+                title={item.title}
+                to={item.href}
+              >
+                <ProgressBar label={t('completed', { percent: item.percent })} value={item.percent} />
+                <MediaCardAction>{t('continue')}</MediaCardAction>
+              </MediaCard>
             ))}
           </div>
         ) : (
@@ -220,29 +202,23 @@ export default function DashboardPage() {
                     ? ROUTES.learn.quickLearning(item.slug)
                     : ROUTES.learn.guide(item.slug);
               return (
-                <Card className="border-border" key={`${recommendation.tipo}-${item.id}`}>
-                  <CoverImage className="aspect-[16/9]" src={recommendation.tipo === 'trail' ? recommendation.item.imagem ?? Painel : Painel} />
-                  <CardContent className="flex h-full flex-col p-4">
-                    <p className="text-xs font-medium capitalize text-primary">
-                      {recommendation.tipo === 'quick-learning'
-                        ? t('recommendationTypes.quickLearning')
-                        : recommendation.tipo === 'trail'
-                          ? t('recommendationTypes.trail')
-                          : t('recommendationTypes.guide')}
-                    </p>
-                    <h3 className="mt-2 font-semibold">{item.titulo}</h3>
-                    <p className="mt-2 flex-1 text-sm leading-6 text-muted-foreground">{item.descricao}</p>
-                    <Button
-                      className=""
-                      nativeButton={false}
-                      render={<Link to={to} />}
-                      variant="link"
-                    >
-                      {t('explore')}
-                      <ArrowRight aria-hidden="true" />
-                    </Button>
-                  </CardContent>
-                </Card>
+                <MediaCard
+                  category={
+                    recommendation.tipo === 'quick-learning'
+                      ? t('recommendationTypes.quickLearning')
+                      : recommendation.tipo === 'trail'
+                        ? t('recommendationTypes.trail')
+                        : t('recommendationTypes.guide')
+                  }
+                  description={item.descricao}
+                  headingLevel="h3"
+                  image={recommendation.tipo === 'trail' ? recommendation.item.imagem ?? Painel : Painel}
+                  key={`${recommendation.tipo}-${item.id}`}
+                  title={item.titulo}
+                  to={to}
+                >
+                  <MediaCardAction>{t('explore')}</MediaCardAction>
+                </MediaCard>
               );
             })}
           </div>
@@ -266,28 +242,18 @@ export default function DashboardPage() {
           </h2>
         </div>
         <div className="grid gap-4 md:grid-cols-3">
-          {exploreCards.map(({ key, icon: Icon, to }) => (
-            <Card className="relative group border-border duration-300 transition-colors hover:border-primary/50" key={key}>
-              <div className='h-20 w-20 bg-highlight/40 rounded-full absolute blur-2xl -top-5 -right-5'></div>              
-              <CardHeader>
-                <span className="mb-3 flex size-11 items-center justify-center rounded-xl bg-primary/10 text-primary group-hover:bg-primary group-hover:text-primary-foreground">
-                  <Icon aria-hidden="true" className="size-5" />
-                </span>
-                <CardTitle className="text-lg">{t(`exploreCards.${key}.title`)}</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <p className=" text-sm leading-6 text-muted-foreground">{t(`exploreCards.${key}.description`)}</p>
-                <Button
-                  className="mt-4 px-0 text-primary"
-                  nativeButton={false}
-                  render={<Link to={to} />}
-                  variant="link"
-                >
-                  {t(`exploreCards.${key}.action`)}
-                  <ArrowRight aria-hidden="true" />
-                </Button>
-              </CardContent>
-            </Card>
+          {exploreCards.map(({ key, icon, to }) => (
+            <MediaCard
+              description={t(`exploreCards.${key}.description`)}
+              headingLevel="h3"
+              icon={icon}
+              key={key}
+              title={t(`exploreCards.${key}.title`)}
+              to={to}
+              visual="banner"
+            >
+              <MediaCardAction>{t(`exploreCards.${key}.action`)}</MediaCardAction>
+            </MediaCard>
           ))}
         </div>
       </section>
@@ -314,7 +280,7 @@ export default function DashboardPage() {
               {nextExperiences.map((experience) => (
                 <li key={experience.id}>
                   <Link
-                    className="block rounded-lg border border-border p-4 hover:border-primary/50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+                    className="block rounded-2xl border border-border bg-surface-1 p-4 hover:border-primary/50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
                     to={ROUTES.experiences.detail(experience.slug)}
                   >
                     <div className="flex flex-wrap items-center justify-between gap-2">
@@ -346,7 +312,7 @@ export default function DashboardPage() {
           ) : recentAchievements.length ? (
             <ul className="space-y-3">
               {recentAchievements.map((achievement) => (
-                <li className="flex items-start gap-3 rounded-lg border border-border p-4" key={achievement.id}>
+                <li className="flex items-start gap-3 rounded-2xl border border-border bg-surface-1 p-4" key={achievement.id}>
                   <Award aria-hidden="true" className="mt-0.5 size-5 text-primary" />
                   <div>
                     <h3 className="font-semibold">{achievement.titulo}</h3>

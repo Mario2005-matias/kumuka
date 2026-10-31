@@ -17,7 +17,7 @@ export function TrailCompletionCard({
   const submittedCount = Object.values(progress.atividades).filter((item) => item.aprovada).length;
 
   return (
-    <Card className="border-success/30 bg-[image:var(--gradient-surface)]">
+    <Card className="elevated rounded-[1.75rem] border-success/30 bg-[image:var(--gradient-surface)]">
       <CardContent className="space-y-5 p-5 sm:p-7">
         <div className="flex flex-wrap items-start justify-between gap-3">
           <div>

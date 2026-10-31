@@ -15,7 +15,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 #[Fillable([
     'slug', 'title', 'summary', 'description', 'category', 'core_competence', 'level',
     'duration_minutes', 'expected_outcome', 'target_audience', 'prerequisites',
-    'learning_objectives', 'status', 'access', 'price', 'image', 'has_certificate', 'is_sequential',
+    'learning_objectives', 'status', 'access', 'price', 'image', 'has_certificate', 'is_sequential', 'content_version',
 ])]
 class Trail extends Model
 {

@@ -1,7 +1,5 @@
-import { ArrowRight, BookOpen, Clock3 } from 'lucide-react';
-import { Link } from 'react-router-dom';
-import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { BookOpen, Clock3 } from 'lucide-react';
+import { MediaCard, MediaCardAction } from '@/components/shared/MediaCard';
 import { EmptyState } from '@/components/shared/EmptyState';
 import { ErrorState } from '@/components/shared/ErrorState';
 import { LoadingState } from '@/components/shared/LoadingState';
@@ -43,30 +41,23 @@ export function LearningCatalog({ category, items, isLoading, isError }: Learnin
   return (
     <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
       {items.map((item) => (
-        <Card className="flex flex-col border-border transition-colors hover:border-primary/50" key={item.id}>
-          <CardHeader className="gap-3">
-            <span className="text-xs font-medium text-muted-foreground">{item.categoria}</span>
-            <CardTitle className="text-lg">{item.titulo}</CardTitle>
-            <p className="text-sm leading-6 text-muted-foreground">{item.descricao}</p>
-          </CardHeader>
-          <CardContent className="mt-auto space-y-4">
-            {'duracao' in item && (
-              <p className="flex items-center gap-2 text-xs text-muted-foreground">
-                <Clock3 aria-hidden="true" className="size-4" />
-                {t('catalog.duration', { count: item.duracao })}
-              </p>
-            )}
-            <Button
-              className="w-full"
-              nativeButton={false}
-              render={<Link to={detailPath(category, item.slug)} />}
-              variant="outline"
-            >
-              {t('catalog.details')}
-              <ArrowRight aria-hidden="true" />
-            </Button>
-          </CardContent>
-        </Card>
+        <MediaCard
+          category={item.categoria}
+          description={item.descricao}
+          descriptionLines={3}
+          key={item.id}
+          title={item.titulo}
+          to={detailPath(category, item.slug)}
+          visual="banner"
+        >
+          {'duracao' in item && (
+            <p className="flex items-center gap-2 text-xs text-muted-foreground">
+              <Clock3 aria-hidden="true" className="size-4" />
+              {t('catalog.duration', { count: item.duracao })}
+            </p>
+          )}
+          <MediaCardAction>{t('catalog.details')}</MediaCardAction>
+        </MediaCard>
       ))}
     </div>
   );

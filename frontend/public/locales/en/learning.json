@@ -82,7 +82,8 @@
     "all": "All",
     "phaseNumber": "Phase {{number}}",
     "yes": "Yes",
-    "no": "No"
+    "no": "No",
+    "new": "New"
   },
   "courseFilters": {
     "search": "Search courses",
@@ -178,7 +179,9 @@
     "trackingRulesSequential": "Modules unlock in order. Each lesson counts when you watch its videos and pass the check at the end. Each module ends with a quiz you must pass to move on.",
     "durationAndModules": "{{hours}} hours · {{modules}} modules",
     "mastery": "Mastery: {{percent}}%",
-    "masteryHint": "Average of your best module quiz scores."
+    "masteryHint": "Average of your best module quiz scores.",
+    "moduleCount_one": "{{count}} module",
+    "moduleCount_other": "{{count}} modules"
   },
   "completion": {
     "mastered": "Skill mastered",

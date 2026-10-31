@@ -24,29 +24,74 @@
     "whatIsTitle": "Qu’est-ce que KUMUKA ?",
     "whatIsDescription": "KUMUKA relie apprentissage et opportunités. Transforme ce que tu apprends en compétences, montre ce que tu sais faire et prépare ta prochaine étape.",
     "pillars": {
-      "learn": { "title": "Apprendre en faisant", "description": "Explore des contenus et mets tes idées en pratique grâce à des défis réels." },
-      "prove": { "title": "Montrer tes compétences", "description": "Constitue des preuves de ton travail et rassemble-les dans ton portfolio." },
-      "opportunities": { "title": "Trouver des opportunités", "description": "Découvre des expériences et des opportunités pour avancer." }
+      "learn": {
+        "title": "Apprendre en faisant",
+        "description": "Explore des contenus et mets tes idées en pratique grâce à des défis réels."
+      },
+      "prove": {
+        "title": "Montrer tes compétences",
+        "description": "Constitue des preuves de ton travail et rassemble-les dans ton portfolio."
+      },
+      "opportunities": {
+        "title": "Trouver des opportunités",
+        "description": "Découvre des expériences et des opportunités pour avancer."
+      }
     },
     "featuresTitle": "Tout pour franchir la prochaine étape",
     "featuresDescription": "Des outils pour apprendre, pratiquer et montrer tes progrès.",
     "features": {
-      "trails": { "title": "Parcours", "description": "Des parcours d’apprentissage complets." },
-      "courses": { "title": "Cours", "description": "Un apprentissage structuré à ton rythme." },
-      "quickLearnings": { "title": "Apprentissages rapides", "description": "Des contenus courts et pratiques." },
-      "guides": { "title": "Guides", "description": "Des ressources pratiques à consulter." },
-      "experiences": { "title": "Expériences", "description": "Programmes, ateliers et événements." },
-      "portfolio": { "title": "Portfolio", "description": "Montre ce que tu sais faire." }
+      "trails": {
+        "title": "Parcours",
+        "description": "Des parcours d’apprentissage complets."
+      },
+      "courses": {
+        "title": "Cours",
+        "description": "Un apprentissage structuré à ton rythme."
+      },
+      "quickLearnings": {
+        "title": "Apprentissages rapides",
+        "description": "Des contenus courts et pratiques."
+      },
+      "guides": {
+        "title": "Guides",
+        "description": "Des ressources pratiques à consulter."
+      },
+      "experiences": {
+        "title": "Expériences",
+        "description": "Programmes, ateliers et événements."
+      },
+      "portfolio": {
+        "title": "Portfolio",
+        "description": "Montre ce que tu sais faire."
+      }
     },
     "journeyTitle": "Un parcours fait pour toi",
     "journeyDescription": "Un parcours clair, du premier clic jusqu’à l’opportunité.",
     "journeySteps": {
-      "learn": { "title": "Apprendre", "description": "Découvre des idées et des connaissances à ton rythme." },
-      "develop": { "title": "Développer", "description": "Pratique et renforce des compétences utiles au quotidien." },
-      "do": { "title": "Agir", "description": "Applique tes acquis à des projets et des défis." },
-      "prove": { "title": "Prouver", "description": "Conserve tes résultats et montre ce que tu sais faire." },
-      "experience": { "title": "Expérimenter", "description": "Participe à des programmes, ateliers et événements." },
-      "advance": { "title": "Avancer", "description": "Trouve des opportunités et franchis la prochaine étape." }
+      "learn": {
+        "title": "Apprendre",
+        "description": "Découvre des idées et des connaissances à ton rythme."
+      },
+      "develop": {
+        "title": "Développer",
+        "description": "Pratique et renforce des compétences utiles au quotidien."
+      },
+      "do": {
+        "title": "Agir",
+        "description": "Applique tes acquis à des projets et des défis."
+      },
+      "prove": {
+        "title": "Prouver",
+        "description": "Conserve tes résultats et montre ce que tu sais faire."
+      },
+      "experience": {
+        "title": "Expérimenter",
+        "description": "Participe à des programmes, ateliers et événements."
+      },
+      "advance": {
+        "title": "Avancer",
+        "description": "Trouve des opportunités et franchis la prochaine étape."
+      }
     },
     "audienceTitle": "Un espace pour ton avenir",
     "audienceDescription": "Pour les jeunes qui souhaitent apprendre, créer et avancer.",
@@ -75,5 +120,22 @@
   "footer": {
     "tagline": "Construis ton avenir.",
     "copyright": "Tous droits réservés."
+  },
+  "faq": {
+    "eyebrow": "Aide",
+    "title": "Comment pouvons-nous t'aider ?",
+    "description": "Les réponses aux questions les plus fréquentes. Cherche ou choisis un thème.",
+    "search": "Rechercher dans la FAQ",
+    "searchPlaceholder": "Rechercher, ex. : mot de passe, quiz, certificat",
+    "categories": "Thèmes",
+    "all": "Toutes",
+    "listLabel": "Questions fréquentes",
+    "error": "Impossible de charger les questions.",
+    "emptyTitle": "Aucune question trouvée",
+    "emptyDescription": "Essaie d'autres mots ou un autre thème.",
+    "contactTitle": "Tu n'as pas trouvé ce que tu cherchais ?",
+    "contactDescription": "Écris-nous et notre équipe te répondra au plus vite.",
+    "contactUnavailable": "Le contact du support sera bientôt disponible.",
+    "contactAction": "Contacter le support"
   }
 }

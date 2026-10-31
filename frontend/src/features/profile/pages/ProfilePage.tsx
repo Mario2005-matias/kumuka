@@ -76,8 +76,8 @@ export default function ProfilePage() {
         title={t('title')}
       />
 
-      <Card className="overflow-hidden border-border bg-[image:var(--gradient-surface)]">
-        <div aria-hidden="true" className="h-24 bg-[image:var(--gradient-brand-soft)]" />
+      <Card className="elevated overflow-hidden rounded-[1.75rem] border-border/70 bg-[image:var(--gradient-surface)] p-2.5">
+        <div aria-hidden="true" className="h-24 rounded-[1.35rem] bg-[image:var(--gradient-brand)]" />
         <CardContent className="-mt-10 flex flex-col gap-4 p-5 sm:flex-row sm:items-end sm:gap-5 sm:p-6">
           <Avatar className="size-20 border-4 border-card" size="lg">
             <AvatarFallback className="bg-primary/15 text-xl font-semibold text-primary">
@@ -172,7 +172,7 @@ export default function ProfilePage() {
           ) : projects.data?.length ? (
             <ul className="space-y-3">
               {projects.data.map((project) => (
-                <li className="rounded-lg border border-border p-4" key={project.id}>
+                <li className="rounded-2xl border border-border bg-surface-1 p-4" key={project.id}>
                   <div className="flex flex-wrap items-start justify-between gap-3">
                     <div>
                       <h3 className="font-semibold">{project.titulo}</h3>
@@ -208,7 +208,7 @@ export default function ProfilePage() {
           ) : enrolled.length ? (
             <ul className="space-y-3">
               {enrolled.map((experience) => (
-                <li className="rounded-lg border border-border p-4" key={experience.id}>
+                <li className="rounded-2xl border border-border bg-surface-1 p-4" key={experience.id}>
                   <h3 className="font-semibold">{experience.titulo}</h3>
                   <p className="mt-1 text-sm text-muted-foreground">{experience.dataInicio} · {experience.local}</p>
                   <StatusBadge className="mt-3" status="success">{t('enrolled')}</StatusBadge>
@@ -228,7 +228,7 @@ export default function ProfilePage() {
           ) : achievements.data?.some((item) => item.unlocked) ? (
             <ul className="space-y-3">
               {achievements.data.filter((item) => item.unlocked).map((item) => (
-                <li className="flex items-start gap-3 rounded-lg border border-border p-4" key={item.id}>
+                <li className="flex items-start gap-3 rounded-2xl border border-border bg-surface-1 p-4" key={item.id}>
                   <Award aria-hidden="true" className="mt-0.5 size-5 text-primary" />
                   <div>
                     <h3 className="font-semibold">{item.titulo}</h3>

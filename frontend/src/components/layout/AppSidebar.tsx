@@ -9,6 +9,7 @@ import {
   PanelLeftClose,
   PanelLeftOpen,
   UserRound,
+  CircleHelp,
   X,
 } from 'lucide-react';
 import type { LucideIcon } from 'lucide-react';
@@ -58,7 +59,10 @@ export function AppSidebar({
     },
     {
       label: t('navigation.account'),
-      links: [{ label: t('navigation.profile'), to: ROUTES.profile, icon: UserRound }],
+      links: [
+        { label: t('navigation.profile'), to: ROUTES.profile, icon: UserRound },
+        { label: t('navigation.faq'), to: ROUTES.faq, icon: CircleHelp },
+      ],
     },
   ];
 

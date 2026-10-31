@@ -4,6 +4,7 @@ use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\Auth\PasswordResetController;
 use App\Http\Controllers\CompanyController;
 use App\Http\Controllers\ExperienceController;
+use App\Http\Controllers\FaqController;
 use App\Http\Controllers\GuideController;
 use App\Http\Controllers\Me;
 use App\Http\Controllers\OpportunityController;
@@ -25,6 +26,8 @@ Route::prefix('auth')->name('auth.')->group(function () {
         Route::get('me', [AuthController::class, 'me'])->name('me');
     });
 });
+
+Route::get('faqs', [FaqController::class, 'index'])->name('faqs.index');
 
 Route::middleware('auth:sanctum')->group(function () {
     Route::apiResource('trails', TrailController::class)->only(['index', 'show']);

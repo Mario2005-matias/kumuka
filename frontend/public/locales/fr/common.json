@@ -31,7 +31,8 @@
     "collapse": "Réduire le menu",
     "expand": "Développer le menu",
     "logout": "Se déconnecter",
-    "brandTagline": "Construis ton avenir."
+    "brandTagline": "Construis ton avenir.",
+    "faq": "Questions fréquentes"
   },
   "actions": {
     "login": "Se connecter",

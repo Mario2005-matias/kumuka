@@ -82,7 +82,8 @@
     "all": "Todos",
     "phaseNumber": "Fase {{number}}",
     "yes": "Sim",
-    "no": "Não"
+    "no": "Não",
+    "new": "Novo"
   },
   "courseFilters": {
     "search": "Pesquisar cursos",
@@ -178,7 +179,9 @@
     "trackingRulesSequential": "Os módulos desbloqueiam por ordem. Cada lição conta quando assistes aos vídeos e acertas a verificação no fim. Cada módulo termina com um quiz: precisas de passar para avançar.",
     "durationAndModules": "{{hours}} horas · {{modules}} módulos",
     "mastery": "Domínio: {{percent}}%",
-    "masteryHint": "Média das melhores notas nos quizzes dos módulos."
+    "masteryHint": "Média das melhores notas nos quizzes dos módulos.",
+    "moduleCount_one": "{{count}} módulo",
+    "moduleCount_other": "{{count}} módulos"
   },
   "completion": {
     "mastered": "Competência dominada",

@@ -19,6 +19,7 @@ const AuthLayout = lazy(() =>
   import("@/components/layout/AuthLayout").then((module) => ({ default: module.AuthLayout })),
 );
 const HomePage = lazy(() => import("@/features/home/pages/HomePage"));
+const FaqPage = lazy(() => import("@/features/help/pages/FaqPage"));
 const LoginPage = lazy(() => import("@/features/auth/pages/LoginPage"));
 const ForgotPasswordPage = lazy(
   () => import("@/features/auth/pages/ForgotPasswordPage"),
@@ -96,6 +97,7 @@ export function AppRouter() {
     <Routes>
       {/* Públicas */}
       <Route element={<PublicLayout />}>
+        <Route path={ROUTES.faq} element={<Lazy><FaqPage /></Lazy>} />
         <Route
           path={ROUTES.home}
           element={

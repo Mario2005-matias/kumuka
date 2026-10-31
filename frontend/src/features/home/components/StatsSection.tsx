@@ -1,5 +1,5 @@
 import { useScrollAnimation, type ScrollAnimation } from '../hooks/useScrollAnimation';
-import { Card, CardContent } from '@/components/ui/card';
+import { MediaCard } from '@/components/shared/MediaCard';
 import { useTranslation } from 'react-i18next';
 
 const catalogStats = [
@@ -58,22 +58,13 @@ export function StatsSection() {
         </div>
         <ul className="mt-10 grid grid-cols-2 gap-4 sm:mt-14 lg:grid-cols-4">
           {catalogStats.map(({ value, key }) => (
-            <li data-reveal key={key}>
-              <Card className="h-full border-border/70 bg-card/80 text-center transition-[border-color,box-shadow,transform] duration-300 hover:-translate-y-1 hover:border-primary/50 hover:shadow-xl hover:shadow-primary/5">
-                <CardContent className="p-5 sm:p-6">
-                  <span aria-hidden="true">
-                    <span className="block text-3xl font-bold tracking-tight text-primary sm:text-4xl">
-                      <span data-stat-count={value}>{value}</span>+
-                    </span>
-                    <span className="mt-2 block text-sm leading-6 text-muted-foreground">
-                      {t(`sections.stats.${key}`)}
-                    </span>
-                  </span>
-                  <span className="sr-only">
-                    {value}+ {t(`sections.stats.${key}`)}
-                  </span>
-                </CardContent>
-              </Card>
+            <li className="h-full" data-reveal key={key}>
+              <MediaCard
+                figure={<><span data-stat-count={value}>{value}</span>+</>}
+                headingLevel="h3"
+                title={t(`sections.stats.${key}`)}
+                visual="banner"
+              />
             </li>
           ))}
         </ul>

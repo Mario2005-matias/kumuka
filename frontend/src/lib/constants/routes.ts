@@ -1,5 +1,6 @@
 export const ROUTES = {
   home: '/',
+  faq: '/perguntas-frequentes',
   auth: {
     register: '/auth/registar',
     login: '/auth/entrar',

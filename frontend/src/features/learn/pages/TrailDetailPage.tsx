@@ -7,6 +7,7 @@ import { PageHeader } from '@/components/shared/PageHeader';
 import { StatusBadge } from '@/components/shared/StatusBadge';
 import { Button } from '@/components/ui/button';
 import { ModuleList } from '@/features/learn/components/ModuleList';
+import { TrailCard } from '@/features/learn/components/TrailCard';
 import { ProgressBar } from '@/features/learn/components/ProgressBar';
 import { useStartTrail, useTrailProgress } from '@/features/learn/hooks/useTrailFlow';
 import { useTrail } from '@/features/learn/hooks/useTrails';
@@ -57,7 +58,7 @@ function TrailDetails({ trail }: { trail: Trail }) {
   return (
     <div className="space-y-8">
       <CoverImage className="aspect-[16/6] min-h-40 rounded-3xl" priority src={trail.imagem}>
-        <span className="glass rounded-full px-3 py-1 text-xs font-medium text-white">{trail.categoria}</span>
+        <span className="glass max-w-[70%] truncate rounded-full px-3 py-1 text-xs font-medium text-white">{trail.categoria}</span>
       </CoverImage>
       <PageHeader
         action={
@@ -204,13 +205,9 @@ function TrailDetails({ trail }: { trail: Trail }) {
             <p className="text-xs font-semibold uppercase tracking-wide text-primary">{t('trailDetails.keepLearning')}</p>
             <h2 className="mt-1 text-2xl font-bold" id="related-trails-title">{t('trailDetails.related')}</h2>
           </div>
-          <div className="grid gap-4 md:grid-cols-3">
+          <div className="grid gap-5 sm:grid-cols-2 xl:grid-cols-3">
             {relatedTrails.data.data.filter((item) => item.id !== trail.id).slice(0, 3).map((item) => (
-              <Link className="elevated rounded-2xl border border-border/70 bg-card p-5 transition-colors hover:border-primary/50" key={item.id} to={ROUTES.learn.trail(item.slug)}>
-                <p className="text-sm text-primary">{item.categoria} · {item.duracao} h</p>
-                <h3 className="mt-2 font-semibold">{item.titulo}</h3>
-                <p className="mt-2 line-clamp-3 text-sm leading-6 text-muted-foreground">{item.descricao}</p>
-              </Link>
+              <TrailCard key={item.id} trail={item} />
             ))}
           </div>
         </section>
